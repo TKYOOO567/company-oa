@@ -11,7 +11,7 @@
 - [尚未执行的验收计划](docs/verification/01-acceptance-plan.md)
 - [上游来源与固定提交](upstream.json)
 
-当前阶段：模块化 Web 第一版。已建立工作台、平台连接、审批列表与只读详情的前端基础；运行方式见 [Web 工程](apps/oa-web/README.md)，具体测试结果与缺口见 [v0.1 验证记录](docs/verification/web-v0.1.md)。完整 O2OA、数据库与旧业务流程尚未联调，尚未迁移真实数据。
+当前阶段：模块化 Web 第一版。工作台、平台登录、待办／已办、搜索、详情及原生 MWF 字段已与本仓库源码构建的 O2OA、独立 MariaDB 完成真实联调，并通过审批完成及两端重启持久化验证。运行方式见 [Web 工程](apps/oa-web/README.md)、[隔离运行工具](deployment/dev/README.md)，证据与边界见 [v0.1 验证记录](docs/verification/web-v0.1.md)。旧业务、公司权限、正式财务及历史迁移仍未验收。
 
 本仓库是唯一开发目录。所需 fork 源码已包含在 `o2server/`、`o2web/` 等上游目录中；新 Web、扩展、配置与迁移工具均按[目录规范](docs/architecture/01-repository-and-directories.md)在本仓库维护，无需额外的本地 fork 检出。
 

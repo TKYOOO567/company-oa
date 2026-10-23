@@ -76,6 +76,7 @@ public abstract class JettySeverTools {
 		https.setAcceptQueueSize(-1);
 		https.setIdleTimeout(30000);
 		https.setPort(port);
+		configureBindHost(https);
 		server.addConnector(https);
 	}
 
@@ -90,7 +91,15 @@ public abstract class JettySeverTools {
 		http.setAcceptQueueSize(-1);
 		http.setIdleTimeout(30000);
 		http.setPort(port);
+		configureBindHost(http);
 		server.addConnector(http);
+	}
+
+	private static void configureBindHost(ServerConnector connector) {
+		String bindHost = System.getProperty("o2oa.bindHost");
+		if (StringUtils.isNotBlank(bindHost)) {
+			connector.setHost(bindHost.trim());
+		}
 	}
 
 	protected static void cleanDirectory(File dir) throws IOException {

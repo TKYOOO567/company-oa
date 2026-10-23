@@ -226,6 +226,7 @@ export function createWorkspace(liveApi: OaApi, demoApi: OaApi = createDemoApi()
       if (current !== generation) return
       reset('live')
       state.view = 'connection'
+      await initialize()
     } catch (error) {
       // A failed server logout must not be presented as a successfully ended session.
       if (current === generation) handleError(error)

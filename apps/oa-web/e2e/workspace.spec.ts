@@ -1,4 +1,16 @@
 import { expect, test } from '@playwright/test'
+import type { Page } from '@playwright/test'
+
+async function disconnectedPlatform(page: Page) {
+  // Keep fixture tests independent of a developer's working .env.local/services.
+  await page.route('**/o2-api/**', (route) =>
+    route.fulfill({
+      status: 503,
+      contentType: 'application/json',
+      body: JSON.stringify({ type: 'error', message: '受控测试：平台尚未连接。' }),
+    }),
+  )
+}
 
 // These tests use the app's explicit synthetic demo, never a real company account.
 test('unconfigured live mode stays disconnected and can explicitly enter and exit a demo', async ({
@@ -6,6 +18,7 @@ test('unconfigured live mode stays disconnected and can explicitly enter and exi
 }) => {
   const errors: string[] = []
   page.on('pageerror', (error) => errors.push(error.message))
+  await disconnectedPlatform(page)
   await page.goto('/')
   await expect(page.getByRole('heading', { name: '平台连接', exact: true })).toBeVisible()
   await expect(page.getByRole('button', { name: '登录工作空间', exact: true })).toBeDisabled()
@@ -57,6 +70,7 @@ test('a narrow browser viewport supports navigation and readable details without
   page,
 }) => {
   await page.setViewportSize({ width: 390, height: 844 })
+  await disconnectedPlatform(page)
   await page.goto('/')
   await page.getByRole('button', { name: '查看界面演示' }).click()
   await page.getByRole('button', { name: '打开导航', exact: true }).click()

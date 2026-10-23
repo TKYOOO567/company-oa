@@ -1,87 +1,106 @@
-# O2OA 与本机数据库运行调查
+# O2OA、Web 与 MariaDB 隔离联调报告
 
-记录时间：2026-10-24，Asia/Shanghai。关联 REQ-003、REQ-008、REQ-011 及平台接入阶段。本轮用户已授权先开发 Web，并允许测试需要时启动本机 MariaDB；本报告只记录实测及后续运行路径，不把 Web 单测或演示 E2E 当作真实平台／数据库联调。
+记录日期：2026-10-24，Asia/Shanghai。关联 REQ-003、REQ-008、REQ-011、[Web 第一版](web-v0.1.md)、[源码核对说明](integration-source-notes.md) 和 [验收计划](01-acceptance-plan.md)。
 
-**结论：当前未启动 O2OA，未构建平台，未建立经过认证的 MariaDB 连接，未验证 O2OA 与 MariaDB 的 JDBC 兼容性。** 已交付可重复的环境预检、loopback HTTP 探测和数据库服务检查脚本。当前 Web v0.1 的真实 API 契约测试、显式演示 E2E 与前端构建应分别记录，不能替代上述缺口。
+**真实隔离联调已通过：本仓库构建的 O2OA 与新 Web 接入独立 MariaDB，从全新专用库创建合成流程，完成 A 发起、B 审批、双方已办及整条流程归档；正常停止并重启平台和数据库后，中文业务数据与完成状态仍可回读。真实 Chrome 的待办阶段 2 项、完成阶段 1 项均通过。**
 
-## 1. 实测环境
+本结论限于本报告的合成流程和本机测试配置。原公司业务、公司隔离、完整财务、历史迁移、性能及云部署尚未验收。实际凭据、token、原始日志与私有回执保存在工程忽略目录 `.local/`，本报告仅记录脱敏结果。
 
-| 检查项 | 2026-10-24 结果 | 含义 |
-| --- | --- | --- |
-| Node | v24.15.0 | 可以用于新 Web 工程；未据此验证上游全部 Gulp 依赖兼容性 |
-| npm | 11.18.0，实际执行结果 | 本机 shim 会选有效 prefix，不能只读 Node 安装目录内旧 npm 包版本代替实测 |
-| java / javac | PATH 均未找到 | 尚不具备 Java 源码构建环境；完整发布包可自带 JVM |
-| Maven / Ant | PATH 均未找到 | 当前 npm 服务端任务实际调用 Maven；Ant 不是该任务的必需入口 |
-| Docker | CLI 存在，29.5.3；desktop-linux 引擎不可达 | named pipe 不存在，不能把已安装 CLI 当成可用容器运行环境 |
-| 物理内存 | 总计约 14.7 GiB；调查期间空闲约 2.6～2.8 GiB | 低于上游 Windows 启动脚本的 4 GiB 固定初始堆，另需考虑 JVM 原生内存和其他应用 |
-| C 盘 | 调查时约 194 GiB 可用 | 空间快照，不代表完整编译／发布包占用已经测量 |
-| 平台产物 | 当前源码目录扫描到服务端 JAR/WAR 为 0 | 尚无可直接启动的 `console.jar` 及服务发布产物 |
+## 1. 最终验证环境与来源
 
-预检工具：[Test-O2Platform.ps1](../../deployment/dev/Test-O2Platform.ps1)。工具输出包含本机路径，保存输出时应放 `.local/runtime/` 等忽略目录，不能把真实运行配置或后续凭据写入公开仓库。
-
-## 2. 源码构建与启动事实
-
-| 证据 | 已确认事实 |
+| 项目 | 已核实结果 |
 | --- | --- |
-| [o2server/pom.xml](../../o2server/pom.xml) | Java source/target 11；聚合构建含 55 个模块 |
-| [根 package.json](../../package.json) | `build_server_script` 在 `o2server` 内执行 `mvn clean` 和 `mvn install`；完整任务还包含 Web/API 打包及部署整理 |
-| [gulpfile.js](../../gulpfile.js) | `preperation:win` 所用准备阶段下载 commons 与 Windows Java11 组件；Web 产物写入 `target/o2server/servers/webServer` |
-| [x_console/pom.xml](../../o2server/x_console/pom.xml) | 控制台主类为 `com.x.server.console.Main`，打包过程产生 `console.jar`；它不是现有可运行 JAR |
-| [start_windows.bat](../../o2server/start_windows.bat) | 启动依赖包内 `jvm/windows_java11`、`console.jar` 和 `commons/module_java11` 的编译器模块；默认 `-Xms4g -Xmx4g`，并有本地更新目录处理行为 |
-| [ApplicationServer.java](../../o2server/x_base_core_project/src/main/java/com/x/base/core/project/config/ApplicationServer.java)、[CenterServer.java](../../o2server/x_base_core_project/src/main/java/com/x/base/core/project/config/CenterServer.java)、[WebServer.java](../../o2server/x_base_core_project/src/main/java/com/x/base/core/project/config/WebServer.java) | 当前 fork 的三个默认 HTTP 端口常量都为 80；部分注释和旧说明仍描述 20020／20030，应以实际配置及服务发现为准 |
-| [JettySeverTools.java](../../o2server/x_console/src/main/java/com/x/server/console/server/JettySeverTools.java) | 所读 HTTP connector 代码设置端口，未在该处限制监听地址；不能把 `localSample/node.cfg` 的 127.0.0.1 自动解释为仅本机开放 |
+| Java / javac | 便携 Java 11.0.23，64 位；Maven 实际使用该 JVM |
+| Maven | Apache Maven 3.9.11 |
+| 上游来源 | 固定导入提交 `0b328b1cd88e221d25a6188f47b3d6e08de69fbe`，见 [upstream.json](../../upstream.json) |
+| 本项目源码快照 | Git 基线 `3bee65ab457372ac698cd69408897cf6532b214a` 加实际工作树修复；最终来源清单记录 9 个源码覆盖项 |
+| 服务端构建 | Maven reactor 56 项成功：根聚合项目与 55 个子模块 |
+| 原生 Web | 上游 Gulp 构建成功，Work/Xform 页面及压缩资源产物检查通过 |
+| 最终运行目录 | `.local/runtime/o2server-it-clean/`，使用从零创建的最终专用测试库 |
+| MariaDB | 独立 MariaDB 12.3.2，`127.0.0.1:13306` |
+| JDBC | MySQL Connector/J 8.4.0，`jdbc:mysql`，显式使用本项目 MySQL 字典扩展 |
+| 实际运行产物 | 29 个 WAR、25 个共享 JAR 及 console.jar，全部与源码构建产物逐一 SHA-256 比对通过 |
 
-当前缺少 `console.jar`、`commons/`、`jvm/windows_java11/`、服务 WAR/JAR 和打包的 Web 目录。本次没有执行上游 `start_windows.bat`，避免在产物不全、资源不足及尚未确认隔离配置的情况下触发更新或启动。
+源码快照位于 `.local/runtime/source-build/source-3bee65ab4573-20261024004402/`。`source-manifest.json`、Git blob 清单、`source-overrides.json` 与工作树补丁区分原始来源及实际修改；Server、CoreTest、Web、Console、Assemble、CoreBuild 分别有成功回执和日志。控制台及共享核心在各自修复后重新构建；最终产物核对针对实际运行目录，而不只检查最初的组装目录。
 
-## 3. 最短可行路径与当前停止位置
+`runtime-artifacts.json` 已核对上述 55 个源码产物、9 个源码覆盖项及必要运行文件。这个工具只验证来源、文件及回归测试证据；平台运行与数据库结论由后续真实检查独立支持。
 
-最短的平台运行验证路径是取得**固定版本完整 Windows 发布包**，解压到本工程 `.local/runtime/`，使用包内 JVM；这样不要求先构建 55 个模块。发布包只能证明该发布版本，不能自动证明与本工程固定源码提交相同。取得包时应同时记录发布版本、原始下载 URL、文件大小、SHA-256、包内版本和与源码基线的关系。
+依赖归档保留实际摘要。JVM 下载地址含可变 `master`，commons 采用上游准备脚本指定的 9.3 归档；归档名不代表本次应用版本。准备、构建、摘要和完整复现命令见 [本机开发与真实联调说明](../../deployment/dev/README.md)。
 
-本次只对仓库准备脚本给出的两个官方依赖地址做 HEAD 检查：commons 路径固定为 `9.3`，JVM 路径使用可变的 `master`。两个请求最终均返回 HTTP 200，但没有给出 Content-Length，因此没有确认下载体积、摘要或包内容；它们也不是完整发布包。GitHub 官方仓库最新 release 元数据请求超时，未据此选定版本。本轮按协调要求停止大包调查和下载，**没有取得可报告摘要的发布包**。
+## 2. 自动检查结果
 
-官方[源码编译说明](https://www.o2oa.net/cms/source/335.html)和 [Windows 部署说明](https://www.o2oa.net/cms/serverdeployment/694.html)可作为后续操作入口；实际版本、依赖和端口仍应与本工程源码及下载包核对。
-
-后续继续平台验证时按以下顺序推进：
-
-1. 确认完整发布包版本和摘要；或在 `.local/runtime/source-build/` 的隔离源码副本中准备非安装式 JDK 11、Maven 及依赖，再按上游脚本构建。构建缓存与运行产物留在 `.local/`，不修改平台源码。准备脚本会写入及清理 `o2server` 子路径，不能不经检查就在正式源码树中执行。
-2. 确认可用内存高于计划 JVM 堆，并保留原生内存和宿主应用余量。4 GiB 是当前脚本的堆配置，不是完整机器内存规格。更小堆只能作为另行记录的隔离试验，尚未验证，不能承诺 2 GiB 可以稳定运行。
-3. 确认隔离环境的实际监听地址、端口、初始账号、通知及外部连接策略，再启动；本机或隔离容器的监听限制须实际核验。当前未开启 Docker 引擎、未改防火墙、未启动平台。
-4. 先核验平台 HTML 与认证模式 API，再验证测试账号登录、服务发现、表单保存及流程执行。最后单独验证数据库连接与事务。任何一项失败都保留独立结果，不用首页可达代替完整联调。
-
-本次未安装任何全局组件、未下载大运行包、未构建平台、未修改 O2OA 源码。
-
-## 4. MariaDB 暂定选择与实测
-
-用户最新将数据库暂定为 MariaDB，并授权测试时自行启动现有服务。该决定不等于生产数据库配置或 JDBC 兼容性已经确认。
-
-| 项目 | 实测 |
-| --- | --- |
-| Windows 服务名 | `MariaDB` |
-| 版本 | 程序 `--version` 返回 `12.3.2-MariaDB`，Win64 AMD64 |
-| 安装程序 | `C:\Program Files\MariaDB 12.3\bin\mysqld.exe` |
-| 服务配置来源 | 注册服务参数指向 `C:\Program Files\MariaDB 12.3\data\my.ini` |
-| 配置端口 | 3306；服务端／客户端相关行相同 |
-| 初始及当前状态 | `Stopped`，手动启动类型；3306／3307 未发现监听 |
-| 启动尝试 | 用户已授权后执行 `Start-Service -Name MariaDB`；返回 `Cannot open 'MariaDB' service on computer '.'`，未能启动 |
-| 当前阻碍 | 当前进程不能控制该 Windows 服务；没有尝试提权、UAC 或绕开服务启动第二个实例 |
-| 凭据 | 所读配置未发现 user/password 键；没有尝试猜测登录、重置密码或使用源码示例凭据 |
-| 数据操作 | 未连接、未执行 SQL、未创建或改动现有库，未修改服务启动类型 |
-
-数据库工具：[Test-MariaDb.ps1](../../deployment/dev/Test-MariaDb.ps1)。默认只读检查；显式 `-StartService` 才尝试正常服务启动，不能自动提升权限。`-RequireRunning` 要求服务和相应 PID 的监听端口均存在。即便服务启动成功，该结果仍不包含认证连接和 JDBC 验证。
-
-[ExternalDataSource.java](../../o2server/x_base_core_project/src/main/java/com/x/base/core/project/config/ExternalDataSource.java) 中存在 MySQL JDBC URL 默认示例；这不能证明当前 fork 的实际 JDBC 驱动、OpenJPA 方言和 MariaDB 12.3.2 已兼容。之后需要在有授权测试账号和独立测试库时核对驱动／方言版本、字符集、金额精度、时区、建表和基本事务，再记录结论。当前保留为**未验证**。
-
-## 5. 脚本验证记录及范围
-
-| 验证 | 结果 | 范围 |
+| 检查 | 实际结果 | 验证范围 |
 | --- | --- | --- |
-| 两份 PowerShell 脚本语法解析 | 通过 | PowerShell 7 parser，无语法错误 |
-| O2OA Inspect 实机执行 | 通过 | 正确报告工具缺失、Docker 引擎不可用、55 模块、0 编译产物、发布结构缺失；诊断退出 0 不代表平台已就绪 |
-| MariaDB 默认检查实机执行 | 通过 | 正确读出版本、服务、配置来源、3306 和 Stopped；无凭据输出与数据库写入 |
-| 合成 HTTP fixture：平台形状 HTML＋认证模式 JSON | 识别通过 | 临时 Node 回环服务，明确是脚本自身的合成测试，不是真实 O2OA；`httpSmokePassed=true` 仅表示形状识别成功，平台启动及生产就绪仍为 false |
-| 合成 HTTP fixture：普通 HTML | 正确拒绝 | 即使返回 200 也不标记通过；子进程退出码实测为 2 |
-| 未启动地址探测 | 正确报告失败 | `httpSmokePassed=false`，没有把连接失败当成功 |
+| `ExternalDataSourcesTest` | 2 项通过，失败／错误／跳过均为 0 | 外部数据源启用选择 |
+| `ResourceFactoryDataSourcesTest` | 3 项通过，失败／错误／跳过均为 0 | 池参数与密码解析、JNDI 注册、销毁及失败清理 |
+| `CompanyOaMySQLDictionaryTest` | 4 项通过，失败／错误／跳过均为 0 | 目标索引前缀 DDL、列长度保持、唯一性与非目标索引边界 |
+| 新 Web 单元测试 | 53 / 53 通过 | HTTP 契约、状态与会话边界；包括退出后恢复连接策略的修复 |
+| 真实 Chrome：待办阶段 | 2 / 2 通过 | B 登录、真实待办搜索／摘要／原生页；B 退出后切换 A，A 的列表不含 B 的待办 |
+| 真实 Chrome：完成阶段 | 1 / 1 通过 | 读取真实已办列表与对应详情 |
 
-合成 fixture 验证结束后已停止。HTTP 探测只有 GET、不跟随重定向、不走代理、不接受外部主机地址、不输出响应正文。它证明探测器可工作，不能证明真实平台、身份认证、公司隔离、流程或 MariaDB 已运行。
+Java 结果已从 Surefire XML 核对，共 9 项。普通 Server 构建默认跳过测试；这里的通过数来自明确执行的三个测试类，不代表上游全量 Java 测试。
 
-后续完整接入仍须覆盖[改造方案](../architecture/02-o2oa-adaptation-plan.md)的平台验证门槛及[验收计划](01-acceptance-plan.md)。本轮真实平台／MariaDB 联调缺口保持开放。
+连接池关闭测试使用禁止建立数据库连接的 Driver 初始化空池，再验证实际关闭及 JNDI 解绑。Druid 1.2.27 对未初始化池调用 `close()` 不设置 `isClosed`，测试已按该真实语义验证，未以删除关闭断言绕过失败。
+
+Chrome 使用真实启动的平台、新 Web 和两个专用普通账号，无演示模式或请求模拟。原生页使用 MWF Textfield 绑定后端已存的中文 `note`，HTML 不写死字段值；验证正确显示且不可编辑，浏览器检查没有执行审批路由。B 的审批由独立流程核对工具执行。
+
+## 3. 必要平台修复与数据库兼容
+
+[PATCH-0001](../../patches/o2oa/0001-external-database-and-local-binding.md) 恢复外部数据源配置读取和启用判断，并在 `ResourceFactory` 注册 OpenJPA 所需的 `jdbc/s001` 等 JNDI 连接池。密码沿用平台解析契约；失败与销毁时关闭外部池、释放绑定，清理异常保留并向上传播。HTTP/HTTPS 增加可选 `-Do2oa.bindHost=127.0.0.1`；节点代理、内置 H2 和 FTP 另由测试配置关闭。
+
+首次尝试在旧测试库创建工作时，`QRY_ITEM_stringShortValue` 的完整组合索引超过 MariaDB/InnoDB 的 3072 字节限制，留下缺失索引的旧库。该次尝试保留为失败诊断，最终通过证据来自另建的全新专用库及 `o2server-it-clean` 环境，从零建表并完成流程。
+
+[PATCH-0002](../../patches/o2oa/0002-mariadb-utf8mb4-index.md) 通过显式字典扩展，仅为已核实签名的超长非唯一索引生成列前缀，保留字段、字符集、唯一约束和完整查询谓词。实际新库已核对：
+
+| 检查 | 结果 |
+| --- | --- |
+| `QRY_ITEM_stringShortValue` 存在 | 通过 |
+| `xbundle`、`xstringShortValue` 索引前缀 | 各为 128 字符 |
+| `xpath0`～`xpath3` 索引 | 完整列，无前缀截取 |
+| 两个原始字符串列 | 仍为 VARCHAR(255)、utf8mb4 |
+| 相同前缀、不同后缀的完整 WHERE 查询 | A、B 各准确返回 1 行 |
+| 四字节 Unicode 探针 | 按预期返回 2 行 |
+| 事务回滚后的探针残留 | 0 行 |
+
+实际数据库检查由 [Test-MariaDbIndex.ps1](../../deployment/dev/Test-MariaDbIndex.ps1) 执行，回执为最终运行目录下的 `mariadb-index-verification.json`。这些检查证明本次字段和索引的正确性，未证明前缀索引与完整索引具有相同性能。
+
+## 4. 独立实例、监听与测试配置
+
+本次 MariaDB 使用独立进程及全新数据目录 `.local/runtime/mariadb-integration/`，未注册新的 Windows 服务。最终专用 schema 与账号通过指定库连接及系统用户表跨库拒绝检查。原有 3306 实例未用于本报告，其认证、数据及运行能力未在本轮验证。
+
+正常停止与重启后，MariaDB PID 为 26396，Java PID 为 25888。三个 HTTP 端口 18020、18030、18080 均只监听 `127.0.0.1`，Java 无 UDP 监听；数据库使用 `127.0.0.1:13306`。节点代理、内置 H2、FTP、定时备份／恢复均关闭。JVM 最大堆 1280 MiB 属于本机验证配置，未据此给出生产容量结论。
+
+测试配置关闭首次强制改密及短信／绑定登录，并使用合成手机号标识。57 种消息类型和全局消息 consumers 均显式为空，避免精简环境触发未部署的消息服务；本轮未验证通知、短信、推送或回调。这些配置不构成生产账号或通知策略。
+
+## 5. 真实流程、数据库与重启结果
+
+| 步骤 | 结果及证据 |
+| --- | --- |
+| 从零建立测试资料 | 普通人员 A、B、组织、应用、真实 MWF 表单和两个人工节点流程创建成功 |
+| A 发起并提交 | A 的草稿完成提交，B 获得同一工作的真实非草稿待办 |
+| 待办数据库核对 | 待办 1、在途工作 1、A 已办 1、已知 B 待办匹配 1；当时 196 张平台表、3 个平台持有连接 |
+| B 实际同意 | 正向流程核对工具确认本人待办及真实路由后办理；双方已办均存在，整条 job 结束，中文业务数据可回读 |
+| 正常停止 | O2OA 使用 exit，独立 MariaDB 使用 SHUTDOWN，均保留原数据及配置 |
+| 两进程重启 | 全部三个 HTTP 端口就绪后，`--read-only` 核对通过：流程已结束、中文数据正确，本轮无流程写入 |
+| 最终数据库核对 | 214 张平台表，待办 0、在途工作 0、已办 2、归档工作 1；平台持有连接 3 |
+| 完成阶段浏览器 | 真实 Chrome 1 项通过，读取实际已办及对应详情 |
+
+流程回执 `.local/verification/o2oa-workflow.json` 为 `status:passed`、`submittedDuringThisRun:true`、`workflowEnded:true`。重启后的 `o2oa-workflow-read-only.json` 为 `status:passed`、`mode:read-only`、`submittedDuringThisRun:false`、`persistenceRecheckedWithoutWorkflowWrite:true`；已办、归档元数据、`integrationMarker` 和中文 `note` 的检查通过。只读模式中针对“办理前待办”的检查不适用，未用它们冒充办理结果。
+
+最终运行目录的 `database-pending-verification.json` 与 `database-completed-verification.json` 从 MariaDB 实表核对 catalog、连接和已知对象计数；不是只检查配置文件或首页。完成后没有再次 seed，持久化结论来自保留数据的正常重启。
+
+重启初期曾在服务注册尚未完成时执行一次只读核对，返回 500，已保留诊断。等待全部三个 HTTP 服务就绪后重跑才取得上述通过证据；首次失败未计为通过。就绪等待操作见 [开发说明](../../deployment/dev/README.md)。
+
+## 6. 会话与日志缺口
+
+曾出现在错误日志中的旧 A 测试 token 已通过平台 `safe/logout` 服务端作废，随后核对旧会话为匿名；脱敏回执为 `.local/verification/test-session-revocation.json`，其中 `revoked` 与 `oldSessionAnonymous` 均为 true。未通过轮换人员密码加密密钥清理会话。
+
+平台错误日志写入层仍可能记录认证请求头，本轮没有修改这一层源码。现有私有日志仅经安全提取和脱敏诊断，凭据、token 不进入公开报告；正式部署前仍需修复并验证日志脱敏。这是保留的真实缺口，合成流程通过不关闭该项。
+
+## 7. 验证边界与后续验收
+
+本次证明的是一条合成流程在真实 O2OA、新 Web、原生 MWF 和 MariaDB 上的创建、办理、归档及重启持久化。A／B 为专用测试组织的正常人员；账号切换检查只覆盖该任务的人员可见性，尚不证明公司的多组织、多公司授权边界。
+
+只读 Textfield 检查覆盖读取已存中文值，未覆盖原生表单编辑保存、全部动态组件、复杂脚本和附件。消息消费者被明确禁用，附件、短信、通知和推送未验收。
+
+原公司流程规则、客户／项目共享、总部汇总、多公司独立核算、正式会计、历史迁移与在途切换，以及性能、生产登录、云服务器部署均须继续按 [需求范围](../requirements/01-scope-and-requirements.md)、[待确认事项](../requirements/03-open-questions.md) 与 [验收计划](01-acceptance-plan.md) 验证。本报告不代表公司 OA 全量替换已经完成。

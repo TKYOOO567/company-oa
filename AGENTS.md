@@ -8,6 +8,10 @@
 
 当前交付与技术决定见 [Web 第一版](docs/verification/web-v0.1.md) 和 [ADR 0002](docs/architecture/adr/0002-web-foundation.md)。真实平台、公司权限、旧业务规则和财务核算未通过联调时，明确报告缺口；不把契约测试或人工演示当成平台验收。
 
+本轮后续授权：用户已启动 MariaDB，要求解决 Java 环境，并用独立测试库真实联调 O2OA 与 Web，测试通过再结束。可在 `.local/` 准备便携工具链、源码构建产物和隔离运行环境；必要的最小平台修复须登记 `patches/o2oa/`。数据库管理员连接信息由本地私密配置提供，专用测试账号只授予新建测试库权限，不重置已有账号、不使用业务库。
+
+该轮已使用本机 MariaDB 程序建立独立 13306 实例，完成源码构建、合成流程、真实 Chrome/MWF 字段及数据库与平台重启验证。当前有效运行目录为 `.local/runtime/o2server-it-clean/`；初次失败的旧环境保留为诊断材料，不应重启占用相同端口。继续操作先读[运行报告](docs/verification/platform-runtime.md)及[运行工具](deployment/dev/README.md)，不重新初始化已有库或 token。完整业务和生产验收仍开放。
+
 ## 2. 开始工作时
 
 1. 在本工程根目录执行 `git status --short`，保留用户已有改动。

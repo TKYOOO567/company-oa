@@ -209,7 +209,7 @@
     "businessCodeAdded": true,
     "dependenciesInstalled": true,
     "buildExecuted": true,
-    "runtimeVerified": false,
+    "runtimeVerified": true,
     "realDataMigrated": false,
     "accountingEngineImplemented": false,
     "productionReady": false,
@@ -218,12 +218,15 @@
       "modularFrontendImplemented": true,
       "frontendRuntimeVerified": true,
       "frontendBuildPassed": true,
-      "unitTestsPassed": 52,
+      "unitTestsPassed": 53,
       "browserTestsPassed": 3,
-      "o2oaRuntimeVerified": false,
-      "mariaDbConnectionVerified": false,
-      "evidence": "../verification/web-v0.1.md"
+      "o2oaRuntimeVerified": true,
+      "mariaDbConnectionVerified": true,
+      "evidence": "../verification/web-v0.1.md",
+      "liveBrowserTestsPassed": 3,
+      "javaRegressionTestsPassed": 9,
+      "syntheticWorkflowRestartVerified": true
     },
-    "note": "当前 buildExecuted 仅指新增 Web 工程，runtimeVerified 仍指真实 O2OA 平台；完整业务验收尚未通过。Web 技术测试使用合成资料，MariaDB 服务启动受 Windows 权限限制，未联调真实平台或数据库。"
+    "note": "已源码构建 O2OA 并用独立 MariaDB 及普通合成账号完成最小真实 Web／MWF／审批和两端重启验证；原业务、公司权限、财务、真实迁移、生产容量及云部署验收仍未通过。原有3306服务未改动。"
   }
 }

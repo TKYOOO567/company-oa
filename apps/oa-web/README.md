@@ -38,4 +38,18 @@ npm run test:e2e
 
 E2E 默认使用本机 Chrome 的隔离浏览器上下文，不读取日常 Chrome 登录资料。若使用 Playwright 自带 Chromium，先运行 `npx playwright install chromium`，再设置 `OA_TEST_BROWSER_CHANNEL=chromium`。E2E 使用显式演示及受控测试响应，不会请求真实公司账号。
 
+真实 O2OA/MariaDB 另用显式测试入口；它不模拟请求、不启动服务，要求 `.local/live-integration.json` 中的专用合成账号和事项已经存在：
+
+```powershell
+$env:OA_LIVE_E2E = '1'
+# 已知待办尚未办理时，验证登录、待办、MWF字段与普通账号归属
+$env:OA_LIVE_STAGE = 'pending'
+npm run test:e2e:live
+# 当前本机流程已经完成并经过重启，复查已办及详情使用此阶段
+$env:OA_LIVE_STAGE = 'completed'
+npm run test:e2e:live
+```
+
+本次实际运行的新 Web 为 `http://127.0.0.1:5173`，原生 O2OA 为 `http://127.0.0.1:18080`，API 为 `http://127.0.0.1:18020`；独立 MariaDB 在 13306。有效运行目录是 `.local/runtime/o2server-it-clean/`，测试凭据仅保存在忽略配置中。流程、数据库和重启操作见 [运行工具](../../deployment/dev/README.md)。
+
 真实接口契约、测试范围及当前缺口见 [Web 第一版验证](../../docs/verification/web-v0.1.md)、[ADR 0002](../../docs/architecture/adr/0002-web-foundation.md) 和[平台运行调查](../../docs/verification/platform-runtime.md)。

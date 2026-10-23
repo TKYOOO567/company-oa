@@ -1,7 +1,7 @@
 # ADR 0002：Web 第一版与模块边界
 
 - 日期：2026-10-24，Asia/Shanghai。
-- 状态：本轮采用；O2OA 原生表单完整兼容及数据库联调仍待验证。
+- 状态：本轮采用；最小 MWF 字段与独立 MariaDB 真实联调通过，原生表单完整兼容仍待验证。
 - 关联：REQ-007～REQ-011、ADR 0001；不修改已确认的全量替换目标。
 
 ## 授权与本轮范围
@@ -33,7 +33,7 @@
 
 账号密码及 RSA 按平台现有契约处理；不支持的双因素或非密码登录方式明确返回原平台登录提示。是否采用该方式作为生产登录仍属 OPEN-003。
 
-当前只读元数据详情使用普通用户工作接口。完整表单暂以新页打开 O2OA 原生页面，URL 不附自动执行 action 或 token。这是第一版接入边界，尚未宣称原生表单、附件及审批全链路兼容已通过。
+当前只读元数据详情使用普通用户工作接口。完整表单以新页打开 O2OA 原生页面，URL 不附自动执行 action 或 token。已实测普通账号跨端口复用平台 Cookie、打开同一工作、MWF Textfield 绑定后端中文数据；仍不代表附件、复杂脚本、字段权限和全部旧表单兼容。
 
 认证模式及公钥来自 [ActionMode](../../../o2server/x_organization_assemble_authentication/src/main/java/com/x/organization/assemble/authentication/jaxrs/authentication/ActionMode.java) 和 [RSA 公钥接口](../../../o2server/x_organization_assemble_authentication/src/main/java/com/x/organization/assemble/authentication/jaxrs/authentication/ActionCaptchaRSAPublicKey.java)；原始 token 的解析依据 [HttpToken](../../../o2server/x_base_core_project/src/main/java/com/x/base/core/project/http/HttpToken.java)。待办、已办分页分别对应 [task V2ListPaging](../../../o2server/x_processplatform_assemble_surface/src/main/java/com/x/processplatform/assemble/surface/jaxrs/task/V2ListPaging.java) 与 [taskcompleted V2ListPaging](../../../o2server/x_processplatform_assemble_surface/src/main/java/com/x/processplatform/assemble/surface/jaxrs/taskcompleted/V2ListPaging.java)。这些是静态契约依据，测试响应不能替代运行中的平台。
 
@@ -45,7 +45,7 @@
 
 按用户最新要求，数据库暂定 MariaDB。Web 通过平台服务访问数据，不直接持有数据库账号。第一版前端不为通过测试而内置另一套数据库或将人工示例写入现有库。
 
-本机环境、服务启动尝试和平台 JDBC 兼容缺口见 [平台运行验证](../../verification/platform-runtime.md)。真正接库前应使用独立测试库核对平台驱动、建表、事务和中文字段；尚未做过的检查不得标为通过。
+本机 JDK 11、MySQL Connector/J 8.4.0、OpenJPA 3.2.2 与 MariaDB 12.3.2 已在独立实例及新建库实际验证建表、审批持久化、中文及四字节字符、索引完整值比较和事务回滚，详见[平台运行验证](../../verification/platform-runtime.md)。必要源码修复登记 PATCH-0001/0002；生产容量、其他数据库版本及业务财务规则仍需对应验收。
 
 ## 验证边界
 

@@ -114,6 +114,20 @@ describe('workspace session and request boundaries', () => {
     expect(workspace.state.error).toBe('服务器退出失败')
   })
 
+  it('refreshes the connection policy after logout so another account can sign in', async () => {
+    const getSession = vi.fn().mockResolvedValueOnce(session).mockResolvedValue(null)
+    const api = fakeApi({ getSession })
+    const workspace = createWorkspace(api)
+    await workspace.initialize()
+    await workspace.signOut()
+    expect(workspace.state.session).toBeNull()
+    expect(workspace.state.connectionStatus).toBe('connected')
+    expect(workspace.state.authMode?.supported).toBe(true)
+    await workspace.signIn('next-account', 'synthetic-password')
+    expect(api.login).toHaveBeenCalledWith('next-account', 'synthetic-password')
+    expect(workspace.state.session).toEqual(session)
+  })
+
   it('keeps a closed detail closed when its network response arrives later', async () => {
     const detail = deferred<{ task: Approval; fields: []; nativeUrl: null }>()
     const workspace = createWorkspace(fakeApi({ getDetail: vi.fn(() => detail.promise) }))
