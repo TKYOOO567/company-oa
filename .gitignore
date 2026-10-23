@@ -197,3 +197,5 @@ JenkinsFile
 !/apps/oa-web/package-lock.json
 !/apps/oa-web/pnpm-lock.yaml
 !/apps/oa-web/yarn.lock
+/apps/oa-web/test-results/
+/apps/oa-web/playwright-report/

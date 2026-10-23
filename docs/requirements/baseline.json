@@ -5,7 +5,8 @@
     "recordedDate": "2026-10-23",
     "timezone": "Asia/Shanghai",
     "language": "zh-CN",
-    "stage": "目录约束、需求与改造方案、独立仓库初始化",
+    "stage": "模块化 Web v0.1；真实平台与数据库联调待完成",
+    "latestUpdate": "2026-10-24",
     "baselineStatus": "已确认需求、页面观察事实、待确认事项和暂定交互分别记录",
     "confirmationSource": "用户在本次需求访谈中的确认，由主代理汇总",
     "productionReady": false,
@@ -192,17 +193,37 @@
       "decision": "基于用户提供的 O2OA fork 开发，在本地准备独立开发仓库，当前仅建立目录约束、需求和改造文档，不开发业务代码。",
       "sourceRepository": "https://github.com/TKYOOO567/OA",
       "sourceCommit": "0b328b1cd88e221d25a6188f47b3d6e08de69fbe"
+    },
+    {
+      "id": "DEC-002",
+      "status": "用户确认",
+      "decision": "开始模块化开发，先做 Web，第一版运行及测试通过后结束本轮；Android 仍单独安排。"
+    },
+    {
+      "id": "DEC-003",
+      "status": "用户暂定",
+      "decision": "数据库暂定 MariaDB，可在测试需要时启动本机现有服务；实际平台驱动及 JDBC 兼容待验证。"
     }
   ],
   "deliveryState": {
-    "businessCodeAdded": false,
-    "dependenciesInstalled": false,
-    "buildExecuted": false,
+    "businessCodeAdded": true,
+    "dependenciesInstalled": true,
+    "buildExecuted": true,
     "runtimeVerified": false,
     "realDataMigrated": false,
     "accountingEngineImplemented": false,
     "productionReady": false,
     "acceptancePassed": false,
-    "note": "所需上游源码已保存在本仓库内；新增目录说明与规划文件不代表功能已经实现。早期未完成原型已清理，有效需求、页面证据与字段资料已归入正式文档。"
+    "webV01": {
+      "modularFrontendImplemented": true,
+      "frontendRuntimeVerified": true,
+      "frontendBuildPassed": true,
+      "unitTestsPassed": 52,
+      "browserTestsPassed": 3,
+      "o2oaRuntimeVerified": false,
+      "mariaDbConnectionVerified": false,
+      "evidence": "../verification/web-v0.1.md"
+    },
+    "note": "当前 buildExecuted 仅指新增 Web 工程，runtimeVerified 仍指真实 O2OA 平台；完整业务验收尚未通过。Web 技术测试使用合成资料，MariaDB 服务启动受 Windows 权限限制，未联调真实平台或数据库。"
   }
 }

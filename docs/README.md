@@ -2,7 +2,7 @@
 
 记录日期：2026-10-23，Asia/Shanghai。
 
-本工程用于在 O2OA 基础上全面替换现用纷享销客。当前仅完成目录、需求、改造和验证规划；没有新增业务实现，也没有完成构建、联调、正式账务或数据迁移。
+本工程用于在 O2OA 基础上全面替换现用纷享销客。2026-10-24 用户已授权正式开发，先完成模块化 Web 第一版，测试通过后结束本轮。已建立工作台与审批接入基础；真实平台、数据库、完整业务流程、正式账务及数据迁移尚未验收。
 
 ## 阅读顺序
 
@@ -16,6 +16,9 @@
 | [仓库与目录规范](architecture/01-repository-and-directories.md) | 目录职责、源码与配置的放置规则 |
 | [基于 O2OA 的改造方案](architecture/02-o2oa-adaptation-plan.md) | 复用边界、前端接入、阶段产物和退出标准 |
 | [ADR 0001：扩展策略](architecture/adr/0001-o2oa-extension-strategy.md) | 当前架构约定及尚未确定的选型 |
+| [ADR 0002：Web 第一版](architecture/adr/0002-web-foundation.md) | 前端技术栈、模块划分、演示与真实连接边界 |
+| [Web v0.1 验证](verification/web-v0.1.md) | 本轮实现、运行方式、检查结果及缺口 |
+| [平台运行调查](verification/platform-runtime.md) | O2OA 环境与 MariaDB 服务实测 |
 | [迁移策略](migration/01-migration-strategy.md) | 源数据提取、字段映射、关系恢复、试迁移及核对 |
 | [对象盘点](migration/object-inventory.json) | 已观察对象的部分目录，尚非完整 schema |
 | [字段映射样例](migration/field-mapping.sample.json) | 付款申请字段的文档映射示例 |
