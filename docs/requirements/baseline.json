@@ -1,0 +1,208 @@
+{
+  "schemaVersion": "1.0.0",
+  "documentType": "Company OA 需求基线",
+  "metadata": {
+    "recordedDate": "2026-10-23",
+    "timezone": "Asia/Shanghai",
+    "language": "zh-CN",
+    "stage": "目录约束、需求与改造方案、独立仓库初始化",
+    "baselineStatus": "已确认需求、页面观察事实、待确认事项和暂定交互分别记录",
+    "confirmationSource": "用户在本次需求访谈中的确认，由主代理汇总",
+    "productionReady": false,
+    "project": "company-oa",
+    "sourceProvenance": "../../upstream.json"
+  },
+  "confirmed": [
+    {
+      "id": "REQ-001",
+      "category": "替换目标",
+      "requirement": "建设公司内部 OA 系统，全面替换现用纷享销客，覆盖内部流程审批、财务报表、公司流水和客户管理。"
+    },
+    {
+      "id": "REQ-002",
+      "category": "业务连续性",
+      "requirement": "保留现用业务流程；以原系统实际配置和业务现状为需求盘点依据。保留现用业务流程不代表复制原前端交互。"
+    },
+    {
+      "id": "REQ-003",
+      "category": "历史数据",
+      "requirement": "迁移历史业务数据；从原系统导出后，按实际导出字段、标识和关联关系盘点并建立导入映射。",
+      "constraint": "尚未实际执行原系统导出；字段映射、完整性和导入结果尚未验证。"
+    },
+    {
+      "id": "REQ-004",
+      "category": "多公司业务",
+      "requirement": "各公司独立核算，部分客户和项目共享，总部需要汇总。",
+      "constraint": "共享的具体边界以及总部正式报表口径仍需确认。"
+    },
+    {
+      "id": "REQ-005",
+      "category": "会计功能",
+      "requirement": "需要完整会计核算，包括凭证、会计科目、结账、总账和正式会计报表。",
+      "constraint": "该项为目标需求，不能据此认定原系统已有完整会计账或当前原型已实现会计核算。"
+    },
+    {
+      "id": "REQ-006",
+      "category": "当前业务事实",
+      "requirement": "目前主要以收支台账管理财务，尚无完整会计分录。",
+      "constraint": "历史会计账补建、期初数据来源和启用账期尚未确认；不得从收支台账字段直接推定完整会计记录。"
+    },
+    {
+      "id": "REQ-007",
+      "category": "前端体验",
+      "requirement": "按岗位重新设计导航、工作台、列表和详情交互。",
+      "constraint": "具体页面布局、组件和交互方式属于原型验证内容，尚非用户逐项验收通过的生产设计。"
+    },
+    {
+      "id": "REQ-008",
+      "category": "管理员配置",
+      "requirement": "管理员必须能够可视化配置字段、表单、审批节点、条件分支和权限。",
+      "constraint": "当前用户已确认其原系统账号为系统管理员；新系统登录方式及生产权限执行机制仍需设计与实现。"
+    },
+    {
+      "id": "REQ-009",
+      "category": "终端范围",
+      "requirement": "当前仅开发 Web；Android 另线推进，不与当前 Web 同时开发。"
+    },
+    {
+      "id": "REQ-010",
+      "category": "交付与验收",
+      "requirement": "不设置固定上线期限，以验收通过作为上线条件。",
+      "constraint": "验收负责人和具体验收标准尚待确认。"
+    },
+    {
+      "id": "REQ-011",
+      "category": "生产部署目标",
+      "requirement": "目标系统部署在公司控制的云服务器，通过互联网登录使用。",
+      "constraint": "这是生产部署目标；当前交互原型不代表已完成云端部署或生产身份认证。"
+    }
+  ],
+  "sourceEvidence": [
+    {
+      "id": "EVIDENCE-001",
+      "kind": "用户提供的参考入口",
+      "sourcePageUrl": "https://www.fxiaoke.com/XV/UI/Home#chats",
+      "observation": "用户指定现用纷享销客作为业务参考；已授权只读查看其已登录 Chrome 中的参考系统。",
+      "verificationStatus": "用户提供并授权查看"
+    },
+    {
+      "id": "EVIDENCE-002",
+      "kind": "后台页面观察",
+      "sourcePageUrl": "https://www.fxiaoke.com/XV/UI/manage#crmmanage/=/module-myobject",
+      "pageContext": "对象管理的自定义对象列表",
+      "observation": "页面显示 132 个自定义对象。",
+      "observedMetric": {
+        "name": "自定义对象数量",
+        "value": 132,
+        "unit": "个"
+      },
+      "verificationStatus": "页面已观察",
+      "limitation": "该数字为页面显示的对象数量，不是业务记录数，也不代表已完成全部对象字段盘点或已确认每个对象的迁移映射。"
+    },
+    {
+      "id": "EVIDENCE-003",
+      "kind": "后台页面观察",
+      "sourcePageUrl": "https://www.fxiaoke.com/XV/UI/manage#crmmanage/=/module-approval",
+      "pageContext": "审批管理，固定审批已选中",
+      "observation": "固定审批列表底部显示共 60 条。",
+      "observedMetric": {
+        "name": "固定审批列表条数",
+        "value": 60,
+        "unit": "条"
+      },
+      "verificationStatus": "页面已观察",
+      "limitation": "尚不能据此认定已逐一核实全部审批表单、节点、分支和权限。"
+    },
+    {
+      "id": "EVIDENCE-004",
+      "kind": "后台页面观察",
+      "sourcePageUrl": "https://www.fxiaoke.com/XV/UI/manage#crmmanage/=/module-myobject",
+      "pageContext": "付款申请对象的字段列表；该子页面沿用对象管理 URL",
+      "observation": "页面显示返回列表、付款申请、字段列表，以及当前共有 94 个字段。",
+      "observedMetric": {
+        "name": "付款申请字段数量",
+        "value": 94,
+        "unit": "个"
+      },
+      "verificationStatus": "页面已观察",
+      "limitation": "已读取字段名称、API名、类型与启停状态；必填、校验、关联目标、字段权限及实际导出数据仍需核对。"
+    },
+    {
+      "id": "EVIDENCE-005",
+      "kind": "后台页面观察",
+      "sourcePageUrl": "https://www.fxiaoke.com/XV/UI/manage#datamaintenancetools/initializationandbackup",
+      "pageContext": "数据维护工具中的数据导出弹窗",
+      "observation": "已看到全对象导出、按对象导出两个选项；只读查看选项后取消，未提交导出。",
+      "observedOptions": [
+        "全对象导出",
+        "按对象导出"
+      ],
+      "exportSubmitted": false,
+      "actualExportFilesInspected": false,
+      "verificationStatus": "仅确认页面入口和选项存在",
+      "limitation": "尚未验证实际文件格式、字段覆盖、关联标识、数据量限制，以及附件、评论和审批轨迹的导出支持。"
+    }
+  ],
+  "openQuestions": [
+    {
+      "id": "OPEN-001",
+      "topic": "历史会计账补建与期初",
+      "status": "待确认",
+      "question": "新系统从哪个账期开始正式核算，历史会计账是否补建，期初余额及相关资料从何处取得并由谁确认？",
+      "resolutionMethod": "与用户及其指定财务负责人确认",
+      "mustNotAssume": "不得把收支台账迁移等同于完整历史凭证或期初账已建立。"
+    },
+    {
+      "id": "OPEN-002",
+      "topic": "总部正式报表口径",
+      "status": "待确认",
+      "question": "总部汇总需要哪些具体报表，其数据范围、统计口径以及与各公司正式会计报表的关系是什么，由谁确认？",
+      "resolutionMethod": "以实际报表示例和指定确认人的解释核对",
+      "mustNotAssume": "不得把经营数据汇总直接认定为已满足总部正式财务报表要求。"
+    },
+    {
+      "id": "OPEN-003",
+      "topic": "生产登录方式",
+      "status": "待确认",
+      "question": "生产系统采用何种登录和账号管理方式，是否需要接入现有身份系统？",
+      "resolutionMethod": "与用户或其指定系统管理人员确认",
+      "mustNotAssume": "原型中的岗位切换不能作为生产身份认证或授权依据。"
+    },
+    {
+      "id": "OPEN-004",
+      "topic": "附件与过程轨迹的实际导出支持",
+      "status": "待原系统实际导出验证",
+      "question": "实际导出结果是否包含附件、评论、审批轨迹和稳定关联标识，是否需要其他获授权的提取方式？",
+      "resolutionMethod": "检查实际导出样本；由开发方先行查证技术事实，仅对业务取舍向用户确认",
+      "mustNotAssume": "存在导出入口不代表上述内容均可完整导出。"
+    },
+    {
+      "id": "OPEN-005",
+      "topic": "在途单据切换与验收责任",
+      "status": "待确认",
+      "question": "切换时尚未完结的单据如何接续，谁负责验收，按哪些记录、流程和报表判定通过？",
+      "resolutionMethod": "基于实际在途业务清单，与用户指定负责人确定切换和验收安排",
+      "mustNotAssume": "没有固定期限不等于无需切换计划或验收标准。"
+    }
+  ],
+  "decisions": [
+    {
+      "id": "DEC-001",
+      "status": "用户确认",
+      "decision": "基于用户提供的 O2OA fork 开发，在本地准备独立开发仓库，当前仅建立目录约束、需求和改造文档，不开发业务代码。",
+      "sourceRepository": "https://github.com/TKYOOO567/OA",
+      "sourceCommit": "0b328b1cd88e221d25a6188f47b3d6e08de69fbe"
+    }
+  ],
+  "deliveryState": {
+    "businessCodeAdded": false,
+    "dependenciesInstalled": false,
+    "buildExecuted": false,
+    "runtimeVerified": false,
+    "realDataMigrated": false,
+    "accountingEngineImplemented": false,
+    "productionReady": false,
+    "acceptancePassed": false,
+    "note": "保留上游已有源码；新增目录说明与规划文件不代表功能已经实现。早期兄弟目录中的原型准备不作为正式交付。"
+  }
+}

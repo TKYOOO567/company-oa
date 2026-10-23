@@ -186,3 +186,14 @@ o2server/test.sh
 *.bak
 **/pnpm-lock.yaml
 JenkinsFile
+
+# Company OA: private runtime/data and self-owned project lockfiles
+/.local/
+/deployment/secrets/
+/deployment/runtime/
+**/.env.*
+!**/.env.example
+!**/.env.*.example
+!/apps/oa-web/package-lock.json
+!/apps/oa-web/pnpm-lock.yaml
+!/apps/oa-web/yarn.lock

@@ -1,0 +1,103 @@
+{
+  "formatVersion": "0.1",
+  "documentType": "project-migration-inventory-metadata",
+  "reviewedAt": "2026-10-23",
+  "status": "observed",
+  "notice": "本项目的盘点文档格式；不是原系统实际导出 schema，也不是 O2OA 原生可直接导入配置。当前未实际导出或迁移。",
+  "sourceSystem": "纷享销客",
+  "evidence": {
+    "method": "管理后台页面只读核对",
+    "customObjects": {
+      "totalObserved": 132,
+      "meaning": "仅表示页面观察到的自定义对象数量；不包含标准对象，也不表示本文件已列出 132 个对象。",
+      "completeCatalogStatus": "pending"
+    },
+    "fixedApprovals": {
+      "totalObserved": 60,
+      "fullDefinitionStatus": "pending"
+    },
+    "paymentApplicationFields": {
+      "totalObserved": 94,
+      "fieldMetadataListed": 14,
+      "remainingMetadataStatus": "pending",
+      "requiredConstraintsStatus": "pending"
+    },
+    "export": {
+      "status": "export-not-run",
+      "uiEntriesObserved": ["全对象导出", "按对象导出"],
+      "actualFormat": null,
+      "recordCoverageStatus": "pending",
+      "attachmentCoverageStatus": "pending",
+      "approvalHistoryCoverageStatus": "pending"
+    }
+  },
+  "listedObjectsCoverage": "partial-observed-catalog",
+  "objectEntriesListed": 3,
+  "objects": [
+    {
+      "label": "付款申请",
+      "sourceApiName": "payment_application__c",
+      "classification": "custom",
+      "status": "observed",
+      "evidence": "管理后台对象及字段页面",
+      "fieldCountObserved": 94,
+      "fieldMetadataListed": 14,
+      "sourceRequiredConstraintsStatus": "pending",
+      "sourceRecordCount": null,
+      "sourceRecordCountStatus": "pending",
+      "exportStatus": "export-not-run",
+      "targetLogicalEntitySuggestion": "payment_application",
+      "targetModelStatus": "pending",
+      "mappingStatus": "pending",
+      "relationLabelsObserved": ["负责人", "归属部门", "供应商", "付款计划", "所属公司", "相关项目"],
+      "relationTargetApiNamesStatus": "pending",
+      "migrationDisposition": "pending"
+    },
+    {
+      "label": "项目",
+      "sourceApiName": "project__c",
+      "classification": "custom",
+      "status": "observed",
+      "evidence": "原系统页面对象标识",
+      "fieldCountObserved": null,
+      "fieldMetadataStatus": "pending",
+      "sourceRecordCount": null,
+      "sourceRecordCountStatus": "pending",
+      "exportStatus": "export-not-run",
+      "targetLogicalEntitySuggestion": "project",
+      "targetModelStatus": "pending",
+      "mappingStatus": "pending",
+      "migrationDisposition": "pending"
+    },
+    {
+      "label": "客户",
+      "sourceApiName": "AccountObj",
+      "classification": "standard",
+      "status": "observed",
+      "evidence": "原系统页面对象标识",
+      "fieldCountObserved": null,
+      "fieldMetadataStatus": "pending",
+      "sourceRecordCount": null,
+      "sourceRecordCountStatus": "pending",
+      "exportStatus": "export-not-run",
+      "targetLogicalEntitySuggestion": "customer",
+      "targetModelStatus": "pending",
+      "mappingStatus": "pending",
+      "migrationDisposition": "pending"
+    }
+  ],
+  "statusDefinitions": {
+    "observed": "在页面中观察到指定元数据；不等于已取得导出样本或已迁移。",
+    "pending": "尚待取得样本、核对或作出业务决定。",
+    "export-not-run": "实际导出尚未执行。"
+  },
+  "targetNotice": "targetLogicalEntitySuggestion 仅供目标设计讨论，不锁定 O2OA 应用、表单、接口或数据库模型。",
+  "dataPolicy": {
+    "versionedDocsContain": "元数据、规则和人工合成示例",
+    "actualDataLocation": ".local/migration/",
+    "actualExportsPresent": false,
+    "realBusinessDataAllowedInGit": false,
+    "policyAppliesToPrivateRepository": true,
+    "publicForkAndUpstreamMustNotReceiveRealData": true
+  }
+}

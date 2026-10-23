@@ -1,0 +1,128 @@
+{
+  "formatVersion": "0.1",
+  "documentType": "project-field-mapping-documentation-sample",
+  "reviewedAt": "2026-10-23",
+  "status": "pending",
+  "notice": "本项目自定义的映射文档示例，仅含字段元数据；非实际已导出 schema，非 O2OA 原生可直接导入配置，不能直接用于生产导入。",
+  "source": {
+    "system": "纷享销客",
+    "objectLabel": "付款申请",
+    "objectApiName": "payment_application__c",
+    "metadataStatus": "observed",
+    "evidence": "管理后台付款申请字段页面",
+    "fieldCountObserved": 94,
+    "fieldMetadataListed": 14,
+    "exportStatus": "export-not-run",
+    "exportFileFormat": null,
+    "exportHeaderMappingStatus": "pending",
+    "recordIdField": null,
+    "recordIdFieldStatus": "pending"
+  },
+  "target": {
+    "logicalEntitySuggestion": "payment_application",
+    "bindingStatus": "pending",
+    "notice": "logicalField 仅为建议逻辑键；目标应用、表单、数据存储、写入接口及数据库模型均未确定。"
+  },
+  "requiredConstraintPolicy": "source.required 为 null 表示尚未核实，不能解释为非必填；target.required 亦待业务及目标设计确认。",
+  "fields": [
+    {
+      "source": {"label": "编号", "apiName": "name", "type": "自增编号", "required": null, "requiredVerified": false, "exportColumn": null},
+      "target": {"logicalField": "payment_no", "required": null},
+      "mappingStatus": "pending",
+      "transformNotes": "保留原业务单号；不得将编号 name 视为已验证的源记录唯一 ID。"
+    },
+    {
+      "source": {"label": "归属部门", "apiName": "data_own_department", "type": "部门", "required": null, "requiredVerified": false, "exportColumn": null},
+      "target": {"logicalField": "department_id", "required": null},
+      "mappingStatus": "pending",
+      "transformNotes": "通过组织新旧 ID 映射解析；来源是 ID、名称或组合形式仍待导出样本核对。"
+    },
+    {
+      "source": {"label": "负责人", "apiName": "owner", "type": "人员", "required": null, "requiredVerified": false, "exportColumn": null},
+      "target": {"logicalField": "owner_id", "required": null},
+      "mappingStatus": "pending",
+      "transformNotes": "通过人员新旧 ID 映射解析，保留停用人员历史身份；不按显示名直接合并。"
+    },
+    {
+      "source": {"label": "供应商", "apiName": "supplier__c", "type": "查找关联", "required": null, "requiredVerified": false, "exportColumn": null},
+      "target": {"logicalField": "supplier_id", "required": null},
+      "mappingStatus": "pending",
+      "transformNotes": "关联目标对象 API 名及导出引用格式待验证；通过新旧 ID 映射回填。"
+    },
+    {
+      "source": {"label": "申请日期", "apiName": "application_date__c", "type": "日期", "required": null, "requiredVerified": false, "exportColumn": null},
+      "target": {"logicalField": "application_date", "required": null},
+      "mappingStatus": "pending",
+      "transformNotes": "按样本确认日期格式，保留日期语义；不擅自补入时间或转换为 UTC 日期。"
+    },
+    {
+      "source": {"label": "付款类别", "apiName": "payment_category__c", "type": "单选", "required": null, "requiredVerified": false, "exportColumn": null},
+      "target": {"logicalField": "payment_category", "required": null},
+      "mappingStatus": "pending",
+      "transformNotes": "枚举内部值与显示名对照尚未取得，不能预设可用值或静默合并类别。"
+    },
+    {
+      "source": {"label": "付款事由", "apiName": "payment_reason__c", "type": "多行文本", "required": null, "requiredVerified": false, "exportColumn": null},
+      "target": {"logicalField": "payment_reason", "required": null},
+      "mappingStatus": "pending",
+      "transformNotes": "核对编码、换行、长度及显示转义；保留原始文本副本。"
+    },
+    {
+      "source": {"label": "本次付款金额", "apiName": "field_4UB4c__c", "type": "金额", "required": null, "requiredVerified": false, "exportColumn": null},
+      "target": {"logicalField": "payment_amount", "required": null},
+      "mappingStatus": "pending",
+      "transformNotes": "币种、小数位、负值和格式待核对；按确定的十进制精度处理，空值不自动补零。"
+    },
+    {
+      "source": {"label": "付款计划", "apiName": "payment_plan__c", "type": "查找关联", "required": null, "requiredVerified": false, "exportColumn": null},
+      "target": {"logicalField": "payment_plan_id", "required": null},
+      "mappingStatus": "pending",
+      "transformNotes": "关联目标对象和引用基数待验证；依赖先导入或后回填。"
+    },
+    {
+      "source": {"label": "付款证明", "apiName": "attachment__c", "type": "附件", "required": null, "requiredVerified": false, "exportColumn": null},
+      "target": {"logicalField": "payment_attachments", "required": null},
+      "mappingStatus": "pending",
+      "transformNotes": "先核对附件索引与实体获取方式；记录源附件 ID、摘要、目标引用、权限和缺失结果，不将临时 URL 当永久文件。"
+    },
+    {
+      "source": {"label": "所属公司", "apiName": "company_name__c", "type": "查找关联", "required": null, "requiredVerified": false, "exportColumn": null},
+      "target": {"logicalField": "company_id", "required": null},
+      "mappingStatus": "pending",
+      "transformNotes": "核对关联目标与核算主体映射；区分公司归属和跨公司共享权限。"
+    },
+    {
+      "source": {"label": "相关项目", "apiName": "related_project__c", "type": "查找关联", "required": null, "requiredVerified": false, "exportColumn": null},
+      "target": {"logicalField": "project_id", "required": null},
+      "mappingStatus": "pending",
+      "transformNotes": "关联目标与源 ID 格式待核对；使用项目新旧 ID 映射并核对公司关系。"
+    },
+    {
+      "source": {"label": "实际付款日期", "apiName": "field_PASr2__c", "type": "日期", "required": null, "requiredVerified": false, "exportColumn": null},
+      "target": {"logicalField": "paid_date", "required": null},
+      "mappingStatus": "pending",
+      "transformNotes": "API 名按已读页面 field_PASr2__c 记录，区分大小写并与导出样本逐字核对；不得仅凭日期认定实际银行付款或会计过账。"
+    },
+    {
+      "source": {"label": "付款状态", "apiName": "payment_status__c", "type": "单选", "required": null, "requiredVerified": false, "exportColumn": null},
+      "target": {"logicalField": "payment_status", "required": null},
+      "mappingStatus": "pending",
+      "transformNotes": "核对枚举及历史语义；不将付款状态、审批状态和会计入账状态合并为一个状态。"
+    }
+  ],
+  "pendingChecks": [
+    "取得实际导出样本，核对导出列名、格式及唯一记录 ID",
+    "补齐另外 80 个付款申请字段及所需约束",
+    "核实源必填约束、枚举、关联目标和引用基数",
+    "确认目标 O2OA 适配方式和逻辑字段绑定",
+    "验证附件、审批轨迹、公司权限及在途实例处理",
+    "单独确认历史会计补账范围，不从映射样例自动生成凭证"
+  ],
+  "execution": {
+    "implemented": false,
+    "actualDataIncluded": false,
+    "sourceExportExecuted": false,
+    "targetImportExecuted": false,
+    "privateDataRoot": ".local/migration/"
+  }
+}

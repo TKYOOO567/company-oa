@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "1.0.0",
+  "project": "company-oa",
+  "repositoryVisibility": "public",
+  "importType": "source-snapshot-with-independent-git-history",
+  "sourceRepository": "https://github.com/TKYOOO567/OA",
+  "sourceGitUrl": "https://github.com/TKYOOO567/OA.git",
+  "originalProject": "https://github.com/o2oa/o2oa",
+  "sourceBranch": "develop",
+  "sourceCommit": "0b328b1cd88e221d25a6188f47b3d6e08de69fbe",
+  "importedBaselineCommit": "ec2585bac7ef19c57d2a91e30c7348d7a0e01e2e",
+  "recordedDate": "2026-10-23",
+  "timezone": "Asia/Shanghai",
+  "sourceFileCount": 27955,
+  "licenseFile": "LICENSE",
+  "licenseObserved": "AGPL-3.0",
+  "preserveUpstreamCopyrightAndNotices": true,
+  "remotes": {
+    "origin": "https://github.com/TKYOOO567/company-oa.git",
+    "upstream": "https://github.com/TKYOOO567/OA.git"
+  },
+  "verification": {
+    "sourceReview": "static-review-only",
+    "dependenciesInstalled": false,
+    "buildExecuted": false,
+    "runtimeVerified": false,
+    "businessImplementationAdded": false,
+    "realDataMigrated": false
+  }
+}

@@ -1,0 +1,13 @@
+# Keep formatting scoped to our own files; preserve upstream source rules.
+/.gitattributes text eol=lf
+/AGENTS.md text eol=lf
+/README.md text eol=lf
+/.gitignore text eol=lf
+/upstream.json text eol=lf
+/docs/** text=auto eol=lf
+/apps/** text=auto eol=lf
+/extensions/** text=auto eol=lf
+/application-configs/** text=auto eol=lf
+/tools/** text=auto eol=lf
+/deployment/** text=auto eol=lf
+/patches/** text=auto eol=lf

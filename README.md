@@ -1,3 +1,22 @@
+# Company OA
+
+基于 O2OA 的公司内部协同办公系统改造工程。本期先做 Web，Android 单独后续推进。
+
+- [项目文档入口](docs/README.md)
+- [目录与开发约束](AGENTS.md)
+- [需求范围](docs/requirements/01-scope-and-requirements.md)
+- [业务流程](docs/requirements/02-business-processes.md)
+- [O2OA 改造方案](docs/architecture/02-o2oa-adaptation-plan.md)
+- [迁移策略](docs/migration/01-migration-strategy.md)
+- [尚未执行的验收计划](docs/verification/01-acceptance-plan.md)
+- [上游来源与固定提交](upstream.json)
+
+当前阶段：目录约束、需求基线、改造及迁移方案、验收计划与独立仓库初始化。尚未新增业务代码、安装依赖、构建运行或迁移真实数据。
+
+仓库为 [TKYOOO567/company-oa](https://github.com/TKYOOO567/company-oa)，按用户要求公开。保留原 fork 的 [LICENSE](LICENSE) 与版权说明，沿用 AGPL-3.0；以下继续保留上游项目说明。
+
+---
+
 <p align="center">
 	<a target="_blank" href="https://github.com/o2oa/o2oa/blob/develop/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/o2oa/o2oa"></a>
 	<a target="_blank" href="https://www.oracle.com/technetwork/java/javase/downloads/index.html">
