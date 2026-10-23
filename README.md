@@ -13,6 +13,8 @@
 
 当前阶段：目录约束、需求基线、改造及迁移方案、验收计划与独立仓库初始化。尚未新增业务代码、安装依赖、构建运行或迁移真实数据。
 
+本仓库是唯一开发目录。所需 fork 源码已包含在 `o2server/`、`o2web/` 等上游目录中；新 Web、扩展、配置与迁移工具均按[目录规范](docs/architecture/01-repository-and-directories.md)在本仓库维护，无需额外的本地 fork 检出。
+
 仓库为 [TKYOOO567/company-oa](https://github.com/TKYOOO567/company-oa)，按用户要求公开。保留原 fork 的 [LICENSE](LICENSE) 与版权说明，沿用 AGPL-3.0；以下继续保留上游项目说明。
 
 ---

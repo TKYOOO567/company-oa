@@ -203,6 +203,6 @@
     "accountingEngineImplemented": false,
     "productionReady": false,
     "acceptancePassed": false,
-    "note": "保留上游已有源码；新增目录说明与规划文件不代表功能已经实现。早期兄弟目录中的原型准备不作为正式交付。"
+    "note": "所需上游源码已保存在本仓库内；新增目录说明与规划文件不代表功能已经实现。早期未完成原型已清理，有效需求、页面证据与字段资料已归入正式文档。"
   }
 }
