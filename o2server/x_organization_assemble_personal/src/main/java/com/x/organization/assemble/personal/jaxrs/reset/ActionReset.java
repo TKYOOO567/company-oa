@@ -1,0 +1,114 @@
+package com.x.organization.assemble.personal.jaxrs.reset;
+
+import com.google.gson.JsonElement;
+import com.x.base.core.container.EntityManagerContainer;
+import com.x.base.core.container.factory.EntityManagerContainerFactory;
+import com.x.base.core.entity.annotation.CheckPersistType;
+import com.x.base.core.project.annotation.FieldDescribe;
+import com.x.base.core.project.config.Config;
+import com.x.base.core.project.exception.ExceptionWhen;
+import com.x.base.core.project.gson.GsonPropertyObject;
+import com.x.base.core.project.http.ActionResult;
+import com.x.base.core.project.http.EffectivePerson;
+import com.x.base.core.project.jaxrs.WrapBoolean;
+import com.x.base.core.project.logger.Logger;
+import com.x.base.core.project.logger.LoggerFactory;
+import com.x.base.core.project.tools.Crypto;
+import com.x.organization.assemble.personal.Business;
+import com.x.organization.core.entity.Person;
+import java.util.Date;
+import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.StringUtils;
+
+class ActionReset extends BaseAction {
+
+	private static Logger logger = LoggerFactory.getLogger(ActionReset.class);
+
+	ActionResult<Wo> execute(EffectivePerson effectivePerson, JsonElement jsonElement) throws Exception {
+		try (EntityManagerContainer emc = EntityManagerContainerFactory.instance().create()) {
+			ActionResult<Wo> result = new ActionResult<>();
+			Business business = new Business(emc);
+			Wi wi = this.convertToWrapIn(jsonElement, Wi.class);
+			String codeAnswer = wi.getCodeAnswer();
+			String credential = wi.getCredential();
+			String password = wi.getPassword();
+			if (StringUtils.isBlank(credential)) {
+				throw new ExceptionCredentialEmpty();
+			}
+			if (StringUtils.isBlank(password)) {
+				throw new ExceptionPasswordEmpty();
+			}
+			if (StringUtils.isBlank(codeAnswer)) {
+				throw new ExceptionCodeEmpty();
+			}
+			if(codeAnswer.length() > 6){
+				throw new ExceptionCredentialEmpty();
+			}
+			credential =  BooleanUtils.isTrue(Config.token().getRsaEnable()) ? Crypto.rsaDecrypt(credential, Config.privateKey()) : credential;
+			password =  BooleanUtils.isTrue(Config.token().getRsaEnable()) ? Crypto.rsaDecrypt(password, Config.privateKey()) : password;
+			Person person = business.person().getWithCredential(credential);
+			if (null == person) {
+				throw new ExceptionPersonNotExistOrInvalidAnswer();
+			}
+			person = emc.find(person.getId(), Person.class, ExceptionWhen.not_found);
+			if (!password.matches(Config.person().getPasswordRegex())) {
+				throw new ExceptionInvalidPassword(Config.person().getPasswordRegexHint());
+			}
+			if (BooleanUtils.isFalse(business.instrument().code().validate(person.getMobile(), codeAnswer))) {
+				throw new ExceptionPersonNotExistOrInvalidAnswer();
+			}
+			emc.beginTransaction(Person.class);
+			person.setPassword(Crypto.encrypt(password, Config.token().getKey(), Config.person().getEncryptType()));
+			person.setChangePasswordTime(new Date());
+			emc.check(person, CheckPersistType.all);
+			emc.commit();
+			Wo wo = new Wo();
+			wo.setValue(true);
+			result.setData(wo);
+			return result;
+		}
+	}
+
+	public static class Wi extends GsonPropertyObject {
+
+		private static final long serialVersionUID = -575178712890850120L;
+		@FieldDescribe("用户标识")
+		private String credential;
+		@FieldDescribe("密码")
+		private String password;
+		@FieldDescribe("认证码")
+		private String codeAnswer;
+
+		public String getCredential() {
+			return credential;
+		}
+
+		public void setCredential(String credential) {
+			this.credential = credential;
+		}
+
+		public String getPassword() {
+			return password;
+		}
+
+		public void setPassword(String password) {
+			this.password = password;
+		}
+
+		public String getCodeAnswer() {
+			return codeAnswer;
+		}
+
+		public void setCodeAnswer(String codeAnswer) {
+			this.codeAnswer = codeAnswer;
+		}
+
+	}
+
+	public static class Wo extends WrapBoolean {
+
+		private static final long serialVersionUID = 7576056375014210316L;
+
+	}
+
+}

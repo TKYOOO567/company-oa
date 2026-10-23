@@ -1,0 +1,37 @@
+{
+  "key" : {
+    "categoryTitle": MWF.xApplication.cms.Module.LP.subject,
+    "itemNameKey": "key",
+    "itemValueKey": "key",
+    "resultListKey" : "titleList",
+    "resultItemName": "title"
+  },
+  "appfileter_list":{
+    "categoryTitle": MWF.xApplication.cms.Module.LP.appName,
+    "itemNameKey": "appName",
+    "itemValueKey": "id",
+    "resultListKey" : "appIdList",
+    "resultItemName": "appId"
+  },
+  "categoryfileter_list":{
+    "categoryTitle": MWF.xApplication.cms.Module.LP.category,
+    "itemNameKey": "categoryName",
+    "itemValueKey": "categoryId",
+    "resultListKey" : "categoryIdList",
+    "resultItemName": "categoryId"
+  },
+  "companyfileter_list":{
+    "categoryTitle": MWF.xApplication.cms.Module.LP.creatorCompany,
+    "itemNameKey": "companyName",
+    "itemValueKey": "companyName",
+    "resultListKey" : "createCompanyNameList",
+    "resultItemName": "companyName"
+  },
+  "departmentfileter_list":{
+    "categoryTitle": MWF.xApplication.cms.Module.LP.creatorDepartment,
+    "itemNameKey": "departmentName",
+    "itemValueKey": "departmentName",
+    "resultListKey" : "createDepartmentNameList",
+    "resultItemName": "departmentName"
+  }
+}

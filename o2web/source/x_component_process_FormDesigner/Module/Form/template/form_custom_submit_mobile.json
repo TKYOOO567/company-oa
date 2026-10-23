@@ -1,0 +1,565 @@
+{
+  "pcData": {
+    "json": {
+      "id": "",
+      "name": "自定义提交表单Mobile端模板",
+      "type": "Form",
+      "mode": "PC",
+      "application": "",
+      "applicationName": "",
+      "styles": {
+        "background-color": "#f0f0f0"
+      },
+      "cssLinks": [],
+      "scriptSrc": [],
+      "formStyleType": "blue-simple",
+      "pid": "PC4c9e9bc5-3f34-4f8e-8fec-b16fafc55fe54c9e9bc5-3f34-4f8e-8fec-b16fafc55fe5",
+      "languageType": "none",
+      "submitFormType": "default",
+      "isPrompt": true,
+      "promptPosition": "center",
+      "afterProcessAction": "close",
+      "subformList": [],
+      "$version": "5.2",
+      "submitScript": {
+        "code": "layout.mobile ? this.popupProcessorMobile() : this.popupProcessor();"
+      }
+    },
+    "html": "<div mwftype=\"form\" id=\"4c9e9bc5-3f34-4f8e-8fec-b16fafc55fe5\" class=\"css4c9e9bc53f344f8e8fecb16fafc55fe5\" style=\"\"></div>"
+  },
+  "mobileData": {
+    "json": {
+      "id": "",
+      "name": "自定义提交表单Mobile端模板",
+      "type": "Form",
+      "mode": "Mobile",
+      "application": "",
+      "applicationName": "",
+      "styles": {
+        "background-color": "#f0f0f0"
+      },
+      "cssLinks": [],
+      "scriptSrc": [],
+      "moduleList": {
+        "submitNode": {
+          "id": "submitNode",
+          "type": "Div",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "isSaved": true,
+          "pid": "Mobile1ba2edfb-8d28-4058-9d76-4f9d53f5e613submitNode",
+          "moduleName": "div",
+          "recoveryStyles": {
+            "height": "100%",
+            "min-height": "280px",
+            "background-color": "#eeeeee"
+          },
+          "preprocessing": "y"
+        },
+        "submitInnerNode": {
+          "id": "submitInnerNode",
+          "type": "Div",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "isSaved": true,
+          "pid": "1ba2edfb-8d28-4058-9d76-4f9d53f5e613submitInnerNode",
+          "moduleName": "div",
+          "preprocessing": "y"
+        },
+        "submitContentWrapNode": {
+          "id": "submitContentWrapNode",
+          "type": "Div",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "isSaved": true,
+          "pid": "1ba2edfb-8d28-4058-9d76-4f9d53f5e613div",
+          "moduleName": "div",
+          "preprocessing": "y"
+        },
+        "submitContentNode": {
+          "id": "submitContentNode",
+          "type": "Div",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "isSaved": true,
+          "pid": "1ba2edfb-8d28-4058-9d76-4f9d53f5e613div",
+          "moduleName": "div",
+          "preprocessing": "y"
+        },
+        "submitContentInnerNode": {
+          "id": "submitContentInnerNode",
+          "type": "Div",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "isSaved": true,
+          "pid": "1ba2edfb-8d28-4058-9d76-4f9d53f5e613submitContentInnerNode",
+          "moduleName": "div",
+          "preprocessing": "y"
+        },
+        "routeGroupArea": {
+          "id": "routeGroupArea",
+          "type": "Div",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "isSaved": true,
+          "pid": "1ba2edfb-8d28-4058-9d76-4f9d53f5e613routeGroupArea",
+          "moduleName": "div",
+          "recoveryStyles": {
+            "overflow": "hidden",
+            "min-height": "40px",
+            "background-color": "#ffffff",
+            "padding": "0px 20px"
+          },
+          "preprocessing": "y"
+        },
+        "routeSelectorArea": {
+          "id": "routeSelectorArea",
+          "type": "Div",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "isSaved": true,
+          "pid": "1ba2edfb-8d28-4058-9d76-4f9d53f5e613routeSelectorArea",
+          "moduleName": "div",
+          "recoveryStyles": {
+            "overflow": "hidden",
+            "min-height": "40px",
+            "background-color": "#ffffff",
+            "padding": "0px 20px"
+          },
+          "preprocessing": "y"
+        },
+        "inputOpinionNode": {
+          "id": "inputOpinionNode",
+          "type": "Div",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "isSaved": true,
+          "pid": "1ba2edfb-8d28-4058-9d76-4f9d53f5e613inputOpinionNode",
+          "moduleName": "div",
+          "recoveryStyles": {
+            "height": "129px",
+            "border-right": "0px solid #6681a5",
+            "overflow": "hidden",
+            "border-left": "0px solid #6681a5",
+            "background-color": "#EEE"
+          },
+          "preprocessing": "y"
+        },
+        "inputTextarea": {
+          "id": "inputTextarea",
+          "type": "Textarea",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "compute": "create",
+          "section": "no",
+          "sectionBy": "person",
+          "properties": {
+            "placeholder": "请在此处填写流程意见"
+          },
+          "isSaved": true,
+          "pid": "1ba2edfb-8d28-4058-9d76-4f9d53f5e613inputTextarea",
+          "isReadonly": false,
+          "moduleName": "textarea",
+          "recoveryStyles": {
+            "border": "0px solid #ccc",
+            "color": "#666"
+          },
+          "recoveryInputStyles": {
+            "height": "120px",
+            "background-color": "#fff",
+            "border": "1px solid #eeeeee",
+            "margin-right": "1px",
+            "width": "100%",
+            "font-size": "100%",
+            "resize": "none",
+            "border-image": "none",
+            "padding": "3px",
+            "overflow-x": "hidden",
+            "overflow-y": "auto",
+            "color": "#666",
+            "border-bottom": "1px solid #ccc"
+          },
+          "preprocessing": "y",
+          "events": {
+              "queryLoad": {
+                "code": "this.target.isReadonly = function(){\r\n    return false;\r\n}",
+                "html": "this.target.isReadonly = function(){\r\n    return false;\r\n}"
+              }
+            }
+        },
+        "mediaActionArea": {
+          "id": "mediaActionArea",
+          "type": "Div",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "isSaved": true,
+          "pid": "1ba2edfb-8d28-4058-9d76-4f9d53f5e613mediaActionArea",
+          "moduleName": "div",
+          "recoveryStyles": {
+            "position": "relative",
+            "height": "25px",
+            "line-height": "25px",
+            "top": "-32px",
+            "margin-right": "5px"
+          },
+          "preprocessing": "y"
+        },
+        "handwritingAction": {
+          "id": "handwritingAction",
+          "type": "Div",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "properties": {
+            "text": "手写"
+          },
+          "isSaved": true,
+          "pid": "db627f2f-ec8d-4c02-ba90-2e083ebd9dafhandwritingAction",
+          "moduleName": "div",
+          "recoveryStyles": {
+            "float": "right",
+            "border": "1px solid #6681a5",
+            "border-radius": "3px",
+            "cursor": "pointer",
+            "padding-left": "24px",
+            "padding-right": "5px",
+            "margin-left": "5px",
+            "background": "url(/x_component_process_Work/$Processor/default/write.png) no-repeat 5px center",
+            "width": "28px",
+            "height": "25px"
+          },
+          "preprocessing": "y"
+        },
+        "selectIdeaNode": {
+          "id": "selectIdeaNode",
+          "type": "Div",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "isSaved": true,
+          "pid": "1ba2edfb-8d28-4058-9d76-4f9d53f5e613selectIdeaNode",
+          "moduleName": "div",
+          "recoveryStyles": {
+            "background-color": "#eee",
+            "max-height": "200px",
+            "clear": "both",
+            "overflow": "hidden"
+          },
+          "preprocessing": "y"
+        },
+        "selectIdeaAreaNode": {
+          "id": "selectIdeaAreaNode",
+          "type": "Div",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "isSaved": true,
+          "pid": "1ba2edfb-8d28-4058-9d76-4f9d53f5e613selectIdeaAreaNode",
+          "moduleName": "div",
+          "recoveryStyles": {
+            "overflow": "auto",
+            "max-height": "200px"
+          },
+          "preprocessing": "y"
+        },
+        "orgsArea": {
+          "id": "orgsArea",
+          "type": "Div",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "isSaved": true,
+          "pid": "1ba2edfb-8d28-4058-9d76-4f9d53f5e613orgsArea",
+          "moduleName": "div",
+          "preprocessing": "y"
+        },
+        "submitButtonNode": {
+          "id": "submitButtonNode",
+          "type": "Div",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "isSaved": true,
+          "pid": "1ba2edfb-8d28-4058-9d76-4f9d53f5e613submitButtonNode",
+          "moduleName": "div",
+          "recoveryStyles": {
+            "height": "50px",
+            "overflow": "hidden",
+            "clear": "both",
+            "margin-top": "10px"
+          },
+          "preprocessing": "y"
+        },
+        "routeGroupTitle": {
+          "id": "routeGroupTitle",
+          "type": "Label",
+          "valueType": "text",
+          "text": "选择决策组",
+          "isSaved": true,
+          "pid": "1ba2edfb-8d28-4058-9d76-4f9d53f5e613routeGroupTitle",
+          "moduleName": "label",
+          "recoveryStyles": {
+            "overflow": "hidden",
+            "height": "30px",
+            "line-height": "30px",
+            "font-size": "14px",
+            "font-weight": "bold",
+            "background-color": "#eeeeee",
+            "color": "#333333",
+            "padding-left": "20px"
+          },
+          "preprocessing": "y"
+        },
+        "routeSelectorTitle": {
+          "id": "routeSelectorTitle",
+          "type": "Label",
+          "valueType": "text",
+          "text": "选择决策",
+          "isSaved": true,
+          "pid": "1ba2edfb-8d28-4058-9d76-4f9d53f5e613routeSelectorTitle",
+          "moduleName": "label",
+          "recoveryStyles": {
+            "overflow": "hidden",
+            "height": "30px",
+            "line-height": "30px",
+            "font-size": "14px",
+            "font-weight": "bold",
+            "background-color": "#eeeeee",
+            "color": "#333333",
+            "padding-left": "20px"
+          },
+          "preprocessing": "y"
+        },
+        "routeOpinionTile": {
+          "id": "routeOpinionTile",
+          "type": "Label",
+          "valueType": "text",
+          "text": "填写意见",
+          "isSaved": true,
+          "pid": "1ba2edfb-8d28-4058-9d76-4f9d53f5e613routeOpinionTile",
+          "moduleName": "label",
+          "recoveryStyles": {
+            "overflow": "hidden",
+            "height": "30px",
+            "line-height": "30px",
+            "font-size": "14px",
+            "font-weight": "bold",
+            "background-color": "#eeeeee",
+            "color": "#333333",
+            "padding-left": "20px"
+          },
+          "preprocessing": "y"
+        },
+        "orgsTile": {
+          "id": "orgsTile",
+          "type": "Label",
+          "valueType": "text",
+          "text": "选择人员",
+          "isSaved": true,
+          "pid": "1ba2edfb-8d28-4058-9d76-4f9d53f5e613orgsTile",
+          "moduleName": "label",
+          "recoveryStyles": {
+            "overflow": "hidden",
+            "height": "30px",
+            "line-height": "30px",
+            "font-size": "14px",
+            "font-weight": "bold",
+            "background-color": "#eeeeee",
+            "color": "#333333",
+            "padding-left": "20px"
+          },
+          "preprocessing": "y"
+        },
+        "okButton": {
+          "id": "okButton",
+          "type": "Div",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "isSaved": true,
+          "pid": "1ba2edfb-8d28-4058-9d76-4f9d53f5e613div",
+          "moduleName": "div",
+          "recoveryStyles": {
+            "width": "45%",
+            "height": "3em",
+            "float": "left",
+            "margin-left": "0.5em",
+            "color": "#ffffff",
+            "background": "#3296FA",
+            "border-radius": "5px",
+            "border": "1px solid #3296FA"
+          },
+          "preprocessing": "y"
+        },
+        "cancelButton": {
+          "id": "cancelButton",
+          "type": "Div",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "isSaved": true,
+          "pid": "1ba2edfb-8d28-4058-9d76-4f9d53f5e613div",
+          "moduleName": "div",
+          "recoveryStyles": {
+            "width": "45%",
+            "height": "3em",
+            "float": "right",
+            "margin-right": "0.5em",
+            "background": "#ffffff",
+            "border-radius": "5px",
+            "border": "1px solid #dfdfdf"
+          },
+          "preprocessing": "y"
+        },
+        "okIconNode": {
+          "id": "okIconNode",
+          "type": "Div",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "isSaved": true,
+          "pid": "1ba2edfb-8d28-4058-9d76-4f9d53f5e613div",
+          "moduleName": "div",
+          "recoveryStyles": {
+            "height": "3em",
+            "width": "3em",
+            "float": "left",
+            "background": "url(/x_component_process_Work/$Processor/default/ok-18.png) no-repeat center center"
+          },
+          "preprocessing": "y"
+        },
+        "okTextNode": {
+          "id": "okTextNode",
+          "type": "Label",
+          "valueType": "text",
+          "text": "确定",
+          "isSaved": true,
+          "pid": "1ba2edfb-8d28-4058-9d76-4f9d53f5e613label",
+          "moduleName": "label",
+          "recoveryStyles": {
+            "font-size": "1em",
+            "margin-left": "3em",
+            "margin-right": "3em",
+            "line-height": "3em",
+            "text-align": "center"
+          },
+          "preprocessing": "y"
+        },
+        "cancelIconNode": {
+          "id": "cancelIconNode",
+          "type": "Div",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "isSaved": true,
+          "pid": "1ba2edfb-8d28-4058-9d76-4f9d53f5e613div",
+          "moduleName": "div",
+          "recoveryStyles": {
+            "height": "3em",
+            "width": "3em",
+            "float": "left",
+            "background": "url(/x_component_process_Work/$Processor/default/cancel-18.png) no-repeat center center"
+          },
+          "preprocessing": "y"
+        },
+        "label": {
+          "id": "label",
+          "type": "Label",
+          "valueType": "text",
+          "text": "取消",
+          "isSaved": true,
+          "pid": "1ba2edfb-8d28-4058-9d76-4f9d53f5e613label",
+          "moduleName": "label",
+          "recoveryStyles": {
+            "font-size": "1em",
+            "color": "#191F25",
+            "margin-left": "3em",
+            "margin-right": "3em",
+            "line-height": "3em",
+            "text-align": "center"
+          },
+          "preprocessing": "y"
+        },
+        "div_loadSubmitForm": {
+          "id": "div_loadSubmitForm",
+          "type": "Div",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "events": {
+              "queryLoad": {
+                "code": "",
+                "html": ""
+              },
+            "load": {
+              "code": "this.loadProcessorMobile()",
+              "html": "this.loadProcessorMobile()"
+            }
+          },
+          "properties": {
+            "text": "这里的queryLoad加载源码，load事件执行初始化"
+          },
+          "isSaved": true,
+          "pid": "Mobile3af5d031-b50b-465b-bc8c-cc13e3327549div_loadSubmitForm",
+          "moduleName": "div",
+          "recoveryStyles": {
+            "display": "none"
+          },
+          "preprocessing": "y"
+        }
+      },
+      "formStyleType": "defaultMobile",
+      "pid": "Mobile3af5d031-b50b-465b-bc8c-cc13e33275493af5d031-b50b-465b-bc8c-cc13e3327549",
+      "submitFormType": "select",
+      "isPrompt": true,
+      "promptPosition": "center",
+      "tools": [],
+      "styleConfig": {
+        "name": "手机样式",
+        "file": "styles_defaultMobile.json",
+        "mode": [
+          "pc",
+          "mobile"
+        ]
+      },
+      "languageType": "none",
+      "afterProcessAction": "close",
+      "subformList": [],
+      "$version": "5.2",
+      "submitScript": {
+        "code": "layout.mobile ? this.popupProcessorMobile() : this.popupProcessor();"
+      }
+    },
+    "html": "<div class=\"css css3af5d031b50b465bbc8ccc13e3327549\" id=\"3af5d031-b50b-465b-bc8c-cc13e3327549_undefined\" mwftype=\"form\" style=\"\"><div id=\"submitNode\" mwftype=\"div\" style=\"height: 100%; min-height: 280px; background-color: rgb(238, 238, 238);\"><div id=\"submitInnerNode\" mwftype=\"div\" style=\"\"><div id=\"submitContentWrapNode\" mwftype=\"div\" style=\"\"><div id=\"submitContentNode\" mwftype=\"div\" style=\"\"><div id=\"submitContentInnerNode\" mwftype=\"div\" style=\"\"><div id=\"routeGroupTitle\" mwftype=\"label\" style=\"overflow: hidden; height: 30px; line-height: 30px; font-size: 14px; font-weight: bold; background-color: rgb(238, 238, 238); color: rgb(51, 51, 51); padding-left: 20px;\">选择决策组</div><div id=\"routeGroupArea\" mwftype=\"div\" style=\"overflow: hidden; min-height: 40px; background-color: rgb(255, 255, 255);\"></div><div id=\"routeSelectorTitle\" mwftype=\"label\" style=\"overflow: hidden; height: 30px; line-height: 30px; font-size: 14px; font-weight: bold; background-color: rgb(238, 238, 238); color: rgb(51, 51, 51); padding-left: 20px;\">选择决策</div><div id=\"routeSelectorArea\" mwftype=\"div\" style=\"overflow: hidden; min-height: 40px; background-color: rgb(255, 255, 255);\"></div><div id=\"routeOpinionTile\" mwftype=\"label\" style=\"overflow: hidden; height: 30px; line-height: 30px; font-size: 14px; font-weight: bold; background-color: rgb(238, 238, 238); color: rgb(51, 51, 51); padding-left: 20px;\">填写意见</div><div id=\"inputOpinionNode\" mwftype=\"div\" style=\"height: 129px; border-right: 0px solid rgb(102, 129, 165); overflow: hidden; border-left: 0px solid rgb(102, 129, 165); background-color: rgb(238, 238, 238);\"><div id=\"inputTextarea\" mwftype=\"textarea\" placeholder=\"请在此处填写流程意见\" style=\"position: relative; padding-right: 2px; border: 0px solid rgb(204, 204, 204); color: rgb(102, 102, 102);\"><textarea style=\"background: rgb(255, 255, 255); width: 100%; border-width: 1px; border-style: solid; border-color: rgb(238, 238, 238) rgb(238, 238, 238) rgb(204, 204, 204); border-image: none 100% / 1 / 0 stretch; height: 120px; margin-right: 1px; font-size: 100%; resize: none; padding: 3px; overflow: hidden auto; color: rgb(102, 102, 102);\"></textarea></div><div id=\"mediaActionArea\" mwftype=\"div\" style=\"position: relative; height: 25px; line-height: 25px; top: -32px; margin-right: 5px;\"><div id=\"handwritingAction\" mwftype=\"div\" style=\"float: right; border: 1px solid rgb(102, 129, 165); border-radius: 3px; cursor: pointer; padding-left: 24px; padding-right: 5px; margin-left: 5px; background: url(&quot;/x_component_process_Work/$Processor/default/write.png&quot;) 5px center no-repeat; width: 28px; height: 25px;\">手写</div></div></div><div id=\"selectIdeaNode\" mwftype=\"div\" style=\"background-color: rgb(238, 238, 238); max-height: 200px; clear: both; overflow: hidden;\"><div id=\"selectIdeaAreaNode\" mwftype=\"div\" style=\"overflow: auto; max-height: 200px;\"></div></div><div id=\"orgsTile\" mwftype=\"label\" style=\"overflow: hidden; height: 30px; line-height: 30px; font-size: 14px; font-weight: bold; background-color: rgb(238, 238, 238); color: rgb(51, 51, 51); padding-left: 20px;\">选择人员</div><div id=\"orgsArea\" mwftype=\"div\" style=\"\"></div></div></div></div><div id=\"submitButtonNode\" mwftype=\"div\" style=\"height: 50px; overflow: hidden; clear: both; margin-top: 10px;\"><div id=\"okButton\" mwftype=\"div\" style=\"width: 45%; height: 3em; float: left; margin-left: 0.5em; color: rgb(255, 255, 255); background: rgb(50, 150, 250); border-radius: 5px; border: 1px solid rgb(50, 150, 250);\"><div id=\"okIconNode\" mwftype=\"div\" style=\"height: 3em; width: 3em; float: left; background: url(&quot;/x_component_process_Work/$Processor/default/ok-18.png&quot;) center center no-repeat;\"></div><div id=\"okTextNode\" mwftype=\"label\" style=\"font-size: 1em; margin-left: 3em; margin-right: 3em; line-height: 3em; text-align: center;\">确定</div></div><div id=\"cancelButton\" mwftype=\"div\" style=\"width: 45%; height: 3em; float: right; margin-right: 0.5em; background: rgb(255, 255, 255); border-radius: 5px; border: 1px solid rgb(223, 223, 223);\"><div id=\"cancelIconNode\" mwftype=\"div\" style=\"height: 3em; width: 3em; float: left; background: url(&quot;/x_component_process_Work/$Processor/default/cancel-18.png&quot;) center center no-repeat;\"></div><div id=\"label\" mwftype=\"label\" style=\"font-size: 1em; color: rgb(25, 31, 37); margin-left: 3em; margin-right: 3em; line-height: 3em; text-align: center;\">取消</div></div></div></div></div><div id=\"div_loadSubmitForm\" mwftype=\"div\" style=\"display: none;\">这里的queryLoad加载源码，load事件执行初始化</div></div>"
+  }
+}

@@ -1,0 +1,176 @@
+o2.xDesktop.requireApp("process.Xform", "Eldate", null, false);
+/** @class Eldatetime 基于Element UI的日期时间选择组件。
+ * @o2cn 日期时间选择
+ * @example
+ * //可以在脚本中获取该组件
+ * //方法1：
+ * var input = this.form.get("name"); //获取组件
+ * //方法2
+ * var input = this.target; //在组件事件脚本中获取
+ * @extends MWF.xApplication.process.Xform.$Module
+ * @o2category FormComponents
+ * @o2range {Process|CMS|Portal}
+ * @hideconstructor
+ * @see {@link https://element.eleme.cn/#/zh-CN/component/datetime-picker|Element UI DateTimePicker 日期时间选择器}
+ */
+MWF.xApplication.process.Xform.Eldatetime = MWF.APPEldatetime =  new Class(
+    /** @lends MWF.xApplication.process.Xform.Eldatetime# */
+    {
+    Implements: [Events],
+    Extends: MWF.APPEldate,
+    options: {
+        "moduleEvents": ["load", "queryLoad", "postLoad"],
+        /**
+         * 当 input 失去焦点时触发。this.event[0]指向组件实例
+         * @event MWF.xApplication.process.Xform.Eldatetime#blur
+         * @see {@link https://element.eleme.cn/#/zh-CN/component/datetime-picker|日期时间选择组件的Events章节}
+         */
+        /**
+         * 当 input 获得焦点时触发。this.event[0]指向组件实例
+         * @event MWF.xApplication.process.Xform.Eldatetime#focus
+         * @see {@link https://element.eleme.cn/#/zh-CN/component/datetime-picker|日期时间选择组件的Events章节}
+         */
+        /**
+         * 用户确认选定的值时触发。this.event[0]为组件绑定值；格式与绑定值一致，可受 value-format 控制
+         * @event MWF.xApplication.process.Xform.Eldatetime#change
+         * @see {@link https://element.eleme.cn/#/zh-CN/component/datetime-picker|日期时间选择组件的Events章节}
+         */
+        "elEvents": ["focus", "blur", "change"]
+    },
+    _queryLoaded: function(){
+        this._loadReadEditAbeld();
+        var data = this._getBusinessData();
+        if( data ){
+            if( ["datetimerange"].contains(this.json.selectType) ) {
+                if (typeOf(data) === "string") this._setBusinessData([data, ""]);
+            }else{
+                if( typeOf(data) === "array" )this._setBusinessData(data[0] || "");
+            }
+        }
+    },
+    __setReadonly: function(data){
+        var format = this.json.format || this.json.valueFormat;
+        if (this.isReadonly()){
+            if( o2.typeOf(data) === "array" ){
+                var ds = data.map(function (d){
+                    return this.isValidDate(d) ? this.formatDate(new Date(d), format) : d;
+                }.bind(this));
+                this.node.set("text", this.json.rangeSeparator ? ds.join(this.json.rangeSeparator) : ds );
+            }else{
+                this.node.set("text", this.isValidDate(data) ? this.formatDate(new Date(data), format) : data);
+            }
+
+            if( this.json.elProperties ){
+                this.node.set(this.json.elProperties );
+            }
+            if (this.json.elStyles){
+                this.node.setStyles( this._parseStyles(this.json.elStyles) );
+            }
+
+            if( !this.eventLoaded ){
+                this._loadDomEvents();
+                this.eventLoaded = true;
+            }
+
+            this.fireEvent("postLoad");
+            this.fireEvent("load");
+            this.isLoaded = true;
+        }
+    },
+    isValidDate: function(dateString) {
+        if( !dateString ){
+            return false;
+        }
+        var date = new Date(dateString);
+        return !isNaN(date.getTime());
+    },
+    _appendVueData: function(){
+        if (!this.json.isReadonly && !this.form.json.isReadonly) this.json.isReadonly = false;
+        if (!this.json.disabled) this.json.disabled = false;
+        if (!this.json.clearable) this.json.clearable = false;
+        if (!this.json.disabled) this.json.disabled = false;
+        if (!this.json.editable) this.json.editable = false;
+        if (!this.json.size) this.json.size = "";
+        if (!this.json.valueFormat) this.json.valueFormat = this.json.format || "";
+        if (!this.json.prefixIcon) this.json.prefixIcon = "";
+        if (!this.json.description) this.json.description = "";
+        if (!this.json.arrowControl) this.json.arrowControl = false;
+        if (!this.json.popperClass) this.json.popperClass = "";
+        this.json.pickerOptions = {
+            firstDayOfWeek: this.json.firstDayOfWeek.toInt()
+        }
+        if (this.json.disabledDate && this.json.disabledDate.code){
+            this.json.pickerOptions.disabledDate = function(date){
+                return this.form.Macro.fire(this.json.disabledDate.code, this, date);
+            }.bind(this)
+        }
+        // if(this.json.selectableRange && this.json.selectableRange.code){
+        //     this.json.pickerOptions.selectableRange = this.form.Macro.fire(this.json.selectableRange.code, this);
+        // }
+        this._setPopperClass();
+    },
+    _createElementHtml: function() {
+        var html = "<el-date-picker";
+        html += " v-model=\""+this.json.$id+"\"";
+        html += " :type=\"selectType\"";
+        html += " :readonly=\"isReadonly\"";
+        html += " :disabled=\"disabled\"";
+        html += " :editable=\"editable\"";
+        html += " :clearable=\"clearable\"";
+        html += " :size=\"size\"";
+        html += " :prefix-icon=\"prefixIcon\"";
+        html += " :range-separator=\"rangeSeparator\"";
+        html += " :start-placeholder=\"startPlaceholder\"";
+        html += " :end-placeholder=\"endPlaceholder\"";
+        html += " :value-format=\"valueFormat\"";
+        html += " :format=\"format\"";
+        html += " :picker-options=\"pickerOptions\"";
+        html += " :arrow-control=\"arrowControl\"";
+        html += " :popper-class=\"popperClass\"";
+        // html += " :picker-options=\"{" +
+            // ":firstDayOfWeek=firstDayOfWeek," +
+            // ":disabledDate=\"disabledDateFun\""+
+            // "}\"";
+
+        this.options.elEvents.forEach(function(k){
+            html += " @"+k+"=\"$loadElEvent_"+k.camelCase()+"\"";
+        });
+
+        if (this.json.elProperties){
+            Object.keys(this.json.elProperties).forEach(function(k){
+                if (this.json.elProperties[k]) html += " "+k+"=\""+this.json.elProperties[k]+"\"";
+            }, this);
+        }
+
+        if (this.json.elStyles) html += " :style=\"elStyles\"";
+
+        html += ">";
+
+        if (this.json.vueSlot) html += this.json.vueSlot;
+
+        html += "</el-date-picker>";
+        return html;
+    },
+    getInputData: function(){
+        var data = this.json[this.json.$id];
+        if( data === null ){
+            if( ["datetimerange"].contains(this.json.selectType) ) {
+                return [];
+            }else{
+                return "";
+            }
+        }
+        return this.json[this.json.$id];
+    },
+
+        getExcelData: function(){
+            var value = this.getData();
+            return o2.typeOf(value) === "array" ? value.join(", ") : value;
+        },
+        setExcelData: function(data){
+            var arr = this.stringToArray(data);
+            this.excelData = arr;
+            var value = arr.length === 0  ? arr[0] : arr;
+            this.setData(value, true);
+        }
+});

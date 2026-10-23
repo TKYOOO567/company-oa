@@ -1,0 +1,419 @@
+<div>
+    <div title="{{$.lp.base}}" class="MWFTab">
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableTitle">{{$.lp.id}}:</td>
+                <td class="editTableValue">text{$.id}</td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.createTime}}:</td>
+                <td class="editTableValue">text{$.createTime}</td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.type}}:</td>
+                <td class="editTableValue">text{$.type}</td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.name}}:</td>
+                <td class="editTableValue"><input type="text" name="name" jsondata="name" value="text{$.name}" class="editTableInput"/></td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.alias}}:</td>
+                <td class="editTableValue"><input type="text" name="alias" jsondata="alias" value="text{$.alias}" class="editTableInput"/></td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.description}}:</td>
+                <td class="editTableValue"><textarea name="description" jsondata="description" class="editTableTextarea">text{$.description}</textarea></td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.form}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFFormSelect" name="form"></div>
+                </td>
+            </tr>
+        </table>
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableValue"  colspan="2"><b>{{$.lp.allowReroute}}: </b><input class="editTableRadio" name="allowReroute" text{($.allowReroute)?'checked':''} type="radio" value="true"/>{{$.lp.yes}}
+                    <input class="editTableRadio" name="allowReroute" text{(!$.allowReroute)?'checked':''} type="radio" value="false"/>{{$.lp.no}}</td>
+            </tr>
+            <tr>
+                <td class="editTableValue"  colspan="2"><b>{{$.lp.allowRerouteTo}}: </b><input class="editTableRadio" name="allowRerouteTo" text{($.allowRerouteTo)?'checked':''} type="radio" value="true"/>{{$.lp.yes}}
+                    <input class="editTeditTableRadioableInput" class="editTableInput" name="allowRerouteTo" text{(!$.allowRerouteTo)?'checked':''} type="radio" value="false"/>{{$.lp.no}}</td>
+            </tr>
+        </table>
+        <div class="MWFMaplist" name="customData" title="{{$.lp.customData}}" data-o2-advanced="yes"></div>
+    </div>
+    <div title="{{$.lp.invoke}}" class="MWFTab">
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableTitle">{{$.lp.protocol}}:</td>
+                <td class="editTableValue">
+                    <input class="editTableRadio" onclick="if (this.checked){$('text{$.id}webserviceInvokeModeJaxrs').setStyle('display', 'none'); $('text{$.id}webserviceInvokeModeJaxws').setStyle('display', 'block')}" name="invokeMode" text{($.invokeMode=='jaxws')?'checked':''} type="radio" value="jaxws"/>jaxws
+                    <input class="editTableRadio" onclick="if (this.checked){$('text{$.id}webserviceInvokeModeJaxrs').setStyle('display', 'block'); $('text{$.id}webserviceInvokeModeJaxws').setStyle('display', 'none')}" name="invokeMode" text{($.invokeMode=='jaxrs')?'checked':''} type="radio" value="jaxrs"/>jaxrs
+                </td>
+            </tr>
+        </table>
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableTitle">{{$.lp.invokeType}}:</td>
+                <td class="editTableValue">
+                    <input type="radio" name="async" text{(!$.async)?'checked':''} value="false"/>{{$.lp.sync}}
+                    <input type="radio" name="async" text{($.async)?'checked':''} value="true"/>{{$.lp.async}}
+                </td>
+            </tr>
+        </table>
+
+        <div id="text{$.id}webserviceInvokeModeJaxws" style="display: text{($.invokeMode!='jaxrs')?'block':'none'}">
+            <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                <tr>
+                    <td class="editTableTitle">{{$.lp.wsdlAddr}}:</td>
+                    <td class="editTableValue"><input type="text" name="jaxwsAddress" value="text{$.jaxwsAddress}" class="editTableInput"/></td>
+                </tr>
+                <tr>
+                    <td class="editTableTitle">{{$.lp.method}}:</td>
+                    <td class="editTableValue"><input type="text" name="jaxwsMethod" value="text{$.jaxwsMethod}" class="editTableInput"/></td>
+                </tr>
+            </table>
+
+            <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                <tr>
+                    <td class="editTableTitle">{{$.lp.parameterScript}}:</td>
+                    <td class="editTableValue"><div class="MWFScript" name="jaxwsParameterScript"></div></td>
+                </tr>
+            </table>
+            <div class="MWFScriptText" name="jaxwsParameterScriptText" data-o2-api="../api/server.module_parameters.html#server.module_parameters"></div>
+            <div style="padding: 5px; margin-top: 5px; line-height:20px; border-top: 1px solid #cccccc">
+                {{$.lp.setParameterInfo2}}<br>
+                <a href="../api/server.module_parameters.html#server.module_parameters" target="_blank">{{$.lp.apiDoc}}</a>
+            </div>
+
+<!--            <div style="margin-left: 10px; line-height:20px">{{$.lp.addParameter}}: <font style="color: #e40000">this</font><font style="color: #666666">.parameters.add( par )</font></div>-->
+<!--            <div style="margin-left: 10px; line-height:20px">{{$.lp.deleteParameter}}: <font style="color: #e40000">this</font><font style="color: #666666">.parameters.remove( index )</font></div>-->
+            <hr />
+            <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                <tr>
+                    <td class="editTableTitle">{{$.lp.responseScript}}:</td>
+                    <td class="editTableValue"> <div class="MWFScript" name="jaxwsResponseScript"></div></td>
+                </tr>
+            </table>
+            <div class="MWFScriptText" name="jaxwsResponseScriptText" data-o2-api="../api/server.module_response.html#server.module_response"></div>
+            <div style="padding: 5px; margin-top: 5px; line-height:20px; border-top: 1px solid #cccccc">
+                <div style="line-height:26px">{{$.lp.use}} <font style="color: #e40000">this</font><font style="color: #666666">.response.get()</font>{{$.lp.getJaxws}}</div>
+                <a href="../api/server.module_response.html#server.module_response" target="_blank">{{$.lp.apiDoc}}</a>
+            </div>
+
+
+        </div>
+        <div id="text{$.id}webserviceInvokeModeJaxrs" style="display: text{($.invokeMode=='jaxrs')?'block':'none'}">
+            <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                <tr>
+                    <td class="editTableTitle">{{$.lp.systemRequest}}:</td>
+                    <td class="editTableValue">
+                        <input type="radio" onclick="if (this.checked){$('text{$.id}webserviceInvokeInternalProjectJaxrs').setStyle('display', 'block');}" name="internal" text{($.internal)?'checked':''} value="true"/>{{$.lp.yes}}
+                        <input type="radio" onclick="if (this.checked){$('text{$.id}webserviceInvokeInternalProjectJaxrs').setStyle('display', 'none');}" name="internal" text{(!$.internal)?'checked':''} value="false"/>{{$.lp.no}}
+                    </td>
+                </tr>
+            </table>
+
+            <div id="text{$.id}webserviceInvokeInternalProjectJaxrs" style="display: text{($.internal===true) ? 'block': 'none'} ">
+                <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                    <tr>
+                        <td class="editTableTitle">{{$.lp.application}}:</td>
+                        <td class="editTableValue"><div class="MWFContextRoot" name="internalProject"></div></td>
+                    </tr>
+                </table>
+            </div>
+
+            <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                <tr>
+                    <td class="editTableTitle">{{$.lp.restAddr}}:</td>
+                    <td class="editTableValue"><input type="text" name="jaxrsAddress" value="text{$.jaxrsAddress}" class="editTableInput"/></td>
+                </tr>
+                <tr>
+                    <td class="editTableTitle">{{$.lp.method}}:</td>
+                    <td class="editTableValue">
+                        <select name="jaxrsMethod">
+                            <option value="GET" text{($.jaxrsMethod=='GET')?'selected':''}>GET</option>
+                            <option value="POST" text{($.jaxrsMethod=='POST')?'selected':''}>POST</option>
+                            <option value="PUT" text{($.jaxrsMethod=='PUT')?'selected':''}>PUT</option>
+                            <option value="DELETE" text{($.jaxrsMethod=='DELETE')?'selected':''}>DELETE</option>
+                            <option value="HEAD" text{($.jaxrsMethod=='HEAD')?'selected':''}>HEAD</option>
+                            <option value="TRACE" text{($.jaxrsMethod=='TRACE')?'selected':''}>TRACE</option>
+                            <option value="OPTIONS" text{($.jaxrsMethod=='OPTIONS')?'selected':''}>OPTIONS</option>
+                            <option value="CONNECT" text{($.jaxrsMethod=='CONNECT')?'selected':''}>CONNECT</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="editTableTitle">ContentType:</td>
+                    <td class="editTableValue"><input type="text" name="jaxrsContentType" value="text{$.jaxrsContentType}" class="editTableInput"/></td>
+                </tr>
+            </table>
+
+            <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                <tr>
+                    <td class="editTableTitle">{{$.lp.parameterScript}}:</td>
+                    <td class="editTableValue"><div class="MWFScript" name="jaxrsParameterScript"></div></td>
+                </tr>
+            </table>
+            <div class="MWFScriptText" name="jaxrsParameterScriptText" data-o2-api="../api/server.module_parameters.html#server.module_parameters"></div>
+
+<!--            <div style="margin-left: 10px; line-height:20px">{{$.lp.addParameter}}: <br>-->
+<!--                <font style="color: #e40000">return</font><font style="color: #666666"> {<br>-->
+<!--                <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>key1: "value",<br>-->
+<!--                <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>key2: "value"<br>-->
+<!--                }</font></div>-->
+<!--            <div style="margin-left: 10px; line-height:20px">{{$.lp.deleteParameter}}: <font style="color: #e40000">this</font><font style="color: #666666">.parameters.remove( key )</font></div>-->
+            <div style="padding: 5px; margin-top: 5px; line-height:20px; border-top: 1px solid #cccccc">
+                {{$.lp.setParameterInfo}}<br>
+                <a href="../api/server.module_parameters.html#server.module_parameters" target="_blank">{{$.lp.apiDoc}}</a>
+            </div>
+
+            <hr />
+            <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                <tr>
+                    <td class="editTableTitle">{{$.lp.requestBodyScript}}:</td>
+                    <td class="editTableValue"><div class="MWFScript" name="jaxrsBodyScript"></div></td>
+                </tr>
+            </table>
+            <div class="MWFScriptText" name="jaxrsBodyScriptText" data-o2-api="../api/server.module_body.html#server.module_body"></div>
+
+            <div style="padding: 5px; margin-top: 5px; line-height:20px; border-top: 1px solid #cccccc">
+                {{$.lp.setRequestBodyInfo}}<br>
+                <a href="../api/server.module_body.html#server.module_body" target="_blank">{{$.lp.apiDoc}}</a>
+            </div>
+
+<!--            <div style="margin-left: 10px; line-height:20px">{{$.lp.setRequestBody}}: <font style="color: #e40000">this</font><font style="color: #666666">.body.set( value )</font></div>-->
+            <hr />
+            <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                <tr>
+                    <td class="editTableTitle">{{$.lp.requestHeaderScript}}:</td>
+                    <td class="editTableValue"><div class="MWFScript" name="jaxrsHeadScript"></div></td>
+                </tr>
+            </table>
+            <div class="MWFScriptText" name="jaxrsHeadScriptText" data-o2-api="../api/server.module_headers.html#server.module_headers"></div>
+
+            <div style="padding: 5px; margin-top: 5px; line-height:20px; border-top: 1px solid #cccccc">
+                {{$.lp.setRequestBodyInfo}}<br>
+                <a href="../api/server.module_headers.html#server.module_headers" target="_blank">{{$.lp.apiDoc}}</a>
+            </div>
+
+<!--            <div style="margin-left: 10px; line-height:20px">{{$.lp.addHeader}}：<br><font style="color: #e40000">this</font><font style="color: #666666">.headers.put( key, value )</font><br>或<br><font style="color: #e40000">this</font><font style="color: #666666">.headers.put({"key1": "value1", "key2": "value2"})</font></div>-->
+
+<!--            <div style="margin-left: 10px; line-height:20px">{{$.lp.delHeader}}：<font style="color: #e40000">this</font><font style="color: #666666">.headers.remove( key )</font></div>-->
+            <hr />
+            <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                <tr>
+                    <td class="editTableTitle">{{$.lp.responseScript}}:</td>
+                    <td class="editTableValue"> <div class="MWFScript" name="jaxrsResponseScript"></div></td>
+                </tr>
+            </table>
+            <div class="MWFScriptText" name="jaxrsResponseScriptText" data-o2-api="../api/server.module_response.html#server.module_response"></div>
+
+
+            <div style="padding: 5px; margin-top: 5px; line-height:20px; border-top: 1px solid #cccccc">
+                <div>{{$.lp.use"}} <font style="color: #e40000">this</font><font style="color: #666666">.response.get()</font> {{$.lp.getJson}}</div>
+                <a href="../api/server.module_response.html#server.module_response" target="_blank">{{$.lp.apiDoc}}</a>
+            </div>
+
+        </div>
+    </div>
+
+    <div title="{{$.lp.person}}"  class="MWFTab">
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableHeadTitle" colspan="2">{{$.lp.reader}}</td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.readerId}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFPersonIdentity" name="readIdentityList" type="identity"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.unit}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFPersonUnit" name="readUnitList"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.duty}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFDutySelector" name="readDuty"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.processData}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFFormFieldPerson" name="readDataPathList"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.script}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFScript" name="readScript"></div>
+                </td>
+            </tr>
+        </table>
+        <div class="MWFScriptText" name="readScriptText"></div>
+        <hr />
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableHeadTitle" colspan="2">{{$.lp.reviewer}}</td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.reviewerId}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFPersonIdentity" name="reviewIdentityList" type="identity"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.unit}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFPersonUnit" name="reviewUnitList"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.duty}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFDutySelector" name="reviewDuty"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.processData}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFFormFieldPerson" name="reviewDataPathList"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.script}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFScript" name="reviewScript"></div>
+                </td>
+            </tr>
+        </table>
+        <div class="MWFScriptText" name="reviewScriptText"></div>
+    </div>
+    <div title="{{$.lp.event}}"  class="MWFTab" data-o2-advanced="yes">
+        <div onclick="var node = this.getNext(); if (node.getStyle('display')=='none'){node.setStyle('display', 'block');}else{node.setStyle('display', 'none');}" style="cursor: pointer; line-height: 28px; height: 30px; font-weight: bold; background-color: #EEEEEE;">
+            <div style="height: 30px; width: 30px; float: left; background: url(../x_component_process_ProcessDesigner/$Process/text{($.beforeArriveScript || $.beforeArriveScriptText) ? "event_code" : "event"}.png) no-repeat center center;"></div>
+        <div style="margin-left: 20px; padding: 0px 5px;">{{$.lp.beforeWorkArrive}}</div>
+    </div>
+
+    <div style="display: none; overflow:hidden; border-left: 10px solid #EEEEEE; border-bottom: 10px solid #EEEEEE;">
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableTitle">{{$.lp.beforeArriveActivity}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFScript" name="beforeArriveScript"></div>
+                </td>
+            </tr>
+        </table>
+        <div class="MWFScriptText" name="beforeArriveScriptText"></div><hr />
+    </div>
+    <div style="line-height: 20px; height: 46px; border-bottom: 1px solid #CCCCCC; border-top: 1px solid #CCCCCC; background-color:#f6f6f6;">
+        <div style="height: 46px; width: 30px; float: left; background: url(../x_component_process_ProcessDesigner/$Process/down.png) no-repeat center center;"></div>
+        <div style="margin-left: 20px; padding: 3px 10px; text-align: center; color: #666666;">{{$.lp.eventInfo2}}</div>
+    </div>
+
+    <div onclick="var node = this.getNext(); if (node.getStyle('display')=='none'){node.setStyle('display', 'block');}else{node.setStyle('display', 'none');}" style="cursor: pointer; line-height: 28px; height: 30px; font-weight: bold; background-color: #EEEEEE;">
+        <div style="height: 30px; width: 30px; float: left; background: url(../x_component_process_ProcessDesigner/$Process/text{($.afterArriveScript || $.afterArriveScriptText) ? "event_code" : "event"}.png) no-repeat center center;"></div>
+    <div style="margin-left: 20px; padding: 0px 5px;">{{$.lp.afterArriveActivity}}</div>
+</div>
+<div style="display: none; overflow:hidden; border-left: 10px solid #EEEEEE; border-bottom: 10px solid #EEEEEE;">
+    <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+        <tr>
+            <td class="editTableTitle">{{$.lp.afterArriveActivity}}:</td>
+            <td class="editTableValue">
+                <div class="MWFScript" name="afterArriveScript"></div>
+            </td>
+        </tr>
+    </table>
+    <div class="MWFScriptText" name="afterArriveScriptText"></div><hr />
+</div>
+
+<div style="line-height: 20px; height: 26px; border-bottom: 1px solid #CCCCCC; border-top: 1px solid #CCCCCC">
+    <div style="height: 26px; background: url(../x_component_process_ProcessDesigner/$Process/down16.png) no-repeat center center;"></div>
+</div>
+
+<div onclick="var node = this.getNext(); if (node.getStyle('display')=='none'){node.setStyle('display', 'block');}else{node.setStyle('display', 'none');}" style="cursor: pointer; line-height: 28px; height: 30px; font-weight: bold; background-color: #EEEEEE;">
+    <div style="height: 30px; width: 30px; float: left; background: url(../x_component_process_ProcessDesigner/$Process/text{($.beforeExecuteScript || $.beforeExecuteScriptText) ? "event_code" : "event"}.png) no-repeat center center;"></div>
+<div style="margin-left: 20px; padding: 0px 5px;">{{$.lp.beforeExecute}}</div>
+</div>
+<div style="display: none; overflow:hidden; border-left: 10px solid #EEEEEE; border-bottom: 10px solid #EEEEEE;">
+    <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+        <tr>
+            <td class="editTableTitle">{{$.lp.beforeExecute}}:</td>
+            <td class="editTableValue">
+                <div class="MWFScript" name="beforeExecuteScript"></div>
+            </td>
+        </tr>
+    </table>
+    <div class="MWFScriptText" name="beforeExecuteScriptText"></div><hr />
+</div>
+
+<div style="line-height: 20px; height: 46px; border-bottom: 1px solid #CCCCCC; border-top: 1px solid #CCCCCC; background-color:#f6f6f6;">
+    <div style="height: 46px; width: 30px; float: left; background: url(../x_component_process_ProcessDesigner/$Process/down.png) no-repeat center center;"></div>
+    <div style="margin-left: 20px; padding: 3px 10px; text-align: center; color: #666666;">{{$.lp.eventInfo3}}</div>
+</div>
+
+<div onclick="var node = this.getNext(); if (node.getStyle('display')=='none'){node.setStyle('display', 'block');}else{node.setStyle('display', 'none');}" style="cursor: pointer; line-height: 28px; height: 30px; font-weight: bold; background-color: #EEEEEE;">
+    <div style="height: 30px; width: 30px; float: left; background: url(../x_component_process_ProcessDesigner/$Process/text{($.afterExecuteScript || $.afterExecuteScriptText) ? "event_code" : "event"}.png) no-repeat center center;"></div>
+<div style="margin-left: 20px; padding: 0px 5px;">{{$.lp.afterExecute}}</div>
+</div>
+<div style="display: none; overflow:hidden; border-left: 10px solid #EEEEEE; border-bottom: 10px solid #EEEEEE;">
+    <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+        <tr>
+            <td class="editTableTitle">{{$.lp.afterExecute}}:</td>
+            <td class="editTableValue">
+                <div class="MWFScript" name="afterExecuteScript"></div>
+            </td>
+        </tr>
+    </table>
+    <div class="MWFScriptText" name="afterExecuteScriptText"></div><hr />
+</div>
+
+<div style="line-height: 20px; height: 26px; border-bottom: 1px solid #CCCCCC; border-top: 1px solid #CCCCCC">
+    <div style="height: 26px; background: url(../x_component_process_ProcessDesigner/$Process/down16.png) no-repeat center center;"></div>
+</div>
+
+<div onclick="var node = this.getNext(); if (node.getStyle('display')=='none'){node.setStyle('display', 'block');}else{node.setStyle('display', 'none');}" style="cursor: pointer; line-height: 28px; height: 30px; font-weight: bold; background-color: #EEEEEE;">
+    <div style="height: 30px; width: 30px; float: left; background: url(../x_component_process_ProcessDesigner/$Process/text{($.beforeInquireScript || $.beforeInquireScriptText) ? "event_code" : "event"}.png) no-repeat center center;"></div>
+<div style="margin-left: 20px; padding: 0px 5px;">{{$.lp.beforeInquire}}</div>
+</div>
+<div style="display: none; overflow:hidden; border-left: 10px solid #EEEEEE; border-bottom: 10px solid #EEEEEE;">
+    <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+        <tr>
+            <td class="editTableTitle">{{$.lp.beforeInquire}}:</td>
+            <td class="editTableValue">
+                <div class="MWFScript" name="beforeInquireScript"></div>
+            </td>
+        </tr>
+    </table>
+    <div class="MWFScriptText" name="beforeInquireScriptText"></div><hr />
+</div>
+
+<div style="line-height: 20px; height: 46px; border-bottom: 1px solid #CCCCCC; border-top: 1px solid #CCCCCC; background-color:#f6f6f6;">
+    <div style="height: 46px; width: 30px; float: left; background: url(../x_component_process_ProcessDesigner/$Process/down.png) no-repeat center center;"></div>
+    <div style="margin-left: 20px; padding: 3px 10px; text-align: center; color: #666666;">{{$.lp.eventInfo4}}</div>
+</div>
+
+<div onclick="var node = this.getNext(); if (node.getStyle('display')=='none'){node.setStyle('display', 'block');}else{node.setStyle('display', 'none');}" style="cursor: pointer; line-height: 28px; height: 30px; font-weight: bold; background-color: #EEEEEE;">
+    <div style="height: 30px; width: 30px; float: left; background: url(../x_component_process_ProcessDesigner/$Process/text{($.afterInquireScript || $.afterInquireScriptText) ? "event_code" : "event"}.png) no-repeat center center;"></div>
+<div style="margin-left: 20px; padding: 0px 5px;">{{$.lp.afterInquire}}</div>
+</div>
+<div style="display: none; overflow:hidden; border-left: 10px solid #EEEEEE; border-bottom: 10px solid #EEEEEE;">
+    <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+        <tr>
+            <td class="editTableTitle">{{$.lp.afterInquire}}:</td>
+            <td class="editTableValue">
+                <div class="MWFScript" name="afterInquireScript"></div>
+            </td>
+        </tr>
+    </table>
+    <div class="MWFScriptText" name="afterInquireScriptText"></div><hr />
+</div>
+
+</div>
+</div>

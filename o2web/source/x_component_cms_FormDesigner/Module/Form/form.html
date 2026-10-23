@@ -1,0 +1,181 @@
+<div style="background-color: #FFF; overflow: hidden">
+	<div title="{{$.lp.base}}" class="MWFTab">
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableTitle">{{$.lp.id}}:</td>
+                <td class="editTableValue">text{$.id}</td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.name}}:</td>
+                <td class="editTableValue"><input type="text" name="name" value="text{$.name}" class="editTableInput"/></td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.description}}:</td>
+                <td class="editTableValue"><input type="text" name="description" value="text{$.description}" class="editTableInput"/></td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.readonly}}:</td>
+                <td class="editTableValue">
+                    <input type="radio" name="isReadonly" value="true" text{($.isReadonly)?'checked':''}/>{{$.lp.yes}}
+                    <input type="radio" name="isReadonly" value="false" text{(!$.isReadonly)?'checked':''}/>{{$.lp.no}}
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.formStyle}}:</td>
+                <td class="editTableValue">
+<!--                    <select class="MWFFormStyle" name="formStyleType"></select>-->
+                    <div class="MWFFormStyleSelect" name="formStyleType"></div>
+                    <div class="MWFScriptSelectRefresh"></div>
+                    <br/>
+                    <input class="editTableRadio" name="forceClearCustomStyle" type="checkbox" value="yes"/>{{$.lp.forceClearCustomStyle}}
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.icon}}:</td>
+                <td class="editTableValue"><div class="MWFIcon" name="formIcon"></div></td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.printForm}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFFormSelect" name="printForm"></div>
+                </td>
+            </tr>
+        </table>
+
+        <div style="height:24px; text-align: center; line-height: 24px; background-color: #EEE; border-top: 1px solid #999;font-weight:bold;">{{$.lp.preloadScript}}</div>
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableTitle">{{$.lp.script}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFScriptSelect" data-count=0 name="includeScripts"></div>
+                    <div class="MWFScriptSelectAction"><div style="color: #0b58a2; cursor: pointer; float: left">{{$.lp.copy}}</div><div style="color: #0b58a2; cursor: pointer; float: left; margin-left:10px">{{$.lp.paste}}</div></div>
+                </td>
+            </tr>
+        </table>
+
+		<!--<div class="MWFArraylist" name="cssLinks" title="CSS引用"></div>-->
+		<!--<div class="MWFArraylist" name="scriptSrc" title="JS引用"></div>-->
+
+		<div class="MWFMaplist" name="styles" title="{{$.lp.style}}"></div>
+		<div class="MWFMaplist" name="properties" title="{{$.lp.attribute}}"></div>
+
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableTitle">CSS Url:</td>
+                <td class="editTableValue"><input type="text" name="cssUrl" value="text{$.cssUrl}" class="editTableInput"/></td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">CSS Script:</td>
+                <td class="editTableValue">
+                    <div class="MWFScriptSelect" data-name-filter=".*\.css$" data-count=0 name="cssScript"></div>
+                    <div class="MWFScriptSelectAction"><div style="color: #0b58a2; cursor: pointer; float: left">{{$.lp.copy}}</div><div style="color: #0b58a2; cursor: pointer; float: left; margin-left:10px">{{$.lp.paste}}</div></div>
+                </td>
+            </tr>
+        </table>
+
+        <div class="MWFCssArea" name="css" title="CSS"></div>
+
+		<!--<div class="MWFScriptArea" name="jsheader" title="JS Header"></div>-->
+
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableTitle">{{$.lp.language}}:</td>
+                <td class="editTableValue">
+                     <input class="editTableRadio" onclick="if (this.checked){ $('text{$.pid}languageDefaultDictArea').setStyle('display', 'none'); $('text{$.pid}languageDefaultScriptArea').setStyle('display', 'none'); $('text{$.pid}languageScriptArea').setStyle('display', 'none');}" name="languageType" text{($.languageType!=='default' && $.languageType!=='script' && $.languageType!=='lib' && $.languageType!=='dict')?'checked':''} type="radio" value="none"/>{{$.lp.none}}
+<!--                    <input class="editTableRadio" onclick="if (this.checked){ $('text{$.pid}languageDefaultArea').setStyle('display', 'block'); $('text{$.pid}languageScriptArea').setStyle('display', 'none');}" name="languageType" text{($.languageType==='default')?'checked':''} type="radio" value="default"/>{{$.lp.default}}-->
+                    <input class="editTableRadio" onclick="if (this.checked){ $('text{$.pid}languageDefaultDictArea').setStyle('display', 'none'); $('text{$.pid}languageDefaultScriptArea').setStyle('display', 'block'); $('text{$.pid}languageScriptArea').setStyle('display', 'none');}" name="languageType" text{($.languageType==='lib')?'checked':''} type="radio" value="lib"/>{{$.lp.scriptLib}}
+                    <input class="editTableRadio" onclick="if (this.checked){ $('text{$.pid}languageDefaultDictArea').setStyle('display', 'block'); $('text{$.pid}languageDefaultScriptArea').setStyle('display', 'none'); $('text{$.pid}languageScriptArea').setStyle('display', 'none');}" name="languageType" text{($.languageType==='dict')?'checked':''} type="radio" value="dict"/>{{$.lp.dict}}
+                    <input class="editTableRadio" onclick="if (this.checked){ $('text{$.pid}languageDefaultDictArea').setStyle('display', 'none'); $('text{$.pid}languageScriptArea').setStyle('display', 'block'); $('text{$.pid}languageDefaultScriptArea').setStyle('display', 'none'); }" name="languageType" text{($.languageType==='script')?'checked':''} type="radio" value="script"/>{{$.lp.byScript}}
+                </td>
+            </tr>
+        </table>
+        <div id="text{$.pid}languageDefaultScriptArea" style="display: text{($.languageType==='lib')?'block':'none'}">
+            <div style="padding: 5px;">{{$.lp.languageDefaultInfoScript}}</div>
+        </div>
+        <div id="text{$.pid}languageDefaultDictArea" style="display: text{($.languageType==='dict')?'block':'none'}">
+            <div style="padding: 5px;">{{$.lp.languageDefaultInfoDict}}</div>
+        </div>
+        <div id="text{$.pid}languageScriptArea" style="display: text{($.languageType=='script')?'block':'none'}">
+            <div class="MWFScriptArea" name="languageScript" title="{{$.lp.languageScript}}"></div>
+            <div style="padding: 5px;">{{$.lp.languageInfo}}</div>
+        </div>
+
+        <div class="MWFScriptArea" name="validationSave" title="{{$.lp.validationSave}} (S)"></div>
+        <div class="MWFScriptArea" name="validationPublish" title="{{$.lp.validationPublish}} (S)"></div>
+
+	</div>
+    <div title="{{$.lp.action}}"  class="MWFTab" style="overflow: hidden; display: text{($.mode=='Mobile')?'block':'block'}">
+<!--        <div class="MWFDefaultActionArea" name="defaultTools" data-target="mobileForm"></div>-->
+<!--        <div class="MWFActionArea" name="tools"></div>-->
+        <div style="padding: 5px;color:#999;">{{$.lp.formActionNotice}}</div>
+        <div class="MWFMultiActionArea" name="multiTools" data-systemToolsAddress="../x_component_cms_FormDesigner/Module/Form/toolbars.json"></div>
+    </div>
+	<div title="{{$.lp.event}}"  class="MWFTab">
+        <div style="padding: 5px;color:#999;">{{$.lp.noEventInfo}}</div>
+		<div class="MWFEventsArea" name="events"></div>
+	</div>
+    <div title="{{$.lp.notice}}" class="MWFTab">
+        <div style="min-height:24px; padding-left: 10px; line-height: 24px; background-color: #fff; border-top: 1px solid #999;color:#999999;font-size: 12px;">{{$.lp.noticeInfo}}</div>
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableTitle">{{$.lp.noticeRange}}:</td>
+                <td class="editTableValue">
+                    <input class="editTableRadio" onclick="if (this.checked){
+                        $('text{$.pid}noticeByReaderArea').setStyle('display', '');
+                        $('text{$.pid}noticeByCustomArea').setStyle('display', 'none');
+                    }" name="noticeType" text{($.noticeType!=='custom')?'checked':''} type="radio" value="reader"/>{{$.lp.noticeByReader}} <br/>
+                    <input class="editTableRadio" onclick="if (this.checked){
+                        $('text{$.pid}noticeByReaderArea').setStyle('display', 'none');
+                        $('text{$.pid}noticeByCustomArea').setStyle('display', '');
+                    }" name="noticeType" text{($.noticeType==='custom')?'checked':''} type="radio" value="custom"/>{{$.lp.noticeByCustom}}
+                </td>
+            </tr>
+        </table>
+        <div id="text{$.pid}noticeByReaderArea" style="display: text{($.noticeType!=='custom')?'block':'none'}">
+            <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                <tr>
+                    <td class="editTableValue">
+                        <input type="radio" name="blankToAllNotify" value="yes" text{($.blankToAllNotify !=='no')?'checked':''}/>{{$.lp.blankToAllNotify}} <br/>
+                        <input type="radio" name="blankToAllNotify" value="no" text{($.blankToAllNotify ==='no')?'checked':''}/>{{$.lp.blankNotToAllNotify}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="text{$.pid}noticeByCustomArea" style="display: text{($.noticeType==='custom')?'block':'none'}">
+            <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                <tr>
+                    <td class="editTableTitle">{{$.lp.specificValue}}:</td>
+                    <td class="editTableValue">
+                        <div class="MWFPersonMultiple" data-types="unit,group,identity" name="noticeSpecificList"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="editTableTitle">{{$.lp.formField}}:</td>
+                    <td class="editTableValue">
+                        <div class="MWFCMSFormFieldPerson" name="noticeFormFieldList"></div>
+                    </td>
+                </tr>
+            </table>
+            <div class="MWFScriptArea" title="{{$.lp.script}}" name="noticeScript"></div>
+        </div>
+
+        <div>
+            <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                <tr>
+                    <td class="editTableTitle">{{$.lp.notifyCreatePerson}}:</td>
+                    <td class="editTableValue">
+                        <input type="radio" name="notifyCreatePerson" value="yes" text{($.notifyCreatePerson !=='no')?'checked':''}/>{{$.lp.yes}}
+                        <input type="radio" name="notifyCreatePerson" value="no" text{($.notifyCreatePerson ==='no')?'checked':''}/>{{$.lp.no}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div title="HTML"  class="MWFTab">
+        <div class="MWFHTMLArea" style="font-family: Verdana, Geneva, sans-serif; font-size:14px"></div>
+    </div>
+	<div title="JSON"  class="MWFTab">
+		<div class="MWFJSONArea" style="font-family: Verdana, Geneva, sans-serif; font-size:14px"></div>
+	</div>
+</div>

@@ -1,0 +1,66 @@
+{
+
+//  "toolbarContent" : {
+//    "float" : "left",
+//    "border-bottom" : "1px solid #e8e8e8",
+//    "height" :"38px",
+//    "overflow" : "hidden"
+//  },
+  "arrowNode" : {
+    "width": "20px",
+    "margin-top" : "7px",
+    "height": "25px",
+    "line-height" : "25px",
+    "cursor" : "pointer",
+    "background":"url(../x_component_Attendance/$AddressExplorer/default/icon/down.png) center center no-repeat",
+    "float" : "left",
+    "background-color" : "#fff"
+  },
+  "arrowNode_over" : {
+    "background":"url(../x_component_Attendance/$AddressExplorer/default/icon/down.png) center center no-repeat",
+    "background-color" : "#eee"
+  },
+  "arrowNode_down" : {
+    "background":"url(../x_component_Attendance/$AddressExplorer/default/icon/up.png) center center no-repeat",
+    "background-color" : "#fff"
+  },
+  "arrowNode_down_over" : {
+    "background":"url(../x_component_Attendance/$AddressExplorer/default/icon/up.png) center center no-repeat",
+    "float" : "left",
+    "background-color" : "#eee"
+  },
+  "wdList" : {
+    "margin-top" : "0px",
+    "padding-left":"5px",
+    "float" : "left",
+    "position" : "static",
+    "border":"0"
+  },
+  "wdList_all" : {
+    "position" : "absolute",
+    "margin-top" : "5px",
+    "border-left" : "1px solid #eee",
+    "border-right" : "1px solid #eee",
+    "border-bottom" : "1px solid #eee",
+//    "background-color" : "#fff",
+    "z-index" : "10000"
+  },
+
+
+  "editTableHead" : {
+    "height": "50px",
+    "line-height": "50px",
+    "text-align": "center",
+    "min-width": "80px",
+    "font-size":"20px",
+    "font-weight": "bold"
+  },
+  "editTableTitle" : {
+    "height": "30px",
+    "line-height": "30px",
+    "text-align": "left"
+  },
+  "editTableValue" : {
+    "text-align": "left"
+  }
+}

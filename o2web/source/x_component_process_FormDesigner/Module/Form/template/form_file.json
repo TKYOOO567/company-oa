@@ -1,0 +1,1922 @@
+{
+  "pcData":{
+    "json": {
+      "id": "",
+      "name": "公文样式模板",
+      "type": "Form",
+      "mode": "PC",
+      "application": "",
+      "applicationName": "",
+      "styles": {
+        "background-color": "#ffffff",
+        "font-family": "宋体"
+      },
+      "cssLinks": [],
+      "scriptSrc": [],
+      "submitScript": {
+        "code": "layout.mobile ? this.popupProcessorMobile() : this.popupProcessor();"
+      },
+      "moduleList": {
+        "actionbar": {
+          "id": "actionbar",
+          "type": "Actionbar",
+          "tools": [],
+          "style": "xform_red_simple",
+          "hideSystemTools": false,
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264actionbar",
+          "moduleName": "actionbar",
+          "actionStyles": {
+            "container": {
+              "background-color": "#fff",
+              "padding-top": "6px",
+              "padding-bottom": "1px",
+              "padding-left": "10px",
+              "padding-right": "2px",
+              "word-wrap": "normal",
+              "word-break": "keep-all",
+              "cursor": "pointer",
+              "overflow": "hidden",
+              "height": "auto",
+              "display": "block",
+              "font-size": "14px",
+              "border-top": "2px solid #cc3d3d"
+            },
+            "toolbarSeparator": {
+              "display": "block",
+              "float": "left",
+              "margin-bottom": "5px",
+              "margin-top": "5px",
+              "height": "22px",
+              "width": "1px",
+              "background-color": "#888888",
+              "border-right": "1px solid #FFFFFF",
+              "overflow": "hidden"
+            },
+            "button": {
+              "display": "block",
+              "position": "static",
+              "float": "left",
+              "border": "1px solid #fff",
+              "color": "inherit",
+              "background-color": "#fff",
+              "height": "30px",
+              "margin-right": "8px",
+              "padding-left": "2px",
+              "padding-right": "2px",
+              "cursor": "pointer",
+              "border-radius": "5px"
+            },
+            "buttonImgDiv": {
+              "display": "block",
+              "float": "left",
+              "padding-top": "7px",
+              "padding-bottom": "1px",
+              "padding-left": "1px",
+              "padding-right": "1px",
+              "cursor": "pointer"
+            },
+            "buttonImg": {
+              "height": "16px",
+              "width": "16px",
+              "cursor": "pointer",
+              "margin-top": "0px"
+            },
+            "buttonTextDiv": {
+              "display": "block",
+              "float": "left",
+              "height": "30px",
+              "padding-left": "2px",
+              "padding-right": "2px",
+              "line-height": "30px",
+              "cursor": "pointer",
+              "color": "#000000"
+            },
+            "buttonDisable": {
+              "color": "#999"
+            },
+            "buttonImgDivDisable": {
+              "color": "#999"
+            },
+            "buttonTextDivDisable": {
+              "color": "#999"
+            },
+            "buttonOver": {
+              "color": "inherit",
+              "background-color": "#e7e7e7"
+            },
+            "buttonOut": {
+              "color": "inherit",
+              "background-color": "#fff"
+            },
+            "buttonDown": {
+              "background-color": "#f0f0f0"
+            },
+            "buttonUp": {
+              "background-color": "#e7e7e7"
+            },
+            "toolbarButtonDownNode": {
+              "display": "block",
+              "float": "left",
+              "padding-left": "2px",
+              "padding-right": "2px",
+              "padding-top": "5px",
+              "height": "18px",
+              "color": "#ff0000",
+              "cursor": "pointer"
+            }
+          },
+          "preprocessing": "y"
+        },
+        "div": {
+          "id": "div",
+          "type": "Div",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "isSaved": true,
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264div",
+          "moduleName": "div",
+          "recoveryStyles": {
+            "width": "1000px",
+            "margin": "20px auto"
+          },
+          "preprocessing": "y"
+        },
+        "label": {
+          "id": "label",
+          "type": "Label",
+          "valueType": "script",
+          "script": {
+            "code": "return this.workContext.getWork().processName",
+            "html": "return this.workContext.getWork().processName"
+          },
+          "isSaved": true,
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264label",
+          "templateType": "title",
+          "moduleName": "label",
+          "recoveryStyles": {
+            "text-align": "center",
+            "font-size": "36px",
+            "line-height": "60px",
+            "font-weight": "bold",
+            "color": "#fd1113",
+            "height": "60px",
+            "font-family": "宋体"
+          },
+          "preprocessing": "y"
+        },
+        "table": {
+          "id": "table",
+          "type": "Table",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "properties": {
+            "width": "100%",
+            "border": "0",
+            "cellpadding": "5",
+            "align": "center"
+          },
+          "styles": {
+            "border": "1px solid #fd1113"
+          },
+          "titleTdStyles": {
+            "background-color": "#fff",
+            "color": "#fd1113",
+            "font-weight": "bold",
+            "height": "30px",
+            "line-height": "30px",
+            "text-align": "center",
+            "font-size": "18px"
+          },
+          "contentTdStyles": {
+            "background-color": "#FFFFFF",
+            "color": "#333",
+            "font-size": "18px",
+            "min-height": "30px"
+          },
+          "initialized": "yes",
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264table",
+          "moduleName": "table",
+          "recoveryStyles": {
+            "background-color": "#FFF",
+            "border": "1px solid #fd1113"
+          },
+          "preprocessing": "y"
+        },
+        "table_table$Td": {
+          "id": "table_table$Td",
+          "type": "Table$Td",
+          "isSaved": true,
+          "moduleName": "table$Td",
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264table_table$Td",
+          "cellType": "title",
+          "recoveryStyles": {
+            "width": "120px"
+          },
+          "preprocessing": "y"
+        },
+        "table_table$Td_1": {
+          "id": "table_table$Td_1",
+          "type": "Table$Td",
+          "isSaved": true,
+          "moduleName": "table$Td",
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264table_table$Td_1",
+          "cellType": "content",
+          "recoveryStyles": {
+            "font-size": "18px"
+          },
+          "preprocessing": "y"
+        },
+        "table_table$Td_2": {
+          "id": "table_table$Td_2",
+          "type": "Table$Td",
+          "properties": {
+            "colspan": 2
+          },
+          "isSaved": true,
+          "moduleName": "table$Td",
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264table_table$Td_2",
+          "cellType": "other",
+          "recoveryStyles": {
+            "font-size": "18px"
+          },
+          "preprocessing": "y"
+        },
+        "table_table$Td_4": {
+          "id": "table_table$Td_4",
+          "type": "Table$Td",
+          "isSaved": true,
+          "moduleName": "table$Td",
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264table_table$Td_4",
+          "cellType": "content",
+          "recoveryStyles": {
+            "font-size": "18px"
+          },
+          "preprocessing": "y"
+        },
+        "table_table$Td_5": {
+          "id": "table_table$Td_5",
+          "type": "Table$Td",
+          "isSaved": true,
+          "moduleName": "table$Td",
+          "cellType": "title",
+          "preprocessing": "y"
+        },
+        "table_table$Td_6": {
+          "id": "table_table$Td_6",
+          "type": "Table$Td",
+          "properties": {
+            "colspan": 4
+          },
+          "isSaved": true,
+          "moduleName": "table$Td",
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264table_table$Td_6",
+          "cellType": "content",
+          "preprocessing": "y"
+        },
+        "table_table$Td_10": {
+          "id": "table_table$Td_10",
+          "type": "Table$Td",
+          "isSaved": true,
+          "moduleName": "table$Td",
+          "cellType": "title",
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264table_table$Td_10",
+          "preprocessing": "y"
+        },
+        "table_table$Td_11": {
+          "id": "table_table$Td_11",
+          "type": "Table$Td",
+          "properties": {
+            "colspan": 4
+          },
+          "isSaved": true,
+          "moduleName": "table$Td",
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264table_table$Td_11",
+          "cellType": "content",
+          "preprocessing": "y"
+        },
+        "table_table$Td_15": {
+          "id": "table_table$Td_15",
+          "type": "Table$Td",
+          "isSaved": true,
+          "moduleName": "table$Td",
+          "cellType": "title",
+          "preprocessing": "y"
+        },
+        "table_table$Td_16": {
+          "id": "table_table$Td_16",
+          "type": "Table$Td",
+          "properties": {
+            "colspan": 4
+          },
+          "isSaved": true,
+          "moduleName": "table$Td",
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264table_table$Td_16",
+          "cellType": "content",
+          "preprocessing": "y"
+        },
+        "table_table$Td_20": {
+          "id": "table_table$Td_20",
+          "type": "Table$Td",
+          "properties": {
+            "rowspan": 2
+          },
+          "isSaved": true,
+          "moduleName": "table$Td",
+          "cellType": "title",
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264table_table$Td_20",
+          "preprocessing": "y"
+        },
+        "table_table$Td_21": {
+          "id": "table_table$Td_21",
+          "type": "Table$Td",
+          "properties": {
+            "colspan": 2
+          },
+          "isSaved": true,
+          "moduleName": "table$Td",
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264table_table$Td_21",
+          "cellType": "content",
+          "recoveryStyles": {
+            "min-height": "30px"
+          },
+          "preprocessing": "y"
+        },
+        "table_table$Td_23": {
+          "id": "table_table$Td_23",
+          "type": "Table$Td",
+          "properties": {
+            "rowspan": 2
+          },
+          "isSaved": true,
+          "moduleName": "table$Td",
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264table_table$Td_23",
+          "cellType": "title",
+          "preprocessing": "y"
+        },
+        "table_table$Td_24": {
+          "id": "table_table$Td_24",
+          "type": "Table$Td",
+          "properties": {
+            "rowspan": 2
+          },
+          "isSaved": true,
+          "moduleName": "table$Td",
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264table_table$Td_24",
+          "cellType": "content",
+          "preprocessing": "y"
+        },
+        "table_table$Td_26": {
+          "id": "table_table$Td_26",
+          "type": "Table$Td",
+          "isSaved": true,
+          "moduleName": "table$Td",
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264table_table$Td_26",
+          "cellType": "title",
+          "preprocessing": "y"
+        },
+        "table_table$Td_27": {
+          "id": "table_table$Td_27",
+          "type": "Table$Td",
+          "isSaved": true,
+          "moduleName": "table$Td",
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264table_table$Td_27",
+          "cellType": "content",
+          "preprocessing": "y"
+        },
+        "table_table$Td_30": {
+          "id": "table_table$Td_30",
+          "type": "Table$Td",
+          "isSaved": true,
+          "moduleName": "table$Td",
+          "cellType": "title",
+          "preprocessing": "y"
+        },
+        "table_table$Td_31": {
+          "id": "table_table$Td_31",
+          "type": "Table$Td",
+          "properties": {
+            "colspan": 4
+          },
+          "isSaved": true,
+          "moduleName": "table$Td",
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264table_table$Td_31",
+          "cellType": "content",
+          "preprocessing": "y"
+        },
+        "table_table$Td_35": {
+          "id": "table_table$Td_35",
+          "type": "Table$Td",
+          "properties": {
+            "rowspan": 2
+          },
+          "isSaved": true,
+          "moduleName": "table$Td",
+          "cellType": "title",
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264table_table$Td_35",
+          "preprocessing": "y"
+        },
+        "table_table$Td_36": {
+          "id": "table_table$Td_36",
+          "type": "Table$Td",
+          "properties": {
+            "colspan": 2
+          },
+          "isSaved": true,
+          "moduleName": "table$Td",
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264table_table$Td_36",
+          "cellType": "content",
+          "preprocessing": "y"
+        },
+        "table_table$Td_38": {
+          "id": "table_table$Td_38",
+          "type": "Table$Td",
+          "properties": {
+            "rowspan": 2
+          },
+          "isSaved": true,
+          "moduleName": "table$Td",
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264table_table$Td_38",
+          "cellType": "title",
+          "preprocessing": "y"
+        },
+        "table_table$Td_39": {
+          "id": "table_table$Td_39",
+          "type": "Table$Td",
+          "properties": {
+            "rowspan": 2
+          },
+          "isSaved": true,
+          "moduleName": "table$Td",
+          "pid": "PC1728c000-478e-4810-9aa7-4ae7ea8df547table_table$Td_39",
+          "cellType": "content",
+          "preprocessing": "y"
+        },
+        "table_table$Td_41": {
+          "id": "table_table$Td_41",
+          "type": "Table$Td",
+          "isSaved": true,
+          "moduleName": "table$Td",
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264table_table$Td_41",
+          "cellType": "title",
+          "preprocessing": "y"
+        },
+        "table_table$Td_42": {
+          "id": "table_table$Td_42",
+          "type": "Table$Td",
+          "isSaved": true,
+          "moduleName": "table$Td",
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264table_table$Td_42",
+          "cellType": "content",
+          "preprocessing": "y"
+        },
+        "table_table$Td_45": {
+          "id": "table_table$Td_45",
+          "type": "Table$Td",
+          "isSaved": true,
+          "moduleName": "table$Td",
+          "cellType": "title",
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264table_table$Td_45",
+          "preprocessing": "y"
+        },
+        "table_table$Td_46": {
+          "id": "table_table$Td_46",
+          "type": "Table$Td",
+          "properties": {
+            "colspan": 4
+          },
+          "isSaved": true,
+          "moduleName": "table$Td",
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264table_table$Td_46",
+          "cellType": "other",
+          "preprocessing": "y"
+        },
+        "label_1": {
+          "id": "label_1",
+          "type": "Label",
+          "valueType": "text",
+          "text": "密　级",
+          "isSaved": true,
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264label_1",
+          "moduleName": "label",
+          "preprocessing": "y"
+        },
+        "label_2": {
+          "id": "label_2",
+          "type": "Label",
+          "valueType": "text",
+          "text": "ＸＸＸＸ",
+          "isSaved": true,
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264label_2",
+          "moduleName": "label",
+          "recoveryStyles": {
+            "float": "left",
+            "color": "#fd1113",
+            "line-height": "30px"
+          },
+          "preprocessing": "y"
+        },
+        "label_3": {
+          "id": "label_3",
+          "type": "Label",
+          "valueType": "text",
+          "text": "﹝",
+          "isSaved": true,
+          "pid": "PC2d802b06-6f31-4de7-a7cd-e92313a28ff0label_3",
+          "moduleName": "label",
+          "recoveryStyles": {
+            "float": "left",
+            "color": "#fd1113",
+            "line-height": "30px",
+            "font-size": "24px",
+            "text-align": "right"
+          },
+          "preprocessing": "y"
+        },
+        "label_4": {
+          "id": "label_4",
+          "type": "Label",
+          "valueType": "text",
+          "text": "﹞",
+          "isSaved": true,
+          "pid": "PC2d802b06-6f31-4de7-a7cd-e92313a28ff0label_4",
+          "moduleName": "label",
+          "recoveryStyles": {
+            "float": "left",
+            "color": "#fd1113",
+            "line-height": "30px",
+            "font-size": "24px",
+            "text-align": "left"
+          },
+          "preprocessing": "y"
+        },
+        "div_1": {
+          "id": "div_1",
+          "type": "Div",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "isSaved": true,
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264div_1",
+          "moduleName": "div",
+          "recoveryStyles": {
+            "width": "60px",
+            "float": "left",
+            "text-align": "center"
+          },
+          "preprocessing": "y"
+        },
+        "div_2": {
+          "id": "div_2",
+          "type": "Div",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "isSaved": true,
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264div_2",
+          "moduleName": "div",
+          "recoveryStyles": {
+            "width": "60px",
+            "float": "left",
+            "text-align": "center"
+          },
+          "preprocessing": "y"
+        },
+        "label_5": {
+          "id": "label_5",
+          "type": "Label",
+          "valueType": "text",
+          "text": "号",
+          "isSaved": true,
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264label_5",
+          "moduleName": "label",
+          "recoveryStyles": {
+            "float": "left",
+            "color": "#fd1113",
+            "line-height": "30px"
+          },
+          "preprocessing": "y"
+        },
+        "label_6": {
+          "id": "label_6",
+          "type": "Label",
+          "valueType": "text",
+          "text": "印数",
+          "isSaved": true,
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264label_6",
+          "moduleName": "label",
+          "recoveryStyles": {
+            "float": "left",
+            "color": "#fd1113",
+            "line-height": "30px"
+          },
+          "preprocessing": "y"
+        },
+        "label_7": {
+          "id": "label_7",
+          "type": "Label",
+          "valueType": "text",
+          "text": "份",
+          "isSaved": true,
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264label_7",
+          "moduleName": "label",
+          "recoveryStyles": {
+            "float": "left",
+            "color": "#fd1113",
+            "line-height": "30px"
+          },
+          "preprocessing": "y"
+        },
+        "label_8": {
+          "id": "label_8",
+          "type": "Label",
+          "valueType": "text",
+          "text": "文件标题",
+          "isSaved": true,
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264label_8",
+          "moduleName": "label",
+          "preprocessing": "y"
+        },
+        "subject": {
+          "id": "subject",
+          "type": "Textfield",
+          "dataType": "text",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "compute": "create",
+          "section": "no",
+          "sectionBy": "person",
+          "inputType": "text",
+          "isSaved": true,
+          "pid": "PC6ae82f2a-aa14-4572-a236-9f9e96ffece5subject",
+          "showIcon": "yes",
+          "moduleName": "textfield",
+          "recoveryStyles": {
+            "border-bottom": "1px solid #ccc",
+            "border-top": "0px",
+            "border-left": "0px",
+            "border-right": "0px"
+          },
+          "recoveryInputStyles": {
+            "height": "26px",
+            "color": "#666"
+          },
+          "isReadonly": false,
+          "preprocessing": "y",
+          "showSectionKey": true,
+          "sectionNodeStyles": {
+            "overflow": "hidden"
+          },
+          "sectionKeyStyles": {
+            "float": "left"
+          },
+          "sectionContentStyles": {
+            "float": "left"
+          },
+          "keyContentSeparator": "："
+        },
+        "label_9": {
+          "id": "label_9",
+          "type": "Label",
+          "valueType": "text",
+          "text": "主　送",
+          "isSaved": true,
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264label_9",
+          "moduleName": "label",
+          "preprocessing": "y"
+        },
+        "label_10": {
+          "id": "label_10",
+          "type": "Label",
+          "valueType": "text",
+          "text": "抄　送",
+          "isSaved": true,
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264label_10",
+          "moduleName": "label",
+          "preprocessing": "y"
+        },
+        "label_11": {
+          "id": "label_11",
+          "type": "Label",
+          "valueType": "text",
+          "text": "拟文部门",
+          "isSaved": true,
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264label_11",
+          "moduleName": "label",
+          "preprocessing": "y"
+        },
+        "label_12": {
+          "id": "label_12",
+          "type": "Label",
+          "valueType": "text",
+          "text": "意　　见",
+          "isSaved": true,
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264label_12",
+          "moduleName": "label",
+          "preprocessing": "y"
+        },
+        "label_13": {
+          "id": "label_13",
+          "type": "Label",
+          "valueType": "text",
+          "text": "是否同意上门户网站",
+          "isSaved": true,
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264label_13",
+          "moduleName": "label",
+          "preprocessing": "y"
+        },
+        "label_14": {
+          "id": "label_14",
+          "type": "Label",
+          "valueType": "text",
+          "text": "拟稿人",
+          "isSaved": true,
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264label_14",
+          "moduleName": "label",
+          "preprocessing": "y"
+        },
+        "fileno": {
+          "id": "fileno",
+          "type": "Textfield",
+          "dataType": "text",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "compute": "create",
+          "section": "no",
+          "sectionBy": "person",
+          "inputType": "text",
+          "isSaved": true,
+          "pid": "PC2d802b06-6f31-4de7-a7cd-e92313a28ff0fileno",
+          "moduleName": "textfield",
+          "showIcon": "no",
+          "recoveryStyles": {
+            "border-bottom": "1px solid #ccc",
+            "border-top": "0px",
+            "border-left": "0px",
+            "border-right": "0px",
+            "width": "50px",
+            "height": "30px",
+            "margin-left": "5px"
+          },
+          "recoveryInputStyles": {
+            "height": "26px",
+            "color": "#666",
+            "text-align": "center",
+            "font-size": "16px"
+          },
+          "preprocessing": "y",
+          "events": {
+            "change": {
+              "code": "this.form.get(\"documenteditor\").reload();",
+              "html": "this.form.get(\"documenteditor\").reload();"
+            }
+          },
+          "showSectionKey": true,
+          "sectionNodeStyles": {
+            "overflow": "hidden"
+          },
+          "sectionKeyStyles": {
+            "float": "left"
+          },
+          "sectionContentStyles": {
+            "float": "left"
+          },
+          "keyContentSeparator": "：",
+          "isReadonly": false,
+          "sectionMerge": "none",
+          "mergeTypeRead": "default",
+          "sectionKey": "person",
+          "mergeTypeEdit": "default"
+        },
+        "departmentWord": {
+          "id": "departmentWord",
+          "type": "Textfield",
+          "dataType": "text",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "compute": "create",
+          "section": "no",
+          "sectionBy": "person",
+          "inputType": "text",
+          "isSaved": true,
+          "pid": "PC2d802b06-6f31-4de7-a7cd-e92313a28ff0departmentWord",
+          "moduleName": "textfield",
+          "showIcon": "no",
+          "recoveryStyles": {
+            "border-bottom": "1px solid #ccc",
+            "border-top": "0px",
+            "border-left": "0px",
+            "border-right": "0px",
+            "float": "left",
+            "width": "50px",
+            "height": "30px",
+            "margin-left": "5px"
+          },
+          "recoveryInputStyles": {
+            "height": "26px",
+            "color": "#666",
+            "font-size": "16px",
+            "text-align": "center"
+          },
+          "preprocessing": "y",
+          "events": {
+            "change": {
+              "code": "this.form.get(\"documenteditor\").reload();",
+              "html": "this.form.get(\"documenteditor\").reload();"
+            }
+          },
+          "showSectionKey": true,
+          "sectionNodeStyles": {
+            "overflow": "hidden"
+          },
+          "sectionKeyStyles": {
+            "float": "left"
+          },
+          "sectionContentStyles": {
+            "float": "left"
+          },
+          "keyContentSeparator": "：",
+          "isReadonly": false,
+          "sectionMerge": "none",
+          "mergeTypeRead": "default",
+          "sectionKey": "person",
+          "mergeTypeEdit": "default"
+        },
+        "copies": {
+          "id": "copies",
+          "type": "Textfield",
+          "dataType": "text",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "compute": "create",
+          "section": "no",
+          "sectionBy": "person",
+          "inputType": "text",
+          "isSaved": true,
+          "pid": "PC2d802b06-6f31-4de7-a7cd-e92313a28ff0copies",
+          "moduleName": "textfield",
+          "showIcon": "no",
+          "recoveryStyles": {
+            "border-bottom": "1px solid #ccc",
+            "border-top": "0px",
+            "border-left": "0px",
+            "border-right": "0px",
+            "float": "left",
+            "width": "70px",
+            "height": "30px",
+            "margin-left": "5px"
+          },
+          "recoveryInputStyles": {
+            "height": "26px",
+            "color": "#666",
+            "font-size": "16px",
+            "text-align": "center"
+          },
+          "preprocessing": "y",
+          "showSectionKey": true,
+          "sectionNodeStyles": {
+            "overflow": "hidden"
+          },
+          "sectionKeyStyles": {
+            "float": "left"
+          },
+          "sectionContentStyles": {
+            "float": "left"
+          },
+          "keyContentSeparator": "：",
+          "isReadonly": false,
+          "sectionMerge": "none",
+          "mergeTypeRead": "default",
+          "sectionKey": "person",
+          "mergeTypeEdit": "default"
+        },
+        "secret": {
+          "id": "secret",
+          "type": "Select",
+          "itemType": "values",
+          "itemValues": [
+            "普通"
+          ],
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "compute": "create",
+          "section": "no",
+          "sectionBy": "person",
+          "isSaved": true,
+          "pid": "PC2d802b06-6f31-4de7-a7cd-e92313a28ff0secret",
+          "moduleName": "select",
+          "recoveryStyles": {
+            "border-bottom": "1px solid #999",
+            "border-top": "0px",
+            "border-left": "0px",
+            "border-right": "0px",
+            "margin-top": "5px",
+            "color": "#666"
+          },
+          "preprocessing": "y",
+          "showSectionKey": true,
+          "sectionNodeStyles": {
+            "overflow": "hidden"
+          },
+          "sectionKeyStyles": {
+            "float": "left"
+          },
+          "sectionContentStyles": {
+            "float": "left"
+          },
+          "keyContentSeparator": "：",
+          "isReadonly": false,
+          "firstOptionEnable": false,
+          "sectionMerge": "none",
+          "mergeTypeRead": "default",
+          "sectionKey": "person",
+          "mergeTypeEdit": "script"
+        },
+        "publishPortal": {
+          "id": "publishPortal",
+          "type": "Radio",
+          "itemType": "values",
+          "itemValues": [
+            "是",
+            "否"
+          ],
+          "defaultValue": {
+            "code": "return \"是\";",
+            "html": "return \"是\";"
+          },
+          "compute": "create",
+          "isSaved": true,
+          "pid": "PC6ae82f2a-aa14-4572-a236-9f9e96ffece5publishPortal",
+          "section": "no",
+          "sectionBy": "person",
+          "moduleName": "radio",
+          "isReadonly": false,
+          "preprocessing": "y",
+          "countPerline": "0",
+          "showSectionKey": true,
+          "sectionNodeStyles": {
+            "overflow": "hidden"
+          },
+          "sectionKeyStyles": {
+            "float": "left"
+          },
+          "sectionContentStyles": {
+            "float": "left"
+          },
+          "keyContentSeparator": "："
+        },
+        "mainSend": {
+          "id": "mainSend",
+          "type": "Textfield",
+          "dataType": "text",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "compute": "create",
+          "section": "no",
+          "sectionBy": "person",
+          "inputType": "text",
+          "isSaved": true,
+          "pid": "PC2d802b06-6f31-4de7-a7cd-e92313a28ff0mainSend",
+          "showIcon": "yes",
+          "moduleName": "textfield",
+          "recoveryStyles": {
+            "border-bottom": "1px solid #ccc",
+            "border-top": "0px",
+            "border-left": "0px",
+            "border-right": "0px"
+          },
+          "recoveryInputStyles": {
+            "height": "26px",
+            "color": "#666"
+          },
+          "preprocessing": "y",
+          "showSectionKey": true,
+          "sectionNodeStyles": {
+            "overflow": "hidden"
+          },
+          "sectionKeyStyles": {
+            "float": "left"
+          },
+          "sectionContentStyles": {
+            "float": "left"
+          },
+          "keyContentSeparator": "：",
+          "isReadonly": false,
+          "sectionMerge": "none",
+          "mergeTypeRead": "default",
+          "sectionKey": "person",
+          "mergeTypeEdit": "default"
+        },
+        "copyTo": {
+          "id": "copyTo",
+          "type": "Textfield",
+          "dataType": "text",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "compute": "create",
+          "section": "no",
+          "sectionBy": "person",
+          "inputType": "text",
+          "isSaved": true,
+          "pid": "PC2d802b06-6f31-4de7-a7cd-e92313a28ff0copyTo",
+          "showIcon": "yes",
+          "moduleName": "textfield",
+          "recoveryStyles": {
+            "border-bottom": "1px solid #ccc",
+            "border-top": "0px",
+            "border-left": "0px",
+            "border-right": "0px"
+          },
+          "recoveryInputStyles": {
+            "height": "26px",
+            "color": "#666"
+          },
+          "isReadonly": false,
+          "preprocessing": "y",
+          "showSectionKey": true,
+          "sectionNodeStyles": {
+            "overflow": "hidden"
+          },
+          "sectionKeyStyles": {
+            "float": "left"
+          },
+          "sectionContentStyles": {
+            "float": "left"
+          },
+          "keyContentSeparator": "：",
+          "sectionMerge": "none",
+          "mergeTypeRead": "default",
+          "sectionKey": "person",
+          "mergeTypeEdit": "default"
+        },
+        "log": {
+          "id": "log",
+          "type": "Log",
+          "logType": "record",
+          "filterActivity": "拟稿,部门领导审核",
+          "filterPerson": [],
+          "filterRoute": [],
+          "mode": "text",
+          "textStyle": "<font style='color:#00F'>{opinion}</font><br/><font style='text-align: right; color:#ff5400;'>{person}({time})</font>",
+          "isTask": false,
+          "isSaved": true,
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264log",
+          "moduleName": "log",
+          "filterActivityAlias": [],
+          "showReadTitle": "待阅人",
+          "showReadCompletedTitle": "已阅人",
+          "preprocessing": "y"
+        },
+        "label_15": {
+          "id": "label_15",
+          "type": "Label",
+          "valueType": "script",
+          "script": {
+            "code": "return this.workContext.getWork().creatorPerson\n",
+            "html": "return this.workContext.getWork().creatorPerson\n"
+          },
+          "isSaved": true,
+          "pid": "PC6ae82f2a-aa14-4572-a236-9f9e96ffece5label_15",
+          "moduleName": "label",
+          "preprocessing": "y"
+        },
+        "label_16": {
+          "id": "label_16",
+          "type": "Label",
+          "valueType": "text",
+          "text": "会办部门",
+          "isSaved": true,
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264label_16",
+          "moduleName": "label",
+          "preprocessing": "y"
+        },
+        "label_17": {
+          "id": "label_17",
+          "type": "Label",
+          "valueType": "text",
+          "text": "意　　见",
+          "isSaved": true,
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264label_17",
+          "moduleName": "label",
+          "preprocessing": "y"
+        },
+        "log_1": {
+          "id": "log_1",
+          "type": "Log",
+          "filterActivity": "会办",
+          "filterPerson": [],
+          "filterRoute": [],
+          "mode": "text",
+          "textStyle": "<font style='color:#00F'>{opinion}</font><br/><font style='text-align: right; color:#ff5400;'>{person}({time})</font>",
+          "isTask": false,
+          "isSaved": true,
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264log_1",
+          "moduleName": "log",
+          "filterActivityAlias": [],
+          "showReadTitle": "待阅人",
+          "showReadCompletedTitle": "已阅人",
+          "preprocessing": "y",
+          "logType": "record"
+        },
+        "label_18": {
+          "id": "label_18",
+          "type": "Label",
+          "valueType": "text",
+          "text": "办公室",
+          "isSaved": true,
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264label_18",
+          "moduleName": "label",
+          "preprocessing": "y"
+        },
+        "label_19": {
+          "id": "label_19",
+          "type": "Label",
+          "valueType": "text",
+          "text": "意　见",
+          "isSaved": true,
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264label_19",
+          "moduleName": "label",
+          "preprocessing": "y"
+        },
+        "log_2": {
+          "id": "log_2",
+          "type": "Log",
+          "filterActivity": "拟稿,部门领导审核",
+          "filterPerson": [],
+          "filterRoute": [],
+          "mode": "text",
+          "textStyle": "<font style='color:#00F'>{opinion}</font><br/><font style='text-align: right; color:#ff5400;'>{person}({time})</font>",
+          "isTask": false,
+          "isSaved": true,
+          "pid": "PC6ae82f2a-aa14-4572-a236-9f9e96ffece5log_2",
+          "moduleName": "log",
+          "filterActivityAlias": [],
+          "showReadTitle": "待阅人",
+          "showReadCompletedTitle": "已阅人",
+          "logType": "worklog",
+          "handwritingExpanded": false,
+          "isShowRead": true,
+          "category": "none",
+          "sortTypeInCategory": "default",
+          "expand": "disable",
+          "preprocessing": "y"
+        },
+        "label_20": {
+          "id": "label_20",
+          "type": "Label",
+          "valueType": "text",
+          "text": "是否同意上门户网站",
+          "isSaved": true,
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264label_20",
+          "moduleName": "label",
+          "preprocessing": "y"
+        },
+        "radio": {
+          "id": "radio",
+          "type": "Radio",
+          "itemType": "values",
+          "itemValues": [
+            "是",
+            "否"
+          ],
+          "defaultValue": {
+            "code": "return \"是\";",
+            "html": "return \"是\";"
+          },
+          "compute": "create",
+          "isSaved": true,
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264radio",
+          "section": "no",
+          "sectionBy": "person",
+          "moduleName": "radio",
+          "preprocessing": "y",
+          "countPerline": "0",
+          "showSectionKey": true,
+          "sectionNodeStyles": {
+            "overflow": "hidden"
+          },
+          "sectionKeyStyles": {
+            "float": "left"
+          },
+          "sectionContentStyles": {
+            "float": "left"
+          },
+          "keyContentSeparator": "："
+        },
+        "label_21": {
+          "id": "label_21",
+          "type": "Label",
+          "valueType": "text",
+          "text": "核稿人",
+          "isSaved": true,
+          "pid": "PC6ae82f2a-aa14-4572-a236-9f9e96ffece5label_21",
+          "moduleName": "label",
+          "preprocessing": "y"
+        },
+        "label_22": {
+          "id": "label_22",
+          "type": "Label",
+          "valueType": "text",
+          "text": "分管领导",
+          "isSaved": true,
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264label_22",
+          "moduleName": "label",
+          "preprocessing": "y"
+        },
+        "table_table$Td_13": {
+          "id": "table_table$Td_13",
+          "type": "Table$Td",
+          "isSaved": true,
+          "moduleName": "table$Td",
+          "cellType": "title",
+          "preprocessing": "y"
+        },
+        "table_table$Td_14": {
+          "id": "table_table$Td_14",
+          "type": "Table$Td",
+          "properties": {
+            "colspan": 4
+          },
+          "isSaved": true,
+          "moduleName": "table$Td",
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264table_table$Td_14",
+          "cellType": "other",
+          "preprocessing": "y"
+        },
+        "label_23": {
+          "id": "label_23",
+          "type": "Label",
+          "valueType": "text",
+          "text": "意　　见",
+          "isSaved": true,
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264label_23",
+          "moduleName": "label",
+          "preprocessing": "y"
+        },
+        "label_24": {
+          "id": "label_24",
+          "type": "Label",
+          "valueType": "text",
+          "text": "领　　导",
+          "isSaved": true,
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264label_24",
+          "moduleName": "label",
+          "preprocessing": "y"
+        },
+        "label_25": {
+          "id": "label_25",
+          "type": "Label",
+          "valueType": "text",
+          "text": "意　　见",
+          "isSaved": true,
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264label_25",
+          "moduleName": "label",
+          "preprocessing": "y"
+        },
+        "log_3": {
+          "id": "log_3",
+          "type": "Log",
+          "filterActivity": "局分管领导审批",
+          "filterPerson": [],
+          "filterRoute": [],
+          "mode": "text",
+          "textStyle": "<font style='color:#00F'>{opinion}</font><br/><font style='text-align: right; color:#ff5400;'>{person}({time})</font>",
+          "isTask": false,
+          "isSaved": true,
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264log_3",
+          "moduleName": "log",
+          "filterActivityAlias": [],
+          "showReadTitle": "待阅人",
+          "showReadCompletedTitle": "已阅人",
+          "preprocessing": "y",
+          "logType": "record"
+        },
+        "log_4": {
+          "id": "log_4",
+          "type": "Log",
+          "filterActivity": "局领导签发",
+          "filterPerson": [],
+          "filterRoute": [],
+          "mode": "text",
+          "textStyle": "<font style='color:#00F'>{opinion}</font><br/><font style='text-align: right; color:#ff5400;'>{person}({time})</font>",
+          "isTask": false,
+          "isSaved": true,
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264log_4",
+          "moduleName": "log",
+          "filterActivityAlias": [],
+          "showReadTitle": "待阅人",
+          "showReadCompletedTitle": "已阅人",
+          "preprocessing": "y",
+          "logType": "record"
+        },
+        "div_3": {
+          "id": "div_3",
+          "type": "Div",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "isSaved": true,
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264div_3",
+          "moduleName": "div",
+          "recoveryStyles": {
+            "margin-top": "20px"
+          },
+          "preprocessing": "y"
+        },
+        "attachment": {
+          "id": "attachment",
+          "type": "Attachment",
+          "size": "max",
+          "isSizeChange": "y",
+          "attachmentCount": "0",
+          "resize": "n",
+          "listStyle": "icon",
+          "readonly": "n",
+          "isUpload": "y",
+          "isDelete": "y",
+          "isReplace": "y",
+          "isDownload": "y",
+          "pid": "PC2d802b06-6f31-4de7-a7cd-e92313a28ff0attachment",
+          "moduleName": "attachment",
+          "toolbarGroupHidden": [],
+          "availableListStyles": [
+            "list",
+            "seq",
+            "icon",
+            "preview"
+          ],
+          "recoveryStyles": {
+            "margin-top": "20px"
+          },
+          "preprocessing": "y",
+          "isPreviewAtt": "n",
+          "isEditAtt": "n",
+          "isOpenInOffice": false,
+          "dblclick": "open",
+          "isConfig": "y",
+          "isOrder": "y",
+          "dg_size": "min",
+          "dg_isSizeChange": "n",
+          "dg_resize": "n",
+          "dg_listStyle": "sequence"
+        },
+        "actionbar_1": {
+          "id": "actionbar_1",
+          "type": "Actionbar",
+          "tools": [],
+          "style": "xform_red_simple",
+          "hideSystemTools": false,
+          "pid": "b1cb15d0-1be0-449c-b9aa-573702dac264actionbar_1",
+          "moduleName": "actionbar",
+          "actionStyles": {
+            "container": {
+              "background-color": "#fff",
+              "padding-top": "6px",
+              "padding-bottom": "1px",
+              "padding-left": "10px",
+              "padding-right": "2px",
+              "word-wrap": "normal",
+              "word-break": "keep-all",
+              "cursor": "pointer",
+              "overflow": "hidden",
+              "height": "auto",
+              "display": "block",
+              "font-size": "14px",
+              "border-top": "2px solid #cc3d3d"
+            },
+            "toolbarSeparator": {
+              "display": "block",
+              "float": "left",
+              "margin-bottom": "5px",
+              "margin-top": "5px",
+              "height": "22px",
+              "width": "1px",
+              "background-color": "#888888",
+              "border-right": "1px solid #FFFFFF",
+              "overflow": "hidden"
+            },
+            "button": {
+              "display": "block",
+              "position": "static",
+              "float": "left",
+              "border": "1px solid #fff",
+              "color": "inherit",
+              "background-color": "#fff",
+              "height": "30px",
+              "margin-right": "8px",
+              "padding-left": "2px",
+              "padding-right": "2px",
+              "cursor": "pointer",
+              "border-radius": "5px"
+            },
+            "buttonImgDiv": {
+              "display": "block",
+              "float": "left",
+              "padding-top": "7px",
+              "padding-bottom": "1px",
+              "padding-left": "1px",
+              "padding-right": "1px",
+              "cursor": "pointer"
+            },
+            "buttonImg": {
+              "height": "16px",
+              "width": "16px",
+              "cursor": "pointer",
+              "margin-top": "0px"
+            },
+            "buttonTextDiv": {
+              "display": "block",
+              "float": "left",
+              "height": "30px",
+              "padding-left": "2px",
+              "padding-right": "2px",
+              "line-height": "30px",
+              "cursor": "pointer",
+              "color": "#000000"
+            },
+            "buttonDisable": {
+              "color": "#999"
+            },
+            "buttonImgDivDisable": {
+              "color": "#999"
+            },
+            "buttonTextDivDisable": {
+              "color": "#999"
+            },
+            "buttonOver": {
+              "color": "inherit",
+              "background-color": "#e7e7e7"
+            },
+            "buttonOut": {
+              "color": "inherit",
+              "background-color": "#fff"
+            },
+            "buttonDown": {
+              "background-color": "#f0f0f0"
+            },
+            "buttonUp": {
+              "background-color": "#e7e7e7"
+            },
+            "toolbarButtonDownNode": {
+              "display": "block",
+              "float": "left",
+              "padding-left": "2px",
+              "padding-right": "2px",
+              "padding-top": "5px",
+              "height": "18px",
+              "color": "#ff0000",
+              "cursor": "pointer"
+            }
+          },
+          "preprocessing": "y"
+        },
+        "auditPeople": {
+          "id": "auditPeople",
+          "type": "Org",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "splitShow": ", ",
+          "identityRange": "all",
+          "identityResultType": "identity",
+          "identityRangeNextLevel": "1",
+          "unitRange": "all",
+          "unitRangeNextLevel": "1",
+          "selectType": [
+            "identity"
+          ],
+          "compute": "create",
+          "section": "no",
+          "sectionBy": "person",
+          "recoveryStyles": {
+            "border-bottom": "0px",
+            "height": "auto",
+            "line-height": "30px",
+            "font-size": "18px",
+            "border": "0px solid #999999"
+          },
+          "recoveryInputStyles": {
+            "border": "1px solid #999999",
+            "height": "30px",
+            "line-height": "30px",
+            "color": "#666",
+            "font-size": "18px",
+            "font-family": "宋体"
+          },
+          "isSaved": true,
+          "pid": "PC1728c000-478e-4810-9aa7-4ae7ea8df547org",
+          "showIcon": "yes",
+          "isReadonly": false,
+          "showCard": "yes",
+          "isInput": false,
+          "storeRange": "simple",
+          "isCheckEmpower": false,
+          "identityOnlyUseInclude": false,
+          "identityRangeNext": "direct",
+          "identityExpandSubEnable": "yes",
+          "dutyRange": "all",
+          "categoryType": "unit",
+          "dutyUnitLevelBy": "duty",
+          "unitRangeNext": "direct",
+          "unitExpandSubEnable": "yes",
+          "groupRange": "all",
+          "identityRangeNextUnitType": "all",
+          "selectUnitType": "all",
+          "unitRangeNextUnitType": "all",
+          "preprocessing": "y",
+          "showSectionKey": true,
+          "sectionNodeStyles": {
+            "overflow": "hidden"
+          },
+          "sectionKeyStyles": {
+            "float": "left"
+          },
+          "sectionContentStyles": {
+            "float": "left"
+          },
+          "keyContentSeparator": "：",
+          "moduleName": "org"
+        },
+        "documenteditor": {
+          "id": "documenteditor",
+          "type": "Documenteditor",
+          "canDoublePage": "n",
+          "defaultValue": {
+            "copies": "",
+            "secret": "",
+            "priority": "",
+            "redHeader": "文件红头",
+            "fileno": "[文号]",
+            "signerTitle": "签发人：",
+            "signer": "[签发人]",
+            "subject": "[文件标题]",
+            "mainSend": "[主送单位：]",
+            "filetext": "[请在此处编辑正文内容]",
+            "attachmentTitle": "附件：",
+            "attachment": "",
+            "issuanceUnit": "[发文机关]",
+            "issuanceDate": "[成文日期]",
+            "annotation": "",
+            "copytoTitle": "抄送：",
+            "copyto": "[抄送]",
+            "copyto2Title": "发：",
+            "copyto2": "[发]",
+            "editionUnit": "[印发机关]",
+            "editionDate": "[印发日期]",
+            "meetingAttendTitle": "出席：",
+            "meetingLeaveTitle": "请假：",
+            "meetingSitTitle": "列席：",
+            "meetingAttend": "",
+            "meetingLeave": "",
+            "meetingSit": "",
+            "meetingRecord": ""
+          },
+          "moduleGroup": "default",
+          "documentTempleteType": "sys",
+          "documentTempleteName": "standard",
+          "pid": "PC2d802b06-6f31-4de7-a7cd-e92313a28ff0documenteditor",
+          "isDelay": false,
+          "allowEdit": "y",
+          "allowPrint": "y",
+          "allowHistory": "y",
+          "viewTracesFullScreen": false,
+          "isScale": "n",
+          "fullWidth": "y",
+          "textIndent": "y",
+          "canFullScreen": "y",
+          "toWord": "n",
+          "wordConversionType": "ooxml",
+          "toWordSeal": "y",
+          "toWordTrigger": "submit",
+          "toWordCondition": "always",
+          "firstPageNumber": true,
+          "wordConversionEncryption": false,
+          "copiesSecretPriorityShow": "y",
+          "copiesShow": "a",
+          "copiesValueType": "data",
+          "secretShow": "a",
+          "secretValueType": "data",
+          "priorityShow": "a",
+          "priorityValueType": "data",
+          "redHeaderShow": "a",
+          "redHeaderValueType": "data",
+          "redLineShow": "y",
+          "filenoShow": "a",
+          "filenoValueType": "script",
+          "signerShow": "a",
+          "signerValueType": "data",
+          "subjectShow": "a",
+          "subjectEdit": "n",
+          "subjectValueType": "data",
+          "mainSendShow": "a",
+          "mainSendValueType": "data",
+          "attachmentShow": "a",
+          "attachmentValueType": "data",
+          "attachmentTextEdit": "n",
+          "issuanceUnitShow": "a",
+          "issuanceUnitEdit": "n",
+          "issuanceUnitValueType": "data",
+          "issuanceDateShow": "a",
+          "issuanceDateValueType": "data",
+          "annotationShow": "a",
+          "annotationValueType": "data",
+          "copytoShow": "a",
+          "copytoValueType": "data",
+          "copyto2Show": "a",
+          "copyto2ValueType": "data",
+          "editionUnitShow": "a",
+          "editionUnitValueType": "data",
+          "editionDateShow": "a",
+          "editionDateValueType": "data",
+          "meetingAttendShow": "a",
+          "meetingAttendValueType": "data",
+          "meetingLeaveShow": "a",
+          "meetingLeaveValueType": "data",
+          "meetingSitShow": "a",
+          "meetingSitValueType": "data",
+          "meetingRecordShow": "a",
+          "meetingRecordValueType": "data",
+          "filenoValueScript": {
+            "code": "return this.data.departmentWord + \"﹝\" + this.data.fileYear + \"﹞\" + this.data.fileno + \"号\""
+          },
+          "preprocessing": "y",
+          "copiesValueData": "copies",
+          "secretValueData": "secret",
+          "subjectValueData": "subject",
+          "mainSendValueData": "mainSend",
+          "copytoValueData": "copyTo"
+        },
+        "fileYear": {
+          "id": "fileYear",
+          "type": "Textfield",
+          "dataType": "text",
+          "defaultValue": {
+            "code": "return new Date().getFullYear();",
+            "html": "return new Date().getFullYear();"
+          },
+          "compute": "create",
+          "section": "no",
+          "sectionBy": "person",
+          "inputType": "text",
+          "isSaved": true,
+          "pid": "PC2d802b06-6f31-4de7-a7cd-e92313a28ff0fileYaer",
+          "moduleName": "textfield",
+          "showIcon": "no",
+          "recoveryStyles": {
+            "border-bottom": "1px solid #ccc",
+            "border-top": "0px",
+            "border-left": "0px",
+            "border-right": "0px",
+            "width": "50px",
+            "height": "30px",
+            "margin-left": "5px"
+          },
+          "recoveryInputStyles": {
+            "height": "26px",
+            "color": "#666",
+            "text-align": "center",
+            "font-size": "16px"
+          },
+          "preprocessing": "y",
+          "events": {
+            "change": {
+              "code": "this.form.get(\"documenteditor\").reload();",
+              "html": "this.form.get(\"documenteditor\").reload();"
+            }
+          },
+          "showSectionKey": true,
+          "sectionNodeStyles": {
+            "overflow": "hidden"
+          },
+          "sectionKeyStyles": {
+            "float": "left"
+          },
+          "sectionContentStyles": {
+            "float": "left"
+          },
+          "keyContentSeparator": "：",
+          "isReadonly": false,
+          "sectionMerge": "none",
+          "mergeTypeRead": "default",
+          "sectionKey": "person",
+          "mergeTypeEdit": "default"
+        }
+      },
+      "formStyleType": "official",
+      "pid": "PC2d802b06-6f31-4de7-a7cd-e92313a28ff02d802b06-6f31-4de7-a7cd-e92313a28ff0",
+      "submitFormType": "default",
+      "isPrompt": true,
+      "promptPosition": "center",
+      "afterProcessAction": "close",
+      "subformList": [],
+      "$version": "5.2",
+      "isReadonly": false,
+      "languageType": "none",
+      "isHandwriting": "yes"
+    },
+    "html": "<div id=\"2d802b06-6f31-4de7-a7cd-e92313a28ff0\" mwftype=\"form\" class=\"css2d802b066f314de7a7cde92313a28ff0\" style=\"\"><div id=\"actionbar\" mwftype=\"actionbar\" style=\"\"><div style=\"background-color: rgb(255, 255, 255); padding: 6px 2px 1px 10px; overflow-wrap: normal; word-break: keep-all; cursor: pointer; overflow: hidden; height: auto; display: block; font-size: 14px; border-top: 2px solid rgb(204, 61, 61);\"><div mwfnodetype=\"MWFToolBarButton\" mwfbuttonimage=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/close.png\" title=\"关闭文档\" mwfbuttonaction=\"closeWork\" mwfbuttontext=\"关闭\" style=\"display: block; position: static; float: left; border: 1px solid rgb(255, 255, 255); color: inherit; background-color: rgb(255, 255, 255); height: 30px; margin-right: 8px; padding-left: 2px; padding-right: 2px; cursor: pointer; border-radius: 5px;\"><span style=\"display: block; float: left; padding: 7px 1px 1px; cursor: pointer;\"><img src=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/close.png\" style=\"height: 16px; width: 16px; cursor: pointer; margin-top: 0px;\"></span><span style=\"display: block; float: left; height: 30px; padding-left: 2px; padding-right: 2px; line-height: 30px; cursor: pointer; color: rgb(0, 0, 0);\">关闭</span></div><div mwfnodetype=\"MWFToolBarButton\" mwfbuttonimage=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/save.png\" title=\"保存文档\" mwfbuttonaction=\"saveWork\" mwfbuttontext=\"保存\" style=\"display: block; position: static; float: left; border: 1px solid rgb(255, 255, 255); color: inherit; background-color: rgb(255, 255, 255); height: 30px; margin-right: 8px; padding-left: 2px; padding-right: 2px; cursor: pointer; border-radius: 5px;\"><span style=\"display: block; float: left; padding: 7px 1px 1px; cursor: pointer;\"><img src=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/save.png\" style=\"height: 16px; width: 16px; cursor: pointer; margin-top: 0px;\"></span><span style=\"display: block; float: left; height: 30px; padding-left: 2px; padding-right: 2px; line-height: 30px; cursor: pointer; color: rgb(0, 0, 0);\">保存</span></div><div mwfnodetype=\"MWFToolBarButton\" mwfbuttonimage=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/submit.png\" title=\"继续流转文档\" mwfbuttonaction=\"processWork\" mwfbuttontext=\"继续流转\" style=\"display: block; position: static; float: left; border: 1px solid rgb(255, 255, 255); color: inherit; background-color: rgb(255, 255, 255); height: 30px; margin-right: 8px; padding-left: 2px; padding-right: 2px; cursor: pointer; border-radius: 5px;\"><span style=\"display: block; float: left; padding: 7px 1px 1px; cursor: pointer;\"><img src=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/submit.png\" style=\"height: 16px; width: 16px; cursor: pointer; margin-top: 0px;\"></span><span style=\"display: block; float: left; height: 30px; padding-left: 2px; padding-right: 2px; line-height: 30px; cursor: pointer; color: rgb(0, 0, 0);\">继续流转</span></div><div mwfnodetype=\"MWFToolBarButton\" mwfbuttonimage=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/goback.png\" title=\"退回到已经过的活动\" mwfbuttonaction=\"goBack\" mwfbuttontext=\"退回\" style=\"display: block; position: static; float: left; border: 1px solid rgb(255, 255, 255); color: inherit; background-color: rgb(255, 255, 255); height: 30px; margin-right: 8px; padding-left: 2px; padding-right: 2px; cursor: pointer; border-radius: 5px;\"><span style=\"display: block; float: left; padding: 7px 1px 1px; cursor: pointer;\"><img src=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/goback.png\" style=\"height: 16px; width: 16px; cursor: pointer; margin-top: 0px;\"></span><span style=\"display: block; float: left; height: 30px; padding-left: 2px; padding-right: 2px; line-height: 30px; cursor: pointer; color: rgb(0, 0, 0);\">退回</span></div><div mwfnodetype=\"MWFToolBarButton\" mwfbuttonimage=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/reroute.png\" title=\"调度文档\" mwfbuttonaction=\"rerouteWork\" mwfbuttontext=\"调度\" style=\"display: block; position: static; float: left; border: 1px solid rgb(255, 255, 255); color: inherit; background-color: rgb(255, 255, 255); height: 30px; margin-right: 8px; padding-left: 2px; padding-right: 2px; cursor: pointer; border-radius: 5px;\"><span style=\"display: block; float: left; padding: 7px 1px 1px; cursor: pointer;\"><img src=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/reroute.png\" style=\"height: 16px; width: 16px; cursor: pointer; margin-top: 0px;\"></span><span style=\"display: block; float: left; height: 30px; padding-left: 2px; padding-right: 2px; line-height: 30px; cursor: pointer; color: rgb(0, 0, 0);\">调度</span></div><div mwfnodetype=\"MWFToolBarButton\" mwfbuttonimage=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/reset.png\" title=\"重置处理人\" mwfbuttonaction=\"resetWork\" mwfbuttontext=\"重置处理人\" style=\"display: block; position: static; float: left; border: 1px solid rgb(255, 255, 255); color: inherit; background-color: rgb(255, 255, 255); height: 30px; margin-right: 8px; padding-left: 2px; padding-right: 2px; cursor: pointer; border-radius: 5px;\"><span style=\"display: block; float: left; padding: 7px 1px 1px; cursor: pointer;\"><img src=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/reset.png\" style=\"height: 16px; width: 16px; cursor: pointer; margin-top: 0px;\"></span><span style=\"display: block; float: left; height: 30px; padding-left: 2px; padding-right: 2px; line-height: 30px; cursor: pointer; color: rgb(0, 0, 0);\">重置处理人</span></div><div mwfnodetype=\"MWFToolBarButton\" mwfbuttonimage=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/addTask.png\" title=\"在当前活动添加处理人\" mwfbuttonaction=\"addTask\" mwfbuttontext=\"加签\" style=\"display: block; position: static; float: left; border: 1px solid rgb(255, 255, 255); color: inherit; background-color: rgb(255, 255, 255); height: 30px; margin-right: 8px; padding-left: 2px; padding-right: 2px; cursor: pointer; border-radius: 5px;\"><span style=\"display: block; float: left; padding: 7px 1px 1px; cursor: pointer;\"><img src=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/addTask.png\" style=\"height: 16px; width: 16px; cursor: pointer; margin-top: 0px;\"></span><span style=\"display: block; float: left; height: 30px; padding-left: 2px; padding-right: 2px; line-height: 30px; cursor: pointer; color: rgb(0, 0, 0);\">加签</span></div><div mwfnodetype=\"MWFToolBarButton\" mwfbuttonimage=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/split.png\" title=\"增加拆分分支\" mwfbuttonaction=\"addSplit\" mwfbuttontext=\"增加分支\" style=\"display: block; position: static; float: left; border: 1px solid rgb(255, 255, 255); color: inherit; background-color: rgb(255, 255, 255); height: 30px; margin-right: 8px; padding-left: 2px; padding-right: 2px; cursor: pointer; border-radius: 5px;\"><span style=\"display: block; float: left; padding: 7px 1px 1px; cursor: pointer;\"><img src=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/split.png\" style=\"height: 16px; width: 16px; cursor: pointer; margin-top: 0px;\"></span><span style=\"display: block; float: left; height: 30px; padding-left: 2px; padding-right: 2px; line-height: 30px; cursor: pointer; color: rgb(0, 0, 0);\">增加分支</span></div><div mwfnodetype=\"MWFToolBarButton\" mwfbuttonimage=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/retract.png\" title=\"待办撤回\" mwfbuttonaction=\"retractWork\" mwfbuttontext=\"撤回\" style=\"display: block; position: static; float: left; border: 1px solid rgb(255, 255, 255); color: inherit; background-color: rgb(255, 255, 255); height: 30px; margin-right: 8px; padding-left: 2px; padding-right: 2px; cursor: pointer; border-radius: 5px;\"><span style=\"display: block; float: left; padding: 7px 1px 1px; cursor: pointer;\"><img src=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/retract.png\" style=\"height: 16px; width: 16px; cursor: pointer; margin-top: 0px;\"></span><span style=\"display: block; float: left; height: 30px; padding-left: 2px; padding-right: 2px; line-height: 30px; cursor: pointer; color: rgb(0, 0, 0);\">撤回</span></div><div mwfnodetype=\"MWFToolBarButton\" mwfbuttonimage=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/rollback.png\" title=\"回溯到指定的环节，不保留流程记录\" mwfbuttonaction=\"rollback\" mwfbuttontext=\"流程回溯\" style=\"display: block; position: static; float: left; border: 1px solid rgb(255, 255, 255); color: inherit; background-color: rgb(255, 255, 255); height: 30px; margin-right: 8px; padding-left: 2px; padding-right: 2px; cursor: pointer; border-radius: 5px;\"><span style=\"display: block; float: left; padding: 7px 1px 1px; cursor: pointer;\"><img src=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/rollback.png\" style=\"height: 16px; width: 16px; cursor: pointer; margin-top: 0px;\"></span><span style=\"display: block; float: left; height: 30px; padding-left: 2px; padding-right: 2px; line-height: 30px; cursor: pointer; color: rgb(0, 0, 0);\">流程回溯</span></div><div mwfnodetype=\"MWFToolBarButton\" mwfbuttonimage=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/del.png\" title=\"删除文件\" mwfbuttonaction=\"deleteWork\" mwfbuttontext=\"删除文档\" style=\"display: block; position: static; float: left; border: 1px solid rgb(255, 255, 255); color: inherit; background-color: rgb(255, 255, 255); height: 30px; margin-right: 8px; padding-left: 2px; padding-right: 2px; cursor: pointer; border-radius: 5px;\"><span style=\"display: block; float: left; padding: 7px 1px 1px; cursor: pointer;\"><img src=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/del.png\" style=\"height: 16px; width: 16px; cursor: pointer; margin-top: 0px;\"></span><span style=\"display: block; float: left; height: 30px; padding-left: 2px; padding-right: 2px; line-height: 30px; cursor: pointer; color: rgb(0, 0, 0);\">删除文档</span></div><div mwfnodetype=\"MWFToolBarButton\" mwfbuttonimage=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/print.png\" title=\"打印文档\" mwfbuttonaction=\"printWork\" mwfbuttontext=\"打印\" style=\"display: block; position: static; float: left; border: 1px solid rgb(255, 255, 255); color: inherit; background-color: rgb(255, 255, 255); height: 30px; margin-right: 8px; padding-left: 2px; padding-right: 2px; cursor: pointer; border-radius: 5px;\"><span style=\"display: block; float: left; padding: 7px 1px 1px; cursor: pointer;\"><img src=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/print.png\" style=\"height: 16px; width: 16px; cursor: pointer; margin-top: 0px;\"></span><span style=\"display: block; float: left; height: 30px; padding-left: 2px; padding-right: 2px; line-height: 30px; cursor: pointer; color: rgb(0, 0, 0);\">打印</span></div><div mwfnodetype=\"MWFToolBarButton\" mwfbuttonimage=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/press.png\" title=\"催促办理\" mwfbuttonaction=\"pressWork\" mwfbuttontext=\"催促办理\" style=\"display: block; position: static; float: left; border: 1px solid rgb(255, 255, 255); color: inherit; background-color: rgb(255, 255, 255); height: 30px; margin-right: 8px; padding-left: 2px; padding-right: 2px; cursor: pointer; border-radius: 5px;\"><span style=\"display: block; float: left; padding: 7px 1px 1px; cursor: pointer;\"><img src=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/press.png\" style=\"height: 16px; width: 16px; cursor: pointer; margin-top: 0px;\"></span><span style=\"display: block; float: left; height: 30px; padding-left: 2px; padding-right: 2px; line-height: 30px; cursor: pointer; color: rgb(0, 0, 0);\">催促办理</span></div><div mwfnodetype=\"MWFToolBarButton\" mwfbuttonimage=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/pause.png\" title=\"待办挂起\" mwfbuttonaction=\"pauseTask\" mwfbuttontext=\"挂起\" style=\"display: block; position: static; float: left; border: 1px solid rgb(255, 255, 255); color: inherit; background-color: rgb(255, 255, 255); height: 30px; margin-right: 8px; padding-left: 2px; padding-right: 2px; cursor: pointer; border-radius: 5px;\"><span style=\"display: block; float: left; padding: 7px 1px 1px; cursor: pointer;\"><img src=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/pause.png\" style=\"height: 16px; width: 16px; cursor: pointer; margin-top: 0px;\"></span><span style=\"display: block; float: left; height: 30px; padding-left: 2px; padding-right: 2px; line-height: 30px; cursor: pointer; color: rgb(0, 0, 0);\">挂起</span></div><div mwfnodetype=\"MWFToolBarButton\" mwfbuttonimage=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/resume.png\" title=\"从挂起状态恢复\" mwfbuttonaction=\"resumeTask\" mwfbuttontext=\"挂起恢复\" style=\"display: block; position: static; float: left; border: 1px solid rgb(255, 255, 255); color: inherit; background-color: rgb(255, 255, 255); height: 30px; margin-right: 8px; padding-left: 2px; padding-right: 2px; cursor: pointer; border-radius: 5px;\"><span style=\"display: block; float: left; padding: 7px 1px 1px; cursor: pointer;\"><img src=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/resume.png\" style=\"height: 16px; width: 16px; cursor: pointer; margin-top: 0px;\"></span><span style=\"display: block; float: left; height: 30px; padding-left: 2px; padding-right: 2px; line-height: 30px; cursor: pointer; color: rgb(0, 0, 0);\">挂起恢复</span></div><div mwfnodetype=\"MWFToolBarButton\" mwfbuttonimage=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/downloadAll.png\" title=\"一键下载\" mwfbuttonaction=\"downloadAll\" mwfbuttontext=\"一键下载\" style=\"display: block; position: static; float: left; border: 1px solid rgb(255, 255, 255); color: inherit; background-color: rgb(255, 255, 255); height: 30px; margin-right: 8px; padding-left: 2px; padding-right: 2px; cursor: pointer; border-radius: 5px;\"><span style=\"display: block; float: left; padding: 7px 1px 1px; cursor: pointer;\"><img src=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/downloadAll.png\" style=\"height: 16px; width: 16px; cursor: pointer; margin-top: 0px;\"></span><span style=\"display: block; float: left; height: 30px; padding-left: 2px; padding-right: 2px; line-height: 30px; cursor: pointer; color: rgb(0, 0, 0);\">一键下载</span></div><div mwfnodetype=\"MWFToolBarButton\" mwfbuttonimage=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/monitor.png\" title=\"流程监控\" mwfbuttonaction=\"monitor\" mwfbuttontext=\"流程监控\" style=\"display: block; position: static; float: left; border: 1px solid rgb(255, 255, 255); color: inherit; background-color: rgb(255, 255, 255); height: 30px; margin-right: 8px; padding-left: 2px; padding-right: 2px; cursor: pointer; border-radius: 5px;\"><span style=\"display: block; float: left; padding: 7px 1px 1px; cursor: pointer;\"><img src=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/monitor.png\" style=\"height: 16px; width: 16px; cursor: pointer; margin-top: 0px;\"></span><span style=\"display: block; float: left; height: 30px; padding-left: 2px; padding-right: 2px; line-height: 30px; cursor: pointer; color: rgb(0, 0, 0);\">流程监控</span></div></div></div><div id=\"label\" mwftype=\"label\" style=\"text-align: center; font-size: 36px; line-height: 60px; font-weight: bold; color: rgb(253, 17, 19); height: 60px; font-family: 宋体;\"></div><div id=\"div\" mwftype=\"div\" style=\"width: 1000px; margin: 20px auto;\"><div id=\"table\" mwftype=\"table\" style=\"background-color: rgb(255, 255, 255);\"><table width=\"100%\" align=\"center\" border=\"0\" cellspacing=\"5\" cellpadding=\"5\" style=\"border-collapse: separate;\"><tbody><tr><td id=\"table_table$Td\" mwftype=\"table$Td\" style=\"background-color: rgb(255, 255, 255); color: rgb(253, 17, 19); font-weight: bold; height: 30px; line-height: 30px; text-align: center; font-size: 18px; width: 120px;\"><div id=\"label_1\" mwftype=\"label\" style=\"\">密　级</div></td><td id=\"table_table$Td_1\" mwftype=\"table$Td\" style=\"background-color: rgb(255, 255, 255); color: rgb(51, 51, 51); font-size: 18px; min-height: 30px;\"><div id=\"secret\" mwftype=\"select\" style=\"border-width: 0px 0px 1px; border-bottom-style: solid; border-bottom-color: rgb(153, 153, 153); border-top-style: initial; border-top-color: initial; border-left-style: initial; border-left-color: initial; border-right-style: initial; border-right-color: initial; margin-top: 5px; color: rgb(102, 102, 102);\"><select></select></div></td><td id=\"table_table$Td_2\" rowspan=\"1\" colspan=\"2\" mwftype=\"table$Td\" style=\"font-size: 18px;\"><div id=\"label_2\" mwftype=\"label\" style=\"float: left; color: rgb(253, 17, 19); line-height: 30px;\">ＸＸＸＸ</div><div id=\"departmentWord\" mwftype=\"textfield\" style=\"overflow: visible; position: relative; margin-right: 0px; padding-right: 4px; border-width: 0px 0px 1px; border-bottom-style: solid; border-bottom-color: rgb(204, 204, 204); border-top-style: initial; border-top-color: initial; border-left-style: initial; border-left-color: initial; border-right-style: initial; border-right-color: initial; float: left; width: 50px; height: 30px; margin-left: 5px;\"><input style=\"background: transparent; width: 100%; border: 0px; height: 26px; color: rgb(102, 102, 102); font-size: 16px; text-align: center;\"></div><div id=\"label_3\" mwftype=\"label\" style=\"float: left; color: rgb(253, 17, 19); line-height: 30px; font-size: 24px; text-align: right;\">﹝</div><div id=\"div_1\" mwftype=\"div\" style=\"width: 60px; float: left; text-align: center;\"><div id=\"fileYear\" mwftype=\"textfield\" style=\"overflow: visible; position: relative; margin-right: 0px; padding-right: 4px; border-width: 0px 0px 1px; border-bottom-style: solid; border-bottom-color: rgb(204, 204, 204); border-top-style: initial; border-top-color: initial; border-left-style: initial; border-left-color: initial; border-right-style: initial; border-right-color: initial; width: 50px; height: 30px; margin-left: 5px;\"><input style=\"background: transparent; width: 100%; border: 0px; height: 26px; color: rgb(102, 102, 102); text-align: center; font-size: 16px;\"></div></div><div id=\"label_4\" mwftype=\"label\" style=\"float: left; color: rgb(253, 17, 19); line-height: 30px; font-size: 24px; text-align: left;\">﹞</div><div id=\"div_2\" mwftype=\"div\" style=\"width: 60px; float: left; text-align: center;\"><div id=\"fileno\" mwftype=\"textfield\" style=\"overflow: visible; position: relative; margin-right: 0px; padding-right: 4px; border-width: 0px 0px 1px; border-bottom-style: solid; border-bottom-color: rgb(204, 204, 204); border-top-style: initial; border-top-color: initial; border-left-style: initial; border-left-color: initial; border-right-style: initial; border-right-color: initial; width: 50px; height: 30px; margin-left: 5px;\"><input style=\"background: transparent; width: 100%; border: 0px; height: 26px; color: rgb(102, 102, 102); text-align: center; font-size: 16px;\"></div></div><div id=\"label_5\" mwftype=\"label\" style=\"float: left; color: rgb(253, 17, 19); line-height: 30px;\">号</div></td><td id=\"table_table$Td_4\" mwftype=\"table$Td\" style=\"background-color: rgb(255, 255, 255); color: rgb(51, 51, 51); font-size: 18px; min-height: 30px;\"><div id=\"label_6\" mwftype=\"label\" style=\"float: left; color: rgb(253, 17, 19); line-height: 30px;\">印数</div><div id=\"copies\" mwftype=\"textfield\" style=\"overflow: visible; position: relative; margin-right: 0px; padding-right: 4px; border-width: 0px 0px 1px; border-bottom-style: solid; border-bottom-color: rgb(204, 204, 204); border-top-style: initial; border-top-color: initial; border-left-style: initial; border-left-color: initial; border-right-style: initial; border-right-color: initial; float: left; width: 70px; height: 30px; margin-left: 5px;\"><input style=\"background: transparent; width: 100%; border: 0px; height: 26px; color: rgb(102, 102, 102); font-size: 16px; text-align: center;\"></div><div id=\"label_7\" mwftype=\"label\" style=\"float: left; color: rgb(253, 17, 19); line-height: 30px;\">份</div></td></tr><tr><td id=\"table_table$Td_5\" mwftype=\"table$Td\" style=\"background-color: rgb(255, 255, 255); color: rgb(253, 17, 19); font-weight: bold; height: 30px; line-height: 30px; text-align: center; font-size: 18px;\"><div id=\"label_8\" mwftype=\"label\" style=\"\">文件标题</div></td><td id=\"table_table$Td_6\" rowspan=\"1\" colspan=\"4\" mwftype=\"table$Td\" style=\"background-color: rgb(255, 255, 255); color: rgb(51, 51, 51); font-size: 18px; min-height: 30px;\"><div id=\"subject\" mwftype=\"textfield\" style=\"overflow: hidden; position: relative; margin-right: 20px; padding-right: 4px; border-width: 0px 0px 1px; border-bottom-style: solid; border-bottom-color: rgb(204, 204, 204); border-top-style: initial; border-top-color: initial; border-left-style: initial; border-left-color: initial; border-right-style: initial; border-right-color: initial;\"><input style=\"background: transparent; width: 100%; border: 0px; height: 26px; color: rgb(102, 102, 102);\"></div></td></tr><tr><td id=\"table_table$Td_10\" mwftype=\"table$Td\" style=\"background-color: rgb(255, 255, 255); color: rgb(253, 17, 19); font-weight: bold; height: 30px; line-height: 30px; text-align: center; font-size: 18px;\"><div id=\"label_9\" mwftype=\"label\" style=\"\">主　送</div></td><td id=\"table_table$Td_11\" rowspan=\"1\" colspan=\"4\" mwftype=\"table$Td\" style=\"background-color: rgb(255, 255, 255); color: rgb(51, 51, 51); font-size: 18px; min-height: 30px;\"><div id=\"mainSend\" mwftype=\"textfield\" style=\"overflow: hidden; position: relative; margin-right: 20px; padding-right: 4px; border-width: 0px 0px 1px; border-bottom-style: solid; border-bottom-color: rgb(204, 204, 204); border-top-style: initial; border-top-color: initial; border-left-style: initial; border-left-color: initial; border-right-style: initial; border-right-color: initial;\"><input style=\"background: transparent; width: 100%; border: 0px; height: 26px; color: rgb(102, 102, 102);\"></div></td></tr><tr><td id=\"table_table$Td_15\" mwftype=\"table$Td\" style=\"background-color: rgb(255, 255, 255); color: rgb(253, 17, 19); font-weight: bold; height: 30px; line-height: 30px; text-align: center; font-size: 18px;\"><div id=\"label_10\" mwftype=\"label\" style=\"\">抄　送</div></td><td id=\"table_table$Td_16\" rowspan=\"1\" colspan=\"4\" mwftype=\"table$Td\" style=\"background-color: rgb(255, 255, 255); color: rgb(51, 51, 51); font-size: 18px; min-height: 30px;\"><div id=\"copyTo\" mwftype=\"textfield\" style=\"overflow: hidden; position: relative; margin-right: 20px; padding-right: 4px; border-width: 0px 0px 1px; border-bottom-style: solid; border-bottom-color: rgb(204, 204, 204); border-top-style: initial; border-top-color: initial; border-left-style: initial; border-left-color: initial; border-right-style: initial; border-right-color: initial;\"><input style=\"background: transparent; width: 100%; border: 0px; height: 26px; color: rgb(102, 102, 102);\"></div></td></tr><tr><td id=\"table_table$Td_20\" rowspan=\"2\" colspan=\"1\" mwftype=\"table$Td\" style=\"background-color: rgb(255, 255, 255); color: rgb(253, 17, 19); font-weight: bold; height: 30px; line-height: 30px; text-align: center; font-size: 18px;\"><div id=\"label_11\" mwftype=\"label\" style=\"\">拟文部门</div><div id=\"label_12\" mwftype=\"label\" style=\"\">意　　见</div></td><td id=\"table_table$Td_21\" rowspan=\"1\" colspan=\"2\" mwftype=\"table$Td\" style=\"background-color: rgb(255, 255, 255); color: rgb(51, 51, 51); font-size: 18px; min-height: 30px;\"><div id=\"log\" mwftype=\"log\" style=\"\"><div style=\"width: 70px; height: 24px; color: rgb(153, 153, 153); font-size: 12px; position: static; margin: auto;\"><div style=\"width: 24px; height: 24px; background: url(&quot;../x_component_process_FormDesigner/Module/Log/default/icon/log.png&quot;) 5px center no-repeat; float: left;\"></div><div style=\"line-height: 24px; height: 24px; width: 44px; float: right;\">LOG</div></div></div></td><td id=\"table_table$Td_23\" rowspan=\"2\" colspan=\"1\" mwftype=\"table$Td\" style=\"background-color: rgb(255, 255, 255); color: rgb(253, 17, 19); font-weight: bold; height: 30px; line-height: 30px; text-align: center; font-size: 18px;\"><div id=\"label_14\" mwftype=\"label\" style=\"\">拟稿人</div></td><td id=\"table_table$Td_24\" rowspan=\"2\" colspan=\"1\" mwftype=\"table$Td\" style=\"background-color: rgb(255, 255, 255); color: rgb(51, 51, 51); font-size: 18px; min-height: 30px;\"><div id=\"label_15\" mwftype=\"label\" style=\"\"></div></td></tr><tr><td id=\"table_table$Td_26\" mwftype=\"table$Td\" style=\"background-color: rgb(255, 255, 255); color: rgb(253, 17, 19); font-weight: bold; height: 30px; line-height: 30px; text-align: center; font-size: 18px;\"><div id=\"label_13\" mwftype=\"label\" style=\"\">是否同意上门户网站</div></td><td id=\"table_table$Td_27\" mwftype=\"table$Td\" style=\"background-color: rgb(255, 255, 255); color: rgb(51, 51, 51); font-size: 18px; min-height: 30px;\"><div id=\"publishPortal\" mwftype=\"radio\" style=\"\"></div></td></tr><tr><td id=\"table_table$Td_30\" mwftype=\"table$Td\" style=\"background-color: rgb(255, 255, 255); color: rgb(253, 17, 19); font-weight: bold; height: 30px; line-height: 30px; text-align: center; font-size: 18px;\"><div id=\"label_16\" mwftype=\"label\" style=\"\">会办部门</div><div id=\"label_17\" mwftype=\"label\" style=\"\">意　　见</div></td><td id=\"table_table$Td_31\" rowspan=\"1\" colspan=\"4\" mwftype=\"table$Td\" style=\"background-color: rgb(255, 255, 255); color: rgb(51, 51, 51); font-size: 18px; min-height: 30px;\"><div id=\"log_1\" mwftype=\"log\" style=\"\"><div style=\"width: 70px; height: 24px; color: rgb(153, 153, 153); font-size: 12px; position: static; margin: auto;\"><div style=\"width: 24px; height: 24px; background: url(&quot;../x_component_process_FormDesigner/Module/Log/default/icon/log.png&quot;) 5px center no-repeat; float: left;\"></div><div style=\"line-height: 24px; height: 24px; width: 44px; float: right;\">LOG</div></div></div></td></tr><tr><td id=\"table_table$Td_35\" rowspan=\"2\" colspan=\"1\" mwftype=\"table$Td\" style=\"background-color: rgb(255, 255, 255); color: rgb(253, 17, 19); font-weight: bold; height: 30px; line-height: 30px; text-align: center; font-size: 18px;\"><div id=\"label_18\" mwftype=\"label\" style=\"\">办公室</div><div id=\"label_19\" mwftype=\"label\" style=\"\">意　见</div></td><td id=\"table_table$Td_36\" rowspan=\"1\" colspan=\"2\" mwftype=\"table$Td\" style=\"background-color: rgb(255, 255, 255); color: rgb(51, 51, 51); font-size: 18px; min-height: 30px;\"><div id=\"log_2\" mwftype=\"log\" style=\"\"><div style=\"width: 70px; height: 24px; color: rgb(153, 153, 153); font-size: 12px; position: static; margin: auto;\"><div style=\"width: 24px; height: 24px; background: url(&quot;../x_component_process_FormDesigner/Module/Log/default/icon/log.png&quot;) 5px center no-repeat; float: left;\"></div><div style=\"line-height: 24px; height: 24px; width: 44px; float: right;\">LOG</div></div></div></td><td id=\"table_table$Td_38\" rowspan=\"2\" colspan=\"1\" mwftype=\"table$Td\" style=\"background-color: rgb(255, 255, 255); color: rgb(253, 17, 19); font-weight: bold; height: 30px; line-height: 30px; text-align: center; font-size: 18px;\"><div id=\"label_21\" mwftype=\"label\" style=\"\">核稿人</div></td><td id=\"table_table$Td_39\" rowspan=\"2\" colspan=\"1\" mwftype=\"table$Td\" style=\"background-color: rgb(255, 255, 255); color: rgb(51, 51, 51); font-size: 18px; min-height: 30px;\"><div mwftype=\"textfield\" id=\"auditPeople\" style=\"overflow: hidden; position: relative; margin-right: 20px; min-height: 24px; border: 0px solid rgb(153, 153, 153); height: auto; line-height: 30px; font-size: 18px;\"><div style=\"background: transparent; border: 1px solid rgb(153, 153, 153); min-height: 24px; height: 30px; line-height: 30px; color: rgb(102, 102, 102); font-size: 18px; font-family: 宋体;\"></div></div></td></tr><tr><td id=\"table_table$Td_41\" mwftype=\"table$Td\" style=\"background-color: rgb(255, 255, 255); color: rgb(253, 17, 19); font-weight: bold; height: 30px; line-height: 30px; text-align: center; font-size: 18px;\"><div id=\"label_20\" mwftype=\"label\" style=\"\">是否同意上门户网站</div></td><td id=\"table_table$Td_42\" mwftype=\"table$Td\" style=\"background-color: rgb(255, 255, 255); color: rgb(51, 51, 51); font-size: 18px; min-height: 30px;\"><div id=\"radio\" mwftype=\"radio\" style=\"\"></div></td></tr><tr><td id=\"table_table$Td_45\" mwftype=\"table$Td\" style=\"background-color: rgb(255, 255, 255); color: rgb(253, 17, 19); font-weight: bold; height: 30px; line-height: 30px; text-align: center; font-size: 18px;\"><div id=\"label_22\" mwftype=\"label\" style=\"\">分管领导</div><div id=\"label_23\" mwftype=\"label\" style=\"\">意　　见</div></td><td id=\"table_table$Td_46\" rowspan=\"1\" colspan=\"4\" mwftype=\"table$Td\" style=\"\"><div id=\"log_3\" mwftype=\"log\" style=\"\"><div style=\"width: 70px; height: 24px; color: rgb(153, 153, 153); font-size: 12px; position: static; margin: auto;\"><div style=\"width: 24px; height: 24px; background: url(&quot;../x_component_process_FormDesigner/Module/Log/default/icon/log.png&quot;) 5px center no-repeat; float: left;\"></div><div style=\"line-height: 24px; height: 24px; width: 44px; float: right;\">LOG</div></div></div></td></tr><tr><td id=\"table_table$Td_13\" mwftype=\"table$Td\" style=\"background-color: rgb(255, 255, 255); color: rgb(253, 17, 19); font-weight: bold; height: 30px; line-height: 30px; text-align: center; font-size: 18px;\"><div id=\"label_24\" mwftype=\"label\" style=\"\">领　　导</div><div id=\"label_25\" mwftype=\"label\" style=\"\">意　　见</div></td><td id=\"table_table$Td_14\" rowspan=\"1\" colspan=\"4\" mwftype=\"table$Td\" style=\"\"><div id=\"log_4\" mwftype=\"log\" style=\"\"><div style=\"width: 70px; height: 24px; color: rgb(153, 153, 153); font-size: 12px; position: static; margin: auto;\"><div style=\"width: 24px; height: 24px; background: url(&quot;../x_component_process_FormDesigner/Module/Log/default/icon/log.png&quot;) 5px center no-repeat; float: left;\"></div><div style=\"line-height: 24px; height: 24px; width: 44px; float: right;\">LOG</div></div></div></td></tr></tbody></table></div><div id=\"div_3\" mwftype=\"div\" style=\"margin-top: 20px;\"><div mwftype=\"documenteditor\" id=\"documenteditor\" style=\"\"></div></div><div id=\"attachment\" mwftype=\"itmleditor\" style=\"margin-top: 20px;\"><div style=\"border: 1px solid rgb(182, 182, 182); min-height: 180px; background: rgb(255, 255, 255); margin-top: 10px; overflow: hidden;\"><div style=\"height: 40px; background-image: url(&quot;../o2_core/o2/widget/$AttachmentController/default/bg.png&quot;); border-top: 1px solid rgb(255, 255, 255); border-bottom: 1px solid rgb(182, 182, 182);\"><div style=\"overflow: hidden; border-bottom: 1px solid rgb(234, 235, 234); float: left; margin-left: 10px; margin-top: 5px; border-radius: 3px; background-image: url(&quot;../o2_core/o2/widget/$AttachmentController/default/buttonbg.png&quot;);\"><div style=\"height: 26px; border: 1px solid rgb(151, 151, 151); border-radius: 3px; background-image: url(&quot;../o2_core/o2/widget/$AttachmentController/default/buttonbg.png&quot;);\"><div title=\"上传\" style=\"float: left; width: 26px; height: 26px; cursor: default;\"><div style=\"width: 26px; height: 26px; background-repeat: no-repeat; background-position: center center; background-image: url(&quot;../o2_core/o2/widget/$AttachmentController/default/icon/upload_gray.png&quot;);\"></div></div><div title=\"删除\" style=\"float: left; width: 26px; height: 26px; cursor: default;\"><div style=\"width: 26px; height: 26px; background-repeat: no-repeat; background-position: center center; background-image: url(&quot;../o2_core/o2/widget/$AttachmentController/default/icon/delete_gray.png&quot;);\"></div></div><div title=\"替换\" style=\"float: left; width: 26px; height: 26px; cursor: default;\"><div style=\"width: 26px; height: 26px; background-repeat: no-repeat; background-position: center center; background-image: url(&quot;../o2_core/o2/widget/$AttachmentController/default/icon/replace_gray.png&quot;);\"></div></div><div class=\"separateNode\" style=\"width: 1px; height: 16px; margin-top: 5px; margin-left: 5px; margin-right: 5px; border-left: 1px solid rgb(188, 188, 188); background-color: rgb(241, 241, 241); float: left;\"></div><div title=\"下载\" style=\"float: left; width: 26px; height: 26px; cursor: default;\"><div style=\"width: 26px; height: 26px; background-repeat: no-repeat; background-position: center center; background-image: url(&quot;../o2_core/o2/widget/$AttachmentController/default/icon/download_gray.png&quot;);\"></div></div></div></div><div style=\"overflow: hidden; border-bottom: 1px solid rgb(234, 235, 234); float: left; margin-left: 10px; margin-top: 5px; border-radius: 3px; background-image: url(&quot;../o2_core/o2/widget/$AttachmentController/default/buttonbg.png&quot;);\"><div style=\"height: 26px; border: 1px solid rgb(151, 151, 151); border-radius: 3px; background-image: url(&quot;../o2_core/o2/widget/$AttachmentController/default/buttonbg.png&quot;);\"><div title=\"列表\" style=\"float: left; width: 26px; height: 26px; cursor: default;\"><div style=\"width: 26px; height: 26px; background-repeat: no-repeat; background-position: center center; background-image: url(&quot;../o2_core/o2/widget/$AttachmentController/default/icon/list.png&quot;);\"></div></div><div title=\"序列\" style=\"float: left; width: 26px; height: 26px; cursor: default;\"><div style=\"width: 26px; height: 26px; background-repeat: no-repeat; background-position: center center; background-image: url(&quot;../o2_core/o2/widget/$AttachmentController/default/icon/seq.png&quot;);\"></div></div><div title=\"图标\" style=\"float: left; width: 26px; height: 26px; cursor: default; background: url(&quot;../o2_core/o2/widget/$AttachmentController/default/selectedbg.png&quot;);\"><div style=\"width: 26px; height: 26px; background-repeat: no-repeat; background-position: center center; background-image: url(&quot;../o2_core/o2/widget/$AttachmentController/default/icon/icon.png&quot;);\"></div></div><div title=\"预览\" style=\"float: left; width: 26px; height: 26px; cursor: default;\"><div style=\"width: 26px; height: 26px; background-repeat: no-repeat; background-position: center center; background-image: url(&quot;../o2_core/o2/widget/$AttachmentController/default/icon/preview.png&quot;);\"></div></div></div></div><div style=\"overflow: hidden; border-bottom: 1px solid rgb(234, 235, 234); float: right; margin-left: 10px; margin-top: 5px; border-radius: 3px; background-image: url(&quot;../o2_core/o2/widget/$AttachmentController/default/buttonbg.png&quot;); margin-right: 7px;\"><div style=\"height: 26px; border: 1px solid rgb(151, 151, 151); border-radius: 3px; background-image: url(&quot;../o2_core/o2/widget/$AttachmentController/default/buttonbg.png&quot;);\"><div title=\"简洁模式\" style=\"float: left; width: 26px; height: 26px; cursor: default;\"><div style=\"width: 26px; height: 26px; background-repeat: no-repeat; background-position: center center; background-image: url(&quot;../o2_core/o2/widget/$AttachmentController/default/icon/min.png&quot;);\"></div></div></div></div></div><div class=\"contentScrollNode\" style=\"background-color: rgb(255, 255, 255); overflow: hidden; min-height: 130px;\"><div class=\"content\" style=\"background-color: rgb(255, 255, 255); overflow: hidden; margin-right: 6px;\"></div></div><div style=\"height: 7px; border-top: 1px solid rgb(182, 182, 182); background-color: rgb(232, 232, 232);\"><div style=\"height: 7px; cursor: row-resize;\"></div></div></div></div></div><div id=\"actionbar_1\" mwftype=\"actionbar\" style=\"\"><div style=\"background-color: rgb(255, 255, 255); padding: 6px 2px 1px 10px; overflow-wrap: normal; word-break: keep-all; cursor: pointer; overflow: hidden; height: auto; display: block; font-size: 14px; border-top: 2px solid rgb(204, 61, 61);\"><div mwfnodetype=\"MWFToolBarButton\" mwfbuttonimage=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/close.png\" title=\"关闭文档\" mwfbuttonaction=\"closeWork\" mwfbuttontext=\"关闭\" style=\"display: block; position: static; float: left; border: 1px solid rgb(255, 255, 255); color: inherit; background-color: rgb(255, 255, 255); height: 30px; margin-right: 8px; padding-left: 2px; padding-right: 2px; cursor: pointer; border-radius: 5px;\"><span style=\"display: block; float: left; padding: 7px 1px 1px; cursor: pointer;\"><img src=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/close.png\" style=\"height: 16px; width: 16px; cursor: pointer; margin-top: 0px;\"></span><span style=\"display: block; float: left; height: 30px; padding-left: 2px; padding-right: 2px; line-height: 30px; cursor: pointer; color: rgb(0, 0, 0);\">关闭</span></div><div mwfnodetype=\"MWFToolBarButton\" mwfbuttonimage=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/save.png\" title=\"保存文档\" mwfbuttonaction=\"saveWork\" mwfbuttontext=\"保存\" style=\"display: block; position: static; float: left; border: 1px solid rgb(255, 255, 255); color: inherit; background-color: rgb(255, 255, 255); height: 30px; margin-right: 8px; padding-left: 2px; padding-right: 2px; cursor: pointer; border-radius: 5px;\"><span style=\"display: block; float: left; padding: 7px 1px 1px; cursor: pointer;\"><img src=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/save.png\" style=\"height: 16px; width: 16px; cursor: pointer; margin-top: 0px;\"></span><span style=\"display: block; float: left; height: 30px; padding-left: 2px; padding-right: 2px; line-height: 30px; cursor: pointer; color: rgb(0, 0, 0);\">保存</span></div><div mwfnodetype=\"MWFToolBarButton\" mwfbuttonimage=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/submit.png\" title=\"继续流转文档\" mwfbuttonaction=\"processWork\" mwfbuttontext=\"继续流转\" style=\"display: block; position: static; float: left; border: 1px solid rgb(255, 255, 255); color: inherit; background-color: rgb(255, 255, 255); height: 30px; margin-right: 8px; padding-left: 2px; padding-right: 2px; cursor: pointer; border-radius: 5px;\"><span style=\"display: block; float: left; padding: 7px 1px 1px; cursor: pointer;\"><img src=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/submit.png\" style=\"height: 16px; width: 16px; cursor: pointer; margin-top: 0px;\"></span><span style=\"display: block; float: left; height: 30px; padding-left: 2px; padding-right: 2px; line-height: 30px; cursor: pointer; color: rgb(0, 0, 0);\">继续流转</span></div><div mwfnodetype=\"MWFToolBarButton\" mwfbuttonimage=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/goback.png\" title=\"退回到已经过的活动\" mwfbuttonaction=\"goBack\" mwfbuttontext=\"退回\" style=\"display: block; position: static; float: left; border: 1px solid rgb(255, 255, 255); color: inherit; background-color: rgb(255, 255, 255); height: 30px; margin-right: 8px; padding-left: 2px; padding-right: 2px; cursor: pointer; border-radius: 5px;\"><span style=\"display: block; float: left; padding: 7px 1px 1px; cursor: pointer;\"><img src=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/goback.png\" style=\"height: 16px; width: 16px; cursor: pointer; margin-top: 0px;\"></span><span style=\"display: block; float: left; height: 30px; padding-left: 2px; padding-right: 2px; line-height: 30px; cursor: pointer; color: rgb(0, 0, 0);\">退回</span></div><div mwfnodetype=\"MWFToolBarButton\" mwfbuttonimage=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/reroute.png\" title=\"调度文档\" mwfbuttonaction=\"rerouteWork\" mwfbuttontext=\"调度\" style=\"display: block; position: static; float: left; border: 1px solid rgb(255, 255, 255); color: inherit; background-color: rgb(255, 255, 255); height: 30px; margin-right: 8px; padding-left: 2px; padding-right: 2px; cursor: pointer; border-radius: 5px;\"><span style=\"display: block; float: left; padding: 7px 1px 1px; cursor: pointer;\"><img src=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/reroute.png\" style=\"height: 16px; width: 16px; cursor: pointer; margin-top: 0px;\"></span><span style=\"display: block; float: left; height: 30px; padding-left: 2px; padding-right: 2px; line-height: 30px; cursor: pointer; color: rgb(0, 0, 0);\">调度</span></div><div mwfnodetype=\"MWFToolBarButton\" mwfbuttonimage=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/reset.png\" title=\"重置处理人\" mwfbuttonaction=\"resetWork\" mwfbuttontext=\"重置处理人\" style=\"display: block; position: static; float: left; border: 1px solid rgb(255, 255, 255); color: inherit; background-color: rgb(255, 255, 255); height: 30px; margin-right: 8px; padding-left: 2px; padding-right: 2px; cursor: pointer; border-radius: 5px;\"><span style=\"display: block; float: left; padding: 7px 1px 1px; cursor: pointer;\"><img src=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/reset.png\" style=\"height: 16px; width: 16px; cursor: pointer; margin-top: 0px;\"></span><span style=\"display: block; float: left; height: 30px; padding-left: 2px; padding-right: 2px; line-height: 30px; cursor: pointer; color: rgb(0, 0, 0);\">重置处理人</span></div><div mwfnodetype=\"MWFToolBarButton\" mwfbuttonimage=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/addTask.png\" title=\"在当前活动添加处理人\" mwfbuttonaction=\"addTask\" mwfbuttontext=\"加签\" style=\"display: block; position: static; float: left; border: 1px solid rgb(255, 255, 255); color: inherit; background-color: rgb(255, 255, 255); height: 30px; margin-right: 8px; padding-left: 2px; padding-right: 2px; cursor: pointer; border-radius: 5px;\"><span style=\"display: block; float: left; padding: 7px 1px 1px; cursor: pointer;\"><img src=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/addTask.png\" style=\"height: 16px; width: 16px; cursor: pointer; margin-top: 0px;\"></span><span style=\"display: block; float: left; height: 30px; padding-left: 2px; padding-right: 2px; line-height: 30px; cursor: pointer; color: rgb(0, 0, 0);\">加签</span></div><div mwfnodetype=\"MWFToolBarButton\" mwfbuttonimage=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/split.png\" title=\"增加拆分分支\" mwfbuttonaction=\"addSplit\" mwfbuttontext=\"增加分支\" style=\"display: block; position: static; float: left; border: 1px solid rgb(255, 255, 255); color: inherit; background-color: rgb(255, 255, 255); height: 30px; margin-right: 8px; padding-left: 2px; padding-right: 2px; cursor: pointer; border-radius: 5px;\"><span style=\"display: block; float: left; padding: 7px 1px 1px; cursor: pointer;\"><img src=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/split.png\" style=\"height: 16px; width: 16px; cursor: pointer; margin-top: 0px;\"></span><span style=\"display: block; float: left; height: 30px; padding-left: 2px; padding-right: 2px; line-height: 30px; cursor: pointer; color: rgb(0, 0, 0);\">增加分支</span></div><div mwfnodetype=\"MWFToolBarButton\" mwfbuttonimage=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/retract.png\" title=\"待办撤回\" mwfbuttonaction=\"retractWork\" mwfbuttontext=\"撤回\" style=\"display: block; position: static; float: left; border: 1px solid rgb(255, 255, 255); color: inherit; background-color: rgb(255, 255, 255); height: 30px; margin-right: 8px; padding-left: 2px; padding-right: 2px; cursor: pointer; border-radius: 5px;\"><span style=\"display: block; float: left; padding: 7px 1px 1px; cursor: pointer;\"><img src=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/retract.png\" style=\"height: 16px; width: 16px; cursor: pointer; margin-top: 0px;\"></span><span style=\"display: block; float: left; height: 30px; padding-left: 2px; padding-right: 2px; line-height: 30px; cursor: pointer; color: rgb(0, 0, 0);\">撤回</span></div><div mwfnodetype=\"MWFToolBarButton\" mwfbuttonimage=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/rollback.png\" title=\"回溯到指定的环节，不保留流程记录\" mwfbuttonaction=\"rollback\" mwfbuttontext=\"流程回溯\" style=\"display: block; position: static; float: left; border: 1px solid rgb(255, 255, 255); color: inherit; background-color: rgb(255, 255, 255); height: 30px; margin-right: 8px; padding-left: 2px; padding-right: 2px; cursor: pointer; border-radius: 5px;\"><span style=\"display: block; float: left; padding: 7px 1px 1px; cursor: pointer;\"><img src=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/rollback.png\" style=\"height: 16px; width: 16px; cursor: pointer; margin-top: 0px;\"></span><span style=\"display: block; float: left; height: 30px; padding-left: 2px; padding-right: 2px; line-height: 30px; cursor: pointer; color: rgb(0, 0, 0);\">流程回溯</span></div><div mwfnodetype=\"MWFToolBarButton\" mwfbuttonimage=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/del.png\" title=\"删除文件\" mwfbuttonaction=\"deleteWork\" mwfbuttontext=\"删除文档\" style=\"display: block; position: static; float: left; border: 1px solid rgb(255, 255, 255); color: inherit; background-color: rgb(255, 255, 255); height: 30px; margin-right: 8px; padding-left: 2px; padding-right: 2px; cursor: pointer; border-radius: 5px;\"><span style=\"display: block; float: left; padding: 7px 1px 1px; cursor: pointer;\"><img src=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/del.png\" style=\"height: 16px; width: 16px; cursor: pointer; margin-top: 0px;\"></span><span style=\"display: block; float: left; height: 30px; padding-left: 2px; padding-right: 2px; line-height: 30px; cursor: pointer; color: rgb(0, 0, 0);\">删除文档</span></div><div mwfnodetype=\"MWFToolBarButton\" mwfbuttonimage=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/print.png\" title=\"打印文档\" mwfbuttonaction=\"printWork\" mwfbuttontext=\"打印\" style=\"display: block; position: static; float: left; border: 1px solid rgb(255, 255, 255); color: inherit; background-color: rgb(255, 255, 255); height: 30px; margin-right: 8px; padding-left: 2px; padding-right: 2px; cursor: pointer; border-radius: 5px;\"><span style=\"display: block; float: left; padding: 7px 1px 1px; cursor: pointer;\"><img src=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/print.png\" style=\"height: 16px; width: 16px; cursor: pointer; margin-top: 0px;\"></span><span style=\"display: block; float: left; height: 30px; padding-left: 2px; padding-right: 2px; line-height: 30px; cursor: pointer; color: rgb(0, 0, 0);\">打印</span></div><div mwfnodetype=\"MWFToolBarButton\" mwfbuttonimage=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/press.png\" title=\"催促办理\" mwfbuttonaction=\"pressWork\" mwfbuttontext=\"催促办理\" style=\"display: block; position: static; float: left; border: 1px solid rgb(255, 255, 255); color: inherit; background-color: rgb(255, 255, 255); height: 30px; margin-right: 8px; padding-left: 2px; padding-right: 2px; cursor: pointer; border-radius: 5px;\"><span style=\"display: block; float: left; padding: 7px 1px 1px; cursor: pointer;\"><img src=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/press.png\" style=\"height: 16px; width: 16px; cursor: pointer; margin-top: 0px;\"></span><span style=\"display: block; float: left; height: 30px; padding-left: 2px; padding-right: 2px; line-height: 30px; cursor: pointer; color: rgb(0, 0, 0);\">催促办理</span></div><div mwfnodetype=\"MWFToolBarButton\" mwfbuttonimage=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/pause.png\" title=\"待办挂起\" mwfbuttonaction=\"pauseTask\" mwfbuttontext=\"挂起\" style=\"display: block; position: static; float: left; border: 1px solid rgb(255, 255, 255); color: inherit; background-color: rgb(255, 255, 255); height: 30px; margin-right: 8px; padding-left: 2px; padding-right: 2px; cursor: pointer; border-radius: 5px;\"><span style=\"display: block; float: left; padding: 7px 1px 1px; cursor: pointer;\"><img src=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/pause.png\" style=\"height: 16px; width: 16px; cursor: pointer; margin-top: 0px;\"></span><span style=\"display: block; float: left; height: 30px; padding-left: 2px; padding-right: 2px; line-height: 30px; cursor: pointer; color: rgb(0, 0, 0);\">挂起</span></div><div mwfnodetype=\"MWFToolBarButton\" mwfbuttonimage=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/resume.png\" title=\"从挂起状态恢复\" mwfbuttonaction=\"resumeTask\" mwfbuttontext=\"挂起恢复\" style=\"display: block; position: static; float: left; border: 1px solid rgb(255, 255, 255); color: inherit; background-color: rgb(255, 255, 255); height: 30px; margin-right: 8px; padding-left: 2px; padding-right: 2px; cursor: pointer; border-radius: 5px;\"><span style=\"display: block; float: left; padding: 7px 1px 1px; cursor: pointer;\"><img src=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/resume.png\" style=\"height: 16px; width: 16px; cursor: pointer; margin-top: 0px;\"></span><span style=\"display: block; float: left; height: 30px; padding-left: 2px; padding-right: 2px; line-height: 30px; cursor: pointer; color: rgb(0, 0, 0);\">挂起恢复</span></div><div mwfnodetype=\"MWFToolBarButton\" mwfbuttonimage=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/downloadAll.png\" title=\"一键下载\" mwfbuttonaction=\"downloadAll\" mwfbuttontext=\"一键下载\" style=\"display: block; position: static; float: left; border: 1px solid rgb(255, 255, 255); color: inherit; background-color: rgb(255, 255, 255); height: 30px; margin-right: 8px; padding-left: 2px; padding-right: 2px; cursor: pointer; border-radius: 5px;\"><span style=\"display: block; float: left; padding: 7px 1px 1px; cursor: pointer;\"><img src=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/downloadAll.png\" style=\"height: 16px; width: 16px; cursor: pointer; margin-top: 0px;\"></span><span style=\"display: block; float: left; height: 30px; padding-left: 2px; padding-right: 2px; line-height: 30px; cursor: pointer; color: rgb(0, 0, 0);\">一键下载</span></div><div mwfnodetype=\"MWFToolBarButton\" mwfbuttonimage=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/monitor.png\" title=\"流程监控\" mwfbuttonaction=\"monitor\" mwfbuttontext=\"流程监控\" style=\"display: block; position: static; float: left; border: 1px solid rgb(255, 255, 255); color: inherit; background-color: rgb(255, 255, 255); height: 30px; margin-right: 8px; padding-left: 2px; padding-right: 2px; cursor: pointer; border-radius: 5px;\"><span style=\"display: block; float: left; padding: 7px 1px 1px; cursor: pointer;\"><img src=\"../x_component_process_FormDesigner/Module/Actionbar/default/tools/xform_red_simple/monitor.png\" style=\"height: 16px; width: 16px; cursor: pointer; margin-top: 0px;\"></span><span style=\"display: block; float: left; height: 30px; padding-left: 2px; padding-right: 2px; line-height: 30px; cursor: pointer; color: rgb(0, 0, 0);\">流程监控</span></div></div></div></div>",
+    "id": "",
+    "isNewForm": true
+  },
+  "mobileData": {
+    "json": {
+      "id": "",
+      "name": "新建表单",
+      "type": "Form",
+      "mode": "Mobile",
+      "description": "",
+      "application": "",
+      "applicationName": "",
+
+      "styles": {},
+      "properties": {},
+      "cssLinks": [],
+      "scriptSrc": [],
+      "jsheader": {
+        "code": "",
+        "html": ""
+      },
+      "submitScript":{
+        "code":"",
+        "html": ""
+      },
+      "events": {
+        "queryLoad" : {
+          "code": "",
+          "html": ""
+        },
+        "beforeLoad" : {
+          "code": "",
+          "html": ""
+        },
+        "postLoad": {
+          "code": "",
+          "html": ""
+        },
+        "afterLoad": {
+          "code": "",
+          "html": ""
+        },
+        "beforeSave": {
+          "code": "",
+          "html": ""
+        },
+        "afterSave": {
+          "code": "",
+          "html": ""
+        },
+        "beforeClose": {
+          "code": "",
+          "html": ""
+        },
+        "beforeProcess": {
+          "code": "",
+          "html": ""
+        },
+        "beforeProcessWork": {
+          "code": "",
+          "html": ""
+        },
+        "afterProcess": {
+          "code": "",
+          "html": ""
+        },
+        "beforeReset":{
+          "code": "",
+          "html": ""
+        },
+        "afterReset":{
+          "code": "",
+          "html": ""
+        },
+        "beforeRetract":{
+          "code": "",
+          "html": ""
+        },
+        "afterRetract":{
+          "code": "",
+          "html": ""
+        },
+        "beforeReroute":{
+          "code": "",
+          "html": ""
+        },
+        "afterReroute":{
+          "code": "",
+          "html": ""
+        },
+        "beforeDelete":{
+          "code": "",
+          "html": ""
+        },
+        "afterDelete":{
+          "code": "",
+          "html": ""
+        },
+        "beforeModulesLoad":{
+          "code": "",
+          "html": ""
+        },
+        "afterModulesLoad":{
+          "code": "",
+          "html": ""
+        },
+        "help": {
+          "code": "",
+          "html": ""
+        },
+        "load": {
+          "code": "",
+          "html": ""
+        },
+        "unload": {
+          "code": "",
+          "html": ""
+        },
+        "click": {
+          "code": "",
+          "html": ""
+        },
+        "dblclick": {
+          "code": "",
+          "html": ""
+        },
+        "keydown": {
+          "code": "",
+          "html": ""
+        },
+        "keypress": {
+          "code": "",
+          "html": ""
+        },
+        "keyup": {
+          "code": "",
+          "html": ""
+        },
+
+        "mousedown": {
+          "code": "",
+          "html": ""
+        },
+        "mousemove": {
+          "code": "",
+          "html": ""
+        },
+        "mouseout": {
+          "code": "",
+          "html": ""
+        },
+        "mouseover": {
+          "code": "",
+          "html": ""
+        },
+        "mouseup": {
+          "code": "",
+          "html": ""
+        },
+        "focus": {
+          "code": "",
+          "html": ""
+        },
+        "blur": {
+          "code": "",
+          "html": ""
+        },
+        "submit": {
+          "code": "",
+          "html": ""
+        },
+        "reset": {
+          "code": "",
+          "html": ""
+        }
+
+      },
+
+      "moduleList": {},
+      "fieldList": {}
+    },
+    "html":"<div MWFType=\"form\" id=\"\"></div>"
+  }
+}

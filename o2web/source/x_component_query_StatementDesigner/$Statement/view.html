@@ -1,0 +1,486 @@
+<div style="background-color: #FFF; overflow: hidden">
+    <div title="{{$.lp.base}}" class="MWFTab">
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableTitle">{{$.lp.id}}:</td>
+                <td class="editTableValue">text{$.id}</td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.name}}:</td>
+                <td class="editTableValue"><input type="text" name="name" value="text{$.name}" class="editTableInput"/></td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.alias}}:</td>
+                <td class="editTableValue"><input type="text" name="description" value="text{$.description}" class="editTableInput"/></td>
+            </tr>
+<!--            <tr>-->
+<!--                <td class="editTableTitle">隐藏:</td>-->
+<!--                <td class="editTableValue">-->
+<!--                    <input class="editTableRadio" name="display" text{($.display===false)?'checked':''} type="radio" value="false"/>{{$.lp.yes}}-->
+<!--                    <input class="editTableRadio" name="display" text{($.display!==false)?'checked':''} type="radio" value="true"/>{{$.lp.no}}-->
+<!--                </td>-->
+<!--            </tr>-->
+            <tr>
+                <td class="editTableTitle">{{$.lp.viewStyles}}:</td>
+                <td class="editTableValue">
+<!--                    <select class="MWFViewStyle" name="data.viewStyleType"></select>-->
+                    <div class="MWFViewStyleSelect" name="data.viewStyleType"></div>
+                    <div class="MWFScriptSelectRefresh"></div>
+<!--                    <br/>-->
+<!--                    <input class="editTableRadio" name="forceClearCustomStyle" type="checkbox" value="yes"/>{{$.lp.forceClearCustomViewStyle}}-->
+                </td>
+            </tr>
+<!--            <tr>-->
+<!--                <td class="editTableTitle">展开分类:</td>-->
+<!--                <td class="editTableValue">-->
+<!--                    <input class="editTableRadio" name="data.isExpand" text{($.data.isExpand==='yes')?'checked':''} type="radio" value="yes"/>{{$.lp.yes}}-->
+<!--                    <input class="editTableRadio" name="data.isExpand" text{($.data.isExpand!=='yes')?'checked':''} type="radio" value="no"/>{{$.lp.no}}-->
+<!--                </td>-->
+<!--            </tr>-->
+            <tr>
+                <td class="editTableTitle">{{$.lp.showSequence}}:</td>
+                <td class="editTableValue">
+                    <input class="editTableRadio" name="data.isSequence" text{($.data.isSequence==='yes')?'checked':''} type="radio" value="yes"/>{{$.lp.yes}}
+                    <input class="editTableRadio" name="data.isSequence" text{($.data.isSequence!=='yes')?'checked':''} type="radio" value="no"/>{{$.lp.no}}
+                </td>
+            </tr>
+<!--            <tr>-->
+<!--                <td class="editTableTitleNoWidth">最大行数:</td>-->
+<!--                <td class="editTableValue"><input type="number" name="count" value="text{$.count || 600}" class="editTableInput"/></td>-->
+<!--            </tr>-->
+            <tr>
+                <td class="editTableTitleNoWidth">{{$.lp.pageSize}}:</td>
+                <td class="editTableValue">
+                    <input type="number" name="pageSize" value="text{$.pageSize || 20}" class="editTableInput"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.actionbarHidden}}:</td>
+                <td class="editTableValue">
+                    <input class="editTableRadio" name="data.actionbarHidden" text{($.data.actionbarHidden!==false)?'checked':''} type="radio" value="true"/>{{$.lp.yes}}
+                    <input class="editTableRadio" name="data.actionbarHidden" text{($.data.actionbarHidden===false)?'checked':''} type="radio" value="false"/>{{$.lp.no}}
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.pagingbarHidden}}:</td>
+                <td class="editTableValue">
+                    <input class="editTableRadio" name="data.pagingbarHidden" text{($.data.pagingbarHidden===true)?'checked':''} type="radio" value="true"/>{{$.lp.yes}}
+                    <input class="editTableRadio" name="data.pagingbarHidden" text{($.data.pagingbarHidden!==true)?'checked':''} type="radio" value="false"/>{{$.lp.no}}
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.searchbarHidden}}:</td>
+                <td class="editTableValue">
+                    <input class="editTableRadio" name="data.searchbarHidden" text{($.data.searchbarHidden===true)?'checked':''} type="radio" value="true"/>{{$.lp.yes}}
+                    <input class="editTableRadio" name="data.searchbarHidden" text{($.data.searchbarHidden!==true)?'checked':''} type="radio" value="false"/>{{$.lp.no}}
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.select}}:</td>
+                <td class="editTableValue">
+                    <input class="editTableRadio" name="data.select" text{($.data.select!=='single' || $.data.select!=='multi' )?'checked':''} type="radio" value="none" onclick="
+                    if (this.checked){
+                        $('text{$.id}selectBoxShowTr').setStyle('display', 'none');
+                        $('text{$.id}allowSelectAllTr').setStyle('display', 'none');
+                        $('text{$.id}selectedAbleScript').setStyle('display', 'none');
+                    }"/>{{$.lp.none}}
+                    <input class="editTableRadio" name="data.select" text{($.data.select==='single')?'checked':''} type="radio" value="single" onclick="
+                    if (this.checked){
+                        $('text{$.id}selectBoxShowTr').setStyle('display', 'table-row');
+                        $('text{$.id}allowSelectAllTr').setStyle('display', 'none');
+                        $('text{$.id}selectedAbleScript').setStyle('display', 'block');
+                    }"/>{{$.lp.radio}}
+                    <input class="editTableRadio" name="data.select" text{($.data.select==='multi')?'checked':''} type="radio" value="multi" onclick="
+                    if (this.checked){
+                        $('text{$.id}selectBoxShowTr').setStyle('display', 'table-row');
+                        $('text{$.id}allowSelectAllTr').setStyle('display', 'table-row');
+                        $('text{$.id}selectedAbleScript').setStyle('display', 'block');
+                    }"/>{{$.lp.checkbox}}
+                </td>
+            </tr>
+            <tr id="text{$.id}selectBoxShowTr" style="display: text{($.data.select=='single' || $.data.select=='multi')?'':'none'}">
+                <td class="editTableTitle">{{$.lp.selectBoxShow}}:</td>
+                <td class="editTableValue">
+                    <input class="editTableRadio" name="data.selectBoxShow" text{($.data.selectBoxShow==='always')?'checked':''} type="radio" value="always"/>{{$.lp.always}}
+                    <input class="editTableRadio" name="data.selectBoxShow" text{($.data.selectBoxShow!=='always')?'checked':''} type="radio" value="mouseover"/>{{$.lp.mouseover}}
+                </td>
+            </tr>
+            <tr id="text{$.id}allowSelectAllTr" style="display: text{($.data.select=='multi')?'':'none'}">
+                <td class="editTableTitle" id="">{{$.lp.allowSelectAll}}:</td>
+                <td class="editTableValue">
+                    <input class="editTableRadio" name="data.allowSelectAll" text{($.data.allowSelectAll===true)?'checked':''} type="radio" value="true"/>{{$.lp.yes}}
+                    <input class="editTableRadio" name="data.allowSelectAll" text{($.data.allowSelectAll!==true)?'checked':''} type="radio" value="false"/>{{$.lp.no}}
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.firstTdHidden}}</td>
+                <td class="editTableValue">
+                    <input class="editTableRadio" name="data.firstTdHidden" text{($.data.firstTdHidden===true)?'checked':''} type="radio" value="single"/>{{$.lp.yes}}
+                    <input class="editTableRadio" name="data.firstTdHidden" text{($.data.firstTdHidden!==true)?'checked':''} type="radio" value="multi"/>{{$.lp.no}}
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.noDataText}}:</td>
+                <td class="editTableValue">
+                    <input type="text" name="data.noDataText" value="text{$.data.noDataText}" class="editTableInput"/>
+                </td>
+            </tr>
+            <!--<tr>-->
+            <!--<td class="editTableTitle">最大行数:</td>-->
+            <!--<td class="editTableValue"><input type="text" name="max" value="text{$.max}" class="editTableInput"/></td>-->
+            <!--</tr>-->
+        </table>
+
+        <div class="MWFFormulaArea" name="data.defaultSelectedScript" title="{{$.lp.defaultSelectedScript}}"></div>
+        <div class="MWFFormulaArea" name="data.selectedAbleScript" title="{{$.lp.selectedAbleScript}}" id="text{$.id}selectedAbleScript"
+             style="display: text{($.data.select=='single' || $.data.select=='multi')?'':'none'}"></div>
+
+
+
+        <!--<div class="MWFApplicationSelect" title="选择应用"></div>-->
+        <!--<div class="MWFProcessSelect" title="选择流程"></div>-->
+        <!--<div class="MWFCompanySelect" title="选择公司"></div>-->
+        <!--<div class="MWFDepartmentSelect" title="选择部门"></div>-->
+        <!--<div class="MWFPersonSelect" title="选择人员"></div>-->
+        <!--<div class="MWFIdentitySelect" title="选择身份"></div>-->
+
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableTitle">{{$.lp.language}}:</td>
+                <td class="editTableValue">
+                    <input class="editTableRadio" onclick="if (this.checked){ $('text{$.pid}languageScriptArea').setStyle('display', 'none');}" name="data.languageType" text{($.data.languageType!=='default' && $.data.languageType!=='script')?'checked':''} type="radio" value="none"/>{{$.lp.none}}
+                    <input class="editTableRadio" onclick="if (this.checked){ $('text{$.pid}languageScriptArea').setStyle('display', 'block');}" name="data.languageType" text{($.data.languageType==='script')?'checked':''} type="radio" value="script"/>{{$.lp.byScript}}
+                </td>
+            </tr>
+        </table>
+        <div id="text{$.pid}languageScriptArea" style="display: text{($.data.languageType=='script')?'block':'none'}">
+            <div class="MWFScriptArea" name="data.languageScript" title="{{$.lp.languageScript}}"></div>
+            <div style="padding: 5px;">{{$.lp.languageInfo}}</div>
+        </div>
+
+        <div style="background-color: #EEE; height:24px; line-height: 24px; text-align: center; font-weight: bold">{{$.lp.export}}</div>
+        <div>
+            <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                <tr>
+                    <td class="editTableTitle">{{$.lp.exportView}}:</td>
+                    <td class="editTableValue">
+                        <div class="MWFStatementSelect" name="data.exportStatement"></div>
+                        <div style="color: #999;padding: 5px;">{{$.lp.exportViewNotice}}</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="editTableTitle">{{$.lp.allowSelectColumn}}:</td>
+                    <td class="editTableValue">
+                        <input class="editTableRadio" name="data.allowSelectColumn" text{($.data.allowSelectColumn===true)?'checked':''} type="radio" value="true"/>{{$.lp.yes}}
+                        <input class="editTableRadio" name="data.allowSelectColumn" text{($.data.allowSelectColumn!==true)?'checked':''} type="radio" value="false"/>{{$.lp.no}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="MWFFormulaArea" name="data.exportHeadText" title="{{$.lp.headText}}"></div>
+        <div class="MWFFormulaArea" name="data.exportHeadStyle" title="{{$.lp.headStyle}}"></div>
+        <div class="MWFFormulaArea" name="data.exportColumnTitleStyle" title="{{$.lp.columnTitleStyle}}"></div>
+        <div class="MWFFormulaArea" name="data.exportColumnContentStyle" title="{{$.lp.columnContentStyle}}"></div>
+        <div style="white-space: pre">
+    exceljs style sample:
+    return {
+        font: { name: '宋体', family: 4, size: 10, bold: false },
+        border: { top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} },
+        fill: { type: 'pattern', pattern:'solid',  fgColor:{argb:'FFFFFF'} },
+        alignment :  { vertical: 'middle', horizontal: 'center' } //wrapText: true
+    }
+    <a style="text-underline: #0a84ff;" target="_blank" href="https://github.com/exceljs/exceljs/blob/HEAD/README_zh.md#%E6%A0%B7%E5%BC%8F">
+    see more
+    </a></div>
+    </div>
+
+    <div title="{{$.lp.filter}}"  class="MWFTab">
+        <div class="MWFViewFilter">
+            <div class="inputAreaNode_vf">
+                <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable restrictViewFilterTable_vf" style="table-layout: fixed;">
+                    <tr id="text{$.id}customFilterTypeTr">
+                        <td class="editTableTitle">{{$.lp.filterType}}:</td>
+                        <td class="editTableValue">
+                            <select class="customFilterTypeSelect_vf">
+                                <option value="filter">{{$.lp.asFilter}}</option>
+                                <option value="parameter">{{$.lp.asParameter}}</option>
+                            </select>
+                            <div style="line-height: 20px;color:#999; white-space: pre-wrap;">{{$.lp.filterTypeNote}}</div>
+                        </td>
+                    </tr>
+                    <tr id="text{$.id}pathInputSelectTr">
+                        <td class="editTableTitle">{{$.lp.select}}:</td>
+                        <td class="editTableValue">
+                            <select class="pathInputSelect_vf"></select>
+                            <!--                            <div style="line-height: 20px;color:#999;">注：选择路径后，需在选择的值前面加上"表别名."，如：o.</div>-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="editTableTitle">{{$.lp.title}}:</td>
+                        <td class="editTableValue"><input type="text" class="editTableInput titleInput_vf"/></td>
+                    </tr>
+<!--                    <tr id="text{$.id}parameterInputSelectTr" style="display: none">-->
+<!--                        <td class="editTableTitle">选择参数:</td>-->
+<!--                        <td class="editTableValue">-->
+<!--                            <select class="parameterInputSelect_vf"></select>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+                    <tr id="text{$.id}parameterInputTr" style="display: none">
+                        <td class="editTableTitle">{{$.lp.parameter}}:</td>
+                        <td class="editTableValue">
+                            <input type="text" class="editTableInput parameterInput_vf"/>
+                            <div style="line-height: 20px;color:#999; white-space: pre-wrap;">{{$.lp.parameterNote}}</div>
+                        </td>
+                    </tr>
+                    <tr id="text{$.id}pathInputTr">
+                        <td class="editTableTitle">{{$.lp.path}}:</td>
+                        <td class="editTableValue">
+                            <input type="text" class="editTableInput pathInput_vf"/>
+                            <div style="line-height: 20px;color:#999;" class="pathNote_vf">{{$.lp.pathNote}}</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="editTableTitle">{{$.lp.dataType}}:</td>
+                        <td class="editTableValue"><select class="datatypeInput_vf">
+<!--                                 onchange="if (this.selectedIndex==2){-->
+<!--                                    $('text{$.id}viewParameterDateFormulaSelector').setStyle('display', 'block');-->
+<!--                                    $('text{$.id}viewParameterDateOnlyFormulaSelector').setStyle('display', 'none');-->
+<!--                                    $('text{$.id}viewParameterTimeOnlyFormulaSelector').setStyle('display', 'none');-->
+<!--                                   }else if (this.selectedIndex==3){-->
+<!--                                    $('text{$.id}viewParameterDateFormulaSelector').setStyle('display', 'none');-->
+<!--                                    $('text{$.id}viewParameterDateOnlyFormulaSelector').setStyle('display', 'block');-->
+<!--                                    $('text{$.id}viewParameterTimeOnlyFormulaSelector').setStyle('display', 'none');-->
+
+<!--                                }else if (this.selectedIndex==4){-->
+<!--                                    $('text{$.id}viewParameterDateFormulaSelector').setStyle('display', 'none');-->
+<!--                                    $('text{$.id}viewParameterDateOnlyFormulaSelector').setStyle('display', 'none');-->
+<!--                                    $('text{$.id}viewParameterTimeOnlyFormulaSelector').setStyle('display', 'block');-->
+<!--                                }else{-->
+<!--                                    $('text{$.id}viewParameterDateFormulaSelector').setStyle('display', 'none');-->
+<!--                                    $('text{$.id}viewParameterDateOnlyFormulaSelector').setStyle('display', 'none');-->
+<!--                                    $('text{$.id}viewParameterTimeOnlyFormulaSelector').setStyle('display', 'none');-->
+<!--                                }-->
+
+<!--                                if (this.selectedIndex==0){-->
+<!--                                    $('text{$.id}viewParameterTextFormulaSelector').setStyle('display', 'block');-->
+<!--                                }else{-->
+<!--                                    $('text{$.id}viewParameterTextFormulaSelector').setStyle('display', 'none');-->
+<!--                                }">-->
+
+                            <option value="textValue" selected>{{$.lp.textValue}}</option>
+                            <option value="numberValue">{{$.lp.numberValue}}</option>
+                            <option value="dateTimeValue">{{$.lp.dateTimeValue}}</option>
+                            <option value="dateValue">{{$.lp.dateValue}}</option>
+                            <option value="timeValue">{{$.lp.timeValue}}</option>
+                            <option value="booleanValue">{{$.lp.booleanValue}}</option>
+                        </select></td>
+                    </tr>
+                    <tr id="text{$.id}parameterIsParseTr" style="display: none">
+                        <td class="editTableTitle">{{$.lp.isParse}}:</td>
+                        <td class="editTableValue">
+                            <select class="parameterIsParseSelect_vf">
+                                <option value="true" selected>{{$.lp.yes}}</option>
+                                <option value="false">{{$.lp.no}}</option>
+                            </select>
+                            <div style="line-height: 20px;color:#999; white-space: pre-wrap;">{{$.lp.isParseNote}}</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="editTableTitle"></td>
+                        <td class="editTableValue">
+                            <input type="radio" class="restrictParameterInput_vf" value="restrict" name="text{$.id}viewFilterType"/>{{$.lp.filterRestrict}}<br>
+                            <input type="radio" class="customFilterInput_vf" value="custom" name="text{$.id}viewFilterType" checked/>{{$.lp.customFilterRestrict}}
+                        </td>
+                    </tr>
+                </table>
+                 <div id="text{$.id}viewParameterRestrict" class="viewParameterRestrict" style="display: none">
+                    <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                        <tr>
+                            <td class="editTableTitle" id="text{$.id}viewParameterValueTitleArea">{{$.lp.value}}:</td>
+
+                            <td class="editTableValue">
+                                <input class="editTableRadio"  name="viewParameterValueType" type="radio" value="input" checked onclick="
+                                    if (this.checked){
+                                        $('text{$.id}viewParameterValueScriptDiv').setStyle('display', 'none');
+                                        $('text{$.id}viewParameterValueArea').setStyle('display', 'table-row');
+                                        $('text{$.id}viewParameterFormulaSelector').setStyle('display', 'block');
+                                    }
+                                "/>{{$.lp.input}}
+                                <input class="editTableRadio" name="viewParameterValueType" type="radio" value="script" onclick="
+                                    if (this.checked){
+                                        $('text{$.id}viewParameterValueScriptDiv').setStyle('display', 'block');
+                                        $('text{$.id}viewParameterValueArea').setStyle('display', 'none');
+                                        $('text{$.id}viewParameterFormulaSelector').setStyle('display', 'none');
+                                    }
+                                "/>{{$.lp.script}}
+                            </td>
+                        </tr>
+                        <tr id="text{$.id}viewParameterValueArea">
+                            <td class="editTableTitle"></td>
+                            <td class="editTableValue">
+                                <input type="text" class="editTableInput valueTextInput_vf" style="display: block" onkeypress="$('text{$.id}viewParameterTextFormulaSelector').getElements('input').set('checked', false)"/>
+                                <input type="number" class="editTableInput valueNumberInput_vf" style="display: none"/>
+                                <input type="text" class="editTableInput valueDatetimeInput_vf" style="display: none" readonly/>
+                                <input type="text" class="editTableInput valueDateInput_vf" style="display: none" readonly/>
+                                <input type="text" class="editTableInput valueTimeInput_vf" style="display: none" readonly/>
+                                <select class="valueBooleanInput_vf" style="display: none">
+                                    <option value="true" selected>{{$.lp.yes}}(True)</option>
+                                    <option value="false">{{$.lp.no}}(False)</option>
+                                </select>
+                            </td>
+                        </tr>
+
+                    </table>
+                     <div id="text{$.id}viewParameterFormulaSelector">
+                        <div style="display: none" id="text{$.id}viewParameterDateFormulaSelector">
+                            <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                                <tr>
+                                    <td class="editTableTitle"></td>
+                                    <td class="editTableValue">
+<!--                                        <input onclick="$('text{$.id}viewParameterValueArea').getElement('.valueDatetimeInput_vf').set('value', this.value)" name="text{$.id}viewParameterDateFormula" type="radio" value="@year" />{{$.lp.currentYear}}-->
+<!--                                        <input onclick="$('text{$.id}viewParameterValueArea').getElement('.valueDatetimeInput_vf').set('value', this.value)" name="text{$.id}viewParameterDateFormula" type="radio" value="@season" />{{$.lp.currentSeason}}-->
+<!--                                        <input onclick="$('text{$.id}viewParameterValueArea').getElement('.valueDatetimeInput_vf').set('value', this.value)" name="text{$.id}viewParameterDateFormula" type="radio" value="@month" />{{$.lp.currentMonth}}<br/>-->
+                                        <input onclick="$('text{$.id}viewParameterValueArea').getElement('.valueDatetimeInput_vf').set('value', this.value)" name="text{$.id}viewParameterDateFormula" type="radio" value="@time" />{{$.lp.now}}
+<!--                                        <input onclick="$('text{$.id}viewParameterValueArea').getElement('.valueDatetimeInput_vf').set('value', this.value)" name="text{$.id}viewParameterDateFormula" type="radio" value="@date" />{{$.lp.today}}-->
+
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="display: none" id="text{$.id}viewParameterDateOnlyFormulaSelector">
+                            <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                                <tr>
+                                    <td class="editTableTitle"></td>
+                                    <td class="editTableValue">
+<!--                                        <input onclick="$('text{$.id}viewParameterValueArea').getElement('.valueDateInput_vf').set('value', this.value)" name="text{$.id}viewParameterDateFormula" type="radio" value="@year" />{{$.lp.currentYear}}-->
+<!--                                        <input onclick="$('text{$.id}viewParameterValueArea').getElement('.valueDateInput_vf').set('value', this.value)" name="text{$.id}viewParameterDateFormula" type="radio" value="@season" />{{$.lp.currentSeason}}-->
+<!--                                        <input onclick="$('text{$.id}viewParameterValueArea').getElement('.valueDateInput_vf').set('value', this.value)" name="text{$.id}viewParameterDateFormula" type="radio" value="@month" />{{$.lp.currentMonth}}<br/>-->
+                                        <input onclick="$('text{$.id}viewParameterValueArea').getElement('.valueDateInput_vf').set('value', this.value)" name="text{$.id}viewParameterDateFormula" type="radio" value="@date" />{{$.lp.today}}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="display: none" id="text{$.id}viewParameterTimeOnlyFormulaSelector">
+                            <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                                <tr>
+                                    <td class="editTableTitle"></td>
+                                    <td class="editTableValue">
+<!--                                        <input onclick="$('text{$.id}viewParameterValueArea').getElement('.valueTimeInput_vf').set('value', this.value)" name="text{$.id}viewParameterDateFormula" type="radio" value="@time" />{{$.lp.now}}-->
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="display: block" id="text{$.id}viewParameterTextFormulaSelector">
+<!--                            <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">-->
+<!--                                <tr>-->
+<!--                                    <td class="editTableTitle"></td>-->
+<!--                                    <td class="editTableValue">-->
+<!--                                        <input onclick="$('text{$.id}viewParameterValueArea').getElement('.valueTextInput_vf').set('value', this.value)" name="text{$.id}viewParameterTextFormula" onclick="" type="radio" value="@person" />{{$.lp.currentPerson}}-->
+<!--                                        <input onclick="$('text{$.id}viewParameterValueArea').getElement('.valueTextInput_vf').set('value', this.value)" name="text{$.id}viewParameterTextFormula" type="radio" value="@identityList" />{{$.lp.currentIdentity}}<br/>-->
+<!--                                        <input onclick="$('text{$.id}viewParameterValueArea').getElement('.valueTextInput_vf').set('value', this.value)" name="text{$.id}viewParameterTextFormula" type="radio" value="@unitList" />{{$.lp.currentPersonDirectUnit}}<br/>-->
+<!--                                        <input onclick="$('text{$.id}viewParameterValueArea').getElement('.valueTextInput_vf').set('value', this.value)" name="text{$.id}viewParameterTextFormula" type="radio" value="@unitAllList" />{{$.lp.currentPersonAllUnit}}<br/>-->
+<!--                                        <input onclick="$('text{$.id}viewParameterValueArea').getElement('.valueTextInput_vf').set('value', this.value)" name="text{$.id}viewParameterTextFormula" type="radio" value="@groupList" />{{$.lp.currentPersonGroupList}}<br/>-->
+<!--                                        <input onclick="$('text{$.id}viewParameterValueArea').getElement('.valueTextInput_vf').set('value', this.value)" name="text{$.id}viewParameterTextFormula" type="radio" value="@roleList" />{{$.lp.currentPersonRoleList}}-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+<!--                            </table>-->
+                        </div>
+                     </div>
+                     <div style="display:none" id="text{$.id}viewParameterValueScriptDiv">
+                         <div name="text{$.id}viewParameterValueScript" title="{{$.lp.script}}"></div>
+                     </div>
+                </div>
+
+
+                <div id="text{$.id}viewCustomFilterRestrict" class="viewCustomFilterRestrict" style="display: block">
+                    <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                        <tr>
+                            <td class="editTableTitle">{{$.lp.value}}:</td>
+                            <td class="editTableValue">
+                                <input class="editTableRadio" onclick="
+                                if (this.checked){
+                                    $('text{$.id}viewCustomFilterValueScriptDiv').setStyle('display', 'none');
+                                    $('text{$.id}viewCustomFilterValueOrgArea').setStyle('display', 'none');
+                                    $('text{$.id}viewCustomFilterOrgOptionScriptDiv').setStyle('display', 'none');
+                                }" name="viewCustomFilterValueType" checked type="radio" value="input"/>{{$.lp.userInput}}
+                                <input class="editTableRadio" onclick="
+                                if (this.checked){
+                                    $('text{$.id}viewCustomFilterValueScriptDiv').setStyle('display', 'block');
+                                    $('text{$.id}viewCustomFilterValueOrgArea').setStyle('display', 'none');
+                                    $('text{$.id}viewCustomFilterOrgOptionScriptDiv').setStyle('display', 'none');
+                                }" name="viewCustomFilterValueType" type="radio" value="script"/>{{$.lp.selectable}}
+
+                                <input class="editTableRadio" onclick="
+                                if (this.checked){
+                                    $('text{$.id}viewCustomFilterValueScriptDiv').setStyle('display', 'none');
+                                    $('text{$.id}viewCustomFilterValueOrgArea').setStyle('display', 'block');
+                                    $('text{$.id}viewCustomFilterOrgOptionScriptDiv').setStyle('display', 'block');
+                                }" name="viewCustomFilterValueType" type="radio" value="org"/>{{$.lp.org}}
+                            </td>
+                        </tr>
+                    </table>
+                    <table style="display:none" id="text{$.id}viewCustomFilterValueOrgArea" width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                        <tr>
+                            <td class="editTableTitle">{{$.lp.orgRange}}:</td>
+                            <td class="editTableValue">
+                                <label><input class="editTableRadio" name="viewCustomFilterValueOrgType" checked type="checkbox" value="unit"/>{{$.lp.org_unit}}</label>
+                                <label><input class="editTableRadio" name="viewCustomFilterValueOrgType" type="checkbox" value="person"/>{{$.lp.org_person}}</label>
+                                <label><input class="editTableRadio" name="viewCustomFilterValueOrgType" type="checkbox" value="identity"/>{{$.lp.org_identity}}</label>
+                                <label><input class="editTableRadio" name="viewCustomFilterValueOrgType" type="checkbox" value="group"/>{{$.lp.org_group}}</label>
+                                <label><input class="editTableRadio" name="viewCustomFilterValueOrgType" type="checkbox" value="role"/>{{$.lp.org_role}}</label>
+                            </td>
+                        </tr>
+                    </table>
+                    <div style="display:none" id="text{$.id}viewCustomFilterValueScriptDiv">
+                        <div style="padding: 5px">{{$.lp.selectOptionScriptNotice}}</div>
+                        <div name="text{$.id}viewCustomFilterValueScript" title="{{$.lp.selectOptionScript}}"></div>
+                    </div>
+
+
+                    <div style="display:none" id="text{$.id}viewCustomFilterOrgOptionScriptDiv">
+                        <div style="padding: 5px;color:dodgerblue;cursor: pointer;" onclick="this.nextElementSibling.showModal()">人员组织选项，说明样例。</div>
+                        <dialog style="border: 1px solid #ccc;border-radius: 8px;box-shadow: 0 2px 10px rgba(0,0,0,0.1);margin: auto;">
+                            <h3>人员选择选项</h3>
+                            <pre>return {
+     "count": 0, //选择数量，0表示不限制
+     "title": "", //选择界面的title
+     "groups": [], //选择的群组范围，选择群组时有效。
+     "units": [], //选择的组织范围，选择身份和组织时有效。
+     "dutys": [], //选择的职务范围，选择身份时有效。
+     "roles": [], //选择的角色范围，选择角色时有效。
+     "noUnit" : false, //在选择身份的时候，是否只使用include选项。
+     "include" : [], //增加的可选项。选择身份的时候，没有传units表示选中全员，include不生效，可以使用onUnit选项表示只使用include选项。
+     "exclude" : [], //排除的可选项
+     "expandSubEnable" : true, //是否允许展开下一层，选择身份和组织时有效
+     "selectAllEnable" : true,  //分类是否允许全选下一层，选择身份和组织时有效
+     "zIndex": 1000 //选择界面的zIndex
+}</pre>
+                            <button onclick="this.parentElement.close()">关闭</button>
+                        </dialog>
+                        <div name="text{$.id}viewCustomFilterOrgOptionScript" title="{{$.lp.selectOrgOptionScript}}"></div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="actionAreaNode_vf"></div>
+            <div style="height: 20px; line-height: 20px; text-align:center; background-color: #eeeeee">{{$.lp.defaultFilterCondition}}</div>
+            <div class="parameterListAreaNode_vf" style="min-height: 56px; border-bottom:1px solid #CCCCCC; overflow: hidden;"></div>
+            <div style="height: 20px; line-height: 20px; text-align:center; background-color: #eeeeee">{{$.lp.customFilterCondition}}</div>
+            <div class="customFilterListAreaNode_vf" style="min-height: 56px; border-bottom:1px solid #CCCCCC; overflow: hidden;"></div>
+        </div>
+    </div>
+
+    <div title="{{$.lp.style}}"  class="MWFTab">
+        <div class="MWFViewStylesArea" name="data.viewStyles"></div>
+        <div class="MWFHtmlEditorArea" name="data.mobileTemplate" title="{{$.lp.mobileTemplate}}(H)"></div>
+        <div class="MWFCssArea" name="data.mobileCss" title="{{$.lp.mobileCss}}(CSS)"></div>
+    </div>
+
+    <div title="{{$.lp.event}}"  class="MWFTab">
+        <div class="MWFEventsArea" name="data.events"></div>
+    </div>
+
+    <div title="JSON"  class="MWFTab">
+        <div class="MWFJSONArea" style="font-family: Verdana, Geneva, sans-serif; font-size:14px"></div>
+    </div>
+</div>

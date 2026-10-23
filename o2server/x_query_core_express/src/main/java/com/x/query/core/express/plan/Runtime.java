@@ -1,0 +1,59 @@
+package com.x.query.core.express.plan;
+
+import com.x.base.core.project.annotation.FieldDescribe;
+import com.x.base.core.project.gson.GsonPropertyObject;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.apache.commons.collections4.list.TreeList;
+
+public class Runtime extends GsonPropertyObject {
+
+	@FieldDescribe("当前用户")
+	public String person = "";
+
+	@FieldDescribe("组织")
+	public List<String> unitList = new TreeList<>();
+
+	@FieldDescribe("群组")
+	public List<String> groupList = new TreeList<>();
+
+	@FieldDescribe("角色")
+	public List<String> roleList = new TreeList<>();
+
+	@FieldDescribe("所有群组")
+	public List<String> unitAllList = new TreeList<>();
+
+	@FieldDescribe("身份")
+	public List<String> identityList = new TreeList<>();
+
+	@FieldDescribe("所有权限集合")
+	public List<String> authList = new ArrayList<>();
+
+	@FieldDescribe("过滤")
+	public List<FilterEntry> filterList = new TreeList<>();
+
+	@FieldDescribe("指定排序")
+	public List<SelectEntry> orderList = new TreeList<>();
+
+	@FieldDescribe("参数")
+	public Map<String, String> parameter = new HashMap<>();
+
+	@FieldDescribe("每页数量")
+	public Integer count = 0;
+
+	@FieldDescribe("第几页")
+	public Integer page = 0;
+
+	@FieldDescribe("限定结果集")
+	public List<String> bundleList = new TreeList<>();
+
+	@FieldDescribe("指定字段列表")
+	public SelectEntries selectList;
+
+	public boolean hasBundle = false;
+
+	public boolean isManager = false;
+
+}

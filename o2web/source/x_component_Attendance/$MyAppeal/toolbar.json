@@ -1,0 +1,12 @@
+[
+  {
+    "title": MWF.xApplication.Attendance.LP.myAppealTitleText,
+    "id": "1.1",
+//    "action": "createDocument",
+    "icon": "",
+    "expand": false,
+    "position" : "left",
+    "styles" : "toolbarTextNode",
+    "sub": []
+  }
+]

@@ -1,0 +1,76 @@
+[
+  {
+    "title": MWF.xApplication.Attendance.LP.department,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "function(d){ return (d.unitName || '').split('@')[0] }",
+    "name" : "unitName",
+    "width" : "17%"
+  },
+  {
+    "title": MWF.xApplication.Attendance.LP.employeeName,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "function(d){ return (d.employeeName||'').split('@')[0] }",
+    "name" : "employeeName",
+    "width" : "13.5%"
+  },
+  {
+    "title": MWF.xApplication.Attendance.LP.employeeNumber,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "employeeNumber",
+    "name" : "employeeNumber",
+    "width" : "13.5%"
+  },
+
+  {
+    "title": MWF.xApplication.Attendance.LP.leaveType1,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "leaveType",
+    "name" : "leaveType",
+    "width" : "13.5%"
+  },
+
+  {
+    "title": MWF.xApplication.Attendance.LP.start,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "startTime",
+    "name" : "startTime",
+    "width" : "13.5%"
+  },
+  {
+    "title": MWF.xApplication.Attendance.LP.end,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "endTime",
+    "name" : "endTime",
+    "width" : "13.5%"
+  },
+  {
+    "title": MWF.xApplication.Attendance.LP.leaveDayCount,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "leaveDayNumber",
+    "name" : "leaveDayNumber",
+    "width" : "10%"
+  }//,
+//  {
+//    "access" : "admin",
+//    "title" : "操作",
+//    "headStyles" : "normalThNode",
+//    "contentStyles" : "normalTdNode",
+//    "item" : "actions",
+//    "name" : "actions",
+//    "width" : "5%",
+//    "sub" : [{
+//      "title" : "删除文件",
+//      "action" : "remove",
+//      "styles" : "actionDeleteNode",
+//      "overStyles" : "actionDeleteNode_over",
+//      "downStyles" : "actionDeleteNode_down"
+//    }]
+//  }
+]

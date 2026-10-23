@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" type="text/css" href="../x_desktop/css/style.css" charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="css/v10/root.css" charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="css/v10/style.css" id="oo-css-skin" charset="UTF-8" />
+    <link rel="stylesheet" href="../x_desktop/css/mBoxNotice.css" charset="UTF-8" />
+    <link rel="stylesheet" href="../x_desktop/css/mBoxTooltip.css" charset="UTF-8" />
+
+    <script src="../o2_core/o2.min.js"></script>
+    <script src="js/base_simple_anonymous.js"></script>
+    <title>移动App访问检查</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+</head>
+<body style="height: 100%;overflow: auto; margin:0px;display: block;">
+    <div id="errorArea" style="margin: 30px 20px; word-break: break-all;display: none;">
+    </div>
+    <div id="centerArea" style="margin: 30px 20px; word-break: break-all;">
+    </div>
+    <div id="appArea" style="margin: 30px 20px; word-break: break-all;">
+    </div>
+    <div id="contentArea" style="margin: 30px 20px; word-break: break-all;">
+    </div>
+
+    <script>
+        
+        layout.addReady(function(){
+          
+            (function(layout){
+                //var uri = new URI(window.location.href);
+                var hostname = window.location.hostname;
+                console.log(hostname)
+                var _showJson = function(json) {
+                    if (json) {
+                        var jsonstr=JSON.stringify(json, null, 2);
+                        var divNode = new Element("div", {
+                            styles:{
+                                "margin": "10px",
+                                "color": "#666666"
+                            },
+                            html: "返回数据："
+                        }).inject( $("contentArea") );
+                        new Element("pre", {html: jsonstr}).inject(divNode);
+                    }
+                };
+
+                var _showError = function(error, json) {
+                    var errorNode = new Element("div", {
+                        styles:{
+                            "margin": "10px",
+                            "color": "#ff0000"
+                        }
+                    }).inject( $("errorArea") );
+                    $("errorArea").setStyle("display", "block");
+                    new Element("p", {"html": "错误，"+error}).inject(errorNode);
+                };
+
+                var _showSuccess = function(info,area) {
+                    new Element("div", {
+                        styles:{
+                            "margin": "10px",
+                            "color": "#5fbf78"
+                        },
+                        text: info
+                    }).inject( $(area) );
+                };
+                // 测试连接认证服务器
+                var _loadAuthApp = function(authApp, webServer) {
+                    if (authApp && authApp.host && authApp.port) {
+                        var protocal = "http://";
+                        if (webServer && webServer.sslEnable == true) {
+                            protocal = "https://";
+                        }
+                        var url =protocal+authApp.host+":"+authApp.port+"/x_organization_assemble_authentication/jaxrs/echo";
+                        o2.xhr_get(url, function(json) {
+                            console.log(json);
+                            if (json && json.response) {
+                                var res = JSON.parse(json.response);
+                                if (res && res.type == "success") {
+                                    _showSuccess("连接应用服务器成功！", "appArea");
+                                    return;
+                                }
+                            }
+                            _showError("获取应用服务器地址信息失败！");
+                        }, function(err){
+                            _showError("获取应用服务器地址信息失败！");
+                        });
+                    } else {
+                        _showError("获取应用服务器失败！");
+                    }
+                };
+                // 测试连接中心服务器
+                var _loadCenter = function() {
+                    o2.Actions.load("x_program_center").DistributeAction.assembleWithWebServer(hostname, function(json){
+                        // 中心服务器连接成功
+                        _showSuccess("中心服务器连接成功", "centerArea");
+
+                        if (json && json.type === "success") {
+                            if (json.data && json.data.assembles) {
+                                _loadAuthApp(json.data.assembles.x_organization_assemble_authentication, json.data.webServer);
+                                _showJson(json);
+                            } else {
+                                // 应用服务器获取不到
+                                _showError("获取应用服务器失败！");
+                                _showJson(json);
+                            }
+                        } else {
+                            // 获取地址信息失败
+                            _showError("获取中心服务器地址信息失败！");
+                            _showJson(json);
+                        }
+                    }.bind(this), function(err){
+                        _showError("获取中心服务器地址信息失败！");
+                        _showJson(err);
+                    }.bind(this));
+                };
+               
+
+                _loadCenter();
+
+            })(layout);
+        });
+    </script>
+</body>
+</html>

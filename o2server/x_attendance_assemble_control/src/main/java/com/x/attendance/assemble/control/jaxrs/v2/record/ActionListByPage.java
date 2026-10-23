@@ -1,0 +1,221 @@
+package com.x.attendance.assemble.control.jaxrs.v2.record;
+
+import com.x.attendance.entity.v2.AttendanceV2LeaveRequest;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+
+import com.google.gson.JsonElement;
+import com.x.attendance.assemble.control.Business;
+import com.x.attendance.assemble.control.jaxrs.v2.AttendanceV2Helper;
+import com.x.attendance.assemble.control.jaxrs.v2.ExceptionWithMessage;
+import com.x.attendance.entity.v2.AttendanceV2CheckInRecord;
+import com.x.attendance.entity.v2.AttendanceV2LeaveData;
+import com.x.base.core.container.EntityManagerContainer;
+import com.x.base.core.container.factory.EntityManagerContainerFactory;
+import com.x.base.core.entity.JpaObject;
+import com.x.base.core.project.annotation.FieldDescribe;
+import com.x.base.core.project.bean.WrapCopier;
+import com.x.base.core.project.bean.WrapCopierFactory;
+import com.x.base.core.project.gson.GsonPropertyObject;
+import com.x.base.core.project.http.ActionResult;
+import com.x.base.core.project.http.EffectivePerson;
+import com.x.base.core.project.logger.Logger;
+import com.x.base.core.project.logger.LoggerFactory;
+import com.x.base.core.project.tools.DateTools;
+
+/**
+ * Created by fancyLou on 2023/2/15.
+ * Copyright © 2023 O2. All rights reserved.
+ */
+public class ActionListByPage extends BaseAction {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ActionListByPage.class);
+
+    ActionResult<List<Wo>> execute(EffectivePerson effectivePerson, Integer page, Integer size, JsonElement jsonElement)
+            throws Exception {
+
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("execute:{}, page:{}, size:{}.", effectivePerson.getDistinguishedName(), page, size);
+        }
+        try (EntityManagerContainer emc = EntityManagerContainerFactory.instance().create()) {
+            ActionResult<List<Wo>> result = new ActionResult<>();
+            Business business = new Business(emc);
+            Wi wi = this.convertToWrapIn(jsonElement, Wi.class);
+            if (wi == null) {
+                wi = new Wi();
+            }
+            Integer adjustPage = this.adjustPage(page);
+            Integer adjustPageSize = this.adjustSize(size);
+            Date start = null;
+            Date end = null;
+            if (StringUtils.isNotEmpty(wi.getStartDate()) && StringUtils.isNotEmpty(wi.getEndDate())) {
+                start = DateTools.parseDateTime(wi.getStartDate() + " 00:00:00");
+                end = DateTools.parseDateTime(wi.getEndDate() + " 23:59:59");
+            }
+            List<String> userList = null;
+            if (wi.getFilterList() != null && !wi.getFilterList().isEmpty()) {
+                userList = new ArrayList<>();
+                for (String f : wi.getFilterList()) {
+                    AttendanceV2Helper.analysisFilterToPersonList(userList, f, business, wi.getRecursive());
+                }
+                userList = new ArrayList<>(new LinkedHashSet<>(userList));
+                if (userList.isEmpty()) {
+                    throw new ExceptionWithMessage("当前查询条件没有找到人员信息！");
+                }
+            }
+            List<AttendanceV2CheckInRecord> list = business.getAttendanceV2ManagerFactory().listRecordByPage(adjustPage,
+                    adjustPageSize, wi.getUserId(), userList, start, end, wi.getSourceType(), wi.getCheckInResult(),
+                    wi.getCheckInType(), wi.getFieldWork());
+            List<Wo> wos = Wo.copier.copy(list);
+            for (Wo wo : wos) {
+                try {
+                    if (StringUtils.isNotEmpty(wo.getLeaveDataId())) {
+                        AttendanceV2LeaveData leaveData = emc.find(wo.getLeaveDataId(), AttendanceV2LeaveData.class);
+                        if (leaveData != null) {
+                            wo.setLeaveData(leaveData);
+                        }
+                    }
+                    if (StringUtils.isNotEmpty(wo.getRequestDataId())) {
+                        AttendanceV2LeaveRequest leaveRequest = emc.find(wo.getRequestDataId(), AttendanceV2LeaveRequest.class);
+                        if (leaveRequest != null) {
+                            wo.setLeaveRequest(leaveRequest);
+                        }
+                    }
+                } catch (Exception ignore) {}
+            }
+            result.setData(wos);
+            result.setCount(business.getAttendanceV2ManagerFactory().recordCount(wi.getUserId(), userList, start, end,
+                    wi.getSourceType(), wi.getCheckInResult(), wi.getCheckInType(), wi.getFieldWork()));
+            return result;
+        }
+    }
+
+    public static class Wi extends GsonPropertyObject {
+
+
+        private static final long serialVersionUID = 4227642755086093795L;
+        @FieldDescribe("打卡的用户标识")
+        private String userId;
+        @FieldDescribe("过滤人员或组织，组织默认递归: 用户或组织的DN，如xxx@xxx@P、xxx@xxx@U")
+        private List<String> filterList;
+        @FieldDescribe("过滤组织是否递归查询下级组织人员，默认true，false时仅查询当前组织直属人员")
+        private Boolean recursive;
+        @FieldDescribe("打卡记录开始日期: YYYY-MM-dd")
+        private String startDate;
+        @FieldDescribe("打卡记录结束日期: YYYY-MM-dd")
+        private String endDate;
+        @FieldDescribe("打卡数据来源：USER_CHECK|AUTO_CHECK|FAST_CHECK|SYSTEM_IMPORT")
+        private String sourceType;
+        @FieldDescribe("打卡结果: Normal|Early|Late|SeriousLate|NotSigned")
+        private String checkInResult;
+        @FieldDescribe("考勤类型: OnDuty|OffDuty")
+        private String checkInType;
+        @FieldDescribe("是否外勤打卡.")
+        private Boolean fieldWork;
+
+        public String getSourceType() {
+            return sourceType;
+        }
+
+        public void setSourceType(String sourceType) {
+            this.sourceType = sourceType;
+        }
+
+        public String getCheckInResult() {
+            return checkInResult;
+        }
+
+        public void setCheckInResult(String checkInResult) {
+            this.checkInResult = checkInResult;
+        }
+
+        public String getCheckInType() {
+            return checkInType;
+        }
+
+        public void setCheckInType(String checkInType) {
+            this.checkInType = checkInType;
+        }
+
+        public Boolean getFieldWork() {
+            return fieldWork;
+        }
+
+        public void setFieldWork(Boolean fieldWork) {
+            this.fieldWork = fieldWork;
+        }
+
+        public String getUserId() {
+            return userId;
+        }
+
+        public void setUserId(String userId) {
+            this.userId = userId;
+        }
+
+        public List<String> getFilterList() {
+            return filterList;
+        }
+
+        public void setFilterList(List<String> filterList) {
+            this.filterList = filterList;
+        }
+
+        public Boolean getRecursive() {
+            return recursive;
+        }
+
+        public void setRecursive(Boolean recursive) {
+            this.recursive = recursive;
+        }
+
+        public String getStartDate() {
+            return startDate;
+        }
+
+        public void setStartDate(String startDate) {
+            this.startDate = startDate;
+        }
+
+        public String getEndDate() {
+            return endDate;
+        }
+
+        public void setEndDate(String endDate) {
+            this.endDate = endDate;
+        }
+
+        
+    }
+
+
+    public static class Wo extends AttendanceV2CheckInRecord {
+
+        @FieldDescribe("外出记录")
+        private AttendanceV2LeaveData leaveData;
+        @FieldDescribe("请假记录")
+        private AttendanceV2LeaveRequest leaveRequest;
+        public AttendanceV2LeaveData getLeaveData() {
+            return leaveData;
+        }
+
+        public void setLeaveData(AttendanceV2LeaveData leaveData) {
+            this.leaveData = leaveData;
+        }
+
+        public AttendanceV2LeaveRequest getLeaveRequest() {
+            return leaveRequest;
+        }
+
+        public void setLeaveRequest(AttendanceV2LeaveRequest leaveRequest) {
+            this.leaveRequest = leaveRequest;
+        }
+
+        static WrapCopier<AttendanceV2CheckInRecord, Wo> copier = WrapCopierFactory.wo(AttendanceV2CheckInRecord.class, Wo.class, null,
+                JpaObject.FieldsInvisible);
+    }
+}

@@ -1,0 +1,70 @@
+<div style="background-color: #FFF; overflow: hidden">
+	<div title="{{$.lp.base}}" class="MWFTab">
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableTitle">{{$.lp.id}}:</td>
+                <td class="editTableValue">text{$.id}</td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.name}}:</td>
+                <td class="editTableValue"><input type="text" name="name" value="text{$.name}" class="editTableInput"/></td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.description}}:</td>
+                <td class="editTableValue"><input type="text" name="description" value="text{$.description}" class="editTableInput"/></td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.category}}:</td>
+                <td class="editTableValue"><input type="text" name="category" value="text{$.category}" class="editTableInput"/></td>
+            </tr>
+            <!--<tr>-->
+                <!--<td class="editTableTitle">标题字段</td>-->
+                <!--<td class="editTableValue">-->
+                    <!--<select class="" name="titleField"></select>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <tr>
+                <td class="editTableTitle">{{$.lp.formStyle}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFFormStyleSelect" name="formStyleType"></div>
+                    <div class="MWFScriptSelectRefresh"></div>
+                    <br/>
+                    <input class="editTableRadio" name="forceClearCustomStyle" type="checkbox" value="yes"/>{{$.lp.forceClearCustomStyle}}
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.icon}}:</td>
+                <td class="editTableValue"><div class="MWFIcon" name="formIcon"></div></td>
+            </tr>
+        </table>
+
+		<!--<div class="MWFArraylist" name="cssLinks" title="CSS引用"></div>-->
+		<!--<div class="MWFArraylist" name="scriptSrc" title="JS引用"></div>-->
+
+		<div class="MWFMaplist" name="styles" title="{{$.lp.style}}"></div>
+		<div class="MWFMaplist" name="properties" title="{{$.lp.attribute}}"></div>
+        <div class="MWFMaplist" name="defaultParameters" title="{{$.lp.defaultParameters}}"></div>
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableTitle">CSS Url:</td>
+                <td class="editTableValue"><input type="text" name="cssUrl" value="text{$.cssUrl}" class="editTableInput"/></td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">CSS Script:</td>
+                <td class="editTableValue">
+                    <div class="MWFScriptSelect" data-name-filter=".*\.css$" data-count=0 name="cssScript"></div>
+                    <div class="MWFScriptSelectAction"><div style="color: #0b58a2; cursor: pointer; float: left">{{$.lp.copy}}</div><div style="color: #0b58a2; cursor: pointer; float: left; margin-left:10px">{{$.lp.paste}}</div></div>
+                </td>
+            </tr>
+        </table>
+        <div class="MWFCssArea" name="css" title="CSS"></div>
+        <div class="MWFScriptArea" name="jsheader" title="JS Header"></div>
+
+	</div>
+	<div title="HTML"  class="MWFTab">
+		<div class="MWFHTMLArea" style="font-family: Verdana, Geneva, sans-serif; font-size:14px"></div>
+	</div>
+	<div title="JSON"  class="MWFTab">
+		<div class="MWFJSONArea" style="font-family: Verdana, Geneva, sans-serif; font-size:14px"></div>
+	</div>
+</div>

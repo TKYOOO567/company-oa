@@ -1,0 +1,1204 @@
+MWF.xApplication.Selector = MWF.xApplication.Selector || {};
+MWF.xDesktop.requireApp("Selector", "Identity", null, false);
+MWF.xApplication.Selector.Unit = new Class({
+    Extends: MWF.xApplication.Selector.Identity,
+    options: {
+        "style": "default",
+        "count": 0,
+        "units": [],
+        //"unitTypes": [],
+        "values": [],
+        "zIndex": 1000,
+        "expand": true,
+        "exclude" : [],
+        "expandSubEnable" : true, //是否允许展开下一层
+        "selectAllEnable" : true, //分类是否允许全选下一层
+        "selectType" : "unit"
+    },
+    // loadCategoryHtml: function (){
+    //     return '';
+    // },
+    loadItemHtml: function (){
+        return new Promise(function (resolve, reject) {
+            if( this.options.categoryItemUrl ){
+                var request = new Request.HTML({
+                    url: this.options.categoryItemUrl,
+                    method: "GET",
+                    async: true,
+                    onSuccess: function(responseTree, responseElements, responseHTML, responseJavaScript){
+                        this.itemHtml = responseHTML;
+                        if(resolve)resolve();
+                    }.bind(this),
+                    onFailure: function(xhr){ reject(xhr); }
+                });
+                request.send();
+            }else{
+                if(resolve)resolve();
+            }
+        }.bind(this))
+    },
+    setInitTitle: function(){
+        this.setOptions({"title": MWF.xApplication.Selector.LP.selectUnit});
+    },
+    _init : function(){
+        this.selectType = "unit";
+        this.className = "Unit";
+    },
+    loadSelectItems: function(addToNext){
+
+        if( this.options.disabled ){
+            this.afterLoadSelectItem();
+            return;
+        }
+
+        this._loadSelectItems();
+    },
+    _loadSelectItems: function(){
+
+        var afterLoadSelectItemFun = this.afterLoadSelectItem.bind(this);
+
+        if (this.options.units.length){
+            this.expandSubEnable = this.options.expandSubEnable || this.options.forceShowSubEnable || this.options.firstLevelSelectable;
+
+            var unitList = [];
+            for( var i=0 ; i<this.options.units.length; i++ ){
+                var unit = this.options.units[i];
+                if( typeOf( unit ) === "string" ){
+                    unitList.push(unit);
+                }else if( typeOf(unit)==="object"){
+                    unitList.push(unit.distinguishedName || unit.unique || unit.levelName || unit.id);
+                }
+            }
+
+            if( this.isCheckStatusOrCount() ) {
+                this.loadingCount = "wait";
+                this.loadCount( unitList );
+            }
+
+            o2.Actions.load("x_organization_assemble_express").UnitAction.listObject( {"unitList" : unitList} , function (json) {
+                if (json.data.length){
+                    json.data.each( function(data){
+                        if( this.isExcluded( data ) ) {
+                            return;
+                        }
+                        var item;
+                        if( this.options.expandSubEnable ) {
+                            if( this.options.firstLevelSelectable ){
+                                item = this._newItem(data, this, this.itemAreaNode );
+                                this.items.push( item );
+                                this.subItems.push(item);
+                            }else{
+                                if (data.subDirectUnitCount){
+                                    var category = this._newItemCategory("ItemCategory", data, this, this.itemAreaNode );
+                                    this.subCategorys.push(category);
+                                    this.subCategoryMap[data.levelName] = category;
+                                }
+                            }
+                        }else{
+                            item = this._newItem(data, this, this.itemAreaNode );
+                            this.items.push( item );
+                            this.subItems.push(item);
+                        }
+                    }.bind(this));
+                }
+                afterLoadSelectItemFun();
+            }.bind(this), afterLoadSelectItemFun );
+        }else{
+            this.expandSubEnable = this.options.expandSubEnable || this.options.forceShowSubEnable;
+
+            this.orgAction.listTopUnit(function(json){
+                // if( this.isCheckStatusOrCount() ) {
+                //     this.loadingCount = "wait";
+                //
+                //     unitList = json.data.filter(function (data) {
+                //         return !this.isExcluded( data );
+                //     }).map(function(data){
+                //         return unit.id ||  unit.distinguishedName || unit.unique || unit.levelName
+                //     }.bind(this)).clean();
+                //
+                //     this.loadCount( unitList );
+                // }
+                json.data.each(function(data){
+                    if( !this.isExcluded( data ) ) {
+                        var unit = this._newItem(data, this, this.itemAreaNode, 1);
+                        this.items.push( unit );
+                        this.subItems.push(unit);
+                    }
+
+                }.bind(this));
+                afterLoadSelectItemFun();
+            }.bind(this));
+        }
+    },
+
+    _scrollEvent: function(y){
+        return true;
+    },
+    _getChildrenItemIds: function(){
+        return null;
+    },
+    _newItemCategory: function(type, data, selector, item, level, category, delay){
+        return new MWF.xApplication.Selector.Unit[type](data, selector, item, level, category, delay)
+    },
+
+    _listItemByKey: function(callback, failure, key){
+        if( this.options.expandSubEnable ){
+            if (this.options.units.length){
+                var units = [];
+                this.options.units.each(function(u){
+                    if (typeOf(u)==="string"){
+                        units.push(u);
+                    }
+                    if (typeOf(u)==="object"){
+                        units.push(u.distinguishedName);
+                    }
+                });
+                key = {"key": key, "unitList": units};
+            }
+            this.orgAction.listUnitByKey(function(json){
+                if (callback) callback.apply(this, [json]);
+            }.bind(this), failure, key);
+        }else{
+            if (key){
+                this.initSearchArea(true);
+                this.searchInItems(key);
+            }else{
+                this.initSearchArea(false);
+            }
+        }
+    },
+    _getItem: function(callback, failure, id, async){
+        this.orgAction.getUnit(function(json){
+            if (callback) callback.apply(this, [json]);
+        }.bind(this), failure, ((typeOf(id)==="string") ? id : id.distinguishedName), async);
+    },
+
+    _newItemSelected: function(data, selector, item, selectedNode){
+        return new MWF.xApplication.Selector.Unit.ItemSelected(data, selector, item, selectedNode)
+    },
+    _listItemByPinyin: function(callback, failure, key){
+        if( this.options.expandSubEnable ){
+            if (this.options.units.length){
+                var units = [];
+                this.options.units.each(function(u){
+                    if (typeOf(u)==="string"){
+                        units.push(u);
+                    }
+                    if (typeOf(u)==="object"){
+                        units.push(u.distinguishedName);
+                    }
+                });
+                key = {"key": key, "unitList": units};
+            }
+            this.orgAction.listUnitByPinyininitial(function(json){
+                if (callback) callback.apply(this, [json]);
+            }.bind(this), failure, key);
+        }else{
+            if (key){
+                this.initSearchArea(true);
+                this.searchInItems(key);
+            }else{
+                this.initSearchArea(false);
+            }
+        }
+    },
+    _newItem: function(data, selector, container, level, category, delay){
+        return new MWF.xApplication.Selector.Unit.Item(data, selector, container, level, category, delay);
+    },
+    _newItemSearch: function(data, selector, container, level){
+        return new MWF.xApplication.Selector.Unit.SearchItem(data, selector, container, level);
+    },
+
+    initExclude: function (){
+        if(this.selectType !== "unit" || this.options.exclude.length < 0 || this.excludList )return;
+
+        var unitList=[];
+        this.options.exclude.each(function (item) {
+            var a = typeOf( item ) === 'object' ? item.distinguishedName : item;
+            if( !a ){
+                return;
+            }
+            var flag = a.substr(a.length - 2, 2);
+            switch (flag.toLowerCase()) {
+                case "@i": break;
+                case "@p": break;
+                case "@g": break;
+                case "@u": unitList.push(a); break;
+                default:
+                    unitList.push(a);
+                    break;
+            }
+        }.bind(this));
+
+        var ps = [];
+        var action = o2.Actions.load("x_organization_assemble_express").UnitAction;
+        if( unitList.length )ps.push( action.listWithUnitSubNestedObject({unitList: unitList}) );
+        if( ps.length ){
+            return Promise.all(ps).then(function (arr){
+                arr.each(function(a){
+                    unitList =  unitList.concat( a.data );
+                });
+                this.excludList = unitList;
+            }.bind(this));
+        }else{
+            this.excludList = unitList;
+        }
+    },
+
+    loadCount: function( unitList ){
+
+        var check = function () {
+            this.loadingCount = "ready";
+            this.checkCountAndStatus();
+            this.loadingCount = "done";
+        }.bind(this);
+
+        var unitLoaded, selectedUnitLoaded, excludeUnitLoaded;
+        var unitTree;
+        this.unitExcludedCount = {};
+        this.unitSelectedCount = {};
+
+        var caculate = function () {
+            if (unitLoaded && selectedUnitLoaded && excludeUnitLoaded) {
+
+                if( !this.allUnitObject )this.allUnitObject = {};
+
+                if( unitTree && unitTree.length ){
+                    unitTree.each( function ( tree ) {
+                        if( !this.allUnitObject[ tree.levelName ] ){
+                            this.caculateNestedSubCount(tree)
+                        }
+                    }.bind(this) );
+                    check();
+                }
+
+            }
+        }.bind(this);
+
+        this.getUnitCountMap(this.options.values, function (map) {
+            this.unitSelectedCount = map;
+            selectedUnitLoaded = true;
+            caculate();
+        }.bind(this));
+
+        this.getUnitCountMap(this.options.exclude, function (map) {
+            this.unitExcludedCount = map;
+            excludeUnitLoaded = true;
+            caculate();
+        }.bind(this));
+
+        o2.Actions.load("x_organization_assemble_express").UnitAction.listWithUnitTree({"unitList": unitList}, function (json) {
+            unitTree = json.data;
+            unitLoaded = true;
+            caculate();
+        }.bind(this))
+    },
+    getUnitCountMap : function( identityList, callback ){
+        var result = {};
+        this.listUnitObject( identityList, function ( identityObjectList ) {
+            identityObjectList.each(function (id) {
+                if (id && id.levelName) {
+                    result[id.levelName] = (result[id.levelName] || 0) + 1;
+                }
+            }.bind(this));
+            if( callback )callback( result );
+        })
+    },
+    listUnitObject : function( unitList, callback ){
+        var list = [];
+        unitList.each( function (d) {
+            if( typeOf( d ) === "object"){
+                if( !d.levelName || !d.distinguishedName )list.push( d.distinguishedName || d.unique || d.id )
+            }else{
+                list.push( d )
+            }
+        });
+        if( list.length > 0 ){
+            o2.Actions.load("x_organization_assemble_express").UnitAction.listObject({ unitList : list }, function (json) {
+                var map = {};
+                json.data.each( function (d) { map[ d.matchKey ] =  d; });
+                var unitObjectList = [];
+                unitList.each( function (d) {
+                    var key = typeOf( d ) === "object" ? ( d.distinguishedName || d.unique || d.id ) : d;
+                    unitObjectList.push( map[key] ? map[key] : d );
+                });
+                if( callback )callback( unitList );
+            }.bind(this))
+        }else{
+            if( callback )callback( unitList );
+        }
+    },
+    caculateNestedSubCount : function ( tree ) {
+        if( this.isExcluded( tree ) )return;
+        var count;
+        var selectedCount;
+
+        if(!this.allUnitObject[ tree.levelName ]){
+            this.allUnitObject[ tree.levelName ] = tree;
+            count = tree.subDirectUnitCount;
+            if( this.unitExcludedCount && this.unitExcludedCount[ tree.levelName ] ){
+                count = (count || 0) - this.unitExcludedCount[ tree.levelName ];
+            }
+
+            selectedCount = 0;
+            if( this.unitSelectedCount && this.unitSelectedCount[ tree.levelName ] ){
+                selectedCount = this.unitSelectedCount[ tree.levelName ];
+            }
+        }else{
+            count = this.allUnitObject[ tree.levelName ].subNestedUnitCount || 0;
+            selectedCount = this.allUnitObject[ tree.levelName ].selectedNestedUnitCount || 0;
+        }
+
+        var nameList = tree.levelName.split("/");
+        var names = [];
+        nameList.each( function (n) {
+            names.push( n );
+            var levelName = names.join("/");
+            var unitObject = this.allUnitObject[levelName];
+            if( unitObject ){
+                unitObject.subNestedUnitCount = (unitObject.subNestedUnitCount || 0) + count;
+                unitObject.selectedNestedUnitCount = (unitObject.selectedNestedUnitCount || 0) + selectedCount;
+            }
+        }.bind(this));
+
+        tree.subUnits.each( function (unit) {
+            this.caculateNestedSubCount( unit )
+        }.bind(this))
+
+    },
+    _addSelectedCount: function( itemOrItemSelected, count ){
+        var itemData = itemOrItemSelected.data;
+        [itemOrItemSelected.data.levelName].each(function(levelName){
+            if(!levelName)return;
+            var list = levelName.split("/");
+            var nameList = [];
+            var subCategoryMapList = [this.subCategoryMap];
+            for (var j = 0; j < list.length; j++) {
+                nameList.push(list[j]);
+                var name = nameList.join("/");
+                var maplist = [];
+                subCategoryMapList.each(function(subCategoryMap){
+                    if ( subCategoryMap[name] ) {
+                        var category = subCategoryMap[name];
+                        category._addSelectedCount(count);
+                        maplist.push( category.subCategoryMap ) ;
+                    }
+                });
+                subCategoryMapList = subCategoryMapList.concat(maplist);
+
+                if( this.loadingCount === "done" ){
+                    var obj = this.allUnitObject[name];
+                    if (obj) {
+                        obj.selectedNestedUnitCount = obj.selectedNestedUnitCount + count;
+                    }
+                }
+            }
+        }.bind(this));
+    }
+});
+
+MWF.xApplication.Selector.Unit.Item = new Class({
+    Extends: MWF.xApplication.Selector.Identity.Item,
+    load : function(){
+        if( this.selector.isFlatCategory ){
+            if( !this.justItem && this.selector.options.expandSubEnable && this.data.subDirectUnitCount ){
+                this.loadCategoryForFlatCategory();
+            }else if(!this.ignoreItem){
+                this.loadForNormal(true);
+            }
+        }else{
+            this.loadForNormal();
+        }
+
+    },
+
+    loadForNormal : function( isNotLoadSubItem, container ){
+        this.selector.fireEvent("queryLoadItem",[this]);
+
+        this.selector.itemHtml ? this.loadElementWithHtml(container) : this.loadElement(container);
+
+        if(this.postLoad)this.postLoad();
+
+        if(!isNotLoadSubItem)this.loadSubItem();
+
+        this.setEvent();
+
+        this.check();
+
+        if(this.afterLoad)this.afterLoad();
+
+        this.selector.fireEvent("postLoadItem",[this]);
+    },
+    loadElementWithHtml: function (container){
+        var node = new Element("div");
+        node.loadHtmlText(this.selector.itemHtml, {
+            "module": this,
+            "bind": {
+                lp: MWF.SelectorLP,
+                data: this.data,
+                options: this.selector.options,
+                _clazz: this.clazz,
+                _text: this.data.name,
+                _hasChild: this._hasChild(),
+                _description: this._getDescription(),
+                _title: this._getTtiteText(),
+                _selectType: this.selector.selectType,
+                _icon: this._getOOIcon(),
+                _hasAvatar: false,
+                _hideExpand: !this.selector.options.expandSubEnable
+            }
+        });
+        this.node = node.getFirst();
+        this.node.inject(container || this.container);
+        node.destroy();
+    },
+    loadElement: function (container) {
+        if( !this.node )this.node = new Element("div", {
+            "styles": this.selector.css.selectorItem
+        }).inject(container || this.container);
+
+        this.levelNode = new Element("div", {
+            "styles": this.selector.css.selectorItemLevelNode
+        }).inject(this.node);
+        var indent = this.selector.options.level1Indent + (this.level-1)*this.selector.options.indent;
+
+        if(this.selector.options.style.endsWith("flow")){
+            if (this.level === 1) {
+                indent = 26;
+            } else {
+                indent = 26 + ( this.level - 1 ) * this.selector.options.indent;
+            }
+        }
+
+        this.levelNode.setStyle("width", ""+indent+"px");
+
+        this.iconNode = new Element("div", {
+            "styles": this.selector.css.selectorItemIconNode
+        }).inject(this.node);
+        this._setIcon();
+
+        this.actionNode = new Element("div", {
+            "styles": this.selector.css.selectorItemActionNode
+        }).inject(this.node);
+        if( ( this.selector.options.count.toInt() === 1 || this.selector.options.noSelectedContainer ) && this.selector.css.selectorItemActionNode_single  ){
+            this.actionNode.setStyles( this.selector.css.selectorItemActionNode_single );
+        }
+
+        this.textNode = new Element("div", {
+            "styles": this.selector.css.selectorItemTextNode,
+            "text": this._getShowName(),
+            "title": this._getTtiteText()
+        }).inject(this.node);
+        this.textNode.store("indent", indent);
+        var m = this.textNode.getStyle("margin-left").toFloat()+indent;
+        this.textNode.setStyle("margin-left", ""+m+"px");
+    },
+    _getShowName: function(){
+        return (this.isShowLevelName && this.data.levelName) ? this.data.levelName : this.data.name;
+    },
+    _getTtiteText: function(){
+        return this.data.levelName || this.data.name;
+    },
+    _getOOIcon: function(){
+        return '';
+    },
+    _setIcon: function(){
+        var style = this.selector.options.style;
+        this.iconNode.setStyle("background-image", "url("+"../x_component_Selector/$Selector/"+style+"/icon/departmenticon.png)");
+    },
+    handleSelectAllClick: function (ev){
+        if( this.isSelectedAll ){
+            this.unselectAll(ev);
+            this.selector.fireEvent("unselectCategory",[this])
+        }else{
+            this.selectAll(ev);
+            this.selector.fireEvent("selectCategory",[this]);
+        }
+        ev.stopPropagation();
+    },
+    handelExpandNodeClick: function (e){
+        this.selector.fireEvent("expand", [this] );
+        this.loadSubItems();
+        this.isExpand = true;
+        e.stopPropagation();
+    },
+    loadSubItem: function(){
+        if( !this.selector.options.expandSubEnable )return;
+        this.isExpand = (this.selector.options.expand && !this.selector.options.useBreadcrumbs);
+        if ( this._hasChild() || this.selector.options.expandEmptyCategory ){
+            if (this.selector.options.expand  && !this.selector.options.useBreadcrumbs){
+                if( typeOf(this.selector.options.defaultExpandLevel) === "number" ){
+                    if (this.level <= this.selector.options.defaultExpandLevel && this._hasChild() ){
+                        this.levelNode.setStyles(this.selector.css.selectorItemLevelNode_expand);
+                        this.loadSubItems();
+                    }else{
+                        this.isExpand = false;
+                        this.levelNode.setStyles(this.selector.css.selectorItemLevelNode_collapse);
+                    }
+                }else if (this.level===1 && this._hasChild() ){
+                    this.levelNode.setStyles(this.selector.css.selectorItemLevelNode_expand);
+                    this.loadSubItems();
+                }else{
+                    this.isExpand = false;
+                    this.levelNode.setStyles(this.selector.css.selectorItemLevelNode_collapse);
+                }
+            }else{
+                this.levelNode.setStyles(this.selector.css.selectorItemLevelNode_collapse);
+            }
+            this.levelNode.addEvent("click", function(e){
+                if (this.isExpand){
+                    this.selector.fireEvent("collapse", [this] );
+                    this.children.setStyle("display", "none");
+                    this.levelNode.setStyles(this.selector.css.selectorItemLevelNode_collapse);
+                    this.isExpand = false;
+                }else{
+                    this.selector.fireEvent("expand", [this] );
+                    this.loadSubItems();
+                    this.levelNode.setStyles(this.selector.css.selectorItemLevelNode_expand);
+                    this.isExpand = true;
+                }
+                e.stopPropagation();
+            }.bind(this));
+
+            if( this.selector.css.selectorItemLevelNode_expand_over && this.selector.css.selectorItemLevelNode_collapse_over ){
+                this.levelNode.addEvents({
+                    mouseover : function(e){
+                        var styles = this.isExpand ? this.selector.css.selectorItemLevelNode_expand_over : this.selector.css.selectorItemLevelNode_collapse_over;
+                        this.levelNode.setStyles(styles);
+                    }.bind(this),
+                    mouseout : function(e){
+                        var styles = this.isExpand ? this.selector.css.selectorItemLevelNode_expand : this.selector.css.selectorItemLevelNode_collapse;
+                        this.levelNode.setStyles(styles);
+                    }.bind(this)
+                })
+            }
+
+            if( !this.selectAllNode && this.selector.options.count.toInt() !== 1 &&
+                ( this.selector.options.style!=="blue_flat" && this.selector.options.style!=="blue_flat_mobile")){
+                this.selectAllNode = new Element("div", {
+                    "styles": this.selector.css.selectorItemCategoryActionNode_selectAll,
+                    "title" : MWF.SelectorLP.selectChildren
+                }).inject(
+                    this.selector.options.style.endsWith("flow") ? this.iconNode : this.textNode,
+                    "before"
+                );
+                this.selectAllNode.addEvent( "click", function(ev){
+                    if( this.isSelectedAll ){
+                        // this.unselectAll(ev);
+                        this.selector.options.selectAllRange === "all" ? this.unselectAllNested(ev, null, true) : this.unselectAll(ev, null, true);
+                        this.selector.fireEvent("unselectCatgory",[this]);
+                        this.selector.fireEvent("unselectCategory",[this])
+                    }else{
+                        // this.selectAll(ev);
+                        if( this.selector.options.selectAllRange === "all" ){
+                            var node = new Element("div.categorySelectedNode").inject( this.selector.selectedNode );
+                            this.selectAllNested(ev, true, node)
+                        }else{
+                            this.selectAll(ev ,true)
+                        }
+                        this.selector.fireEvent("selectCatgory",[this]);
+                        this.selector.fireEvent("selectCategory",[this])
+                    }
+                    ev.stopPropagation();
+                }.bind(this));
+                if( this.selector.css.selectorItemCategoryActionNode_selectAll_over ){
+                    this.selectAllNode.addEvents( {
+                        "mouseover" : function(ev){
+                            if( !this.isSelectedAll )this.selectAllNode.setStyles( this.selector.css.selectorItemCategoryActionNode_selectAll_over );
+                            //ev.stopPropagation();
+                        }.bind(this),
+                        "mouseout" : function(ev){
+                            if( !this.isSelectedAll )this.selectAllNode.setStyles( this.selector.css.selectorItemCategoryActionNode_selectAll );
+                            //ev.stopPropagation();
+                        }.bind(this)
+                    })
+                }
+            }
+        }else if( !this.selectAllNode && this.selector.options.count.toInt() !== 1 && this.selector.options.style.endsWith("flow") ){
+            new Element("div", {
+                "styles": this.selector.css.selectorItemCategoryActionNode_empty
+            }).inject(
+                this.selector.options.style.endsWith("flow") ? this.iconNode : this.textNode,
+                "before"
+            );
+        }
+
+        //this.actionNode.setStyles((this.selector.options.expand) ? this.selector.css.selectorItemCategoryActionNode_expand : this.selector.css.selectorItemCategoryActionNode_collapse);
+    },
+    unselectAll : function(ev, exclude, checkValid){
+        //( this.subItems || [] ).each( function(item){
+        //    if(item.isSelected)item.unSelected();
+        //}.bind(this));
+        var excludeList = exclude || [];
+        if( exclude && typeOf(exclude) !== "array"  )excludeList = [exclude];
+        ( this.subItems || [] ).each( function(item){
+            if(item.isSelected && !excludeList.contains(item) ){
+                item.unSelected( checkValid );
+            }
+        }.bind(this));
+
+        if( this.selectAllNode ){
+            if( this.selector.isFlatCategory ){
+                this.selectAllNode.setStyles( this.selector.css.flatCategory_selectAll );
+            }else if(this.selector.css.selectorItemCategoryActionNode_selectAll){
+                this.selectAllNode.setStyles( this.selector.css.selectorItemCategoryActionNode_selectAll );
+            }
+        }
+        this.isSelectedAll = false;
+        if( this.selectAllNode )this.selectAllNode.removeClass('selected');
+    },
+    unselectAllNested : function( ev, exclude, checkValid ){
+        this.unselectAll(ev, exclude, checkValid );
+        if( this.subCategorys && this.subCategorys.length ){
+            this.subCategorys.each( function( category ){
+                if(category.unselectAllNested)category.unselectAllNested( ev, exclude, checkValid )
+            })
+        }
+        if( this.subItems && this.subItems.length ){
+            this.subItems.each( function( item ){
+                if(item.unselectAllNested)item.unselectAllNested( ev, exclude, checkValid )
+            })
+        }
+    },
+    selectAllNested : function(ev, checkValid, selectedNode){
+        var node;
+        if( selectedNode )node = new Element("div.categorySelectedNode").inject( selectedNode );
+        this.selectAll(ev, checkValid, node, function () {
+            if( this.subCategorys && this.subCategorys.length ){
+                this.subCategorys.each( function( category ){
+                    if(selectedNode)var node = new Element("div.categorySelectedNode").inject( selectedNode );
+                    if(category.selectAllNested)category.selectAllNested(ev, checkValid, node)
+                })
+            }
+            if( this.subItems && this.subItems.length ){
+                this.subItems.each( function( item ){
+                    if(selectedNode)var node = new Element("div.categorySelectedNode").inject( selectedNode );
+                    if(item.selectAllNested)item.selectAllNested(ev, checkValid, node)
+                })
+            }
+        }.bind(this));
+    },
+    selectAll: function(ev, checkValid, selectedNode, callback){
+        if( this.loaded || this.selector.isFlatCategory ){
+            this._selectAll( ev, checkValid, selectedNode );
+            if(callback)callback();
+        }else{
+            this.loadSubItems(function(){
+                this._selectAll( ev, checkValid, selectedNode );
+                if(callback)callback();
+            }.bind(this));
+            this.levelNode.setStyles(this.selector.css.selectorItemLevelNode_expand);
+            this.isExpand = true;
+        }
+    },
+    _selectAll : function( ev, checkValid, selectedNode ){
+        if( !this.subItems || !this.subItems.length )return;
+        var count = this.selector.options.maxCount || this.selector.options.count;
+        if (!count) count = 0;
+        var selectedSubItemCount = 0;
+
+        this.subItems.each( function(item){
+            if(item.isSelected)selectedSubItemCount++
+        }.bind(this));
+
+        if ((count.toInt()===0) || (this.selector.selectedItems.length+(this.subItems.length-selectedSubItemCount))<=count){
+
+            var doSelectAll = function () {
+                var checkedCount = 0;
+                this.subItems.each( function(item){
+                    if(!item.isSelected && !item.disabled )item.selected(false, function () {
+                        checkedCount++;
+                        if( this.subItems.length === checkedCount ){
+                            if( checkValid )this.selector.fireEvent("valid", [this.selector, this]);
+                        }
+                    }.bind(this), selectedNode);
+                }.bind(this));
+
+                if( this.selectAllNode ){
+                    if( this.selector.isFlatCategory ){
+                        this.selectAllNode.setStyles( this.selector.css.flatCategory_selectAll_selected );
+                    }else if(this.selector.css.selectorItemCategoryActionNode_selectAll_selected){
+                        this.selectAllNode.setStyles( this.selector.css.selectorItemCategoryActionNode_selectAll_selected );
+                    }
+                }
+
+                this.isSelectedAll = true;
+                if( this.selectAllNode )this.selectAllNode.addClass('selected');
+            }.bind(this);
+
+            if( this._beforeSelectAll ){
+                this._beforeSelectAll( doSelectAll );
+            }else{
+                doSelectAll();
+            }
+
+        }else{
+            MWF.xDesktop.notice("error", {x: "right", y:"top"}, MWF.SelectorLP.selectItemMaxText.replace("{count}", count), this.selector.node);
+        }
+    },
+    checkSelectAll : function(){
+        if( this.isSelectedAll )return;
+        if( !this.selectAllNode )return;
+        if( !this.subItems )return;
+        var isAllItemSelected = true;
+        for( var i=0; i< this.subItems.length; i++ ){
+            if( !this.subItems[i].isSelected ){
+                isAllItemSelected = false;
+                break;
+            }
+        }
+        if( isAllItemSelected ){
+            if( this.selector.isFlatCategory ){
+                this.selectAllNode.setStyles( this.selector.css.flatCategory_selectAll_selected );
+            }else if( this.selector.css.selectorItemCategoryActionNode_selectAll_selected ){
+                this.selectAllNode.setStyles( this.selector.css.selectorItemCategoryActionNode_selectAll_selected );
+            }
+            this.isSelectedAll = true;
+            if( this.selectAllNode )this.selectAllNode.addClass('selected');
+        }
+    },
+    checkUnselectAll : function(){
+        if( !this.isSelectedAll )return;
+        if( !this.selectAllNode )return;
+        if( ! this.subItems )return;
+        var hasSelectedItem = false;
+        for( var i=0; i< this.subItems.length; i++ ){
+            if( this.subItems[i].isSelected ){
+                hasSelectedItem = true;
+                break;
+            }
+        }
+        if( !hasSelectedItem ){
+            if( this.selector.isFlatCategory ){
+                this.selectAllNode.setStyles( this.selector.css.flatCategory_selectAll );
+            }else if( this.selector.css.selectorItemCategoryActionNode_selectAll ){
+                this.selectAllNode.setStyles( this.selector.css.selectorItemCategoryActionNode_selectAll );
+            }
+            this.isSelectedAll = false;
+            if( this.selectAllNode )this.selectAllNode.removeClass('selected');
+        }
+    },
+    loadSubItems: function( callback ){
+        if (!this.loaded && !this.loading){
+            this.loading = true;
+            if (!this.children){
+                this.children = new Element("div", {
+                    "styles": this.selector.css.selectorItemCategoryChildrenNode
+                });
+            }
+            this.children.inject(
+                this.selector.options.useBreadcrumbs ? this.selector.itemAreaNode : this.node,
+                this.selector.options.useBreadcrumbs ? "bottom" : "after"
+            );
+            this.children.setStyle("display", "block");
+            //    if (!this.selector.options.expand) this.children.setStyle("display", "none");
+
+            this.selector.orgAction.listSubUnitDirect(function(subJson){
+                subJson.data.each(function(subData){
+                    if( !this.selector.isExcluded( subData ) ) {
+                        var category = this.selector._newItem(subData, this.selector, this.children, this.level + 1, this);
+                        this.selector.items.push( category );
+                        if( !this.subItems )this.subItems = [];
+                        this.subItems.push( category );
+                    }
+                }.bind(this));
+                this.loaded = true;
+                this.loading = false;
+                if(callback)callback();
+            }.bind(this), null, this.data.distinguishedName);
+        }else{
+            this.children.setStyle("display", "block");
+        }
+    },
+    getData: function(callback){
+        if (callback) callback();
+    },
+    postLoad : function(){
+        if( this.selector.options.style === "blue_flat" ) {
+            if (this.level === 1) {
+                var indent = 26;
+                this.levelNode.setStyle("width", "" + indent + "px");
+            } else {
+                var indent = 26 + ( this.level - 1 ) * this.selector.options.indent;
+                this.levelNode.setStyle("width", "" + indent + "px");
+            }
+        }
+    },
+
+
+    loadCategoryForFlatCategory : function(){
+        this.selector.fireEvent("queryLoadCategory",[this]);
+
+        if( !this.flatCategoryItemNode ){
+            this.flatCategoryItemNode = new Element("div.flatCategoryItemNode", {
+                "styles": this.selector.css.flatCategoryItemNode,
+                "title" : this._getTtiteText()
+            });
+            this.flatCategoryItemNode.store( "category", this );
+            this.flatCategoryItemNode.store( "dn", this.data.distinguishedName );
+
+            this.flatCategoryItemTextNode = new Element("div", {
+                "styles": this.selector.css.flatCategoryItemTextNode,
+                "text": this._getShowName(),
+                "title": this._getTtiteText()
+            }).inject(this.flatCategoryItemNode);
+
+        }
+
+        this.children = new Element("div", {
+            "styles": this.selector.css.selectorItemCategoryChildrenNode
+        }).inject(this.selector.itemAreaNode);
+        this.children.setStyle("display", "none");
+
+        if( this.level === 1 ){
+            this.loadForNormal(true, this.children);
+        }
+
+        if( !this.selectAllNode && this.selector.options.count.toInt() !== 1 ){
+            var selectAllWrap = new Element("div",{
+                styles : this.selector.css.flatCategory_selectAllWrap
+            }).inject(this.children);
+            this.selectAllNode = new Element("div", {
+                "styles": this.selector.css.flatCategory_selectAll,
+                "text" : MWF.SelectorLP.selectAll
+            }).inject(selectAllWrap);
+            this.selectAllNode.addEvent( "click", function(ev){
+                this.handleSelectAllClick(ev);
+            }.bind(this));
+        }
+
+        //this.loadForNormal(true, this.children);
+
+
+        this.flatCategoryItemNode.addEvents({
+            //"mouseover": function(){
+            //    if (!this.isSelected )this.node.setStyles(this.selector.css.flatCategoryItemNode_over );
+            //}.bind(this),
+            //"mouseout": function(){
+            //    if (!this.isSelected )this.node.setStyles(this.selector.css.flatCategoryItemNode );
+            //}.bind(this),
+            "click": function(){
+                if( this.selector.currentFlatCategory === this )return;
+                if( this.selector.currentFlatCategory ){
+                    this.selector.currentFlatCategory.clickFlatCategoryItem(null, true); //取消原来选择的
+                }
+                this.selector.currentFlatCategory = this;
+                this.clickFlatCategoryItem();
+            }.bind(this)
+        });
+        //this.setEvent();
+
+        var isCreateSubCategoryListNode = this.data.subDirectUnitCount ?  this.data.subDirectUnitCount : true;
+        var nodeContainer;
+        if( this.nodeContainer ){
+            nodeContainer = this.nodeContainer;
+        }else{
+            nodeContainer = (this.category &&  this.category.subCategoryListNode) ? this.category.subCategoryListNode : null;
+        }
+        this.subCategoryListNode = this.selector.addFlatCategoryItem( this.flatCategoryItemNode, this.data.subDirectUnitCount, nodeContainer,  isCreateSubCategoryListNode );
+
+        //this.check();
+
+        if( this.loadCategoryChildren )this.loadCategoryChildren();
+
+        //if(this.postLoad)this.postLoad();
+
+        //this.setEvent();
+
+        //this.check();
+
+        this.selector.fireEvent("postLoadCategory",[this]);
+    },
+    clickFlatCategoryItem : function( callback, hidden ){
+        //if (this._hasChildItem()){
+        var firstLoaded = !this.itemLoaded;
+        this.loadItemChildren(function(){
+            if( hidden ){
+                this.children.setStyles({ "display": "none" });
+                this.flatCategoryItemNode.setStyles(this.selector.css.flatCategoryItemNode);
+                this.isExpand = false;
+            }else if( firstLoaded ){
+                this.children.setStyles({"display": "block"});
+                this.flatCategoryItemNode.setStyles( this.selector.css.flatCategoryItemNode_selected );
+                this.isExpand = true;
+            }else {
+                var display = this.children.getStyle("display");
+                if (display === "none") {
+                    this.children.setStyles({ "display": "block" });
+                    this.flatCategoryItemNode.setStyles(this.selector.css.flatCategoryItemNode_selected);
+                    this.isExpand = true;
+                } else {
+                    this.children.setStyles({ "display": "none" });
+                    this.flatCategoryItemNode.setStyles(this.selector.css.flatCategoryItemNode);
+                    this.isExpand = false;
+                }
+            }
+            if(callback)callback()
+        }.bind(this));
+        //}
+    },
+    loadCategoryChildren : function( callback ){
+        if (!this.categoryLoaded){
+            this.selector.orgAction.listSubUnitDirect(function(subJson){
+                subJson.data.each(function(subData){
+                    if( !this.selector.isExcluded( subData ) ) {
+                        if( subData.subDirectUnitCount ){
+                            var category = this.selector._newItem(subData, this.selector, this.children, this.level + 1, this);
+                            //if( !this.subItems )this.subItems = [];
+                            //this.subItems.push( category );
+                        }
+                    }
+                }.bind(this));
+                this.categoryLoaded = true;
+                if(callback)callback();
+            }.bind(this), null, this.data.distinguishedName);
+        }else{
+            if(callback)callback();
+        }
+    },
+    loadItemChildren : function( callback ){
+        if (!this.itemLoaded){
+            this.selector.orgAction.listSubUnitDirect(function(subJson){
+                subJson.data.each(function(subData){
+                    if( !this.selector.isExcluded( subData ) ) {
+                        //if( !subData.subDirectUnitCount ){
+                        var category = this.selector._newItem(subData, this.selector, this.children, this.level + 1, this, true);
+                        category.justItem = true;
+                        category.load();
+                        this.selector.items.push( category );
+                        if( !this.subItems )this.subItems = [];
+                        this.subItems.push( category );
+                        //}
+                    }
+                }.bind(this));
+                this.itemLoaded = true;
+                if(callback)callback();
+            }.bind(this), null, this.data.distinguishedName);
+        }else{
+            if(callback)callback();
+        }
+    },
+    _hasChild : function () {
+        return this.data.subDirectUnitCount;
+    }
+});
+
+MWF.xApplication.Selector.Unit.SearchItem = new Class({
+    Extends: MWF.xApplication.Selector.Unit.Item,
+    _init: function (){
+        this.clazz = "SearchItem";
+    },
+    load : function(){
+        this.loadForNormal(true);
+    },
+    _getShowName: function(){
+        // return this.data.levelName || this.data.name;
+        return this.data.name+((this.data.levelName) ? "("+this.data.levelName+")" : "");
+    },
+    _getDescription: function () {
+        return this.data.levelName || '';
+    },
+    loadSubItems: function( callback ){
+        //只是为了在isFlatCategory模式下，加载全称用的，否则用继承的就可以
+        if (!this.loaded && !this.loading){
+            this.loading = true;
+            if (!this.children){
+                this.children = new Element("div", {
+                    "styles": this.selector.css.selectorItemCategoryChildrenNode
+                });
+            }
+            this.children.inject(
+                this.selector.options.useBreadcrumbs ? this.selector.itemAreaNode : this.node,
+                this.selector.options.useBreadcrumbs ? "bottom" : "after"
+            );
+            this.children.setStyle("display", "block");
+            //    if (!this.selector.options.expand) this.children.setStyle("display", "none");
+
+            this.selector.orgAction.listSubUnitDirect(function(subJson){
+                subJson.data.each(function(subData){
+                    if( !this.selector.isExcluded( subData ) ) {
+                        var category;
+                        if( this.selector.isFlatCategory ){
+                            category = this.selector._newItem(subData, this.selector, this.children, this.level + 1, this, true);
+                            category.isShowLevelName = true;
+                            category.load();
+                        }else{
+                            category = this.selector._newItem(subData, this.selector, this.children, this.level + 1, this);
+                        }
+                        this.selector.items.push( category );
+                        if( !this.subItems )this.subItems = [];
+                        this.subItems.push( category );
+                    }
+                }.bind(this));
+                this.loaded = true;
+                this.loading = false;
+                if(callback)callback();
+            }.bind(this), null, this.data.distinguishedName);
+        }else{
+            this.children.setStyle("display", "block");
+        }
+    }
+});
+
+MWF.xApplication.Selector.Unit.ItemSelected = new Class({
+    Extends: MWF.xApplication.Selector.Identity.ItemSelected,
+    getData: function(callback){
+        if (callback) callback();
+    },
+    _getTtiteText: function(){
+        return this.data.levelName || this.data.name;
+    },
+    _getShowName: function(){
+        return this.data.name+((this.data.levelName) ? "("+this.data.levelName+")" : "");
+    },
+    _getDescription: function () {
+        return this.data.levelName || '';
+    },
+    _setIcon: function(){
+        var style = this.selector.options.style;
+        this.iconNode.setStyle("background-image", "url("+"../x_component_Selector/$Selector/"+style+"/icon/departmenticon.png)");
+    }
+});
+
+MWF.xApplication.Selector.Unit.ItemCategory = new Class({
+    Extends: MWF.xApplication.Selector.Identity.ItemCategory,
+
+    _getTotalCount : function(){
+        if( !this.selector.allUnitObject )return 0;
+        var unit =  this.selector.allUnitObject[this.data.levelName];
+        var count = unit ? unit.subNestedUnitCount : 0;
+        return count;
+    },
+    _getSelectedCount : function(){
+        if( typeOf(this.selectedCount) === "number" )return this.selectedCount;
+        if( !this.selector.allUnitObject )return 0;
+        var unit =  this.selector.allUnitObject[this.data.levelName];
+        var count = unit ? unit.selectedNestedUnitCount : 0;
+        this.selectedCount = count + (this.selectedCount_wait || 0);
+        this.selectedCount_wait = 0;
+        return this.selectedCount;
+    },
+
+    loadSub: function(callback){
+        if (!this.loaded){
+            this.selector.orgAction.listSubUnitDirect(function(subJson){
+                subJson.data.each(function(subData){
+                    if( !this.selector.isExcluded( subData ) ) {
+                        var category = this.selector._newItem(subData, this.selector, this.children, this.level+1, this);
+                        category.isItem = true;
+                        category.isCategory = true;
+                        this.selector.items.push( category );
+                        if(this.subItems)this.subItems.push( category );
+                        this.subCategorys.push( category );
+                        this.subCategoryMap[subData.levelName] = category;
+                    }
+                    //var category = this.selector._newItemCategory("ItemCategory", subData, this.selector, this.children, this.level+1);
+                }.bind(this));
+
+                this.loaded = true;
+                if (callback) callback();
+
+            }.bind(this), null, this.data.distinguishedName);
+        }else{
+            if (callback) callback();
+        }
+    },
+    _hasChild: function(){
+        var uCount = (this.data.subDirectUnitCount) ? this.data.subDirectUnitCount : 0;
+        //var iCount = (this.data.subDirectIdentityCount) ? this.data.subDirectIdentityCount : 0;
+        return uCount;
+    },
+    _hasChildCategory: function(){
+        var uCount = (this.data.subDirectUnitCount) ? this.data.subDirectUnitCount : 0;
+        return uCount;
+    },
+    _hasChildItem: function(){
+        var uCount = (this.data.subDirectUnitCount) ? this.data.subDirectUnitCount : 0;
+        return uCount;
+    },
+
+
+    //for flat category start
+    loadCategoryChildren: function(callback){
+        if (!this.categoryLoaded){
+            this.selector.orgAction.listSubUnitDirect(function(subJson){
+                subJson.data.each(function(subData){
+                    if( !this.selector.isExcluded( subData ) ) {
+                        var category = this.selector._newItem(subData, this.selector, this.children, this.level+1, this, true);
+                        category.ignoreItem = true;
+                        category.load();
+                        //if(this.subItems)this.subItems.push( category );
+                        this.subCategorys.push( category );
+                        this.subCategoryMap[subData.levelName] = category;
+                    }
+                    //var category = this.selector._newItemCategory("ItemCategory", subData, this.selector, this.children, this.level+1);
+                }.bind(this));
+
+                this.categoryLoaded = true;
+                if (callback) callback();
+
+            }.bind(this), null, this.data.distinguishedName);
+        }else{
+            if (callback) callback( );
+        }
+    },
+    loadItemChildren: function(callback){
+        if (!this.itemLoaded){
+            this.selector.orgAction.listSubUnitDirect(function(subJson){
+                subJson.data.each(function(subData){
+                    if( !this.selector.isExcluded( subData ) ) {
+                        var category = this.selector._newItem(subData, this.selector, this.children, this.level+1, this, true);
+                        category.justItem = true;
+                        category.load();
+                        this.selector.items.push( category );
+                        if(this.subItems)this.subItems.push( category );
+                        //this.subCategorys.push( category );
+                    }
+                    //var category = this.selector._newItemCategory("ItemCategory", subData, this.selector, this.children, this.level+1);
+                }.bind(this));
+
+                this.itemLoaded = true;
+                if (callback) callback();
+
+            }.bind(this), null, this.data.distinguishedName);
+        }else{
+            if (callback) callback( );
+        }
+    }
+
+});
+
+MWF.xApplication.Selector.Unit.Filter = new Class({
+    Implements: [Options, Events],
+    options: {
+        "style": "default",
+        "units": []
+    },
+    initialize: function(value, options){
+        this.setOptions(options);
+        this.value = value;
+        this.orgAction = MWF.Actions.get("x_organization_assemble_control");
+    },
+    filter: function(value, callback){
+        this.value = value;
+        var key = this.value;
+
+
+        if (this.options.units.length){
+            var units = [];
+            this.options.units.each(function(u){
+                if (typeOf(u)==="string"){
+                    units.push(u);
+                }
+                if (typeOf(u)==="object"){
+                    units.push(u.distinguishedName);
+                }
+            });
+            key = {"key": key, "unitList": units};
+        }
+        this.orgAction.listUnitByKey(function(json){
+            data = json.data;
+            if (callback) callback(data)
+        }.bind(this), null, key);
+    }
+});

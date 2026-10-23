@@ -1,0 +1,505 @@
+MWF.xDesktop.requireApp("Attendance", "Explorer", null, false);
+MWF.xDesktop.requireApp("Template", "Explorer", null, false);
+o2.require("MWF.widget.UUID", null, false);
+MWF.xApplication.Attendance.AddressExplorer = new Class({
+    Extends: MWF.xApplication.Attendance.Explorer,
+    Implements: [Options, Events],
+
+    initialize: function(node, app, actions, options){
+        this.setOptions(options);
+        this.app = app;
+        this.path = "../x_component_Attendance/$AddressExplorer/";
+        this.cssPath = "../x_component_Attendance/$AddressExplorer/"+this.options.style+"/css.wcss";
+        this._loadCss();
+
+        this.actions = actions;
+        this.node = $(node);
+
+        this.initData();
+    },
+    reload: function(){
+        this.node.empty();
+        this.load();
+    },
+    load: function(){
+        this.loadToolbar();
+        this.loadContentNode();
+
+        this.loadContent();
+        this.setNodeScroll();
+
+    },
+    destroy: function(){
+        if( this.baiduMap ){
+            this.baiduMap.map.clearOverlays();
+            this.elementContentNode.destroy();
+        }
+        this.node.empty();
+        delete  this;
+    },
+    loadContent : function( filterData ){
+        this.elementContentNode.empty();
+        //this.view = new MWF.xApplication.Attendance.AddressExplorer.View(this.elementContentNode, this.app,this, this.viewData, this.options.searchKey );
+        //this.view.filterData = filterData;
+        //this.view.load();
+
+        this.actions.listWorkplace( function(json){
+            json.data = json.data || [];
+            this.wpContent = this.toolbarNode.getElements("[name=wpContent]")[0];
+            this.createList( json.data );
+
+
+            this.baiduMap = new MWF.xApplication.Attendance.AddressExplorer.BaiduMap( this.elementContentNode, this.app, this, {} );
+            this.baiduMap.load( json.data );
+            this.setContentSize();
+
+        }.bind(this));
+
+    },
+    setBiduAccount: function(){
+        var baiduAccountForm = new MWF.xApplication.Attendance.AddressExplorer.BaiduAccountForm( this );
+        baiduAccountForm.edit();
+    },
+    reloadList: function(){
+        this.actions.listWorkplace( function(json){
+            this.wpContent.empty();
+            this.createList( json.data || [] );
+        }.bind(this))
+    },
+    createList: function( data ){
+        var _self = this;
+        this.wdList = new Element("div", {
+            styles : this.css.wdList
+        }).inject( this.wpContent );
+        this.wdList.setStyle( "width" , this.toolbarNode.getSize().x - 470 + "px" );
+
+        data.each( function( d ){
+            var placeItem = new Element( "div", {
+                styles : this.app.css.toolbarContentItem,
+                text : d.placeName
+            }).inject( this.wdList );
+            placeItem.addEvents( {
+                "mouseover": function () {
+                    this.setStyles( _self.app.css.toolbarItemNode_over );
+                    this.addClass("mainColor_bg");
+                },
+                "mouseout": function () {
+                    this.setStyles( _self.app.css.toolbarItemNode_normal );
+                    this.removeClass("mainColor_bg");
+                },
+                "click": function(e){
+                    this.obj.baiduMap.gotoMarker( this.data );
+                    e.stopPropagation();
+                }.bind({ obj : this, data : d })
+            })
+        }.bind(this) );
+
+        // this.arrow = "up";
+        // if( this.wdList.getScrollSize().y > this.wpContent.getSize().y + 10){
+        //
+        //     this.wdList.addEvent("click",function(e){
+        //         if( this.arrow != "down" ){
+        //             this.openList( e );
+        //         }else{
+        //             this.closeList( e )
+        //         }
+        //     }.bind(this));
+        //
+        //     this.arrowNode = new Element("div.arrowNode",{
+        //         "styles" : this.css.arrowNode
+        //     }).inject( this.wpContent, "top" );
+        //     this.arrowNode.addEvents({
+        //         "mouseover" : function(){
+        //             this.arrowNode.setStyles( this.categoryArrow != "down" ? this.css.arrowNode_over : this.css.arrowNode_down_over);
+        //         }.bind(this),
+        //         "mouseout" : function(){
+        //             this.arrowNode.setStyles( this.categoryArrow != "down" ? this.css.arrowNode : this.css.arrowNode_down);
+        //         }.bind(this),
+        //         "click" : function( e ){
+        //             if( this.arrow != "down" ){
+        //                 this.openList( e );
+        //             }else{
+        //                 this.closeList( e )
+        //             }
+        //         }.bind(this)
+        //     });
+        // }
+    },
+    _setContentSize: function(){
+        this.wdList.setStyle( "width" , this.toolbarNode.getSize().x - 370 + "px" );
+    },
+    openList : function( e ){
+        this.arrow = "down";
+        //this.arrowNode.setStyles(this.css.arrowNode_down_over );
+        this.arrowNode.setStyle("display","none");
+        this.wdList.setStyles(this.css.wdList_all);
+        window.closeList = this.closeList.bind(this);
+        this.app.content.addEvent("click", window.closeList );
+        e.stopPropagation();
+    },
+    closeList : function( e ){
+        this.arrow = "up";
+        //this.arrowNode.setStyles(this.css.arrowNode );
+        this.arrowNode.setStyle("display","");
+        this.wdList.setStyles(this.css.wdList);
+        this.app.content.removeEvent("click" , window.closeList );
+        e.stopPropagation();
+    },
+    createDocument: function(){
+        this.baiduMap.createMarker();
+    }
+});
+
+MWF.xApplication.Attendance.AddressExplorer.BaiduMap = new Class({
+    Implements: [Options, Events],
+    options: {
+        "style": "default"
+    },
+    initialize: function (container, app, explorer, options) {
+        this.container = container;
+        this.explorer = explorer;
+        this.app = app;
+        this.actions = explorer.actions;
+        this.setOptions(options);
+        this.markers = {};
+        this.markerInfoWindows = {};
+    },
+    load : function( markerData ){
+        this.markerData = markerData;
+        this.mapNode = new Element("div", {styles : {
+            width : "100%",
+            height : "99%"
+        }}).inject(this.container);
+        setTimeout( function(){
+            MWF.UD.getPublicData("baiduAccountKey", function (json) {
+                this.loadResource(null, json );
+            }.bind(this))
+        }.bind(this) , 200 )
+    },
+    loadResource: function (callback, ak) {
+        window.BMap_loadScriptTime = (new Date).getTime();
+        var apiPath;
+        var accountkey = ak || "sM5P4Xq9zsXGlco6RAq2CRDtwjR78WQB";
+        if( window.location.protocol.toLowerCase() === "https:" ){
+            window.HOST_TYPE = '2';
+            apiPath = "//api.map.baidu.com/getscript?v=2.0&ak="+accountkey+"&s=1&services=&t=20161219171637";
+        }else{
+            apiPath = "http://api.map.baidu.com/getscript?v=2.0&ak="+accountkey+"&services=&t=20161219171637";
+        }
+        if( !window.BDMapApiLoaded ){
+            COMMON.AjaxModule.loadDom(apiPath, function () {
+                window.BDMapApiLoaded = true;
+                if( !window.BDMarkerToolLoaded ){
+                    COMMON.AjaxModule.load( "../x_component_Attendance/BDMarkerTool.js", function(){
+                        window.BDMarkerToolLoaded = true;
+                        this._loadMap();
+                        if (callback)callback();
+                    }.bind(this) );
+                }else{
+                    this._loadMap();
+                    if (callback)callback();
+                }
+            }.bind(this));
+        }else{
+            this._loadMap();
+            if (callback)callback();
+        }
+    },
+    _loadMap: function(){
+        if (navigator.geolocation){
+            try{
+                navigator.geolocation.getCurrentPosition(this.loadMap.bind(this), this.loadMap.bind(this));
+            }catch( e ){
+                this.loadMap();
+            }
+        }else{
+            this.loadMap();
+        }
+    },
+    loadMap: function(position){
+        this.createMap( position );
+        this.addMapControl();
+        if( this.markerData ){
+            this.addMarkerArray( this.markerData );
+        }
+    },
+    createMap: function( position ){
+        var point = null;
+        if (position && position.coords){
+            point = new BMap.Point(position.coords.longitude, position.coords.latitude);
+        }
+        if( !point ){
+            if( this.markerData && this.markerData.length > 0){
+                var json = this.markerData[0];
+                point = new BMap.Point(json.longitude, json.latitude);
+            }else{
+                point = new BMap.Point(116.404, 39.915);
+            }
+        }
+        var map = this.map = new BMap.Map(this.mapNode);    // 创建Map实例
+        map.centerAndZoom(point, 12);  // 初始化地图,设置中心点坐标和地图级别
+//		map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
+//		map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
+        map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+    },
+    addMapControl: function(){
+        //向地图中添加缩放控件
+        var ctrl_nav = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_RIGHT,type:BMAP_NAVIGATION_CONTROL_LARGE});
+        this.map.addControl(ctrl_nav);
+        //向地图中添加缩略图控件
+        var ctrl_ove = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:1});
+        this.map.addControl(ctrl_ove);
+        //向地图中添加比例尺控件
+        var ctrl_sca = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT});
+        this.map.addControl(ctrl_sca);
+        //map.addControl(new this.mapWindow.BMap.MapTypeControl());   //添加地图类型控件
+
+        this.addCityListControl();
+    },
+    addCityListControl : function(){
+        this.map.addControl(new BMap.CityListControl({
+            anchor: BMAP_ANCHOR_TOP_LEFT,
+            offset: new BMap.Size(10, 20),
+            // 切换城市之间事件
+             onChangeBefore: function( ){
+             },
+            // 切换城市之后事件
+             onChangeAfter:function( ){
+             }
+        }));
+    },
+    getInfoWindowHtml: function( json ){
+        json = json || {};
+        //拼接infowindow内容字串
+        var html = [];
+        html.push('<br/>');
+        html.push('<table border="0" cellpadding="1" cellspacing="1" id="markerTable" docId="'+ (json.id || "") +'" style="font-size:12px;">');
+        html.push('  <tr>');
+        html.push('      <td style="width:50px" align="left" class="common">'+ this.app.lp.name1 +'：</td>');
+        html.push('      <td style="width: 300px"><input type="text"  size="40" value="'+(json.placeName || "") +'" id="placeName" ></td>');
+        html.push('	     <td style="width: 10px" valign="top"><span style="color:#ff0000">*</span></td>');
+        html.push('  </tr>');
+        html.push('  <tr>');
+        html.push('      <td  align="left" class="common">'+this.app.lp.alias+'：</td>');
+        html.push('      <td><input type="text" maxlength="300px" size="40"  value="'+(json.placeAlias || "") +'" id="placeAlias" ></td>');
+        html.push('	     <td valign="top"></td>');
+        html.push('  </tr>');
+        html.push('  <tr>');
+        html.push('      <td  align="left" class="common">'+this.app.lp.range+'：</td>');
+        html.push('      <td><input type="text" maxlength="300px" size="40"  value="'+(json.errorRange || "") +'" id="errorRange" ></td>');
+        html.push('	     <td valign="top">'+this.app.lp.meter+'</td>');
+        html.push('  </tr>');
+        html.push('  <tr>');
+        html.push('      <td align="left" class="common">'+this.app.lp.description+'：</td>');
+        html.push('      <td><textarea rows="4" cols="31"  id="description">'+ (json.description || "") +'</textarea></td>');
+        html.push('	     <td valign="top"></td>');
+        html.push('  </tr>');
+        html.push('  <tr>');
+        html.push('	     <td  align="center" colspan="3">');
+        html.push('          <input type="button" name="btnOK"  id="submitPlace" value="'+this.app.lp.save+'">&nbsp;&nbsp;');
+        if( json.id ){
+            html.push('		     <input type="button" name="btnMove" id="enableMovePlace" value="'+this.app.lp.enableMove+'">&nbsp;&nbsp;');
+        }
+        html.push('		     <input type="button" name="btnClear" id="cancelPlace" value="'+this.app.lp.delete+'">');
+        html.push('	     </td>');
+        html.push('  </tr>');
+        html.push('</table>');
+        return html.join("");
+    },
+    createMarker: function(){
+        var _self = this;
+        var mkrTool = new BMapLib.MarkerTool(this.map, {autoClose: true});
+        mkrTool.addEventListener("markend", function(evt){
+            var infoWin = new BMap.InfoWindow(this.getInfoWindowHtml(), {offset: new BMap.Size(0, -10)});
+            infoWin.addEventListener("open",function(){
+                var table = document.id("markerTable");
+                var submitPlace = table.getElements("[id='submitPlace']");
+                submitPlace.addEvent("click", function(){
+                    this.obj.ok( this.mkr , this.table );
+                }.bind({ obj : this, mkr : mkr, table : table }));
+
+                var cancelPlace = table.getElements("[id='cancelPlace']");
+                cancelPlace.addEvent("click", function(){
+                    this.obj.cancel( this.mkr, this.table );
+                }.bind({ obj : this, mkr : mkr, table : table }));
+            }.bind( _self ));
+            var mkr = evt.marker;
+            mkr.addEventListener("click",function(){
+                this.openInfoWindow(infoWin);
+            });
+            mkr.addEventListener("dragend",function(){
+                this.openInfoWindow(infoWin);
+            });
+            mkr.openInfoWindow(infoWin);
+        }.bind(this));
+
+        mkrTool.open(); //打开工具
+        var icon = BMapLib.MarkerTool.SYS_ICONS[14]; //设置工具样式，使用系统提供的样式BMapLib.MarkerTool.SYS_ICONS[0] -- BMapLib.MarkerTool.SYS_ICONS[23]
+        mkrTool.setIcon(icon);
+    },
+    //创建marker
+    addMarkerArray : function ( markerArr ){
+        for(var i=0;i<markerArr.length;i++){
+            var json = markerArr[i];
+            this.addMarker( json );
+        }
+    },
+    addMarker : function( json ){
+        var _self = this;
+        var point = new BMap.Point(json.longitude, json.latitude);
+        var iconImg = BMapLib.MarkerTool.SYS_ICONS[8];
+        var marker = new BMap.Marker(point,{
+            icon:iconImg,
+            enableDragging : false
+        });
+
+        var label = new BMap.Label(json.placeName,{"offset":new BMap.Size(0,-20)});
+
+        marker.setLabel(label);
+        this.map.addOverlay(marker);
+        label.setStyle({
+            borderColor:"#808080",
+            color:"#333",
+            cursor:"pointer"
+        });
+
+        (function(){
+            var _iw = new BMap.InfoWindow(this.getInfoWindowHtml( json ), {offset: new BMap.Size(0, -10)});
+            var _marker = marker;
+            var _json = json;
+            _marker.addEventListener("click",function(){
+                this.openInfoWindow(_iw);
+            });
+            _marker.addEventListener("dragend",function(){
+                this.openInfoWindow(_iw);
+            });
+            _iw.addEventListener("open",function(){
+                _marker.getLabel().hide();
+
+                var table = document.id("markerTable");
+                var enableMovePlace = table.getElements("[id='enableMovePlace']");
+                enableMovePlace.addEvent("click", function(){
+                    this.obj.enableMove( this.mkr );
+                }.bind({ obj : this, mkr : _marker, table : table, id : _json.id }));
+
+                var submitPlace = table.getElements("[id='submitPlace']");
+                submitPlace.addEvent("click", function(){
+                    this.obj.ok( this.mkr , this.table, this.id );
+                }.bind({ obj : this, mkr : _marker, table : table, id : _json.id }));
+
+                var cancelPlace = table.getElements("[id='cancelPlace']");
+                cancelPlace.addEvent("click", function(){
+                    this.obj.cancel( this.mkr, this.table, this.id );
+                }.bind({ obj : this, mkr : _marker, table : table, id : _json.id }))
+
+            }.bind( _self ));
+            _iw.addEventListener("close",function(){
+                _marker.getLabel().show();
+            });
+            label.addEventListener("click",function(){
+                _marker.openInfoWindow(_iw);
+            });
+
+            this.markers[ json.id ] = marker;
+            this.markerInfoWindows[ json.id ] = _iw;
+        }.bind(this))();
+    },
+    enableMove: function( mrk ){
+        mrk.closeInfoWindow();
+        mrk.enableDragging();
+    },
+    gotoMarker : function( json ){
+        var marker = this.markers[ json.id ];
+        this.map.centerAndZoom(marker.point, 15);
+        marker.openInfoWindow( this.markerInfoWindows[ json.id ] );
+    },
+    ok: function( mkr, table, id ){
+        //var id = table.get("docId");
+        var placeName = table.getElements("[id='placeName']")[0].get("value");
+        if( placeName.trim() == "" ){
+            this.app.notice( this.app.lp.workPlaceEmptyNotice, "error" );
+            return false;
+        }
+        var placeAlias = table.getElements("[id='placeAlias']")[0].get("value");
+        var description = table.getElements("[id='description']")[0].get("value");
+        var errorRange = table.getElements("[id='errorRange']")[0].get("value");
+        var data = {
+            placeName : placeName,
+            placeAlias : placeAlias,
+            errorRange : errorRange,
+            description : description,
+            longitude : mkr.point.lng,
+            latitude : mkr.point.lat
+        };
+        if(id)data.id = id;
+        this.actions.saveWorkplace( data, function( json ){
+            data.id = json.data.id;
+            mkr.closeInfoWindow();
+            mkr.remove();
+            this.addMarker( data );
+            this.explorer.reloadList();
+        }.bind(this) )
+    },
+    cancel: function( mkr, table, id ){
+        if( id ){
+            this.actions.deleteWorkplace( id, function(){
+                mkr.closeInfoWindow();
+                var label = mkr.getLabel();
+                if( label )label.remove();
+                mkr.remove();
+                this.explorer.reloadList();
+            }.bind(this) )
+        }else{
+            mkr.closeInfoWindow();
+            var label = mkr.getLabel();
+            if( label )label.remove();
+            mkr.remove();
+        }
+    }
+});
+
+MWF.xApplication.Attendance.AddressExplorer.BaiduAccountForm = new Class({
+    Extends: MWF.xApplication.Attendance.Explorer.PopupForm,
+    options : {
+        "hasTop" : true,
+        "hasBottom" : true,
+        "title": MWF.xApplication.Attendance.LP.BaiduDeveloperCertification
+    },
+    _createTableContent: function(){
+        var lp = MWF.xApplication.Attendance.LP;
+        var html = "<table width='100%' bordr='0' cellpadding='5' cellspacing='0' styles='formTable'>"+
+            "<tr>" +
+            "    <td styles='formTableValue' colspan='2'>"+lp.registerBiaduNotice+"</td>"+
+            "</tr>" +
+            "<tr>" +
+            "    <td styles='formTableValue' colspan='2'><a href='http://lbsyun.baidu.com/apiconsole/auth' target='_blank'>"+lp.openRegisterUrl+"</a></td>"+
+            "</tr>" +
+            "<tr>" +
+            "    <td styles='formTableTitle' lable='ak'></td>"+
+            "    <td styles='formTableValue' item='ak'></td>"+
+            //"    <td styles='formTableValue' item='action'></td>"+
+            "</tr>" +
+            "</table>";
+        this.formTableArea.set("html",html);
+
+        MWF.UD.getPublicData("baiduAccountKey", function (json) {
+            MWF.xDesktop.requireApp("Template", "MForm", function(){
+                this.form = new MForm( this.formTableArea, {ak : json || "" }, {
+                    style: "attendance",
+                    isEdited : true,
+                    itemTemplate : {
+                        ak : {  "text" : lp.secretKey }
+                    }
+                }, this.app );
+                this.form.load();
+            }.bind(this), true);
+        }.bind(this))
+    },
+    _ok: function( data, callback ){
+        debugger;
+        MWF.UD.putPublicData("baiduAccountKey",  data.ak, function (json) {
+            if(callback)callback(json);
+            // this.close();
+        }.bind(this));
+    }
+});

@@ -1,0 +1,78 @@
+[
+  {
+    "title" : MWF.xApplication.Attendance.LP.fileName,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "fileName",
+    "name" : "fileName",
+    "width" : "40%"
+  },
+  {
+    "title" : MWF.xApplication.Attendance.LP.fileSize,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "function(data){ return (parseInt(data.length) / 1024).toFixed(2) + 'K' }",
+    "name" : "length",
+    "width" : "10%"
+  },
+  {
+    "title" : MWF.xApplication.Attendance.LP.uploadTime,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "createTime",
+    "name" : "createTime",
+    "width" : "20%"
+  },
+  {
+    "title" : MWF.xApplication.Attendance.LP.uploadPerson,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "function(d){ return (d.creatorUid || '').split('@')[0] }",
+    "name" : "creatorUid",
+    "width" : "20%"
+  },
+  {
+    "access" : "admin",
+    "title" : MWF.xApplication.Attendance.LP.action,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "actions",
+    "name" : "actions",
+    "width" : "10%",
+    "sub" : [{
+      "title" : MWF.xApplication.Attendance.LP.deleteFile,
+      "action" : "remove",
+      "fonticon": "o2icon-icon_delete",
+      //     "icon": "delete.png",
+      "styles" : "documentActionNode",
+      "overStyles" : "documentActionNode_over",
+      "downStyles" : "documentActionNode_down"
+    },
+      {
+        "title": MWF.xApplication.Attendance.LP.download,
+        "action": "openDocument",
+//        "icon": "download.png",
+        "fonticon": "o2icon-icon_download",
+        "styles": "documentActionNode",
+        "overStyles": "documentActionNode_over",
+        "downStyles": "documentActionNode_down"
+      },
+      {
+        "title": MWF.xApplication.Attendance.LP.viewImportResult,
+        "action": "openResult",
+        //       "icon": "open.png",
+        "fonticon": "o2icon-icon_shitu",
+        "styles": "documentActionNode",
+        "overStyles": "documentActionNode_over",
+        "downStyles": "documentActionNode_down"
+      }
+//    },{
+//      "title" : "查看校验结果",
+//      "action" : "openVaild",
+//      "styles" : "actionOpenVaildNode",
+//      "overStyles" : "actionOpenVaildNode_over",
+//      "downStyles" : "actionOpenVaildNode_down"
+//    }
+    ]
+  }
+]

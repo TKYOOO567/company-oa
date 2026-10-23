@@ -1,0 +1,124 @@
+[
+  {
+    "type": "MWFToolBarButton",
+    "img": "save.png",
+    "title": "{{$.lp.saveTitle}}",
+    "action": "saveWork",
+    "text": "{{$.lp.save}}",
+    "id": "action_saveData",
+    "control": "allowSave",
+    "condition": "",
+    "icon": "save",
+    "read": false
+  },
+  {
+    "type": "MWFToolBarButton",
+    "img": "submit.png",
+    "title": "{{$.lp.flowTitle}}",
+    "action": "flowWork",
+    "text": "{{$.lp.flow}}",
+    "id": "action_flowWork",
+    "control": "allowFlow",
+    "condition": "",
+    "icon": "process-submit",
+    "read": false
+  },
+
+  {
+    "type": "MWFToolBarButton",
+    "img": "addTask.png",
+    "title": "{{$.lp.addTaskTitle}}",
+    "action": "addTask",
+    "text": "{{$.lp.addTask}}",
+    "id": "action_addTask",
+    "control": "allowAddTask",
+    "condition": "",
+    "icon": "process-add-task-person",
+    "read": false
+  },
+
+  {
+    "type": "MWFToolBarButton",
+    "img": "retract.png",
+    "title": "{{$.lp.retractTitle}}",
+    "action": "retractWork",
+    "text": "{{$.lp.retract}}",
+    "id": "action_retract",
+    "control": "allowRetract",
+    "icon": "retract",
+    "condition": "",
+    "read": true
+  },
+  {
+    "type": "MWFToolBarButton",
+    "img": "read.png",
+    "title": "{{$.lp.setReaded}}",
+    "action": "readedWork",
+    "text": "{{$.lp.readed}}",
+    "id": "action_readed",
+    "icon": "process-read",
+    "control": "allowReadProcessing",
+    "condition": "",
+    "read": true
+  },
+  {
+    "type": "MWFToolBarButton",
+    "img": "del.png",
+    "title": "{{$.lp.deleteTitle}}",
+    "action": "deleteWork",
+    "text": "{{$.lp.delete}}",
+    "id": "action_delete",
+    "icon": "delete",
+    "control": "allowDelete",
+    "condition": "",
+    "read": false
+  },
+  {
+    "type": "MWFToolBarButton",
+    "img": "press.png",
+    "title": "{{$.lp.pressTitle}}",
+    "action": "pressWork",
+    "text": "{{$.lp.press}}",
+    "id": "action_press",
+    "icon": "publish",
+    "control": "allowPress",
+    "condition": "",
+    "read": true
+  },
+  {
+    "type": "MWFToolBarButton",
+    "img": "goback.png",
+    "title": "{{$.lp.goBackTitle}}",
+    "action": "goBack",
+    "text": "{{$.lp.goBack}}",
+    "id": "action_goBack",
+    "control": "allowGoBack",
+    "condition": "",
+    "icon": "process-goback",
+    "read": false
+  },
+  {
+    "type": "MWFToolBarButton",
+    "img": "reset.png",
+    "title": "{{$.lp.resetTitle}}",
+    "action": "resetWork",
+    "text": "{{$.lp.reset}}",
+    "id": "action_reset",
+    "control": "allowReset",
+    "condition": "",
+    "icon": "reset",
+    "read": false
+  },
+  {
+    "type": "MWFToolBarButton",
+    "img": "monitor.png",
+    "title": "{{$.lp.monitorTitle}}",
+    "action": "monitor",
+    "text": "{{$.lp.monitor}}",
+    "id": "action_monitor",
+    "control": "",
+    "condition": "",
+    "icon": "work-management",
+    "read": true
+  }
+]

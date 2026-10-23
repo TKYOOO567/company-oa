@@ -1,0 +1,27 @@
+[
+  {
+    "title" : MWF.xApplication.Forum.LP.systemSettingFormTitle,
+    "icon" :"systemSetting.png",
+    "action" : "openSystemSetting"
+  },
+  {
+    "title" : MWF.xApplication.Forum.LP.categoryFormTitle,
+    "icon" :"categorize.png",
+    "action" : "openCategorySetting"
+  },
+  {
+    "title" : MWF.xApplication.Forum.LP.sectionFormTitle,
+    "icon" :"squared.png",
+    "action" : "openSectionSetting"
+  }
+//  {
+//    "title" : "权限设置",
+//    "icon" :"permission.png",
+//    "action" : "openPermissionSetting"
+//  },
+//  {
+//    "title" : "角色设置",
+//    "icon" :"role.png",
+//    "action" : "openRoleSetting"
+//  }
+]

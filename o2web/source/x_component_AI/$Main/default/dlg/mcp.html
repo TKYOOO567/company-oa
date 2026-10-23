@@ -1,0 +1,160 @@
+<div class="form-layout">
+    <div class="form-content">
+        <div class="form-content-area">
+            <oo-input required="true"
+                      label="{{$.lp.mcp.name}}"
+                      value="{{$.data.name}}"
+                      style="width:100%"
+                      name="name"
+                      label-style="width:8.2vw;"
+                      label-Align="right">
+            </oo-input>
+
+            <oo-input  required="true" data-o2-element="iconNode" autocomplete="off"
+                       label='{{$.lp.mcp.icon}}'
+                       name="icon"
+                       value='{{$.data.extra.icon}}'
+                       label-style="width:8.2vw;"
+                       label-Align="right"
+                       left-icon="{{$.data.extra.icon}}"
+                       onchange="this.setAttribute('left-icon', this.value)">
+
+            </oo-input>
+
+            <oo-input required="true"
+                      label="{{$.lp.mcp.displayName}}"
+                      value="{{$.data.displayName}}"
+                      style="width:100%"
+                      name="displayName"
+                      label-style="width:8.2vw;"
+                      label-Align="right">
+            </oo-input>
+
+            <oo-radio-group required="true" name="enable"
+                            label="{{$.lp.mcp.enable}}"
+                            value="{{$.data.enable}}"
+                            label-style="width:8.2vw;"
+                            label-Align="right">
+                <oo-radio text="{{$.lp.common.yes}}" value="true"></oo-radio>
+                <oo-radio text="{{$.lp.common.no}}" value="false"></oo-radio>
+            </oo-radio-group>
+
+            <oo-input required="true"
+                      label="{{$.lp.mcp.category}}"
+                      value="{{$.data.category}}"
+                      style="width:100%"
+                      name="category"
+                      label-style="width:8.2vw;"
+                      label-Align="right">
+            </oo-input>
+            <oo-radio-group name="indexEnable"
+                            label="{{$.lp.mcp.indexEnable}}"
+                            value="{{$.data.extra.indexEnable}}"
+                            label-style="width:8.2vw;"
+                            label-Align="right">
+                <oo-radio text="{{$.lp.common.yes}}" value="true"></oo-radio>
+                <oo-radio text="{{$.lp.common.no}}" value="false"></oo-radio>
+            </oo-radio-group>
+
+            <oo-textarea
+                    label="{{$.lp.mcp.indexDesc}}"
+                    value="{{$.data.extra.indexDesc}}"
+                    style="width:100%"
+                    name="indexDesc"
+                    label-style="width:8.2vw;"
+                    label-Align="right">
+            </oo-textarea>
+            <oo-textarea
+                    label="{{$.lp.mcp.indexPrompt}}"
+                    value="{{$.data.extra.indexPrompt}}"
+                    style="width:100%"
+                    name="indexPrompt"
+                    label-style="width:8.2vw;"
+                    label-Align="right">
+            </oo-textarea>
+
+            <oo-textarea required="true"
+                         label="{{$.lp.mcp.desc}}"
+                         value="{{$.data.desc}}"
+                         style="flex:100%"
+                         name="desc"
+                         label-style="width:8.2vw;"
+                         label-Align="right">
+            </oo-textarea>
+
+            <oo-input required="true"
+                      label="{{$.lp.mcp.url}}"
+                      value="{{$.data.httpOption.url}}"
+                      style="flex:100%"
+                      name="url"
+                      label-style="width:8.2vw;"
+                      label-Align="right">
+            </oo-input>
+
+            <div class="content-item flex" style="flex:100%">
+                <label class="label" style="min-width: 8.2vw;">{{$.lp.mcp.mcpbody}}</label>
+                <div style="width: 100%;">
+                    <div class="form-container" data-o2-element="mcpBodyParameterListNode">
+                        {{each $.data.mcpBodyParameterList}}
+                        <div class="form-row">
+                            <oo-input class="key" label="key" value="{{$.key}}"></oo-input>
+                            <oo-input class="value" label="value" value="{{$.value}}"></oo-input>
+                            <oo-button data-o2-events="click:removeMcpParameter">-</oo-button>
+                        </div>
+                        {{end each}}
+                    </div>
+                    <oo-button data-o2-events="click:addMcpBodyParameter" style="flex: 100%;">+ {{$.lp.mcp.addbody}}</oo-button>
+                </div>
+            </div>
+            <div class="content-item flex" style="flex:100%">
+                <label class="label" style="min-width: 8.2vw;">{{$.lp.mcp.mcplist}}</label>
+                <div style="width: 100%;">
+                    <div class="form-container" data-o2-element="mcpListNode">
+                        {{each $.data.mcpParameterList}}
+                        <div class="form-row">
+                            <oo-input class="key" label="key" value="{{$.name}}"></oo-input>
+                            <oo-input class="value" label="value" value="{{$.desc}}"></oo-input>
+                            <oo-radio-group class="required"
+                                            label="{{$._.lp.mcp.required}}"
+                                            value="{{$.required}}">
+                                <oo-radio text="{{$._.lp.common.yes}}" value="true"></oo-radio>
+                                <oo-radio text="{{$._.lp.common.no}}" value="false"></oo-radio>
+                            </oo-radio-group>
+                            <oo-select class="type"
+                                       label="{{$.lp.mcp.fieldtype}}"
+                                       value="{{$.type}}">
+                                <oo-option value="string">string</oo-option>
+                                <oo-option value="array">array</oo-option>
+
+                            </oo-select>
+                            <oo-button data-o2-events="click:removeMcpParameter">-</oo-button>
+                        </div>
+                        {{end each}}
+                    </div>
+                    <oo-button data-o2-events="click:addMcpParameter">+ {{$.lp.mcp.addmcp}}</oo-button>
+                </div>
+            </div>
+            <div class="content-item flex" style="flex:100%">
+                <label class="label" style="min-width: 8.2vw;">{{$.lp.mcp.returntemplate}}</label>
+                <div style="overflow: hidden;width:60rem;height:10rem;">
+                    <div style="width: 100%;height:100%;"  data-o2-element="msgTemplateNode">
+                    </div>
+                </div>
+            </div>
+            <div class="content-item flex" style="flex:100%">
+                <label class="label" style="min-width: 8.2vw;">{{$.lp.mcp.returncss}}</label>
+                <div style="overflow: hidden;width:60rem;height:10rem;">
+                    <div style="width: 100%;height:100%;"  data-o2-element="msgCssNode">
+                    </div>
+                </div>
+            </div>
+            <div class="content-item flex" style="flex:100%">
+                <label class="label" style="min-width: 8.2vw;">{{$.lp.mcp.script}}</label>
+                <div style="overflow: hidden;width:60rem;height:10rem;">
+                    <div style="width: 100%;height:100%;"  data-o2-element="msgScriptNode">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

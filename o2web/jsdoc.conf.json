@@ -1,0 +1,69 @@
+{
+    "opts": {    //命令行参数，在配置文件中配置了就不要敲命令了
+        "encoding": "utf8",               //文件编码utf8
+        "destination": "./o2web/api/",          //输出目标文件夹
+        "recurse": true,                 //是否递归抽取sorce/include配置的文件夹
+        "template" : "./node_modules/@o2oa/tidy-jsdoc-o2", //模板路径
+        "prism-theme": "prism-custom", //模板中的代码块样式主题
+        "readme" : "./o2web/jsdoc_static/home/README.md" //首页
+        //"tutorials": "./o2web/tutorials" //如果有教程，对应教程目录
+    },
+
+    "tags": {
+        "allowUnknownTags": true, //允许jsdoc中未命名的标签
+        "dictionaries": [   //标签库
+            "jsdoc",
+            "closure"
+        ]
+    },
+    "source": {
+        "include": [ //需要抽取文档的源文件夹，顺序和搜索结果的顺序有关,
+            "./o2web/source/o2_core/o2.js",
+            "./o2web/source/x_desktop/js/o2m.api.js",
+            "./o2web/source/o2_core/o2/xScript",
+            "./o2web/source/x_component_process_Xform",
+            "./o2web/source/x_component_cms_Xform",
+            "./o2web/source/x_component_query_Query",
+//            "./o2web/source/x_desktop/js/initialScriptText.js",
+//            "./o2web/source/x_desktop/js/initialServiceScriptText.js",
+            "./o2web/source/x_desktop/ssr/commonScript.js"
+
+        ],
+        "includePattern": ".+\\.js(doc|x)?$", //抽取的源文件名称正则表达式
+        "excludePattern": "(^|\\/|\\\\)_" //排除的源文件正则表达式
+    },
+    "plugins": [ //启用插件
+        "plugins/markdown", //把markdown转成html
+        "plugins/summarize" //为每个doclet生成摘要
+    ],
+    "templates": {  //模板参数
+        "cleverLinks": false, //@link标签是否呈现为纯文本
+        "monospaceLinks": false,
+        "default": {
+            "staticFiles": { //静态文件目录
+                "include": [
+                    "./o2web/jsdoc_static"
+                ]
+            }
+        }
+    },
+    "metadata": {
+        "title": "O2OA API", //最终生成的文档中标题
+        "title_prefix" : "O2OA API", //html title标题前缀
+        "title_suffix" : " | O2OA开发平台" //标题后缀
+    },
+    "o2" : {
+        "actionOutPath" : "./o2server/{actionRoot}/src/main/webapp/describe/jsdoc/{actionName}.json",
+        //"actionOutPath" : "./o2web/jsdoc/{actionRoot}/{actionName}.json",
+        "actionOutExamplePath" : "./o2web/jsdoc_static/actionOut/examples/{actionRoot}.json",
+        "actionOutExampleTextPath" : "./o2web/jsdoc_static/actionOut/examples/text/{path}.txt",
+        "actionOutExtensionPath" : "./o2web/jsdoc_static/actionOut/extensions/{actionRoot}.json"
+    },
+    "search" : {
+        "enable" : true,
+        "results_title" : "<span class='search-results-count'></span> results matching <span class='search-query'></span>",
+        "no_results_title" : "No results matching '<span class='search-query'></span>'",
+        "placeholder" : "输入关键字搜索"
+    }
+}
+//执行命令: jsdoc -c ./o2web/jsdoc.conf.json -q version=v5.3.5

@@ -1,0 +1,13 @@
+[
+  {
+    "access" : "admin",
+    "title": MWF.xApplication.Attendance.LP.exportEmployeeHolidayRecord
+    "id": "1.1",
+    "action": "exportExcel",
+    "icon": "create.png",
+    "expand": false,
+    "position" : "left",
+    "styles" : "toolbarItemNode",
+    "sub": []
+  }
+]

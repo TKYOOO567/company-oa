@@ -1,0 +1,62 @@
+{
+  "text": {
+    "text": MWF.APPPD.LP.serial.text[0],
+    "content": "",
+    "description": MWF.APPPD.LP.serial.text[1]
+  },
+  "year":{
+    "text": MWF.APPPD.LP.serial.year[0],
+    "content": "",
+    "description": MWF.APPPD.LP.serial.year[1]
+  },
+  "month": {
+    "text": MWF.APPPD.LP.serial.month[0],
+    "content": "",
+    "description": MWF.APPPD.LP.serial.month[1]
+},
+  "day": {
+    "text": MWF.APPPD.LP.serial.day[0],
+    "content": "",
+    "description": MWF.APPPD.LP.serial.day[1]
+  },
+  "unit": {
+    "text": MWF.APPPD.LP.serial.unit[0],
+    "content": "",
+    "description": MWF.APPPD.LP.serial.unit[1]
+  },
+  "unitAttribute": {
+    "text": MWF.APPPD.LP.serial.unitAttribute[0],
+    "content": "",
+    "description": MWF.APPPD.LP.serial.unitAttribute[1]
+},
+//  "company": {
+//    "text": "公司",
+//    "content": "",
+//    "description": "拟稿人所在公司名称"
+//  },
+//  "department": {
+//    "text": "部门",
+//    "content": "",
+//    "description": "拟稿人所在部门"
+//  },
+//  "companyAttribute": {
+//    "text": "公司属性",
+//    "content": "",
+//    "description": "拟稿人所在公司的属性"
+//  },
+//  "departmentAttribute": {
+//    "text": "部门属性",
+//    "content": "",
+//    "description": "拟稿人所在部门的属性"
+//  },
+  "script": {
+    "text": MWF.APPPD.LP.serial.script[0],
+    "content": "",
+    "description": MWF.APPPD.LP.serial.script[1]
+  },
+  "number": {
+    "text": MWF.APPPD.LP.serial.number[0],
+    "content": "",
+    "description": MWF.APPPD.LP.serial.number[1]
+  }
+}

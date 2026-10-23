@@ -1,0 +1,13 @@
+[
+  {
+    "access" : "admin",
+    "title": MWF.xApplication.Attendance.LP.createSchedule,
+    "id": "1.1",
+    "action": "createDocument",
+    "icon": "create.png",
+    "expand": false,
+    "position" : "left",
+    "styles" : "toolbarItemNode",
+    "sub": []
+  }
+]

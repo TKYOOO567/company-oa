@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="css/v10/root.css" charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="css/v10/style.css" id="oo-css-skin" charset="UTF-8" />
+    <link rel="stylesheet" href="css/mBoxNotice.css" charset="UTF-8" />
+    <link rel="stylesheet" href="css/mBoxTooltip.css" charset="UTF-8" />
+    <script src="../o2_core/o2.min.js"></script>
+    <script src="../o2_lib/Decimal.js"></script>
+    <script src="js/base.min.js"></script>
+
+    <title>FORM PREVIEW</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <script>
+        layout.addReady(function(){
+            (function(layout){
+                MWF.getJSON("res/config/config.json", function(config){
+                    if (config.proxyCenterEnable){
+                        if (o2.typeOf(config.center)==="array"){
+                            config.center.forEach(function(c){
+                                c.port = window.location.port || 80;
+                            })
+                        }else{
+                            config.port = window.location.port || 80;
+                        }
+                    }
+                    layout.config = config;
+                    if (layout.config.app_protocol=="auto"){
+                        layout.config.app_protocol = window.location.protocol;
+                    }
+                    //MWF.defaultPath = "../x_desktop"+MWF.defaultPath;
+                    MWF.loadLP(MWF.language);
+                    MWF.require("MWF.xDesktop.Layout", function(){
+                        //MWF.require("MWF.xDesktop.Authentication", null, false);
+                        (function(){
+                            layout.load = function(){
+                                //        if (this.isAuthentication()){
+                                var preview = window.frameElement.retrieve("preview");
+                                layout.desktop = window.frameElement.ownerDocument.window.layout.desktop;
+
+                                MWF.xDesktop.requireApp("process.Xform", "Form", function(){
+                                    layout.appForm = new MWF.APPForm($("layout"), preview.data);
+                                    layout.appForm.formDataText = JSON.stringify(preview.data);
+                                    layout.appForm.app = {"content": document.body, "fireEvent": function(){},"addEvent": function(){}};
+                                    layout.appForm.workAction = MWF.Actions.get("x_processplatform_assemble_surface");
+                                    MWF.getJSON("res/preview/work.json", function(data){
+                                        debugger;
+                                        if( preview.form && preview.form.designer && preview.form.designer.application && preview.form.designer.application.id ){
+                                            data.work.application = preview.form.designer.application.id;
+                                        }
+                                        if( preview.form && preview.form.json && preview.form.json.mode && preview.form.json.mode === "Mobile" ){
+                                            layout.mobile = true;
+                                        }
+                                        layout.appForm.businessData = {
+                                            "data": data.data,
+                                            "taskList": data.taskList,
+                                            "work": data.work,
+                                            "workCompleted": data.workCompleted,
+                                            "control": data.control,
+                                            "activity": data.activity,
+                                            "task": data.taskList[0],
+                                            "workLogList": data.workLogList,
+                                            "recordList": data.recordList,
+                                            "attachmentList": data.attachmentList,
+                                            "status": {
+                                                //"readonly": (this.options.readonly) ? true : false
+                                                "readonly": this.readonly
+                                            }
+                                        };
+                                        layout.appForm.load();
+                                    });
+                                });
+                                //        }
+                            };
+
+                            layout.load();
+                        })();
+
+                    });
+                }.bind(this));
+            })(layout);
+        });
+    </script>
+</head>
+<body style="overflow: auto">
+<div id="layout" class="layout" style="overflow: auto">
+    <div id="layout_top">
+
+    </div>
+    <div id="layout_form">
+    </div>
+</div>
+</body>
+</html>

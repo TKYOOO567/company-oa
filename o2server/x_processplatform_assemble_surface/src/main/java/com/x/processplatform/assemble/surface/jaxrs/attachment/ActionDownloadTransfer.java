@@ -1,0 +1,54 @@
+package com.x.processplatform.assemble.surface.jaxrs.attachment;
+
+import com.x.base.core.container.EntityManagerContainer;
+import com.x.base.core.container.factory.EntityManagerContainerFactory;
+import com.x.base.core.project.config.StorageMapping;
+import com.x.base.core.project.http.ActionResult;
+import com.x.base.core.project.http.EffectivePerson;
+import com.x.base.core.project.jaxrs.WoFile;
+import com.x.base.core.project.logger.Logger;
+import com.x.base.core.project.logger.LoggerFactory;
+import com.x.general.core.entity.GeneralFile;
+import com.x.processplatform.assemble.surface.ThisApplication;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import org.apache.openjpa.lib.util.StringUtil;
+
+class ActionDownloadTransfer extends BaseAction {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(ActionDownloadTransfer.class);
+
+	ActionResult<Wo> execute(EffectivePerson effectivePerson, String flag, boolean stream, String fileName) throws Exception {
+
+		LOGGER.debug("execute:{}, flag:{}.", effectivePerson::getDistinguishedName, () -> flag);
+
+		try (EntityManagerContainer emc = EntityManagerContainerFactory.instance().create()) {
+			ActionResult<Wo> result = new ActionResult<>();
+			Wo wo = null;
+
+			GeneralFile generalFile = emc.find(flag, GeneralFile.class);
+			if (generalFile != null) {
+				if(StringUtil.isEmpty(fileName)){
+					fileName = generalFile.getName();
+				}
+				StorageMapping gfMapping = ThisApplication.context().storageMappings().get(GeneralFile.class,
+						generalFile.getStorage());
+				wo = new Wo(generalFile.readContent(gfMapping), this.contentType(stream, fileName),
+						this.contentDisposition(stream, fileName));
+			}
+			result.setData(wo);
+			return result;
+		}
+	}
+
+	@Schema(name = "com.x.processplatform.assemble.surface.jaxrs.attachment.ActionDownloadTransfer$Wo")
+	public static class Wo extends WoFile {
+
+		private static final long serialVersionUID = 5914845134907661807L;
+
+		public Wo(byte[] bytes, String contentType, String contentDisposition) {
+			super(bytes, contentType, contentDisposition);
+		}
+
+	}
+}

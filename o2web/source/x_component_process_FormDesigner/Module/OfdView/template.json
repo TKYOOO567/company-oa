@@ -1,0 +1,23 @@
+{
+	"id": "",
+	"name": "",
+	"type": "OfdView",
+	"description": "",
+	"template": "",
+	"templeteScript" : "",
+	"templateType" : "value",
+	"script": {
+		"code": "",
+		"html": ""
+	},
+	"events": {
+		"afterOpen": {
+			"code": "",
+			"html": ""
+		}
+	},
+	"properties": {},
+	"class": "",
+	"styles": {},
+	"container": ""
+}

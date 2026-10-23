@@ -1,0 +1,52 @@
+[
+  {
+    "title" : MWF.xApplication.Attendance.LP.annuaal,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "configYear",
+    "name" : "configYear",
+    "width" : "20%"
+  },
+  {
+    "title" : MWF.xApplication.Attendance.LP.holiday.name,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "configName",
+    "name" : "configName",
+    "width" : "20%"
+  },
+  {
+    "title" : MWF.xApplication.Attendance.LP.date,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "configDate",
+    "name" : "configDate",
+    "width" : "20%"
+  },
+  {
+    "title" : MWF.xApplication.Attendance.LP.type,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "function(data){ return data.configType == 'Holiday' ? MWF.xApplication.Attendance.LP.holi : MWF.xApplication.Attendance.LP.work  }",
+    "name" : "configType",
+    "width" : "20%"
+  },
+  {
+    "access" : "admin",
+    "title" : MWF.xApplication.Attendance.LP.action,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "actions",
+    "name" : "actions",
+    "width" : "5%",
+    "sub" : [{
+      "title": MWF.xApplication.Attendance.LP.delete,
+      "action" : "remove",
+//      "icon": "delete.png",
+      "fonticon": "o2icon-icon_delete",
+      "styles" : " documentActionNode",
+      "overStyles" : "documentActionNode_over",
+      "downStyles" : "documentActionNode_down"
+    }]
+  }
+]

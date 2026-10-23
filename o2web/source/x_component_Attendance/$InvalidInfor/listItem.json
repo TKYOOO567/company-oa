@@ -1,0 +1,69 @@
+[
+  {
+    "title" : "",
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "checkbox",
+    "name" : "checkbox",
+    "width" : "5%"
+  },
+  {
+    "title": MWF.xApplication.Attendance.LP.name,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "empName",
+    "name" : "empName",
+    "width" : "15%"
+  },
+  {
+    "title": MWF.xApplication.Attendance.LP.date,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "defaultSort" : "desc",
+    "item" : "recordDateString",
+    "name" : "recordDateString",
+    "width" : "15%"
+  },
+  {
+    "title": MWF.xApplication.Attendance.LP.onDutyTime,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "onDutyTime",
+    "name" : "onDutyTime",
+    "width" : "15%"
+  },
+  {
+    "title": MWF.xApplication.Attendance.LP.offDutyTime,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "offDutyTime",
+    "name" : "offDutyTime",
+    "width" : "15%"
+  },
+  {
+    "title": MWF.xApplication.Attendance.LP.leaveDayCount,
+    "headStyles": "normalThNode",
+    "contentStyles": "normalTdNode",
+    "item": "description",
+    "name" : "description",
+    "width" : "25%"
+  } ,
+    {
+      "access" : "admin",
+      "title": MWF.xApplication.Attendance.LP.action,
+      "headStyles" : "normalThNode",
+      "contentStyles" : "normalTdNode",
+      "item" : "actions",
+      "name" : "actions",
+      "width" : "10%",
+      "sub" : [{
+        "title": MWF.xApplication.Attendance.LP.delete,
+        "action" : "remove",
+        "fonticon": "o2icon-icon_delete",
+//        "icon": "delete.png",
+        "styles" : "documentActionNode",
+        "overStyles" : "documentActionNode_over",
+        "downStyles" : "documentActionNode_down"
+      }]
+    }
+]

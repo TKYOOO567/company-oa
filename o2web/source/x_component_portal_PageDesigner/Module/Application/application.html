@@ -1,0 +1,159 @@
+<div style="background-color: #FFF; overflow: hidden">
+    <div title="{{$.lp.base}}" class="MWFTab">
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableTitle">{{$.lp.id}}:</td>
+                <td class="editTableValue"><input type="text" name="id" value="text{$.id}" class="editTableInput"/></td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.name}}:</td>
+                <td class="editTableValue"><input type="text" name="name" value="text{$.name}" class="editTableInput"/></td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.activeType}}:</td>
+                <td class="editTableValue">
+                    <input type="radio" name="activeType" value="immediately" text{(!$.activeType || $.activeType=='immediately')?'checked':''} onclick="if (this.checked){
+                    $('text{$.pid}delayArea').setStyle('display', 'none');
+                    }"/>{{$.lp.immediately}}
+                    <input type="radio" name="activeType" value="delay" text{($.activeType == 'delay')?'checked':''} onclick="if (this.checked){
+                    $('text{$.pid}delayArea').setStyle('display', 'block');
+                    }"/>{{$.lp.delay}}
+                </td>
+            </tr>
+        </table>
+        <div style="display: text{($.activeType=='delay') ?'block':'none'}" id="text{$.pid}delayArea">
+            <div style="padding: 10px;">{{$.lp.delayNote}}</div>
+        </div>
+
+        <div class="MWFMaplist" name="styles" title="{{$.lp.style}}"></div>
+        <div class="MWFMaplist" name="properties" title="{{$.lp.attribute}}"></div>
+
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableValue" colspan="2">
+                    <input type="radio" name="componentType" value="select" text{($.componentType!='script')?'checked':''}  onclick="if (this.checked) {
+                        $('text{$.pid}selectComponent').setStyle('display', 'block');
+                        $('text{$.pid}scriptComponent').setStyle('display', 'none');}"
+                    />{{$.lp.selectComponent}}
+                    <input type="radio" name="componentType" value="script" text{($.componentType=='script')?'checked':''}  onclick="if (this.checked) {
+                        $('text{$.pid}selectComponent').setStyle('display', 'none');
+                        $('text{$.pid}scriptComponent').setStyle('display', 'block');}"
+                    />{{$.lp.calculationComponent}}<br/>
+                </td>
+            </tr>
+        </table>
+        <div id="text{$.pid}selectComponent" class="MWFComponentSelectContainer" style="display: text{($.componentType!='script')?'block':'none'}">
+            <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                <tr>
+                    <td class="editTableTitle">{{$.lp.component}}:</td>
+                    <td class="editTableValue">
+                        <div class="MWFComponentSelect" name="componentSelected"></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="text{$.pid}scriptComponent" style="display: text{($.componentType=='script')?'block':'none'}">
+            <div style="padding: 5px;"> {{$.lp.scriptComponentNote}}：<br/>return "Org"; </div>
+            <div class="MWFScriptArea" name="componentScript" title="{{$.lp.componentScript}} (S)"></div>
+        </div>
+
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableTitle">{{$.lp.applicationStatus}}:</td>
+                <td class="editTableValue">
+                    <input class="editTableRadio" onclick="
+						if (this.checked){
+							$('text{$.pid}statusMapList').setStyle('display', 'block');
+							$('text{$.pid}statusScript').setStyle('display', 'none')}
+					" name="statusType" text{($.statusType!='script')?'checked':''} type="radio" value="map"/>{{$.lp.textValue}}
+                    <input class="editTableRadio" onclick="
+						if (this.checked){
+						 	$('text{$.pid}statusScript').setStyle('display', 'block');
+						 	$('text{$.pid}statusMapList').setStyle('display', 'none')}
+					"  name="statusType" text{($.statusType=='script')?'checked':''} type="radio" value="script"/>{{$.lp.script}}
+                </td>
+            </tr>
+        </table>
+        <div id="text{$.pid}statusMapList" class="MWFMaplist" name="statusMapList" title="{{$.lp.option}}" style="display: text{($.statusType !=='script')?'block':'none'}" ></div>
+        <div id="text{$.pid}statusScript" class="MWFScriptArea" name="statusScript" title="status {{$.lp.script}}" style="display: text{($.statusType=='script')?'block':'none'}"></div>
+
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableTitle">{{$.lp.applicationOptions}}:</td>
+                <td class="editTableValue">
+                    <input class="editTableRadio" onclick="
+						if (this.checked){
+							$('text{$.pid}optionsMapList').setStyle('display', 'block');
+							$('text{$.pid}optionsScript').setStyle('display', 'none')}
+					" name="optionsType" text{($.optionsType!='script')?'checked':''} type="radio" value="map"/>{{$.lp.textValue}}
+                    <input class="editTableRadio" onclick="
+						if (this.checked){
+						 	$('text{$.pid}optionsScript').setStyle('display', 'block');
+						 	$('text{$.pid}optionsMapList').setStyle('display', 'none')}
+					"  name="optionsType" text{($.optionsType=='script')?'checked':''} type="radio" value="script"/>{{$.lp.script}}
+                </td>
+            </tr>
+        </table>
+        <div id="text{$.pid}optionsMapList" class="MWFMaplist" name="optionsMapList" title="{{$.lp.option}}" style="display: text{($.optionsType !=='script')?'block':'none'}" ></div>
+        <div id="text{$.pid}optionsScript" class="MWFScriptArea" name="optionsScript" title="options {{$.lp.script}}" style="display: text{($.optionsType=='script')?'block':'none'}"></div>
+
+    </div>
+    <div title="{{$.lp.power}}"  class="MWFTab">
+        <!-- 可阅读配置 -->
+        <div style="height:26px; text-align: center; line-height: 26px; background-color: #EEE; border-top: 1px solid #999; border-bottom: 1px solid #999; font-weight:bold;">{{$.lp.readConfig}}</div>
+        <div style="padding: 5px; color: #999999; ">{{$.lp.readConfigInfo}}</div>
+        
+        <div style="padding: 5px; border-top: 1px solid #999; font-weight: bold; background-color: #f9f9f9; display: {{($.appType && ($.appType==='process.FormDesigner' || $.appType==='cms.FormDesigner'))?'block':'none'}}">
+            <label><input name="readByActivity" type="checkbox" value="true" onclick="if (this.checked){
+                $('text{$.pid}readByActivityArea').setStyle('display', 'block');
+            } else {
+                $('text{$.pid}readByActivityArea').setStyle('display', 'none');
+            }" text{($.readByActivity && $.readByActivity.indexOf('true')!=-1)?'checked':''} />{{$.lp.readConfig_activity}}</label>
+        </div>
+        <table id="text{$.pid}readByActivityArea" width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable" style="display: text{($.readByActivity && $.readByActivity=='true')?'block':'none'}">
+            <tr>
+                <td class="editTableTitle">{{$.lp.readActivity}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFProcessActivitySelect" name="readByActivityValue"></div>
+                </td>
+            </tr>
+        </table>
+
+        <div style="padding: 5px; border-top: 1px solid #999; font-weight: bold; background-color: #f9f9f9;">
+            <label><input name="readByOrg" type="checkbox" value="true" onclick="if (this.checked){
+                $('text{$.pid}readByOrgArea').setStyle('display', 'block');
+            } else {
+                $('text{$.pid}readByOrgArea').setStyle('display', 'none');
+            }" text{($.readByOrg && $.readByOrg.indexOf('true')!=-1)?'checked':''} />{{$.lp.readConfig_org}}</label>
+        </div>
+        <table id="text{$.pid}readByOrgArea" width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable" style="display: text{($.readByOrg && $.readByOrg=='true')?'block':'none'}">
+            <tr>
+                <td class="editTableTitle">{{$.lp.readOrg}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFPersonMultiple" name="readByOrgValue" data-types="unit,group,person,role"></div>
+                </td>
+            </tr>
+        </table>
+
+        <div style="padding: 5px; border-top: 1px solid #999; font-weight: bold; background-color: #f9f9f9;">
+            <label><input name="readByScript" type="checkbox" value="true" onclick="if (this.checked){
+                $('text{$.pid}readByScriptArea').setStyle('display', 'block');
+            } else {
+                $('text{$.pid}readByScriptArea').setStyle('display', 'none');
+            }" text{($.readByScript && $.readByScript.indexOf('true')!=-1)?'checked':''} />{{$.lp.readConfig_script}}</label>
+        </div>
+        <div id="text{$.pid}readByScriptArea" style="display: text{($.readByScript && $.readByScript=='true')?'block':'none'}">
+            <div class="MWFScriptArea" name="readByScriptValue" title="{{$.lp.readScript}} (S)"></div>
+            <div style="padding: 5px; color: #999999;">{{$.lp.readScriptInfo}}</div>
+        </div>
+    </div>
+    <div title="{{$.lp.event}}"  class="MWFTab">
+        <div class="MWFEventsArea" name="events"></div>
+    </div>
+    <div title="{{$.lp.html}}"  class="MWFTab">
+        <div class="MWFHTMLArea" style="font-family: Verdana, Geneva, sans-serif; font-size:14px"></div>
+    </div>
+    <div title="{{$.lp.json}}"  class="MWFTab">
+        <div class="MWFJSONArea" style="font-family: Verdana, Geneva, sans-serif; font-size:14px"></div>
+    </div>
+</div>

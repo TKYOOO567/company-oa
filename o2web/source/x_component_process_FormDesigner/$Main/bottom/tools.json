@@ -1,0 +1,387 @@
+{
+  "label": {
+    "icon": "label.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.label,
+    "className": "Label"
+  },
+  "textfield": {
+    "icon": "textfield.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.textfield,
+    "className": "Textfield"
+  },
+  "number": {
+    "icon": "number.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.number,
+    "className": "Number"
+  },
+  "org": {
+    "icon": "personfield.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.org,
+    "className": "Org"
+  },
+  "calendar": {
+    "icon": "calendar.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.calendar,
+    "className": "Calendar"
+  },
+  "textarea": {
+    "icon": "textarea.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.textarea,
+    "className": "Textarea"
+  },
+  "select": {
+    "icon": "select.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.select,
+    "className": "Select"
+  },
+  "radio": {
+    "icon": "radio.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.radio,
+    "className": "Radio"
+  },
+  "checkbox": {
+    "icon": "checkbox.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.checkbox,
+    "className": "Checkbox"
+  },
+  "combox": {
+    "icon": "combox.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.combox,
+    "className": "Combox"
+  },
+  "currency": {
+    "icon": "currency.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.currency,
+    "className": "Currency"
+  },
+  "opinion": {
+    "icon": "opinion.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.opinion,
+    "className": "Opinion"
+  },
+
+  "button": {
+    "icon": "button.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.button,
+    "className": "Button"
+  },
+  "Address": {
+    "icon": "address.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.Address,
+    "className": "Address"
+  },
+  "Actionbar": {
+    "icon": "actionbar.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.Actionbar,
+    "className": "Actionbar"
+  },
+
+  "Sidebar": {
+    "icon": "sidebar.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.Sidebar,
+    "className": "Sidebar"
+  },
+
+  "image": {
+    "icon": "image.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.image,
+    "className": "Image"
+  },
+  "imageclipper": {
+    "icon": "imageclipper.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.imageclipper,
+    "className": "ImageClipper"
+  },
+  "attachment": {
+    "icon": "attachment.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.attachment,
+    "className": "Attachment"
+  },
+  "div": {
+    "icon": "div.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.div,
+    "className": "Div"
+  },
+  "table": {
+    "icon": "table.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.table,
+    "className": "Table"
+  },
+//  "datagrid": {
+//    "icon": "datagrid.png",
+//    "text": MWF.xApplication.process.FormDesigner.LP.modules.datagrid,
+//    "className": "Datagrid"
+//  },
+  "datatable": {
+    "icon": "datagrid.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.datatable,
+    "className": "Datatable"
+  },
+  "datatemplate": {
+    "icon": "datatemplate.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.datatemplate,
+    "className": "Datatemplate"
+  },
+  "subform": {
+    "icon": "subform.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.subform,
+    "className": "Subform"
+  },
+  "ViewSelector": {
+    "icon": "viewSelector.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.ViewSelector,
+    "className": "ViewSelector"
+  },
+  "view": {
+    "icon": "view.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.view,
+    "className": "View"
+  },
+  "statementSelector": {
+    "icon": "statementSelector.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.statementSelector,
+    "className": "StatementSelector"
+  },
+  "statement": {
+    "icon": "statement.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.statement,
+    "className": "Statement"
+  },
+  "stat": {
+    "icon": "stat.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.stat,
+    "className": "Stat"
+  },
+  "html": {
+    "icon": "html.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.html,
+    "className": "Html"
+  },
+  "common": {
+    "icon": "common.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.common,
+    "className": "Common"
+  },
+  "tab": {
+    "icon": "tabs.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.tab,
+    "className": "Tab"
+  },
+  "tree": {
+    "icon": "tree.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.tree,
+    "className": "Tree"
+  },
+  "log": {
+    "icon": "log.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.log,
+    "className": "Log"
+  },
+  "readLog": {
+    "icon": "log.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.readLog,
+    "className": "ReadLog"
+  },
+  "monitor": {
+    "icon": "monitor.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.monitor,
+    "className": "Monitor"
+  },
+  "iframe": {
+    "icon": "iframe.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.iframe,
+    "className": "Iframe"
+  },
+  "documenteditor": {
+    "icon": "documenteditor.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.documenteditor,
+    "className": "Documenteditor"
+  },
+  "htmledit": {
+    "icon": "htmleditor.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.htmledit,
+    "className": "Htmleditor"
+  },
+  "tinymceEditor": {
+    "icon": "tinymceeditor.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.tinymceEditor,
+    "className": "TinyMCEEditor"
+  },
+  "security": {
+    "icon": "security.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.security,
+    "className": "Security"
+  },
+  "office": {
+    "icon": "office.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.office,
+    "className": "Office"
+  },
+  "yozoOffice": {
+    "icon": "yozoOffice.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.yozoOffice,
+    "className": "YozoOffice"
+  },
+  "onlyOffice": {
+    "icon": "onlyOffice.png",
+    "text": "onlyOffice",
+    "className": "OnlyOffice"
+  },
+  "officeOnline": {
+    "icon": "officeOnline.png",
+    "text": "OfficeOnline",
+    "className": "OfficeOnline"
+  },
+  "wpsOffice": {
+    "icon": "wpsOffice.png",
+    "text": "wpsOffice",
+    "className": "WpsOffice"
+  },
+  "wpsOffice2": {
+    "icon": "wpsOffice.png",
+    "text": "wpsOffice2",
+    "className": "WpsOffice2"
+  },
+  "importer": {
+    "icon": "importer.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.importer,
+    "className": "Importer"
+  },
+  "relatedlink": {
+    "icon": "relatedLink.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.relatedLink,
+    "className": "Relatedlink"
+  },
+  "associatedDocument": {
+    "icon": "associatedDocument.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.associatedDocument,
+    "className": "AssociatedDocument"
+  },
+
+//  "SmartBI": {
+//    "icon": "smartbi.png",
+//    "text": MWF.xApplication.process.FormDesigner.LP.modules.SmartBI,
+//    "className": "SmartBI"
+//  },
+  "writingBoard": {
+    "icon": "writingBoard.png",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.writingBoard,
+    "className": "WritingBoard"
+  },
+  "pdfView": {
+    "icon": "pdfview.png",
+    "text": "PDF View",
+    "className": "PdfView"
+  },
+  "ofdView": {
+    "icon": "ofdview.png",
+    "text": "OFD View",
+    "className": "OfdView"
+  },
+
+  "elcontainer": {
+    "fontIcon": "el-icon-s-grid",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.el_container,
+    "className": "Elcontainer"
+  },
+  "elinput": {
+    "fontIcon": "el-icon-edit",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.el_input,
+    "className": "Elinput"
+  },
+  // "elautocomplete": {
+  //   "fontIcon": "el-icon-finished",
+  //   "text": MWF.xApplication.process.FormDesigner.LP.modules.el_autocomplete,
+  //   "className": "Elautocomplete"
+  // },
+  "elnumber": {
+    "fontIcon": "el-icon-edit-outline",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.el_number,
+    "className": "Elnumber"
+  },
+  "elradio": {
+    "fontIcon": "el-icon-success",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.el_radio,
+    "className": "Elradio"
+  },
+  "elcheckbox": {
+    "fontIcon": "el-icon-circle-plus",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.el_checkbox,
+    "className": "Elcheckbox"
+  },
+  "elselect": {
+    "fontIcon": "el-icon-arrow-down",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.el_select,
+    "className": "Elselect"
+  },
+  "elcascader": {
+    "fontIcon": "el-icon-d-arrow-right",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.el_cascader,
+    "className": "Elcascader"
+  },
+  "elswitch": {
+    "fontIcon": "el-icon-open",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.el_switch,
+    "className": "Elswitch"
+  },
+  "elslider": {
+    "fontIcon": "el-icon-s-operation",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.el_slider,
+    "className": "Elslider"
+  },
+  "eltime": {
+    "fontIcon": "el-icon-time",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.el_time,
+    "className": "Eltime"
+  },
+  "eldate": {
+    "fontIcon": "el-icon-date",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.el_date,
+    "className": "Eldate"
+  },
+  "eldatetime": {
+    "fontIcon": "el-icon-time",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.el_datetime,
+    "className": "Eldatetime"
+  },
+  "elbutton": {
+    "fontIcon": "el-icon-thumb",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.el_button,
+    "className": "Elbutton"
+  },
+  "elicon": {
+    "fontIcon": "el-icon-picture-outline-round",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.el_icon,
+    "className": "Elicon"
+  },
+  "elrate": {
+    "fontIcon": "el-icon-star-off",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.el_rate,
+    "className": "Elrate"
+  },
+  "elcolorpicker": {
+    "fontIcon": "el-icon-help",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.el_colorpicker,
+    "className": "Elcolorpicker"
+  },
+  "eltree": {
+    "fontIcon": "o2-icon-tree",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.el_tree,
+    "className": "Eltree"
+  },
+  "eldropdown": {
+    "fontIcon": "el-icon-caret-bottom",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.el_dropdown,
+    "className": "Eldropdown"
+  },
+  //  "elcarousel": {
+  //    "fontIcon": "el-icon-film",
+  //    "text": MWF.xApplication.process.FormDesigner.LP.modules.el_carousel,
+  //    "className": "Elcarousel"
+  //  },
+  "elcommon": {
+    "fontIcon": "el-icon-full-screen",
+    "text": MWF.xApplication.process.FormDesigner.LP.modules.el_common,
+    "className": "Elcommon"
+  }
+}

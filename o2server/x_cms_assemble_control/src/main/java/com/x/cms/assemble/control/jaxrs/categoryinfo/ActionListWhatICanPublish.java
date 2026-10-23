@@ -1,0 +1,148 @@
+package com.x.cms.assemble.control.jaxrs.categoryinfo;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
+
+import com.x.cms.assemble.control.Business;
+import org.apache.commons.lang3.StringUtils;
+
+import com.x.base.core.entity.JpaObject;
+import com.x.base.core.project.annotation.FieldDescribe;
+import com.x.base.core.project.bean.WrapCopier;
+import com.x.base.core.project.bean.WrapCopierFactory;
+import com.x.base.core.project.cache.Cache;
+import com.x.base.core.project.cache.CacheManager;
+import com.x.base.core.project.http.ActionResult;
+import com.x.base.core.project.http.EffectivePerson;
+import com.x.base.core.project.logger.Logger;
+import com.x.base.core.project.logger.LoggerFactory;
+import com.x.base.core.project.tools.ListTools;
+import com.x.base.core.project.tools.SortTools;
+import com.x.cms.core.entity.CategoryInfo;
+
+public class ActionListWhatICanPublish extends BaseAction {
+
+	private static  Logger logger = LoggerFactory.getLogger(ActionListWhatICanPublish.class);
+
+	@SuppressWarnings("unchecked")
+	protected ActionResult<List<Wo>> execute(HttpServletRequest request, String appId, EffectivePerson effectivePerson) throws Exception {
+		ActionResult<List<Wo>> result = new ActionResult<>();
+		List<Wo> wos = new ArrayList<>();
+		List<String> ids = null;
+		List<CategoryInfo> categoryInfoList = null;
+		boolean check = true;
+		boolean manager = false;
+		boolean appManager = false;
+		boolean appPublisher = false;
+		boolean isAnonymous = effectivePerson.isAnonymous();
+		String personName = effectivePerson.getDistinguishedName();
+
+		List<String> unitNames = null;
+		List<String> groupNames = null;
+		List<String> roleNames = null;
+		Business business = new Business(null);
+		manager = business.isManager( effectivePerson );
+
+		if( !isAnonymous && !manager  ) {
+			unitNames = userManagerService.listUnitNamesWithPerson( personName );
+			groupNames = userManagerService.listGroupNamesByPerson( personName );
+			roleNames = userManagerService.listRoleNamesByPerson(personName);
+
+			appManager = appInfoServiceAdv.isAppInfoManager(appId, personName, unitNames, groupNames, roleNames);
+			appPublisher = appInfoServiceAdv.isAppInfoPublisher(appId, personName, unitNames, groupNames, roleNames);
+		}
+
+		Cache.CacheKey cacheKey = new Cache.CacheKey( this.getClass(), personName, appId, isAnonymous, manager, appManager, appPublisher );
+		Optional<?> optional = CacheManager.get(cacheCategory, cacheKey );
+
+		if (optional.isPresent()) {
+			result.setData((List<Wo>)optional.get());
+		} else {
+			if (check) {
+				if ( manager || appManager || appPublisher) {
+					try {
+						ids = categoryInfoServiceAdv.listIdsByAppId(appId);
+					} catch (Exception e) {
+						check = false;
+						Exception exception = new ExceptionCategoryInfoProcess(e, "根据应用栏目ID查询分类信息对象时发生异常。AppId:" + appId);
+						result.error(exception);
+						logger.error(e, effectivePerson, request, null);
+					}
+				} else {
+					if (check) {
+						List<String> inAppInfoIds = new ArrayList<>();
+						inAppInfoIds.add( appId );
+						try {
+							ids = permissionQueryService.listPublishableCategoryIdByPerson(
+									personName, isAnonymous, unitNames, groupNames, roleNames, inAppInfoIds, null,
+									null, "全部", "all", 1000, false );
+						} catch (Exception e) {
+							check = false;
+							Exception exception = new ExceptionCategoryInfoProcess(e,
+									"系统在检查用户是否是平台管理员时发生异常。Name:" + effectivePerson.getDistinguishedName());
+							result.error(exception);
+							logger.error(e, effectivePerson, request, null);
+						}
+					}
+				}
+			}
+
+			if (check) {
+				if (ids != null && !ids.isEmpty()) {
+					try {
+						categoryInfoList = categoryInfoServiceAdv.list(ids);
+					} catch (Exception e) {
+						check = false;
+						Exception exception = new ExceptionCategoryInfoProcess(e, "根据ID列表查询分类信息对象时发生异常。");
+						result.error(exception);
+						logger.error(e, effectivePerson, request, null);
+					}
+				}
+			}
+			if (check) {
+				if (categoryInfoList != null && !categoryInfoList.isEmpty()) {
+					try {
+						wos = Wo.copier.copy(categoryInfoList);
+						for(Wo wo : wos) {
+							wo.setExtContent( categoryInfoServiceAdv.getExtContentWithId( wo.getId() ));
+						}
+						SortTools.asc(wos, "categorySeq");
+						CacheManager.put(cacheCategory, cacheKey, wos);
+						result.setData(wos);
+					} catch (Exception e) {
+						check = false;
+						Exception exception = new ExceptionCategoryInfoProcess(e, "将查询出来的分类信息对象转换为可输出的数据信息时发生异常。");
+						result.error(exception);
+						logger.error(e, effectivePerson, request, null);
+					}
+				}
+			}
+		}
+
+		return result;
+	}
+
+	public static class Wo extends CategoryInfo {
+
+		private static final long serialVersionUID = -5076990764713538973L;
+
+		public static List<String> Excludes = new ArrayList<String>();
+
+		static WrapCopier<CategoryInfo, Wo> copier = WrapCopierFactory.wo( CategoryInfo.class, Wo.class, null, ListTools.toList(JpaObject.FieldsInvisible));
+
+		@FieldDescribe("扩展信息JSON内容")
+		private String extContent = null;
+
+		public String getExtContent() {
+			return extContent;
+		}
+
+		public void setExtContent(String extContent) {
+			this.extContent = extContent;
+		}
+	}
+
+}

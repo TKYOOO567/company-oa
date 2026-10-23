@@ -1,0 +1,337 @@
+<div style="background-color: #FFF; overflow: hidden">
+	<div title="{{$.lp.base}}" class="MWFTab">
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableTitle">{{$.lp.id}}:</td>
+                <td class="editTableValue"><input type="text" name="id" value="text{$.id}" class="editTableInput"/></td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.name}}:</td>
+                <td class="editTableValue"><input type="text" name="name" value="text{$.name}" class="editTableInput"/></td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.description}}:</td>
+                <td class="editTableValue"><input type="text" name="description" value="text{$.description}" class="editTableInput"/></td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.showIcon}}:</td>
+                <td class="editTableValue">
+                    <input type="radio" name="showIcon" value="yes" text{($.showIcon!=='no')?'checked':''}/>{{$.lp.yes}}
+                    <input type="radio" name="showIcon" value="no" text{($.showIcon==='no')?'checked':''}/>{{$.lp.no}}
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.showMode}}:</td>
+                <td class="editTableValue">
+                    <label><input type="radio" name="showMode" value="editable" text{($.showMode!=='readonlyMode' && $.showMode!=='disabled' && $.showMode!=='read')?'checked':''}/>{{$.lp.editable}}</label>
+                    <label><input type="radio" name="showMode" value="readonlyMode" text{($.showMode==='readonlyMode')?'checked':''}/>{{$.lp.readonlyMode}}</label>
+                    <label><input type="radio" name="showMode" value="disabled" text{($.showMode==='disabled')?'checked':''}/>{{$.lp.disabled}}</label>
+                    <label><input type="radio" name="showMode" value="read" text{($.showMode==='read')?'checked':''}/>{{$.lp.read}}</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.required}}:</td>
+                <td class="editTableValue">
+                    <input type="radio" name="required" value="true" text{($.required==true)?'checked':''}/>{{$.lp.yes}}
+                    <input type="radio" name="required" value="false" text{($.required!=true)?'checked':''}/>{{$.lp.no}}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"><b>{{$.lp.readModeEvents}}:</b>
+                    <input type="radio" name="readModeEvents" value="yes" text{($.readModeEvents=='yes')?'checked':''}/>{{$.lp.yes}}
+                    <input type="radio" name="readModeEvents" value="no" text{($.readModeEvents!=='yes')?'checked':''}/>{{$.lp.no}}
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.title}}:</td>
+                <td class="editTableValue" id="text{$.pid}isTitleArea">
+                    <input type="text" name="label" value="text{$.label}" class="editTableInput"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="editTableTitle">{{$.lp.defaultView}}:</td>
+                <td class="editTableValue">
+                    <div>
+                        <label><input type="radio" name="defaultView" value="date" text{($.defaultView!=='month' && $.defaultView!=='year')?'checked':''}/>{{$.lp.dayView}}</label>
+                        <label><input type="radio" name="defaultView" value="month" text{($.defaultView==='month')?'checked':''}/>{{$.lp.monthView}}</label>
+                        <label><input type="radio" name="defaultView" value="year" text{($.defaultView==='year')?'checked':''}/>{{$.lp.yearView}}</label>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="editTableTitle">{{$.lp.select}}:</td>
+                <td class="editTableValue">
+                    <div>
+                        <label><input type="radio" name="dataType" value="datetime" text{($.dataType==='datetime')?'checked':''} onchange="if (this.checked){
+                         $('text{$.pid}rangeProperties').setStyle('display', 'none');
+                     }"/>{{$.lp.dateTime}}</label>
+                        <label><input type="radio" name="dataType" value="date-only" text{($.dataType==='date-only')?'checked':''} onchange="if (this.checked){
+                         $('text{$.pid}rangeProperties').setStyle('display', 'none');
+                     }"/>{{$.lp.dateOnly}}</label>
+                        <label><input type="radio" name="dataType" value="month-only" text{($.dataType==='month-only')?'checked':''} onchange="if (this.checked){
+                         $('text{$.pid}rangeProperties').setStyle('display', 'none');
+                     }"/>{{$.lp.monthOnly}}</label>
+                        <br/>
+                        <label><input type="radio" name="dataType" value="year-only" text{($.dataType==='year-only')?'checked':''} onchange="if (this.checked){
+                         $('text{$.pid}rangeProperties').setStyle('display', 'none');
+                     }"/>{{$.lp.yearOnly}}</label>
+                        <label><input type="radio" name="dataType" value="time-only" text{($.dataType==='time-only')?'checked':''} onchange="if (this.checked){
+                         $('text{$.pid}rangeProperties').setStyle('display', 'none');
+                     }"/>{{$.lp.timeOnly}}</label>
+                        <label><input type="radio" name="dataType" value="week-only" text{($.dataType==='week-only')?'checked':''} onchange="if (this.checked){
+                         $('text{$.pid}rangeProperties').setStyle('display', 'none');
+                     }"/>{{$.lp.weekOnly}}</label>
+                        <br/>
+                        <label><input type="radio" name="dataType" value="datetimerange" text{($.dataType==='datetimerange')?'checked':''} onchange="if (this.checked){
+                         $('text{$.pid}rangeProperties').setStyle('display', '');
+                     }"/>{{$.lp.datetimeRange}}</label>
+                        <label><input type="radio" name="dataType" value="daterange" text{($.dataType==='daterange')?'checked':''} onchange="if (this.checked){
+                         $('text{$.pid}rangeProperties').setStyle('display', '');
+                     }"/>{{$.lp.dateRange}}</label>
+                        <label><input type="radio" name="dataType" value="timerange" text{($.dataType==='timerange')?'checked':''} onchange="if (this.checked){
+                         $('text{$.pid}rangeProperties').setStyle('display', '');
+                     }"/>{{$.lp.timeRange}}</label>
+                        <br/>
+                        <label><input type="radio" name="dataType" value="yearrange" text{($.dataType==='yearrange')?'checked':''} onchange="if (this.checked){
+                         $('text{$.pid}rangeProperties').setStyle('display', '');
+                     }"/>{{$.lp.yearRange}}</label>
+                        <label><input type="radio" name="dataType" value="monthrange" text{($.dataType==='monthrange')?'checked':''} onchange="if (this.checked){
+                         $('text{$.pid}rangeProperties').setStyle('display', '');
+                     }"/>{{$.lp.monthRange}}</label>
+                        <br/>
+                        <label><input type="radio" name="dataType" value="dates" text{($.dataType==='dates')?'checked':''} onchange="if (this.checked){
+                         $('text{$.pid}rangeProperties').setStyle('display', 'none');
+                     }"/>{{$.lp.multidate}}</label>
+                        <label><input type="radio" name="dataType" value="months" text{($.dataType==='months')?'checked':''} onchange="if (this.checked){
+                         $('text{$.pid}rangeProperties').setStyle('display', 'none');
+                     }"/>{{$.lp.multimonth}}</label>
+                        <label><input type="radio" name="dataType" value="years" text{($.dataType==='years')?'checked':''} onchange="if (this.checked){
+                         $('text{$.pid}rangeProperties').setStyle('display', 'none');
+                     }"/>{{$.lp.multiyear}}</label>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="editTableTitle">{{$.lp.secondEnable}}:</td>
+                <td class="editTableValue">
+                    <div>
+                        <label><input type="radio" name="secondEnable" value="yes" text{($.secondEnable==='yes')?'checked':''}/>{{$.lp.yes}}</label>
+                        <label><input type="radio" name="secondEnable" value="no" text{($.secondEnable!=='yes')?'checked':''}/>{{$.lp.no}}</label>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="editTableTitle">{{$.lp.weekBegin}}:</td>
+                <td class="editTableValue">
+                    <div>
+                        <label><input type="radio" name="weekBegin" value="1" text{($.weekBegin!=='0')?'checked':''}/>{{$.lp.weeks.arr[0]}}</label>
+                        <label><input type="radio" name="weekBegin" value="0" text{($.weekBegin==='0')?'checked':''}/>{{$.lp.weeks.arr[$.lp.weeks.arr.length-1]}}</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.format}}:</td>
+                <td class="editTableValue"><input type="text" name="format" value="text{$.format}" class="editTableInput"/></td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.step}}:</td>
+                <td class="editTableValue">
+                    <div style="color: #999;padding: 5px;">{{$.lp.stepNote}}</div>
+                    <input type="number" name="step" value="text{$.step || '1'}" class="editTableInput"/>
+                </td>
+            </tr>
+        </table>
+
+        <div id="text{$.pid}rangeProperties" style="display: text{(['datetimerange','timerange','daterange','yearrange','monthrange'].includes($.dataType))?'':'none'};">
+            <div></div>
+            <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                <tr>
+                    <td class="editTableTitle">{{$.lp.endPlaceholder}}:</td>
+                    <td class="editTableValue">
+                        <input type="text" name="endPlaceholder" value="text{$.endPlaceholder}" class="editTableInput"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="editTableTitle">{{$.lp.rangeSeparator}}:</td>
+                    <td class="editTableValue">
+                        <input type="text" name="separator" value="text{$.separator}" class="editTableInput"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+
+		<div class="MWFMaplist" name="styles" title="{{$.lp.style}}"></div>
+		<div class="MWFMaplist" name="properties" title="{{$.lp.attribute}}"></div>
+
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableTitle">{{$.lp.compute}}:</td>
+                <td class="editTableValue">
+                    <input type="radio" name="compute" value="create" text{($.compute.indexOf('create')!=-1)?'checked':''}/>{{$.lp.create}}
+                    <input type="radio" name="compute" value="save" text{($.compute.indexOf('save')!=-1)?'checked':''}/>{{$.lp.save}}
+                    <input type="radio" name="compute" value="show" text{($.compute.indexOf('show')!=-1)?'checked':''}/>{{$.lp.show}}
+                </td>
+            </tr>
+        </table>
+
+		<div class="MWFScriptArea" name="defaultValue" title="{{$.lp.defaultValue}} (S)"></div>
+
+        <div class="MWFValidation" name="validationConfig"></div>
+        <div class="MWFScriptArea" name="validation" title="{{$.lp.verificationScript}} (S)"></div>
+
+	</div>
+
+    <div title="{{$.lp.range}}" class="MWFTab">
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableValue">
+                    <input type="radio" name="rangeType"  text{(!$.rangeType || $.rangeType=='none')?'checked':''} value="none" onclick="if (this.checked){
+                         $('text{$.pid}dateTimeRangeArea').setStyle('display', 'none');
+                         $('text{$.pid}dateAndTimeRangeArea').setStyle('display', 'none');
+                         $('text{$.pid}otherRangeArea').setStyle('display', 'none');
+                     }"/>{{$.lp.none}}
+                    <input type="radio" name="rangeType" text{($.rangeType=='dateTime')?'checked':''} value="dateTime" onclick="if (this.checked){
+                        $('text{$.pid}dateTimeRangeArea').setStyle('display', '');
+                        $('text{$.pid}dateAndTimeRangeArea').setStyle('display', 'none');
+                        $('text{$.pid}otherRangeArea').setStyle('display', 'none');
+                    }"/>{{$.lp.rangeByDatetime}}
+                    <input type="radio" name="rangeType" text{($.rangeType=='dateAndTime')?'checked':''} value="dateAndTime" onclick="if (this.checked){
+                        $('text{$.pid}dateTimeRangeArea').setStyle('display', 'none');
+                        $('text{$.pid}dateAndTimeRangeArea').setStyle('display', '');
+                        $('text{$.pid}otherRangeArea').setStyle('display', 'none');
+                    }"/>{{$.lp.rangeByDateAndTime}}
+                    <input type="radio" name="rangeType" text{($.rangeType=='other')?'checked':''} value="other" onclick="if (this.checked){
+                         $('text{$.pid}dateTimeRangeArea').setStyle('display', 'none');
+                         $('text{$.pid}dateAndTimeRangeArea').setStyle('display', 'none');
+                         $('text{$.pid}otherRangeArea').setStyle('display', '');
+                    }"/>{{$.lp.rangeByOhter}}
+                </td>
+            </tr>
+        </table>
+        <div id="text{$.pid}dateTimeRangeArea" style="display: text{($.rangeType=='dateTime')?'block':'none'};">
+            <div style="line-height: 24px;padding:5px 0px;">
+                //起止日期时间<br/>
+                return ["2023-01-01 08:00:00", "2023-03-03 18:00:00"];<br/>
+                //起止日期时间数组<br/>
+                return [ ["2023-01-01 08:00:00", "2023-03-03 18:00:00"], ... ];
+            </div>
+            <div class="MWFScriptArea" name="dateTimeRangeScript" title="{{$.lp.rangeByDatetime}} (S)"></div>
+        </div>
+        <div id="text{$.pid}dateAndTimeRangeArea" style="display: text{($.rangeType=='dateAndTime')?'block':'none'};">
+            <div style="line-height: 24px;padding:5px 0px;">
+                //起止日期<br/>
+                return ["2023-01-01", "2023-03-03"];<br/>
+                //起止日期数组<br/>
+                return [ ["2023-01-01", "2023-03-03"], ... ];
+            </div>
+            <div class="MWFScriptArea" name="dateRangeScript" title="{{$.lp.rangeByDate}} (S)"></div>
+            <div style="line-height: 24px;padding:5px 0px;">
+                //起止时间<br/>
+                return ["08:00:00", "18:00:00"];<br/>
+                //起止时间数组<br/>
+                return [ ["08:00:00", "18:00:00"], ... ];
+            </div>
+            <div class="MWFScriptArea" name="timeRangeScript" title="{{$.lp.rangeByTime}} (S)"></div>
+        </div>
+        <div id="text{$.pid}otherRangeArea" style="display: text{($.rangeType=='other')?'block':'none'};">
+            <div style="line-height: 24px;padding:5px 0px;">
+                var date = this.event.date; //获取传入的日期<br/>
+                return date > new Date().clearTime();   //晚于当前日期，则可选;
+            </div>
+            <div class="MWFScriptArea" name="enableDate" title="{{$.lp.enableDate}} (S)"></div>
+            <div style="line-height: 24px;padding:5px 0px;">
+                //该脚本用于选择小时界面的判断<br/>
+                var {date, hour} = this.event; //获取传入的日期（日期类型，包括小时）和小时（数字类型）<br/>
+                return hour >= 8 //每天8点之后可选<br/>
+                /***早于当前日期和小时可选***/<br/>
+                return this.event.date <= new Date().setMinutes(0, 0, 0);
+            </div>
+            <div class="MWFScriptArea" name="enableHour" title="{{$.lp.enableHour}} (S)"></div>
+            <div style="line-height: 24px;padding:5px 0px;">
+                //该脚本用于选择分界面的判断<br/>
+                var {date, hour, minute} = this.event; //获取传入的日期（日期类型，包括小时和分）、小时和分（数字类型）<br/>
+                return hour > 8 || (hour === 8 && minute >= 30); //每天8点30分之后可选<br/>
+                /***早于当前日期、时分可选***/<br/>
+                return this.event.date <= new Date().setSeconds(0, 0);
+            </div>
+            <div class="MWFScriptArea" name="enableMinute" title="{{$.lp.enableMinute}} (S)"></div>
+            <div style="line-height: 24px;padding:5px 0px;">
+                //该脚本用于选择秒界面的判断<br/>
+                var {date, hour, minute, second} = this.event; //获取传入的日期（日期类型，包括时分秒）、时分秒（数字类型）<br/>
+                return hour > 8 ||<br/>
+                (hour === 8 && minute > 30) ||<br/>
+                (hour === 8 && minute === 30 && second >= 30) //每天8点30分30秒之后可选<br/>
+                /***早于当前日期、时分秒可选***/<br/>
+                return this.event.date < new Date(endTime).setMilliseconds(0);
+            </div>
+            <div class="MWFScriptArea" name="enableSecond" title="{{$.lp.enableSecond}} (S)"></div>
+            <div style="line-height: 24px;padding:5px 0px;">
+                //该脚本用于选择年份界面的判断<br/>
+                var year = this.event.year; //获取传入的年份(number) <br/>
+                return year >= new Date().getFullYear(); //晚于当前年份可选
+            </div>
+            <div class="MWFScriptArea" name="enableYear" title="{{$.lp.enableYear}} (S)"></div>
+            <div style="line-height: 24px;padding:5px 0px;">
+                //该脚本用于选择月份界面的判断<br/>
+                var month = this.event.month; //获取传入的月份YYYY-MM<br/>
+                return month >= '2025-07'; //晚于2025年7月可选
+            </div>
+            <div class="MWFScriptArea" name="enableMonth" title="{{$.lp.enableMonth}} (S)"></div>
+        </div>
+    </div>
+
+    <div title="{{$.lp.section}}" class="MWFTab">
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableTitle">{{$.lp.enableSection}}:</td>
+                <td class="editTableValue">
+                    <input onclick="if (this.checked){
+                        $('text{$.pid}sectionByEditArea').setStyle('display', 'block');
+                        $('text{$.pid}sectionMergeArea').setStyle('display', 'none')
+                    }" type="radio" name="section" value="yes" text{($.section=='yes')?'checked':''}/>{{$.lp.yes}}
+                    <input onclick="if (this.checked){
+                        $('text{$.pid}sectionByEditArea').setStyle('display', 'none');
+                        $('text{$.pid}sectionMergeArea').setStyle('display', 'block')
+                    }" type="radio" name="section" value="no" text{($.section!='yes')?'checked':''}/>{{$.lp.no}}
+                </td>
+            </tr>
+        </table>
+
+        <div id="text{$.pid}sectionByEditArea" style="display: text{($.section=='yes')?'block':'none'};">
+            <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                <tr>
+                    <td class="editTableTitle">{{$.lp.sectionBy}}:</td>
+                    <td class="editTableValue">
+                        <input class="editTableRadio" onclick="if (this.checked){ $('text{$.pid}sectionByScriptEditArea').setStyle('display', 'none');}" name="sectionBy" text{(($.sectionBy=='person') || ($.sectionBy!='unit' && $.sectionBy!='activity' && $.sectionBy!='script'))?'checked':''} type="radio" value="person"/>{{$.lp.handler}}<br/>
+                        <input class="editTableRadio" onclick="if (this.checked){ $('text{$.pid}sectionByScriptEditArea').setStyle('display', 'none');}"  name="sectionBy" text{($.sectionBy=='unit')?'checked':''} type="radio" value="unit"/>{{$.lp.handlerUnit}}<br/>
+                        <input class="editTableRadio" onclick="if (this.checked){ $('text{$.pid}sectionByScriptEditArea').setStyle('display', 'none');}"  name="sectionBy" text{($.sectionBy=='activity')?'checked':''} type="radio" value="activity"/>{{$.lp.activityId}}<br/>
+                        <input class="editTableRadio" onclick="if (this.checked){ $('text{$.pid}sectionByScriptEditArea').setStyle('display', 'none');}"  name="sectionBy" text{($.sectionBy=='splitValue')?'checked':''} type="radio" value="splitValue"/>{{$.lp.splitValue}}<br/>
+                        <input class="editTableRadio" onclick="if (this.checked){ $('text{$.pid}sectionByScriptEditArea').setStyle('display', 'block');}"  name="sectionBy" text{($.sectionBy=='script')?'checked':''} type="radio" value="script"/>{{$.lp.script}}<br/>
+                    </td>
+                </tr>
+            </table>
+            <div id="text{$.pid}sectionByScriptEditArea" style="display: text{($.sectionBy=='script')?'block':'none'};">
+                <div class="MWFScriptArea" name="sectionByScript" title="{{$.lp.sectionBy}} (S)"></div>
+            </div>
+        </div>
+
+        <div id="text{$.pid}sectionMergeArea" class="MWFSectionMergeArea" style="display: text{($.section=='yes')?'none':''};"></div>
+    </div>
+    <div title="{{$.lp.power}}"  class="MWFTab">
+        <div class="MWFFieldPermission"></div>
+    </div>
+	<div title="{{$.lp.event}}"  class="MWFTab">
+		<div class="MWFEventsArea" name="events"></div>
+	</div>
+	<div title="HTML"  class="MWFTab">
+		<div class="MWFHTMLArea" style="font-family: Verdana, Geneva, sans-serif; font-size:14px"></div>
+	</div>
+    <div title="JSON"  class="MWFTab">
+        <div class="MWFJSONArea" style="font-family: Verdana, Geneva, sans-serif; font-size:14px"></div>
+    </div>
+</div>

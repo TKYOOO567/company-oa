@@ -1,0 +1,59 @@
+{
+	"id": "",
+	"name": "",
+	"type": "Elradio",
+	"description": "",
+	"itemType": "values",
+	"itemValues": [],
+	"itemScript": {
+		"code": "",
+		"html": ""
+	},
+	"defaultValue": {
+		"code": "",
+		"html": ""
+	},
+	"isReadonly" : false,
+	"buttonRadio" : false,
+	"border" : false,
+	"size" : "default",
+	"textColor" : "",
+	"fillColor" : "",
+
+	"vueData": {},
+	"vueMethods": {},
+	"vueCss": {},
+
+	elStyles: {},
+	elProperties: {},
+	elGroupStyles: {},
+	elGroupProperties: {},
+
+	"compute": "create", //create, show, save
+	"events": {
+		"queryLoad" : {
+		  "code": "",
+		  "html": ""
+		},
+		"postLoad" : {
+		  "code": "",
+		  "html": ""
+		},
+		"load": {
+		  "code": "",
+		  "html": ""
+		},
+	  	"change" : {
+		  "code": "",
+		  "html": ""
+		}
+	},
+	"properties": {},
+	"class": "",
+	"container": "",
+	"showSectionKey": true,
+	"sectionNodeStyles": {"overflow": "hidden"},
+	"sectionKeyStyles": {"float": "left"},
+	"sectionContentStyles": {"float": "left"},
+	"keyContentSeparator": "："
+}

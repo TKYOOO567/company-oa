@@ -1,0 +1,861 @@
+{
+  "pcData" : {
+    "json": {
+      "id": "",
+      "name": "自定义提交表单PC端模板",
+      "type": "Form",
+      "mode": "PC",
+      "application": "",
+      "applicationName": "",
+      "styles": {
+        "background-color": "#f0f0f0"
+      },
+      "cssLinks": [],
+      "scriptSrc": [],
+      "moduleList": {
+        "submitNode": {
+          "id": "submitNode",
+          "type": "Div",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "isSaved": true,
+          "pid": "PC2a8d8627-b9ee-487d-9205-e096f5b583e9submitNode",
+          "moduleName": "div",
+          "recoveryStyles": {
+            "background-color": "#ffffff",
+            "border": "1px solid #eeeeee"
+          },
+          "preprocessing": "y"
+        },
+        "submitInnerNode": {
+          "id": "submitInnerNode",
+          "type": "Div",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "isSaved": true,
+          "pid": "PC2a8d8627-b9ee-487d-9205-e096f5b583e9submitInnerNode",
+          "moduleName": "div",
+          "preprocessing": "y"
+        },
+        "submitTopNode": {
+          "id": "submitTopNode",
+          "type": "Div",
+          "description": "弹出框的顶部",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "isSaved": true,
+          "pid": "PC27a62ca3-d11b-4be3-b4cc-9b44fb44ad03submitTopNode",
+          "moduleName": "div",
+          "recoveryStyles": {
+            "height": "40px",
+            "color": "rgb(51, 51, 51)",
+            "line-height": "50px",
+            "font-size": "16px",
+            "border-top-left-radius": "8px",
+            "border-top-right-radius": "8px",
+            "display": "none",
+            "cursor": "move"
+          },
+          "preprocessing": "y"
+        },
+        "submitContentTable": {
+          "id": "submitContentTable",
+          "type": "Table",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "properties": {
+            "width": "100%",
+            "border": "0",
+            "cellpadding": "0",
+            "cellspacing": "0",
+            "align": "center"
+          },
+          "titleTdStyles": {
+            "background-color": "#fff",
+            "color": "#333",
+            "font-weight": "bold",
+            "height": "30px",
+            "line-height": "30px",
+            "text-align": "right"
+          },
+          "contentTdStyles": {
+            "background-color": "#FFFFFF",
+            "color": "#333"
+          },
+          "initialized": "yes",
+          "pid": "db627f2f-ec8d-4c02-ba90-2e083ebd9dafsubmitContentTable",
+          "moduleName": "table",
+          "recoveryStyles": {
+            "background-color": "#FFF",
+            "margin": "10px 0px"
+          },
+          "preprocessing": "y"
+        },
+        "routeGroupTitle": {
+          "id": "routeGroupTitle",
+          "type": "Label",
+          "valueType": "text",
+          "text": "选择决策组",
+          "isSaved": true,
+          "pid": "db627f2f-ec8d-4c02-ba90-2e083ebd9dafrouteGroupTitle",
+          "moduleName": "label",
+          "recoveryStyles": {
+            "height": "30px",
+            "color": "#333333",
+            "line-height": "30px",
+            "overflow": "hidden",
+            "padding-left": "20px",
+            "font-size": "14px",
+            "font-weight": "bold",
+            "background-color": "#eeeeee"
+          },
+          "preprocessing": "y"
+        },
+        "routeGroupArea": {
+          "id": "routeGroupArea",
+          "type": "Div",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "isSaved": true,
+          "pid": "PCdb627f2f-ec8d-4c02-ba90-2e083ebd9dafrouteGroupArea",
+          "moduleName": "div",
+          "recoveryStyles": {
+            "border-right": "1px solid #eeeeee",
+            "height": "100px",
+            "overflow": "auto",
+            "background-color": "#fff"
+          },
+          "preprocessing": "y"
+        },
+        "routeSelectorArea": {
+          "id": "routeSelectorArea",
+          "type": "Div",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "isSaved": true,
+          "pid": "PCdb627f2f-ec8d-4c02-ba90-2e083ebd9dafrouteSelectorArea",
+          "moduleName": "div",
+          "recoveryStyles": {
+            "overflow": "hidden",
+            "min-height": "40px",
+            "background-color": "#fff"
+          },
+          "preprocessing": "y"
+        },
+        "routeOpinionTile": {
+          "id": "routeOpinionTile",
+          "type": "Label",
+          "valueType": "text",
+          "text": "填写意见",
+          "isSaved": true,
+          "pid": "db627f2f-ec8d-4c02-ba90-2e083ebd9dafrouteOpinionTile",
+          "moduleName": "label",
+          "recoveryStyles": {
+            "height": "30px",
+            "color": "#333333",
+            "line-height": "30px",
+            "overflow": "hidden",
+            "padding-left": "20px",
+            "font-size": "14px",
+            "font-weight": "bold",
+            "background-color": "#eeeeee"
+          },
+          "preprocessing": "y"
+        },
+        "inputOpinionNode": {
+          "id": "inputOpinionNode",
+          "type": "Div",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "isSaved": true,
+          "pid": "PCdb627f2f-ec8d-4c02-ba90-2e083ebd9dafinputOpinionNode",
+          "moduleName": "div",
+          "recoveryStyles": {
+            "height": "199px",
+            "border-right": "1px solid #eeeeee",
+            "overflow": "hidden"
+          },
+          "preprocessing": "y"
+        },
+        "selectIdeaNode": {
+          "id": "selectIdeaNode",
+          "type": "Div",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "isSaved": true,
+          "pid": "db627f2f-ec8d-4c02-ba90-2e083ebd9dafselectIdeaNode",
+          "moduleName": "div",
+          "recoveryStyles": {
+            "height": "199px",
+            "border": "1px solid #eeeeee",
+            "border-left": "0px"
+          },
+          "preprocessing": "y"
+        },
+        "orgsTile": {
+          "id": "orgsTile",
+          "type": "Label",
+          "valueType": "text",
+          "text": "选择人员",
+          "isSaved": true,
+          "pid": "db627f2f-ec8d-4c02-ba90-2e083ebd9daforgsTile",
+          "moduleName": "label",
+          "recoveryStyles": {
+            "height": "30px",
+            "color": "#333333",
+            "line-height": "30px",
+            "overflow": "hidden",
+            "padding-left": "20px",
+            "font-size": "14px",
+            "font-weight": "bold",
+            "background-color": "#eeeeee"
+          },
+          "preprocessing": "y"
+        },
+        "orgsArea": {
+          "id": "orgsArea",
+          "type": "Div",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "isSaved": true,
+          "pid": "db627f2f-ec8d-4c02-ba90-2e083ebd9daforgsArea",
+          "moduleName": "div",
+          "preprocessing": "y"
+        },
+        "submitTopTextNode": {
+          "id": "submitTopTextNode",
+          "type": "Label",
+          "valueType": "text",
+          "text": "继续流转",
+          "isSaved": true,
+          "pid": "PC27a62ca3-d11b-4be3-b4cc-9b44fb44ad03submitTopTextNode",
+          "moduleName": "label",
+          "recoveryStyles": {
+            "height": "40px",
+            "padding-left": "30px",
+            "float": "left"
+          },
+          "preprocessing": "y"
+        },
+        "submitTopActionNode": {
+          "id": "submitTopActionNode",
+          "type": "Div",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "isSaved": true,
+          "pid": "db627f2f-ec8d-4c02-ba90-2e083ebd9dafsubmitTopActionNode",
+          "moduleName": "div",
+          "recoveryStyles": {
+            "height": "40px",
+            "float": "right"
+          },
+          "preprocessing": "y"
+        },
+        "submitTopCloseActionNode": {
+          "id": "submitTopCloseActionNode",
+          "type": "Div",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "isSaved": true,
+          "pid": "PCdb627f2f-ec8d-4c02-ba90-2e083ebd9dafsubmitTopCloseActionNode",
+          "moduleName": "div",
+          "recoveryStyles": {
+            "background": "url(/o2_core/o2/widget/$Dialog/user/img/close.png) no-repeat center",
+            "width": "30px",
+            "height": "40px",
+            "float": "right",
+            "cursor": "pointer"
+          },
+          "preprocessing": "y"
+        },
+        "submitContentWrapNode": {
+          "id": "submitContentWrapNode",
+          "type": "Div",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "isSaved": true,
+          "pid": "db627f2f-ec8d-4c02-ba90-2e083ebd9dafsubmitContentWrapNode",
+          "moduleName": "div",
+          "recoveryStyles": {
+            "overflow": "hidden",
+            "margin-top": "3px",
+            "background-color": "#fff"
+          },
+          "preprocessing": "y"
+        },
+        "submitContentNode": {
+          "id": "submitContentNode",
+          "type": "Div",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "isSaved": true,
+          "pid": "db627f2f-ec8d-4c02-ba90-2e083ebd9dafsubmitContentNode",
+          "moduleName": "div",
+          "recoveryStyles": {
+            "padding": "0px 20px",
+            "text-align": "left",
+            "line-height": "20px",
+            "overflow-x": "hidden",
+            "overflow-y": "auto"
+          },
+          "preprocessing": "y"
+        },
+        "submitContentInnerNode": {
+          "id": "submitContentInnerNode",
+          "type": "Div",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "isSaved": true,
+          "pid": "PC27a62ca3-d11b-4be3-b4cc-9b44fb44ad03submitContentInnerNode",
+          "moduleName": "div",
+          "recoveryStyles": {
+            "padding": "10px",
+            "overflow": "hidden",
+            "background-color": "#fff"
+          },
+          "preprocessing": "y"
+        },
+        "okButton": {
+          "id": "okButton",
+          "type": "Label",
+          "valueType": "text",
+          "text": "确定",
+          "isSaved": true,
+          "pid": "PCdb627f2f-ec8d-4c02-ba90-2e083ebd9dafokButton",
+          "moduleName": "label",
+          "recoveryStyles": {
+            "margin": "15px 5px",
+            "border-radius": "20px",
+            "height": "30px",
+            "color": "#fff",
+            "width": "80px",
+            "background-color": "#4A90E2",
+            "text-align": "center",
+            "line-height": "30px",
+            "cursor": "pointer",
+            "display": "inline-block"
+          },
+          "preprocessing": "y"
+        },
+        "submitButtonNode": {
+          "id": "submitButtonNode",
+          "type": "Div",
+          "description": "弹出框的操作条",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "isSaved": true,
+          "pid": "PC27a62ca3-d11b-4be3-b4cc-9b44fb44ad03submitButtonNode",
+          "moduleName": "div",
+          "recoveryStyles": {
+            "height": "60px",
+            "text-align": "right",
+            "padding-right": "20px",
+            "background-color": "#fff",
+            "display": "none"
+          },
+          "preprocessing": "y"
+        },
+        "cancelButton": {
+          "id": "cancelButton",
+          "type": "Label",
+          "valueType": "text",
+          "text": "取消",
+          "isSaved": true,
+          "pid": "db627f2f-ec8d-4c02-ba90-2e083ebd9dafcancelButton",
+          "moduleName": "label",
+          "recoveryStyles": {
+            "margin": "15px 5px",
+            "border-radius": "20px",
+            "height": "30px",
+            "color": "#ffffff",
+            "width": "80px",
+            "background-color": "#999999",
+            "text-align": "center",
+            "line-height": "30px",
+            "cursor": "pointer",
+            "display": "inline-block"
+          },
+          "preprocessing": "y"
+        },
+        "submitContentTable_table$Td": {
+          "id": "submitContentTable_table$Td",
+          "name": "routeGroupTitleTd",
+          "type": "Table$Td",
+          "properties": {
+            "width": "50%\\"
+          },
+          "isSaved": true,
+          "moduleName": "table$Td",
+          "pid": "db627f2f-ec8d-4c02-ba90-2e083ebd9dafsubmitContentTable_table$Td",
+          "cellType": "other",
+          "preprocessing": "y"
+        },
+        "submitContentTable_table$Td_1": {
+          "id": "submitContentTable_table$Td_1",
+          "name": "routeSelectorTitleTd",
+          "type": "Table$Td",
+          "isSaved": true,
+          "moduleName": "table$Td",
+          "pid": "db627f2f-ec8d-4c02-ba90-2e083ebd9dafsubmitContentTable_table$Td_1",
+          "cellType": "other",
+          "preprocessing": "y"
+        },
+        "submitContentTable_table$Td_2": {
+          "id": "submitContentTable_table$Td_2",
+          "name": "routeGroupAreaTd",
+          "type": "Table$Td",
+          "isSaved": true,
+          "moduleName": "table$Td",
+          "pid": "db627f2f-ec8d-4c02-ba90-2e083ebd9dafsubmitContentTable_table$Td_2",
+          "cellType": "other",
+          "preprocessing": "y"
+        },
+        "submitContentTable_table$Td_3": {
+          "id": "submitContentTable_table$Td_3",
+          "name": "routeSelectorAreaTd",
+          "type": "Table$Td",
+          "properties": {
+            "valign": "top"
+          },
+          "isSaved": true,
+          "moduleName": "table$Td",
+          "pid": "db627f2f-ec8d-4c02-ba90-2e083ebd9dafsubmitContentTable_table$Td_3",
+          "cellType": "other",
+          "preprocessing": "y"
+        },
+        "submitContentTable_table$Td_4": {
+          "id": "submitContentTable_table$Td_4",
+          "name": "routeOpinionTileTd",
+          "type": "Table$Td",
+          "properties": {
+            "colspan": 2
+          },
+          "isSaved": true,
+          "moduleName": "table$Td",
+          "pid": "db627f2f-ec8d-4c02-ba90-2e083ebd9dafsubmitContentTable_table$Td_4",
+          "cellType": "other",
+          "preprocessing": "y"
+        },
+        "submitContentTable_table$Td_6": {
+          "id": "submitContentTable_table$Td_6",
+          "name": "inputOpinionNodeTd",
+          "type": "Table$Td",
+          "isSaved": true,
+          "moduleName": "table$Td",
+          "pid": "db627f2f-ec8d-4c02-ba90-2e083ebd9dafsubmitContentTable_table$Td_6",
+          "cellType": "other",
+          "preprocessing": "y"
+        },
+        "submitContentTable_table$Td_7": {
+          "id": "submitContentTable_table$Td_7",
+          "name": "selectIdeaNodeTd",
+          "type": "Table$Td",
+          "isSaved": true,
+          "moduleName": "table$Td",
+          "pid": "db627f2f-ec8d-4c02-ba90-2e083ebd9dafsubmitContentTable_table$Td_7",
+          "cellType": "other",
+          "preprocessing": "y"
+        },
+        "submitContentTable_table$Td_8": {
+          "id": "submitContentTable_table$Td_8",
+          "name": "orgsTileTd",
+          "type": "Table$Td",
+          "properties": {
+            "colspan": 2
+          },
+          "isSaved": true,
+          "moduleName": "table$Td",
+          "pid": "db627f2f-ec8d-4c02-ba90-2e083ebd9dafsubmitContentTable_table$Td_8",
+          "cellType": "other",
+          "preprocessing": "y"
+        },
+        "submitContentTable_table$Td_10": {
+          "id": "submitContentTable_table$Td_10",
+          "name": "orgsAreaTd",
+          "type": "Table$Td",
+          "properties": {
+            "colspan": 2
+          },
+          "isSaved": true,
+          "moduleName": "table$Td",
+          "pid": "db627f2f-ec8d-4c02-ba90-2e083ebd9dafsubmitContentTable_table$Td_10",
+          "cellType": "other",
+          "preprocessing": "y"
+        },
+        "inputTextarea": {
+          "id": "inputTextarea",
+          "type": "Textarea",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "compute": "create",
+          "section": "no",
+          "sectionBy": "person",
+          "properties": {
+            "placeholder": "请在此处填写流程意见"
+          },
+          "isSaved": true,
+          "pid": "PCdb627f2f-ec8d-4c02-ba90-2e083ebd9dafinputTextarea",
+          "isReadonly": false,
+          "moduleName": "textarea",
+          "recoveryStyles": {
+            "border-bottom": "0px solid #ccc",
+            "border-top": "0px",
+            "border-left": "0px",
+            "border-right": "0px"
+          },
+          "recoveryInputStyles": {
+            "border-bottom": "1px solid #ccc",
+            "color": "#666",
+            "height": "190px",
+            "background-color": "#fff",
+            "border": "1px solid #eeeeee",
+            "margin-right": "1px",
+            "width": "100%",
+            "font-size": "100%",
+            "resize": "none",
+            "border-image": "none",
+            "padding": "3px",
+            "overflow-x": "hidden",
+            "overflow-y": "auto"
+          },
+          "preprocessing": "y",
+          "events": {
+            "queryLoad": {
+              "code": "this.target.isReadonly = function(){\r\n    return false;\r\n}",
+              "html": "this.target.isReadonly = function(){\r\n    return false;\r\n}"
+            }
+          }
+        },
+        "mediaActionArea": {
+          "id": "mediaActionArea",
+          "type": "Div",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "isSaved": true,
+          "pid": "PC2a8d8627-b9ee-487d-9205-e096f5b583e9mediaActionArea",
+          "moduleName": "div",
+          "recoveryStyles": {
+            "position": "relative",
+            "height": "25px",
+            "line-height": "25px",
+            "top": "-32px",
+            "margin-right": "5px"
+          },
+          "preprocessing": "y"
+        },
+        "handwritingAction": {
+          "id": "handwritingAction",
+          "type": "Div",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "properties": {
+            "text": "手写"
+          },
+          "isSaved": true,
+          "pid": "PC2a8d8627-b9ee-487d-9205-e096f5b583e9handwritingAction",
+          "moduleName": "div",
+          "recoveryStyles": {
+            "float": "right",
+            "border": "1px solid #6681a5",
+            "border-radius": "3px",
+            "cursor": "pointer",
+            "padding-left": "24px",
+            "padding-right": "5px",
+            "margin-left": "5px",
+            "background": "url(/x_component_process_Work/$Processor/default/write.png) no-repeat 5px center",
+            "width": "28px",
+            "height": "25px"
+          },
+          "preprocessing": "y"
+        },
+        "selectIdeaAreaNode": {
+          "id": "selectIdeaAreaNode",
+          "type": "Div",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "isSaved": true,
+          "pid": "PCdb627f2f-ec8d-4c02-ba90-2e083ebd9dafselectIdeaAreaNode",
+          "moduleName": "div",
+          "recoveryStyles": {
+            "height": "199px",
+            "overflow": "auto",
+            "background-color": "#fff"
+          },
+          "preprocessing": "y"
+        },
+        "routeSelectorTitle": {
+          "id": "routeSelectorTitle",
+          "type": "Label",
+          "valueType": "text",
+          "text": "选择决策",
+          "isSaved": true,
+          "pid": "db627f2f-ec8d-4c02-ba90-2e083ebd9dafrouteSelectorTile",
+          "moduleName": "label",
+          "recoveryStyles": {
+            "height": "30px",
+            "color": "#333333",
+            "line-height": "30px",
+            "overflow": "hidden",
+            "padding-left": "20px",
+            "font-size": "14px",
+            "font-weight": "bold",
+            "background-color": "#eeeeee"
+          },
+          "preprocessing": "y"
+        },
+        "div_loadSubmitForm": {
+          "id": "div_loadSubmitForm",
+          "type": "Div",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "events": {
+            "queryLoad": {
+              "code": "",
+              "html": ""
+            },
+            "load": {
+              "code": "this.loadProcessor()",
+              "html": "this.loadProcessor()"
+            }
+          },
+          "properties": {
+            "text": "这里的queryLoad加载源码，load事件执行初始化"
+          },
+          "isSaved": true,
+          "pid": "PC2a8d8627-b9ee-487d-9205-e096f5b583e9div_loadSubmitForm",
+          "moduleName": "div",
+          "recoveryStyles": {
+            "display": "none"
+          },
+          "preprocessing": "y"
+        },
+        "submitButtonNode_embedded": {
+          "id": "submitButtonNode_embedded",
+          "type": "Div",
+          "description": "作为子表单嵌入在表单是的操作条",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "isSaved": true,
+          "pid": "PC27a62ca3-d11b-4be3-b4cc-9b44fb44ad03submitButtonNode_embedded",
+          "moduleName": "div",
+          "recoveryStyles": {
+            "height": "60px",
+            "text-align": "right",
+            "padding-right": "20px",
+            "background-color": "#fff"
+          },
+          "preprocessing": "y"
+        },
+        "okButton_embedded": {
+          "id": "okButton_embedded",
+          "type": "Label",
+          "valueType": "text",
+          "text": "继续流转",
+          "isSaved": true,
+          "pid": "PCdb627f2f-ec8d-4c02-ba90-2e083ebd9dafokButton_embed",
+          "moduleName": "label",
+          "recoveryStyles": {
+            "margin": "15px 5px",
+            "border-radius": "20px",
+            "height": "30px",
+            "color": "#fff",
+            "width": "80px",
+            "background-color": "#4A90E2",
+            "text-align": "center",
+            "line-height": "30px",
+            "cursor": "pointer",
+            "display": "inline-block"
+          },
+          "preprocessing": "y"
+        },
+        "submitTopNode_embedded": {
+          "id": "submitTopNode_embedded",
+          "type": "Div",
+          "description": "作为子表单嵌入的TITLE",
+          "defaultValue": {
+            "code": "",
+            "html": ""
+          },
+          "isSaved": true,
+          "pid": "PC27a62ca3-d11b-4be3-b4cc-9b44fb44ad03submitTopNode_embedded",
+          "moduleName": "div",
+          "recoveryStyles": {
+            "height": "40px",
+            "color": "rgb(51, 51, 51)",
+            "line-height": "50px",
+            "font-size": "16px",
+            "border-top-left-radius": "8px",
+            "border-top-right-radius": "8px"
+          },
+          "preprocessing": "y"
+        },
+        "submitTopTextNode_embedded": {
+          "id": "submitTopTextNode_embedded",
+          "type": "Label",
+          "valueType": "text",
+          "text": "继续流转",
+          "isSaved": true,
+          "pid": "PCdb627f2f-ec8d-4c02-ba90-2e083ebd9dafsubmitTopTextNode_embedded",
+          "moduleName": "label",
+          "recoveryStyles": {
+            "height": "40px",
+            "padding-left": "30px",
+            "float": "left"
+          },
+          "preprocessing": "y"
+        }
+      },
+      "formStyleType": "blue-simple",
+      "pid": "PC2a8d8627-b9ee-487d-9205-e096f5b583e92a8d8627-b9ee-487d-9205-e096f5b583e9",
+      "isPrompt": true,
+      "promptPosition": "center",
+      "submitFormType": "default",
+      "languageType": "none",
+      "isHandwriting": "yes",
+      "afterProcessAction": "close",
+      "subformList": [],
+      "$version": "5.2"
+    },
+    "html": "<div class=\"css2a8d8627b9ee487d9205e096f5b583e9\" id=\"2a8d8627-b9ee-487d-9205-e096f5b583e9\" mwftype=\"form\" style=\"\"><div id=\"submitNode\" mwftype=\"div\" style=\"background-color: rgb(255, 255, 255); border: 1px solid rgb(238, 238, 238);\"><div id=\"submitInnerNode\" mwftype=\"div\" style=\"\"><div id=\"submitTopNode_embedded\" mwftype=\"div\" style=\"height: 40px; color: rgb(51, 51, 51); line-height: 50px; font-size: 16px; border-top-left-radius: 8px; border-top-right-radius: 8px;\"><div id=\"submitTopTextNode_embedded\" mwftype=\"label\" style=\"height: 40px; padding-left: 30px; float: left;\">继续流转</div></div><div id=\"submitTopNode\" mwftype=\"div\" style=\"height: 40px; color: rgb(51, 51, 51); line-height: 50px; font-size: 16px; border-top-left-radius: 8px; border-top-right-radius: 8px; display: none; cursor: move;\"><div id=\"submitTopTextNode\" mwftype=\"label\" style=\"height: 40px; padding-left: 30px; float: left;\">继续流转</div><div id=\"submitTopActionNode\" mwftype=\"div\" style=\"height: 40px; float: right;\"><div id=\"submitTopCloseActionNode\" mwftype=\"div\" style=\"background: url(&quot;/o2_core/o2/widget/$Dialog/user/img/close.png&quot;) center center no-repeat; width: 30px; height: 40px; float: right; cursor: pointer;\"></div></div></div><div id=\"submitContentWrapNode\" mwftype=\"div\" style=\"overflow: hidden; margin-top: 3px; background-color: rgb(255, 255, 255);\"><div id=\"submitContentNode\" mwftype=\"div\" style=\"padding: 0px 20px; text-align: left; line-height: 20px; overflow: hidden auto;\"><div id=\"submitContentInnerNode\" mwftype=\"div\" style=\"padding: 10px; overflow: hidden; background-color: rgb(255, 255, 255);\"><div id=\"submitContentTable\" mwftype=\"table\" style=\"background-color: rgb(255, 255, 255); margin: 10px 0px;\"><table width=\"100%\" align=\"center\" border=\"0\" cellspacing=\"1\" cellpadding=\"0\"><tbody><tr><td width=\"50%\\\" id=\"submitContentTable_table$Td\" rowspan=\"1\" colspan=\"1\" mwftype=\"table$Td\" style=\"\"><div id=\"routeGroupTitle\" mwftype=\"label\" style=\"height: 30px; color: rgb(51, 51, 51); line-height: 30px; overflow: hidden; padding-left: 20px; font-size: 14px; font-weight: bold; background-color: rgb(238, 238, 238);\">选择决策组</div></td><td id=\"submitContentTable_table$Td_1\" mwftype=\"table$Td\" style=\"\"><div id=\"routeSelectorTitle\" mwftype=\"label\" style=\"height: 30px; color: rgb(51, 51, 51); line-height: 30px; overflow: hidden; padding-left: 20px; font-size: 14px; font-weight: bold; background-color: rgb(238, 238, 238);\">选择决策</div></td></tr><tr><td id=\"submitContentTable_table$Td_2\" mwftype=\"table$Td\" style=\"\"><div id=\"routeGroupArea\" mwftype=\"div\" style=\"border-right: 1px solid rgb(238, 238, 238); height: 100px; overflow: auto; background-color: rgb(255, 255, 255);\"></div></td><td id=\"submitContentTable_table$Td_3\" valign=\"top\" mwftype=\"table$Td\" style=\"\"><div id=\"routeSelectorArea\" mwftype=\"div\" style=\"overflow: hidden; min-height: 40px; background-color: rgb(255, 255, 255);\"></div></td></tr><tr><td id=\"submitContentTable_table$Td_4\" rowspan=\"1\" colspan=\"2\" mwftype=\"table$Td\" style=\"\"><div id=\"routeOpinionTile\" mwftype=\"label\" style=\"height: 30px; color: rgb(51, 51, 51); line-height: 30px; overflow: hidden; padding-left: 20px; font-size: 14px; font-weight: bold; background-color: rgb(238, 238, 238);\">填写意见</div></td></tr><tr><td id=\"submitContentTable_table$Td_6\" mwftype=\"table$Td\" style=\"\"><div id=\"inputOpinionNode\" mwftype=\"div\" style=\"height: 199px; border-right: 1px solid rgb(238, 238, 238); overflow: hidden;\"><div id=\"inputTextarea\" mwftype=\"textarea\" placeholder=\"请在此处填写流程意见\" style=\"position: relative; padding-right: 2px; border-width: 0px; border-bottom-style: solid; border-bottom-color: rgb(204, 204, 204); border-top-style: initial; border-top-color: initial; border-left-style: initial; border-left-color: initial; border-right-style: initial; border-right-color: initial;\"><textarea style=\"background: rgb(255, 255, 255); width: 100%; border: 1px solid rgb(238, 238, 238); color: rgb(102, 102, 102); height: 190px; margin-right: 1px; font-size: 100%; resize: none; padding: 3px; overflow: hidden auto;\"></textarea></div><div id=\"mediaActionArea\" mwftype=\"div\" style=\"position: relative; height: 25px; line-height: 25px; top: -32px; margin-right: 5px;\"><div id=\"handwritingAction\" mwftype=\"div\" style=\"float: right; border: 1px solid rgb(102, 129, 165); border-radius: 3px; cursor: pointer; padding-left: 24px; padding-right: 5px; margin-left: 5px; background: url(&quot;/x_component_process_Work/$Processor/default/write.png&quot;) 5px center no-repeat; width: 28px; height: 25px;\">手写</div></div></div></td><td id=\"submitContentTable_table$Td_7\" mwftype=\"table$Td\" style=\"\"><div id=\"selectIdeaNode\" mwftype=\"div\" style=\"height: 199px; border-width: 1px 1px 1px 0px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: initial; border-top-color: rgb(238, 238, 238); border-right-color: rgb(238, 238, 238); border-bottom-color: rgb(238, 238, 238); border-left-color: initial; border-image: initial;\"><div id=\"selectIdeaAreaNode\" mwftype=\"div\" style=\"height: 199px; overflow: auto; background-color: rgb(255, 255, 255);\"></div></div></td></tr><tr><td id=\"submitContentTable_table$Td_8\" rowspan=\"1\" colspan=\"2\" mwftype=\"table$Td\" style=\"\"><div id=\"orgsTile\" mwftype=\"label\" style=\"height: 30px; color: rgb(51, 51, 51); line-height: 30px; overflow: hidden; padding-left: 20px; font-size: 14px; font-weight: bold; background-color: rgb(238, 238, 238);\">选择人员</div></td></tr><tr><td id=\"submitContentTable_table$Td_10\" rowspan=\"1\" colspan=\"2\" mwftype=\"table$Td\" style=\"\"><div id=\"orgsArea\" mwftype=\"div\" style=\"\"></div></td></tr></tbody></table></div></div></div></div><div id=\"submitButtonNode_embedded\" mwftype=\"div\" style=\"height: 60px; text-align: right; padding-right: 20px; background-color: rgb(255, 255, 255);\"><div id=\"okButton_embedded\" mwftype=\"label\" style=\"margin: 15px 5px; border-radius: 20px; height: 30px; color: rgb(255, 255, 255); width: 80px; background-color: rgb(74, 144, 226); text-align: center; line-height: 30px; cursor: pointer; display: inline-block;\">继续流转</div></div><div id=\"submitButtonNode\" mwftype=\"div\" style=\"height: 60px; text-align: right; padding-right: 20px; background-color: rgb(255, 255, 255); display: none;\"><div id=\"okButton\" mwftype=\"label\" style=\"margin: 15px 5px; border-radius: 20px; height: 30px; color: rgb(255, 255, 255); width: 80px; background-color: rgb(74, 144, 226); text-align: center; line-height: 30px; cursor: pointer; display: inline-block;\">确定</div><div id=\"cancelButton\" mwftype=\"label\" style=\"margin: 15px 5px; border-radius: 20px; height: 30px; color: rgb(255, 255, 255); width: 80px; background-color: rgb(153, 153, 153); text-align: center; line-height: 30px; cursor: pointer; display: inline-block;\">取消</div></div></div></div><div id=\"div_loadSubmitForm\" mwftype=\"div\" style=\"display: none;\">这里的queryLoad加载源码，load事件执行初始化</div></div>",
+    "isNewForm": false
+  },
+  "mobileData": {
+    "json": {
+      "id": "",
+      "name": "新建表单",
+      "type": "Form",
+      "mode": "Mobile",
+      "description": "",
+      "application": "",
+      "applicationName": "",
+
+      "styles": {},
+      "properties": {},
+      "cssLinks": [],
+      "scriptSrc": [],
+      "jsheader": {
+        "code": "",
+        "html": ""
+      },
+
+      "events": {
+        "help": {
+          "code": "",
+          "html": ""
+        },
+        "load": {
+          "code": "",
+          "html": ""
+        },
+        "unload": {
+          "code": "",
+          "html": ""
+        },
+        "click": {
+          "code": "",
+          "html": ""
+        },
+        "dblclick": {
+          "code": "",
+          "html": ""
+        },
+        "keydown": {
+          "code": "",
+          "html": ""
+        },
+        "keypress": {
+          "code": "",
+          "html": ""
+        },
+        "keyup": {
+          "code": "",
+          "html": ""
+        },
+
+        "mousedown": {
+          "code": "",
+          "html": ""
+        },
+        "mousemove": {
+          "code": "",
+          "html": ""
+        },
+        "mouseout": {
+          "code": "",
+          "html": ""
+        },
+        "mouseover": {
+          "code": "",
+          "html": ""
+        },
+        "mouseup": {
+          "code": "",
+          "html": ""
+        },
+        "focus": {
+          "code": "",
+          "html": ""
+        },
+        "blur": {
+          "code": "",
+          "html": ""
+        },
+        "submit": {
+          "code": "",
+          "html": ""
+        },
+        "reset": {
+          "code": "",
+          "html": ""
+        }
+
+      },
+
+      "moduleList": {},
+      "fieldList": {}
+    },
+    "html":"<div MWFType=\"form\" id=\"\"></div>"
+  }
+}

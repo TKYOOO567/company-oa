@@ -1,0 +1,50 @@
+{
+
+  "descriptionNode": {
+    "width": "320px",
+    "height": "auto",
+    "background-color": "#FFF",
+    "position": "absolute",
+    "text-align": "center",
+    "border": "2px solid #666",
+    "z-index" : "101",
+    "font-size" : "14px",
+    "color" : "#666"
+  },
+  "descriptionTdHead" : {
+    "padding-top" : "20px",
+    "padding-bottom" : "10px",
+    "font-size" : "16px",
+    "font-weight" :"bold"
+  },
+  "descriptionTdTitle" : {
+    "text-align" : "left",
+    "padding-right" : "5px",
+    "padding-left" : "25px",
+    "width" : "80px"
+  },
+  "descriptionTdValue" : {
+    "text-align" : "left",
+    "width" : "40px"
+  },
+
+  "editTableHead" : {
+    "line-height": "50px",
+    "text-align": "center",
+    "min-width": "80px",
+    "font-size":"20px",
+    "font-weight": "bold"
+  },
+  "editTableTitle" : {
+    "font-size": "12px",
+    "font-weight": "bold",
+    "line-height": "30px",
+    "text-align": "left",
+    "border-top" : "1px solid #ddd"
+  },
+  "editTableValue" : {
+    "font-size": "14px",
+    "text-align": "left",
+    "border-top" : "1px solid #ddd"
+  }
+}

@@ -1,0 +1,448 @@
+<div style="background-color: #FFF; overflow: hidden">
+    <div title="{{$.lp.base}}" class="MWFTab">
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableTitle">{{$.lp.id}}:</td>
+                <td class="editTableValue"><input type="text" name="id" value="text{$.id}" class="editTableInput"/></td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.name}}:</td>
+                <td class="editTableValue"><input type="text" name="name" value="text{$.name}" class="editTableInput"/></td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.description}}:</td>
+                <td class="editTableValue"><input type="text" name="description" value="text{$.description}" class="editTableInput"/></td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.site}}:</td>
+                <td class="editTableValue"><input type="text" name="site" value="text{$.site}" class="editTableInput"/><br>{{$.lp.defaultSiteInfo}}</td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.editInActivex}}:</td>
+                <td class="editTableValue">
+                    <input onclick="if (this.checked){ $('text{$.pid}OpenInOfficeArea').setStyle('display', 'block')}" type="radio" name="isOpenInOffice" value="true" text{($.isOpenInOffice)?'checked':''}/>{{$.lp.yes}}
+                    <input onclick="if (this.checked){ $('text{$.pid}OpenInOfficeArea').setStyle('display', 'none')}" type="radio" name="isOpenInOffice" value="false" text{(!$.isOpenInOffice)?'checked':''}/>{{$.lp.no}}
+                </td>
+            </tr>
+        </table>
+        <div id="text{$.pid}OpenInOfficeArea" style="display: text{($.isOpenAttachment)?'block':'none'};">
+            <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                <tr>
+                    <td class="editTableTitle">{{$.lp.activexId}}</td>
+                    <td class="editTableValue">
+                        <input type="text" name="officeControlName" value="text{$.officeControlName}" class="editTableInput"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="MWFMaplist" name="styles" title="{{$.lp.style}}"></div>
+
+        <div class="MWFValidation" name="validationConfig"></div>
+        <div class="MWFScriptArea" name="validation" title="{{$.lp.verificationScript}} (S)"></div>
+    </div>
+    <div title="{{$.lp.attribute}}"  class="MWFTab" style="overflow: hidden">
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableTitle">{{$.lp.showType}}:</td>
+                <td class="editTableValue">
+                    <input class="editTableRadio" name="size" text{($.size=='max')?'checked':''} type="radio" value="max"/>{{$.lp.complete}}
+                    <input class="editTableRadio" name="size" text{($.size=='min')?'checked':''} type="radio" value="min"/>{{$.lp.simple}}
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.switchStyle}}:</td>
+                <td class="editTableValue">
+                    <input class="editTableRadio" name="isSizeChange" text{($.isSizeChange=='y')?'checked':''} type="radio" value="y"/>{{$.lp.allow}}
+                    <input class="editTableRadio" name="isSizeChange" text{($.isSizeChange=='n')?'checked':''} type="radio" value="n"/>{{$.lp.notAllow}}
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.uploadType}}:</td>
+                <td class="editTableValue">
+                    <input type="checkbox" name="attachmentExtType" text{(!$.attachmentExtType || $.attachmentExtType.indexOf('word')!=-1)?'checked':''} value="word" onchange="
+                    if (!this.checked && !$('text{$.pid}attachmentExtOtherType').get('value'))$('text{$.pid}attachmentExtType_other').set('checked', false );
+                    ">{{$.lp.wordDoc}}
+                    <input type="checkbox" name="attachmentExtType" text{(!$.attachmentExtType || $.attachmentExtType.indexOf('excel')!=-1)?'checked':''} value="excel" onchange="
+                    if (!this.checked && !$('text{$.pid}attachmentExtOtherType').get('value'))$('text{$.pid}attachmentExtType_other').set('checked', false );
+                    ">{{$.lp.excelDoc}}
+                    <input type="checkbox" name="attachmentExtType" text{(!$.attachmentExtType || $.attachmentExtType.indexOf('ppt')!=-1)?'checked':''} value="ppt" onchange="
+                    if (!this.checked && !$('text{$.pid}attachmentExtOtherType').get('value'))$('text{$.pid}attachmentExtType_other').set('checked', false );
+                    ">{{$.lp.pptDoc}}
+                    <input type="checkbox" name="attachmentExtType" text{(!$.attachmentExtType || $.attachmentExtType.indexOf('ppt')!=-1)?'checked':''} value="txt" onchange="
+                    if (!this.checked && !$('text{$.pid}attachmentExtOtherType').get('value'))$('text{$.pid}attachmentExtType_other').set('checked', false );
+                    ">{{$.lp.textDoc}}
+                    <input type="checkbox" name="attachmentExtType" text{(!$.attachmentExtType || $.attachmentExtType.indexOf('pic')!=-1)?'checked':''} value="pic" onchange="
+                    if (!this.checked && !$('text{$.pid}attachmentExtOtherType').get('value'))$('text{$.pid}attachmentExtType_other').set('checked', false );
+                    ">{{$.lp.imgDoc}}
+                    <input type="checkbox" name="attachmentExtType" text{(!$.attachmentExtType || $.attachmentExtType.indexOf('pdf')!=-1)?'checked':''} value="pdf" onchange="
+                    if (!this.checked && !$('text{$.pid}attachmentExtOtherType').get('value'))$('text{$.pid}attachmentExtType_other').set('checked', false );
+                    ">{{$.lp.pdfDoc}}
+                    <input type="checkbox" name="attachmentExtType" text{(!$.attachmentExtType || $.attachmentExtType.indexOf('zip')!=-1)?'checked':''} value="zip" onchange="
+                    if (!this.checked && !$('text{$.pid}attachmentExtOtherType').get('value'))$('text{$.pid}attachmentExtType_other').set('checked', false );
+                    ">{{$.lp.zipDoc}}
+                    <input type="checkbox" name="attachmentExtType" text{(!$.attachmentExtType || $.attachmentExtType.indexOf('audio')!=-1)?'checked':''} value="audio" onchange="
+                    if (!this.checked && !$('text{$.pid}attachmentExtOtherType').get('value'))$('text{$.pid}attachmentExtType_other').set('checked', false );
+                    ">{{$.lp.audioDoc}}
+                    <input type="checkbox" name="attachmentExtType" text{(!$.attachmentExtType || $.attachmentExtType.indexOf('video')!=-1)?'checked':''} value="video" onchange="
+                    if (!this.checked && !$('text{$.pid}attachmentExtOtherType').get('value'))$('text{$.pid}attachmentExtType_other').set('checked', false );
+                    ">{{$.lp.videoDoc}}<br/>
+                    <input id="text{$.pid}attachmentExtType_other" type="checkbox" name="attachmentExtType" text{(!$.attachmentExtType || $.attachmentExtType.indexOf('other')!=-1)?'checked':''} value="other">{{$.lp.otherDoc}}
+                    <input id="text{$.pid}attachmentExtOtherType" type="text" name="attachmentExtOtherType" value="text{$.attachmentExtOtherType}" class="editTableInput"/>
+                    <span>{{$.lp.docSample}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.uploadSize}}:</td>
+                <td class="editTableValue">
+                    <input type="text" name="attachmentSize" value="text{$.attachmentSize || 0}" class="editTableInput"/>
+                    <br />
+                    <div style="text-align:center">{{$.lp.uploadSizeInfo}}</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.uploadCount}}:</td>
+                <td class="editTableValue">
+                    <input type="text" name="attachmentCount" value="text{$.attachmentCount}" class="editTableInput"/>
+                    <br />
+                    <div style="text-align:center">{{$.lp.uploadCountInfo}}</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.changeSize}}:</td>
+                <td class="editTableValue">
+                    <input class="editTableRadio" name="resize" text{($.resize=='y')?'checked':''} type="radio" value="y"/>{{$.lp.allow}}
+                    <input class="editTableRadio" name="resize" text{($.resize=='n')?'checked':''} type="radio" value="n"/>{{$.lp.notAllow}}
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.useAttachmentStyle}}:</td>
+                <td class="editTableValue">
+                    <input type="checkbox" name="availableListStyles" text{(!$.availableListStyles || $.availableListStyles.indexOf('list')!=-1)?'checked':''} value="list">{{$.lp.list}}
+                    <input type="checkbox" name="availableListStyles" text{(!$.availableListStyles || $.availableListStyles.indexOf('seq')!=-1)?'checked':''} value="seq">{{$.lp.sequence}}
+                    <input type="checkbox" name="availableListStyles" text{(!$.availableListStyles || $.availableListStyles.indexOf('icon')!=-1)?'checked':''} value="icon">{{$.lp.icon}}
+                    <input type="checkbox" name="availableListStyles" text{(!$.availableListStyles || $.availableListStyles.indexOf('preview')!=-1)?'checked':''} value="preview">{{$.lp.preview}}
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.attDefaultStyle}}:</td>
+                <td class="editTableValue">
+                    <input class="editTableRadio" name="listStyle" text{($.listStyle=='list')?'checked':''} type="radio" value="list"/>{{$.lp.list}} </br>
+                    <input class="editTableRadio" name="listStyle" text{($.listStyle=='icon')?'checked':''} type="radio" value="icon"/>{{$.lp.icon}} </br>
+                    <input class="editTableRadio" name="listStyle" text{($.listStyle=='preview')?'checked':''} type="radio" value="preview"/>{{$.lp.preview}}</br>
+                    <input class="editTableRadio" name="listStyle" text{($.listStyle=='sequence')?'checked':''} type="radio" value="sequence"/>{{$.lp.sequence}}
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.readonlyMode}}:</td>
+                <td class="editTableValue">
+                    <input class="editTableRadio" name="readonly" text{($.readonly=='y')?'checked':''} type="radio" value="y"/>{{$.lp.yes}}
+                    <input class="editTableRadio" name="readonly" text{($.readonly=='n')?'checked':''} type="radio" value="n"/>{{$.lp.no}}
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.allowUpload}}:</td>
+                <td class="editTableValue">
+                    <input class="editTableRadio" name="isUpload" text{($.isUpload=='y')?'checked':''} type="radio" value="y"/>{{$.lp.allow}}
+                    <input class="editTableRadio" name="isUpload" text{($.isUpload=='n')?'checked':''} type="radio" value="n"/>{{$.lp.notAllow}}
+                    <input class="editTableRadio" name="isUpload" text{($.isUpload=='hidden')?'checked':''} type="radio" value="hidden"/>{{$.lp.hide}}
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.allowPreview}}:</td>
+                <td class="editTableValue">
+                    <input class="editTableRadio" name="isPreviewAtt" text{($.isPreviewAtt=='y')?'checked':''} type="radio" value="y"/>{{$.lp.allow}}
+                    <input class="editTableRadio" name="isPreviewAtt" text{($.isPreviewAtt=='n')?'checked':''} type="radio" value="n"/>{{$.lp.notAllow}}
+                    <input class="editTableRadio" name="isPreviewAtt" text{($.isPreviewAtt=='hidden')?'checked':''} type="radio" value="hidden"/>{{$.lp.hide}}
+                    <br/>
+                 </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.allowEdit}}:</td>
+                <td class="editTableValue">
+                    <input class="editTableRadio" name="isEditAtt" text{($.isEditAtt=='y')?'checked':''} type="radio" value="y"/>{{$.lp.allow}}
+                    <input class="editTableRadio" name="isEditAtt" text{($.isEditAtt=='n')?'checked':''} type="radio" value="n"/>{{$.lp.notAllow}}
+                    <input class="editTableRadio" name="isEditAtt" text{($.isEditAtt=='hidden')?'checked':''} type="radio" value="hidden"/>{{$.lp.hide}}
+                    <br/>
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.officeTool}}:</td>
+                <td class="editTableValue">
+                    <input class="editTableRadio" name="officeTool" text{($.officeTool=='OnlyOffice')?'checked':''} type="radio" value="OnlyOffice"/>OnlyOffice
+                    <input class="editTableRadio" name="officeTool" text{($.officeTool=='WpsOffice')?'checked':''} type="radio" value="WpsOffice"/>WpsOffice
+                    <input class="editTableRadio" name="officeTool" text{($.officeTool=='YozoOffice')?'checked':''} type="radio" value="YozoOffice"/>YozoOffice
+
+                    <input class="editTableRadio" name="officeTool" text{($.officeTool=='OfficeOnline')?'checked':''} type="radio" value="OfficeOnline"/>OfficeOnline
+                    <input class="editTableRadio" name="officeTool" text{($.officeTool=='LibreOffice')?'checked':''} type="radio" value="LibreOffice"/>LibreOffice
+                    <br/>
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.allowDownload}}:</td>
+                <td class="editTableValue">
+                    <input class="editTableRadio" name="isDownload" text{($.isDownload!=='n' && $.isDownload!=='hidden')?'checked':''} type="radio" value="y"/>{{$.lp.allow}}
+                    <input class="editTableRadio" name="isDownload" text{($.isDownload=='n')?'checked':''} type="radio" value="n"/>{{$.lp.notAllow}}
+                    <input class="editTableRadio" name="isDownload" text{($.isDownload=='hidden')?'checked':''} type="radio" value="hidden"/>{{$.lp.hide}}
+                </td>
+            </tr>
+
+            <tr>
+                <td class="editTableTitle">{{$.lp.allowAI}}:</td>
+                <td class="editTableValue">
+                    <input class="editTableRadio" name="isAIAtt" text{($.isAIAtt!=='n' && $.isAIAtt!=='hidden')?'checked':''} type="radio" value="y"/>{{$.lp.allow}}
+                    <input class="editTableRadio" name="isAIAtt" text{($.isAIAtt=='n')?'checked':''} type="radio" value="n"/>{{$.lp.notAllow}}
+                    <input class="editTableRadio" name="isAIAtt" text{($.isAIAtt=='hidden')?'checked':''} type="radio" value="hidden"/>{{$.lp.hide}}
+                </td>
+            </tr>
+
+            <tr style="text{($.$inDatatable)?'display:none':''}">
+                <td class="editTableTitle">{{$.lp.allowDownloadBatch}}:</td>
+                <td class="editTableValue">
+                    <input class="editTableRadio" name="isDownloadBatch" text{($.isDownloadBatch!=='n' && $.isDownloadBatch!=='hidden')?'checked':''} type="radio" value="y"/>{{$.lp.allow}}
+                    <input class="editTableRadio" name="isDownloadBatch" text{($.isDownloadBatch=='n')?'checked':''} type="radio" value="n"/>{{$.lp.notAllow}}
+                    <input class="editTableRadio" name="isDownloadBatch" text{($.isDownloadBatch=='hidden')?'checked':''} type="radio" value="hidden"/>{{$.lp.hide}}
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.dblClickAttachment}}:</td>
+                <td class="editTableValue">
+                    <input class="editTableRadio" name="dblclick" text{($.dblclick=='open' || (!$.dblclick && $.isDownload!=="n") )?'checked':''} type="radio" value="open"/>{{$.lp.openAtt}}
+                    <input class="editTableRadio" name="dblclick" text{($.dblclick=='preview')?'checked':''} type="radio" value="preview"/>{{$.lp.previewFirst}}
+                    <input class="editTableRadio" name="dblclick" text{($.dblclick=='disable' || (!$.dblclick && $.isDownload==="n") )?'checked':''} type="radio" value="disable"/>{{$.lp.notAllow}}
+                    <div style="position: relative;float:right;">
+                        <div class="MWFHelp" style="position: absolute;height: 16px;width: 16px;top:4px;right:4px;background: url('../x_component_process_FormDesigner/$Main/default/formtoolbar/question.png')">
+                            {{$.lp.previewAttachmentNote}}
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.allowDelete}}:</td>
+                <td class="editTableValue">
+                    <input class="editTableRadio" name="isDelete" text{($.isDelete=='y')?'checked':''} type="radio" value="y"/>{{$.lp.allow}}
+                    <input class="editTableRadio" name="isDelete" text{($.isDelete=='n')?'checked':''} type="radio" value="n"/>{{$.lp.notAllow}}<br/>
+                    <input class="editTableRadio" name="isDelete" text{($.isDelete=='o')?'checked':''} type="radio" value="o"/>{{$.lp.allowDelMyAtt}}<br/>
+                    <input class="editTableRadio" name="isDelete" text{($.isDelete=='hidden')?'checked':''} type="radio" value="hidden"/>{{$.lp.hide}}
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.allowReplace}}:</td>
+                <td class="editTableValue">
+                    <input class="editTableRadio" name="isReplace" text{($.isReplace=='y')?'checked':''} type="radio" value="y"/>{{$.lp.allow}}
+                    <input class="editTableRadio" name="isReplace" text{($.isReplace=='n')?'checked':''} type="radio" value="n"/>{{$.lp.notAllow}}<br/>
+                    <input class="editTableRadio" name="isReplace" text{($.isReplace=='o')?'checked':''} type="radio" value="o"/>{{$.lp.allowDelMyAtt}}<br/>
+                    <input class="editTableRadio" name="isReplace" text{($.isReplace=='hidden')?'checked':''} type="radio" value="hidden"/>{{$.lp.hide}}
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.allowConfig}}:</td>
+                <td class="editTableValue">
+                    <input class="editTableRadio" name="isConfig" text{($.isConfig!=='n' && $.isConfig!=='hidden')?'checked':''} type="radio" value="y"/>{{$.lp.allow}}
+                    <input class="editTableRadio" name="isConfig" text{($.isConfig=='n')?'checked':''} type="radio" value="n"/>{{$.lp.notAllow}}
+                    <input class="editTableRadio" name="isConfig" text{($.isConfig=='hidden')?'checked':''} type="radio" value="hidden"/>{{$.lp.hide}}
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.allowOrder}}:</td>
+                <td class="editTableValue">
+                    <input class="editTableRadio" name="isOrder" text{($.isOrder!=='n' && $.isOrder!=='hidden')?'checked':''} type="radio" value="y"/>{{$.lp.allow}}
+                    <input class="editTableRadio" name="isOrder" text{($.isOrder=='n')?'checked':''} type="radio" value="n"/>{{$.lp.notAllow}}
+                    <input class="editTableRadio" name="isOrder" text{($.isOrder=='hidden')?'checked':''} type="radio" value="hidden"/>{{$.lp.hide}}
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.actionBar}}:</td>
+                <td class="editTableValue">
+                    <input class="editTableRadio" name="toolbarGroupHidden" text{(($.toolbarGroupHidden || []).indexOf('edit')!=-1)?'checked':''} type="checkbox" value="edit"/>{{$.lp.hideEditButton}}<br/>
+                    <input class="editTableRadio" name="toolbarGroupHidden" text{(($.toolbarGroupHidden || []).indexOf('read')!=-1)?'checked':''} type="checkbox" value="read"/>{{$.lp.hideReadButton}}<br/>
+                    <input class="editTableRadio" name="toolbarGroupHidden" text{(($.toolbarGroupHidden || []).indexOf('list')!=-1)?'checked':''} type="checkbox" value="list"/>{{$.lp.hideLayoutButton}}<br/>
+                    <input class="editTableRadio" name="toolbarGroupHidden" text{(($.toolbarGroupHidden || []).indexOf('config')!=-1)?'checked':''} type="checkbox" value="config"/>{{$.lp.hideSettingButton}}<br/>
+                    <input class="editTableRadio" name="toolbarGroupHidden" text{(($.toolbarGroupHidden || []).indexOf('view')!=-1)?'checked':''} type="checkbox" value="view"/>{{$.lp.hideModeButton}}<br/>
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.singleActionbar}}:</td>
+                <td class="editTableValue">
+                    <div style="color: #999;padding:5px;">{{$.lp.singleActionbarNote}}</div>
+                    <input class="editTableRadio" name="singleToolbarHidden" text{(($.singleToolbarHidden || []).indexOf('open')!=-1)?'checked':''} type="checkbox" value="open"/>{{$.lp.hideOpen}}<br/>
+                    <input class="editTableRadio" name="singleToolbarHidden" text{(($.singleToolbarHidden || []).indexOf('download')!=-1)?'checked':''} type="checkbox" value="download"/>{{$.lp.hideDownload}}<br/>
+                    <input class="editTableRadio" name="singleToolbarHidden" text{(($.singleToolbarHidden || []).indexOf('edit')!=-1)?'checked':''} type="checkbox" value="edit"/>{{$.lp.hideEdit}}<br/>
+                    <input class="editTableRadio" name="singleToolbarHidden" text{(($.singleToolbarHidden || []).indexOf('delete')!=-1)?'checked':''} type="checkbox" value="delete"/>{{$.lp.hideDelete}}<br/>
+                    <input class="editTableRadio" name="singleToolbarHidden" text{(($.singleToolbarHidden || []).indexOf('config')!=-1)?'checked':''} type="checkbox" value="config"/>{{$.lp.hideSetting}}<br/>
+                </td>
+            </tr>
+        </table>
+       <div style="height: 28px; font-weight: bold; line-height:28px; background-color: #EEE; padding: 0px 6px; border-top: 1px solid #999">{{$.lp.showInDatagrid}}</div>
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableTitle">{{$.lp.showType}}:</td>
+                <td class="editTableValue">
+                    <input class="editTableRadio" name="dg_size" text{($.dg_size=='max')?'checked':''} type="radio" value="max"/>{{$.lp.complete}}
+                    <input class="editTableRadio" name="dg_size" text{($.dg_size!=='max')?'checked':''} type="radio" value="min"/>{{$.lp.simple}}
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.switchStyle}}:</td>
+                <td class="editTableValue">
+                    <input class="editTableRadio" name="dg_isSizeChange" text{($.dg_isSizeChange=='y')?'checked':''} type="radio" value="y"/>{{$.lp.allow}}
+                    <input class="editTableRadio" name="dg_isSizeChange" text{($.dg_isSizeChange!=='y')?'checked':''} type="radio" value="n"/>{{$.lp.notAllow}}
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.changeSize}}:</td>
+                <td class="editTableValue">
+                    <input class="editTableRadio" name="dg_resize" text{($.resize=='y')?'checked':''} type="radio" value="y"/>{{$.lp.allow}}
+                    <input class="editTableRadio" name="dg_resize" text{($.resize!=='y')?'checked':''} type="radio" value="n"/>{{$.lp.notAllow}}
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.useAttachmentStyle}}:</td>
+                <td class="editTableValue">
+                    <input type="checkbox" name="dg_availableListStyles" text{(!$.dg_availableListStyles || $.dg_availableListStyles.indexOf('list')!=-1)?'checked':''} value="list">{{$.lp.list}}
+                    <input type="checkbox" name="dg_availableListStyles" text{(!$.dg_availableListStyles || $.dg_availableListStyles.indexOf('seq')!=-1)?'checked':''} value="seq">{{$.lp.sequence}}
+                    <input type="checkbox" name="dg_availableListStyles" text{(!$.dg_availableListStyles || $.dg_availableListStyles.indexOf('icon')!=-1)?'checked':''} value="icon">{{$.lp.icon}}
+                    <input type="checkbox" name="dg_availableListStyles" text{(!$.dg_availableListStyles || $.dg_availableListStyles.indexOf('preview')!=-1)?'checked':''} value="preview">{{$.lp.preview}}
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.attDefaultStyle}}:</td>
+                <td class="editTableValue">
+                    <input class="editTableRadio" name="dg_listStyle" text{($.dg_listStyle=='list')?'checked':''} type="radio" value="list"/>{{$.lp.list}} </br>
+                    <input class="editTableRadio" name="dg_listStyle" text{($.dg_listStyle=='icon')?'checked':''} type="radio" value="icon"/>{{$.lp.icon}} </br>
+                    <input class="editTableRadio" name="dg_listStyle" text{($.dg_listStyle=='preview')?'checked':''} type="radio" value="preview"/>{{$.lp.preview}}</br>
+                    <input class="editTableRadio" name="dg_listStyle" text{($.dg_listStyle!=='list' && $.dg_listStyle!=='icon' && $.dg_listStyle!=='preview')?'checked':''} type="radio" value="sequence"/>{{$.lp.sequence}}
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.actionBar}}:</td>
+                <td class="editTableValue">
+                    <input class="editTableRadio" name="dg_toolbarGroupHidden" text{(($.dg_toolbarGroupHidden || []).indexOf('edit')!=-1)?'checked':''} type="checkbox" value="edit"/>{{$.lp.hideEditButton}}<br/>
+                    <input class="editTableRadio" name="dg_toolbarGroupHidden" text{(($.dg_toolbarGroupHidden || []).indexOf('read')!=-1)?'checked':''} type="checkbox" value="read"/>{{$.lp.hideReadButton}}<br/>
+                    <input class="editTableRadio" name="dg_toolbarGroupHidden" text{(($.dg_toolbarGroupHidden || []).indexOf('list')!=-1)?'checked':''} type="checkbox" value="list"/>{{$.lp.hideLayoutButton}}<br/>
+                    <input class="editTableRadio" name="dg_toolbarGroupHidden" text{(($.dg_toolbarGroupHidden || []).indexOf('config')!=-1)?'checked':''} type="checkbox" value="config"/>{{$.lp.hideSettingButton}}<br/>
+                    <input class="editTableRadio" name="dg_toolbarGroupHidden" text{(($.dg_toolbarGroupHidden || []).indexOf('view')!=-1)?'checked':''} type="checkbox" value="view"/>{{$.lp.hideModeButton}}<br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div title="{{$.lp.power}}"  class="MWFTab">
+        <!-- 可阅读配置 -->
+        <div style="height:26px; text-align: center; line-height: 26px; background-color: #EEE; border-top: 1px solid #999; border-bottom: 1px solid #999; font-weight:bold;">{{$.lp.readConfig}}</div>
+        <div style="padding: 5px; color: #999999; ">{{$.lp.readConfigInfo}}</div>
+
+        <div style="padding: 5px; border-top: 1px solid #999; font-weight: bold; background-color: #f9f9f9;">
+            <label><input name="readByActivity" type="checkbox" value="true" onclick="if (this.checked){
+                $('text{$.pid}readByActivityArea').setStyle('display', 'block');
+            } else {
+                $('text{$.pid}readByActivityArea').setStyle('display', 'none');
+            }" text{($.readByActivity && $.readByActivity.indexOf('true')!=-1)?'checked':''} />{{$.lp.readConfig_activity}}</label>
+        </div>
+        <table id="text{$.pid}readByActivityArea" width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable" style="display: text{($.readByActivity && $.readByActivity=='true')?'block':'none'}">
+            <tr>
+                <td class="editTableTitle">{{$.lp.readActivity}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFProcessActivitySelect" name="readByActivityValue"></div>
+                </td>
+            </tr>
+        </table>
+
+        <div style="padding: 5px; border-top: 1px solid #999; font-weight: bold; background-color: #f9f9f9;">
+            <label><input name="readByOrg" type="checkbox" value="true" onclick="if (this.checked){
+                $('text{$.pid}readByOrgArea').setStyle('display', 'block');
+            } else {
+                $('text{$.pid}readByOrgArea').setStyle('display', 'none');
+            }" text{($.readByOrg && $.readByOrg.indexOf('true')!=-1)?'checked':''} />{{$.lp.readConfig_org}}</label>
+        </div>
+        <table id="text{$.pid}readByOrgArea" width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable" style="display: text{($.readByOrg && $.readByOrg=='true')?'block':'none'}">
+            <tr>
+                <td class="editTableTitle">{{$.lp.readOrg}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFPersonMultiple" name="readByOrgValue" data-types="unit,group,person,role"></div>
+                </td>
+            </tr>
+        </table>
+
+        <div style="padding: 5px; border-top: 1px solid #999; font-weight: bold; background-color: #f9f9f9;">
+            <label><input name="readByScript" type="checkbox" value="true" onclick="if (this.checked){
+                $('text{$.pid}readByScriptArea').setStyle('display', 'block');
+            } else {
+                $('text{$.pid}readByScriptArea').setStyle('display', 'none');
+            }" text{($.readByScript && $.readByScript.indexOf('true')!=-1)?'checked':''} />{{$.lp.readConfig_script}}</label>
+        </div>
+        <div id="text{$.pid}readByScriptArea" style="display: text{($.readByScript && $.readByScript=='true')?'block':'none'}">
+            <div class="MWFScriptArea" name="readByScriptValue" title="{{$.lp.readScript}} (S)"></div>
+            <div style="padding: 5px; color: #999999;">{{$.lp.readScriptInfo}}</div>
+        </div>
+
+        <div style="border-top: 1px solid #999;">
+            <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                <tr>
+                    <td colspan="2" class="editTableValue">
+                        <b>{{$.lp.hideCannotRead}}:</b>
+                        <input type="radio" name="hideCannotRead" value="yes" text{($.hideCannotRead=='yes')?'checked':''}/>{{$.lp.yes}}
+                        <input type="radio" name="hideCannotRead" value="no" text{($.hideCannotRead!=='yes')?'checked':''}/>{{$.lp.no}}
+                        <input type="radio" name="hideCannotRead" value="inherit" text{($.hideCannotRead!=='yes' && $.hideCannotRead!=='no')?'checked':''}/>{{$.lp.inherit}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- 可编辑配置 -->
+        <div style="height:26px; text-align: center; line-height: 26px; background-color: #EEE; border-top: 1px solid #999; border-bottom: 1px solid #999; font-weight:bold;">{{$.lp.editConfig}}</div>
+        <div style="padding: 5px; color: #999999; ">{{$.lp.editConfigInfo}}</div>
+
+        <div style="padding: 5px; border-top: 1px solid #999; font-weight: bold; background-color: #f9f9f9;">
+            <label><input name="editByActivity" type="checkbox" value="true" onclick="if (this.checked){
+                $('text{$.pid}editByActivityArea').setStyle('display', 'block');
+            } else {
+                $('text{$.pid}editByActivityArea').setStyle('display', 'none');
+            }" text{($.editByActivity && $.editByActivity.indexOf('true')!=-1)?'checked':''} />{{$.lp.editConfig_activity}}</label>
+        </div>
+        <table id="text{$.pid}editByActivityArea" width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable" style="display: text{($.editByActivity && $.editByActivity=='true')?'block':'none'}">
+            <tr>
+                <td class="editTableTitle">{{$.lp.editActivity}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFProcessActivitySelect" name="editByActivityValue"></div>
+                </td>
+            </tr>
+        </table>
+
+        <div style="padding: 5px; border-top: 1px solid #999; font-weight: bold; background-color: #f9f9f9;">
+            <label><input name="editByOrg" type="checkbox" value="true" onclick="if (this.checked){
+                $('text{$.pid}editByOrgArea').setStyle('display', 'block');
+            } else {
+                $('text{$.pid}editByOrgArea').setStyle('display', 'none');
+            }" text{($.editByOrg && $.editByOrg.indexOf('true')!=-1)?'checked':''} />{{$.lp.editConfig_org}}</label>
+        </div>
+        <table id="text{$.pid}editByOrgArea" width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable" style="display: text{($.editByOrg && $.editByOrg=='true')?'block':'none'}">
+            <tr>
+                <td class="editTableTitle">{{$.lp.readOrg}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFPersonMultiple" name="editByOrgValue" data-types="unit,group,person,role"></div>
+                </td>
+            </tr>
+        </table>
+
+        <div style="padding: 5px; border-top: 1px solid #999; font-weight: bold; background-color: #f9f9f9;">
+            <label><input name="editByScript" type="checkbox" value="true" onclick="if (this.checked){
+                $('text{$.pid}editByScriptArea').setStyle('display', 'block');
+            } else {
+                $('text{$.pid}editByScriptArea').setStyle('display', 'none');
+            }" text{($.editByScript && $.editByScript.indexOf('true')!=-1)?'checked':''} />{{$.lp.editConfig_script}}</label>
+        </div>
+        <div id="text{$.pid}editByScriptArea" style="display: text{($.editByScript && $.editByScript=='true')?'block':'none'}">
+            <div class="MWFScriptArea" name="editByScriptValue" title="{{$.lp.editScript}} (S)"></div>
+            <div style="padding: 5px; color: #999999;">{{$.lp.editScriptInfo}}</div>
+        </div>
+    </div>
+    <div title="{{$.lp.event}}"  class="MWFTab" style="overflow: hidden">
+        <div class="MWFEventsArea" name="events"></div>
+    </div>
+    <div title="HTML"  class="MWFTab">
+        <div class="MWFHTMLArea" style="font-family: Verdana, Geneva, sans-serif; font-size:14px"></div>
+    </div>
+    <div title="JSON"  class="MWFTab">
+        <div class="MWFJSONArea" style="font-family: Verdana, Geneva, sans-serif; font-size:14px"></div>
+    </div>
+</div>

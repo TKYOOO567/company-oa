@@ -1,0 +1,99 @@
+[
+  {
+    "title": MWF.xApplication.cms.ColumnManager.LP.categorySetting,
+    "id": "categoryConfig",
+    "action": "cagetoryConfig",
+    "icon": "icon_fen_lei.png",
+    "selectedIcon": "icon_fen_lei_click.png",
+    "create" : true,
+    "createAction" : "createCategory",
+    "expand": true,
+    "unselected" : true,
+    "sub": []
+  },
+  {
+    "title": MWF.xApplication.cms.ColumnManager.LP.formSetting,
+    "id": "formConfig",
+    "action": "formConfig",
+    "icon": "icon_biao_dan_pei_zhi.png",
+    "selectedIcon": "icon_biao_dan_pei_zhi_click.png",
+    "create" : true,
+    "createAction" : "createForm",
+    "expand": false,
+    "sub": []
+  },
+  {
+    "title": MWF.xApplication.cms.ColumnManager.LP.listSetting,
+    "id": "viewConfig",
+    "action": "viewConfig",
+    "icon": "icon_lie_biao.png",
+    "selectedIcon": "icon_lie_biao_click.png",
+//    "create" : true,
+//    "createAction" : "createView",
+    "expand": false,
+    "sub": []
+  },
+//  {
+//    "title": "数据视图配置",
+//    "id": "queryViewConfig",
+//    "action": "queryViewConfig",
+//    "icon": "icon_shu_ju_pei_zhi.png",
+//    "selectedIcon": "icon_shu_ju_pei_zhi_click.png",
+//    "create" : true,
+//    "createAction" : "createQueryView",
+//    "expand": false,
+//    "sub": []
+//  },
+  {
+    "title": MWF.xApplication.cms.ColumnManager.LP.dataSetting,
+    "id": "dataConfig",
+    "action": "dataConfig",
+    "icon": "icon_shu_ju_shi_tu.png",
+    "selectedIcon": "icon_shu_ju_shi_tu_click.png",
+    "create" : true,
+    "createAction" : "createDataConfig",
+    "expand": false,
+    "sub": []
+  },
+  {
+    "title": MWF.xApplication.cms.ColumnManager.LP.scriptSetting,
+    "id": "scriptConfig",
+    "action": "scriptConfig",
+    "icon": "icon_jiao_ben.png",
+    "selectedIcon": "icon_jiao_ben_click.png",
+    "create" : true,
+    "createAction" : "createScriptConfig" ,
+    "expand": false,
+    "sub": []
+  },
+  {
+    "title": MWF.xApplication.cms.ColumnManager.LP.resourceFile,
+    "id": "fileConfig",
+    "action": "fileConfig",
+    "icon": "icon_jiao_ben.png",
+    "selectedIcon": "icon_jiao_ben_click.png",
+    "create" : true,
+    "createAction" : "createFileConfig",
+    "expand": false,
+    "sub": []
+  },
+  {
+    "title": MWF.xApplication.cms.ColumnManager.LP.appProperty,
+    "id": "applicationProperty",
+    "action": "applicationProperty",
+    "icon": "icon_lan_mu.png",
+    "selectedIcon": "icon_lan_mu_click.png",
+    "expand": false,
+    "sub": []
+  },
+  {
+    "title": MWF.xApplication.cms.ColumnManager.LP.findDesign,
+    "id": "findDesigner",
+    "action": "findDesigner",
+    "icon": "icons_find.png",
+    "selectedIcon": "icons_find.png",
+    "noSelect": true,
+    "expand": false,
+    "sub": []
+  }
+]

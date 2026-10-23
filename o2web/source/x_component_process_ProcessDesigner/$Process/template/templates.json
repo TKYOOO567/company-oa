@@ -1,0 +1,27 @@
+[
+  {
+    "name": "process.json",
+    "title": MWF.xApplication.process.ProcessManager.LP.defaultProcess,
+    "icon": "process.png"
+  },
+  {
+    "name": "process_sequence.json",
+    "title": MWF.xApplication.process.ProcessManager.LP.sequenceProcess,
+    "icon": "process_sequence.png"
+  },
+  {
+    "name": "process_choice.json",
+    "title": MWF.xApplication.process.ProcessManager.LP.choiceProcess,
+    "icon": "process_choice.png"
+  },
+//  {
+//    "name": "process_condition.json",
+//    "title": "条件流程",
+//    "icon": "process_condition.png"
+//  },
+  {
+    "name": "process_parallel.json",
+    "title": MWF.xApplication.process.ProcessManager.LP.parallelProcess,
+    "icon": "process_parallel.png"
+  }
+]

@@ -1,0 +1,65 @@
+{
+  "default": {
+    "name": MWF.xApplication.query.ViewDesigner.LP.viewStyle.default,
+    "file": "styles_default.json",
+    "mode": [
+      "pc"
+    ]
+  },
+  "red-simple": {
+    "name": MWF.xApplication.query.ViewDesigner.LP.viewStyle.redSimple,
+    "file": "styles_red-simple.json",
+    "mode": [
+      "pc"
+    ]
+  },
+  "blue-simple": {
+    "name": MWF.xApplication.query.ViewDesigner.LP.viewStyle.blueSimple,
+    "file": "styles_blue-simple.json",
+    "mode": [
+      "pc"
+    ]
+  },
+  "official": {
+    "name": MWF.xApplication.query.ViewDesigner.LP.viewStyle.official,
+    "file": "styles_official.json",
+    "mode": [
+      "pc"
+    ]
+  },
+  "cmcc": {
+    "name": MWF.xApplication.query.ViewDesigner.LP.viewStyle.deepBlue,
+    "file": "styles_cmcc.json",
+    "mode": [
+      "pc"
+    ]
+  },
+  "blue-flat": {
+    "name": MWF.xApplication.query.ViewDesigner.LP.viewStyle.blueFlat,
+    "file": "styles_blue-flat.json",
+    "mode": [
+      "pc"
+    ]
+  },
+  "light-blue": {
+    "name": MWF.xApplication.query.ViewDesigner.LP.viewStyle.lightBlue,
+    "file": "styles_light-blue.json",
+    "mode": [
+      "pc"
+    ]
+  },
+  "green-flat": {
+    "name": MWF.xApplication.query.ViewDesigner.LP.viewStyle.greenFlat,
+    "file": "styles_green-flat.json",
+    "mode": [
+      "pc"
+    ]
+  },
+  "v10": {
+    "name": "v10",
+    "file": "styles_v10.json",
+    "mode": [
+      "pc"
+    ]
+  }
+}

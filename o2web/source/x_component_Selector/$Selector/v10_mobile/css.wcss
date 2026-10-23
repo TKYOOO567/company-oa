@@ -1,0 +1,67 @@
+{
+	"maskNode": {
+		"background-color": "#cccccc50",
+		"z-index":1000
+	},
+	"containerNodeMobile": {
+        "height": "90%",
+        "bottom": "0",
+        "width": "100%",
+        "background-color": "#F7F7F7",
+        "overflow": "hidden",
+        "position": "absolute",
+        "z-index":1001,
+        "display": "flex",
+        "flex-direction": "column",
+        "border-radius": "0.25rem",
+        "box-shadow" : "0 0 0 1px var(--oo-color-gray-d)",
+		"transform-origin": "bottom",
+		"transition": "height .2s,opacity .2s,transform .2s",
+		"transform": "scale(1, 0)",
+		"opacity": 0
+	},
+	"containerNodeMobile_show": {
+		"transform": "scale(1)",
+		"opacity": 1
+	},
+	"containerNodeMobile_hide": {
+		"transform": "scale(1, 0)",
+		"opacity": 0
+	},
+  	"tabContainer": {
+//		"height": "3.125rem",
+//	  	"margin-bottom": "0.5rem"
+	},
+
+	"contentNode": {
+		"overflow": "hidden"
+	},
+	"noSelectableItemText": {
+		"display": "none"
+	},
+  "contentNode_embedded": {
+	"overflow": "hidden",
+	"padding": "5px 0px 0px 0px"
+  },
+
+	"letterNode": {
+
+    },
+    "letterNode_over": {
+
+    },
+	"dutyInputDialog":{
+	    "height": "56px",
+        "clear": "both"
+	},
+	"dutyInputNode": {
+	    "border": "1px solid #eee",
+	    "background": "#FFF",
+	    "height": "32px"
+	},
+	"filePreviewNode": {
+	    "overflow": "hidden",
+	    "max-width": "300px",
+	    "max-height": "200px"
+	},
+}

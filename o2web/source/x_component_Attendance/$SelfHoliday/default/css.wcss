@@ -1,0 +1,25 @@
+{
+
+  "elementContentListNode": {
+    "overflow": "hidden",
+    "margin": "20px",
+    "min-width": "990px"
+  },
+  "editTableHead" : {
+    "height": "50px",
+    "line-height": "50px",
+    "text-align": "center",
+    "min-width": "80px",
+    "font-size":"18px",
+    "font-weight": "bold"
+  },
+  "editTableTitle" : {
+    "height": "30px",
+    "line-height": "30px",
+    "min-width" : "90px",
+    "text-align": "left"
+  },
+  "editTableValue" : {
+    "text-align": "left"
+  }
+}

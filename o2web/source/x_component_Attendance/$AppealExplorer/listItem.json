@@ -1,0 +1,122 @@
+[
+  {
+    "title" : "",
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "checkbox",
+    "name" : "checkbox",
+    "condition" : "function(d){ return (d.APPEALABLE && d.APPEAL_AUDIFLOWTYPE=='BUILTIN' && d.status==0 && d.appealAuditInfo && d.appealAuditInfo.auditFlowType=='BUILTIN') ? true : false }",
+    "width" : "5%"
+  },
+  {
+    "title" : MWF.xApplication.Attendance.LP.employeeName,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "function(d){ return (d.empName || '').split('@')[0] }",
+    "name" : "empName",
+    "width" : "9%"
+  },
+  {
+    "title" : MWF.xApplication.Attendance.LP.department,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "function(d){ return (d.unitName || '').split('@')[0] }",
+    "name" : "unitName",
+    "width" : "9%"
+  },
+  {
+    "title" : MWF.xApplication.Attendance.LP.recordDate,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "recordDateString",
+    "name" : "recordDateString",
+    "width" : "9%"
+  },
+  //  {
+  //    "title": "考勤状态",
+  //    "headStyles": "normalThNode",
+  //    "contentStyles": "normalTdNode",
+  //    "item": "function( d ){  var status=''; if(d.isGetSelfHolidays){ status = '请假' }else if(d.isAbsent){ status = '缺勤' }else if(d.isLate){ status = '迟到' }else if(d.isLeaveEarlier){ status = '早退' }else{ status = '正常' }; return status; }",
+  //    "name" : "status",
+  //    "width" : "10%"
+  //  },
+  {
+    "title" : MWF.xApplication.Attendance.LP.appealReason,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "appealReason",
+    "name" : "appealReason",
+    "width" : "9%"
+  },
+  {
+    "title" : MWF.xApplication.Attendance.LP.leaveType,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "selfHolidayType",
+    "name" : "selfHolidayType",
+    "width" : "9%"
+  },{
+  "title" : MWF.xApplication.Attendance.LP.start,
+  "headStyles" : "normalThNode",
+  "contentStyles" : "normalTdNode",
+  "item" : "startTime",
+  "name" : "startTime",
+  "width" : "9%"
+},{
+  "title" : MWF.xApplication.Attendance.LP.end,
+  "headStyles" : "normalThNode",
+  "contentStyles" : "normalTdNode",
+  "item" : "endTime",
+  "name" : "endTime",
+  "width" : "9%"
+},{
+  "title" : MWF.xApplication.Attendance.LP.address,
+  "headStyles" : "normalThNode",
+  "contentStyles" : "normalTdNode",
+  "item" : "address",
+  "name" : "address",
+  "width" : "9%"
+},{
+  "title" : MWF.xApplication.Attendance.LP.appealDescriptoin,
+  "headStyles" : "normalThNode",
+  "contentStyles" : "normalTdNode",
+  "item" : "appealDescription",
+  "name" : "appealDescription",
+  "width" : "9%"
+},
+  {
+    "title": MWF.xApplication.Attendance.LP.auditStatus,
+    "headStyles": "normalThNode",
+    "contentStyles": "normalTdNode",
+    "item": "function( d ){  if(d.status==0){ return MWF.xApplication.Attendance.LP.todo }else if(d.status==-1){ return MWF.xApplication.Attendance.LP.deny }else if(d.status==1){ return MWF.xApplication.Attendance.LP.approve }else{ return '' } }",
+    "name" : "status",
+    "width" : "7%"
+  },
+  {
+    "title" :MWF.xApplication.Attendance.LP.action,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "actions",
+    "name" : "actions",
+    "width" : "8%",
+    "sub" : [{
+      "title" : MWF.xApplication.Attendance.LP.agree,
+      "action" : "agree",
+      "fonticon": "o2icon-icon_ok",
+//      "icon": "agree.png",
+      "condition" : "function(d){ return d.APPEALABLE && d.appealAuditInfo && d.appealAuditInfo.auditFlowType=='BUILTIN';  }",
+      "styles" : "documentActionNode",
+      "overStyles" : "documentActionNode_over",
+      "downStyles" : "documentActionNode_down"
+    }, {
+      "title" : MWF.xApplication.Attendance.LP.disagree,
+      "action" : "deny",
+      "fonticon": "o2icon-icon_jinzhi",
+//      "icon": "deny.png",
+      "condition" : "function(d){ return d.APPEALABLE && d.appealAuditInfo && d.appealAuditInfo.auditFlowType=='BUILTIN'; }",
+      "styles" : "documentActionNode",
+      "overStyles" : "documentActionNode_over",
+      "downStyles" : "documentActionNode_down"
+    }]
+  }
+]

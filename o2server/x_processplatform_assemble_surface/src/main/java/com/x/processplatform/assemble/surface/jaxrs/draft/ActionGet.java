@@ -1,0 +1,193 @@
+package com.x.processplatform.assemble.surface.jaxrs.draft;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.apache.commons.lang3.StringUtils;
+
+import com.x.base.core.container.EntityManagerContainer;
+import com.x.base.core.container.factory.EntityManagerContainerFactory;
+import com.x.base.core.entity.JpaObject;
+import com.x.base.core.project.annotation.FieldDescribe;
+import com.x.base.core.project.bean.WrapCopier;
+import com.x.base.core.project.bean.WrapCopierFactory;
+import com.x.base.core.project.exception.ExceptionAccessDenied;
+import com.x.base.core.project.exception.ExceptionEntityNotExist;
+import com.x.base.core.project.gson.GsonPropertyObject;
+import com.x.base.core.project.http.ActionResult;
+import com.x.base.core.project.http.EffectivePerson;
+import com.x.base.core.project.logger.Logger;
+import com.x.base.core.project.logger.LoggerFactory;
+import com.x.base.core.project.tools.ListTools;
+import com.x.processplatform.assemble.surface.Business;
+import com.x.processplatform.core.entity.content.Attachment;
+import com.x.processplatform.core.entity.content.Data;
+import com.x.processplatform.core.entity.content.Draft;
+import com.x.processplatform.core.entity.content.Work;
+import com.x.processplatform.core.entity.element.Application;
+import com.x.processplatform.core.entity.element.Process;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+
+class ActionGet extends BaseAction {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(ActionGet.class);
+
+	ActionResult<Wo> execute(EffectivePerson effectivePerson, String id) throws Exception {
+
+		LOGGER.debug("execute:{}, id:{}.", effectivePerson::getDistinguishedName, () -> id);
+
+		ActionResult<Wo> result = new ActionResult<>();
+		try (EntityManagerContainer emc = EntityManagerContainerFactory.instance().create()) {
+			Business business = new Business(emc);
+			Draft draft = emc.find(id, Draft.class);
+			if (null == draft) {
+				throw new ExceptionEntityNotExist(id, Draft.class);
+			}
+			if ((!effectivePerson.isPerson(draft.getPerson()))
+					&& (!business.ifPersonCanManageApplicationOrProcess(effectivePerson, draft.getApplication(),
+							draft.getProcess()))) {
+				throw new ExceptionAccessDenied(effectivePerson, draft);
+			}
+			Application application = business.application().pick(draft.getApplication());
+			if (null == application) {
+				throw new ExceptionEntityNotExist(draft.getApplication(), Application.class);
+			}
+			Process process = business.process().pick(draft.getProcess());
+			if (null == process) {
+				throw new ExceptionEntityNotExist(draft.getProcess(), Process.class);
+			}
+			Wo wo = new Wo();
+
+			wo.setData(draft.getProperties().getData());
+			Work work = this.mockWork(application, process, draft.getPerson(), draft.getIdentity(), draft.getUnit(),
+					draft.getTitle());
+			// 设置id值与workid相同.save可以判断
+			work.setId(draft.getId());
+			String form = this.findForm(business, process);
+			if (StringUtils.isEmpty(form)) {
+				throw new ExceptionNoneForm();
+			}
+			work.setForm(form);
+			wo.setWork(WoWork.copier.copy(work));
+			List<WoAttachment> woAttachmentList = new ArrayList<>();
+			for (Attachment attachment : business.entityManagerContainer().listEqual(Attachment.class,
+					Attachment.job_FIELDNAME, draft.getId())) {
+				WoAttachment woAttachment = WoAttachment.copier.copy(attachment);
+				woAttachmentList.add(woAttachment);
+			}
+			woAttachmentList = woAttachmentList.stream().sorted(Comparator
+					.comparing(WoAttachment::getOrderNumber, Comparator.nullsLast(Integer::compareTo)).thenComparing(
+							Comparator.comparing(WoAttachment::getCreateTime, Comparator.nullsLast(Date::compareTo))))
+					.collect(Collectors.toList());
+			wo.setAttachmentList(woAttachmentList);
+			result.setData(wo);
+			return result;
+		}
+	}
+
+	@Schema(name = "com.x.processplatform.assemble.surface.jaxrs.draft.ActionGet$Wo")
+	public static class Wo extends GsonPropertyObject {
+
+		private static final long serialVersionUID = -3079311013584307428L;
+
+		@FieldDescribe("业务数据.")
+		private Data data;
+
+		@FieldDescribe("工作.")
+		private WoWork work;
+
+		@FieldDescribe("附件")
+		private List<WoAttachment> attachmentList = new ArrayList<>();
+
+		public List<WoAttachment> getAttachmentList() {
+			return attachmentList;
+		}
+
+		public void setAttachmentList(List<WoAttachment> attachmentList) {
+			this.attachmentList = attachmentList;
+		}
+
+		public Data getData() {
+			return data;
+		}
+
+		public void setData(Data data) {
+			this.data = data;
+		}
+
+		public WoWork getWork() {
+			return work;
+		}
+
+		public void setWork(WoWork work) {
+			this.work = work;
+		}
+
+	}
+
+	@Schema(name = "com.x.processplatform.assemble.surface.jaxrs.draft.ActionGet$WoWork")
+	public static class WoWork extends Work {
+
+		private static final long serialVersionUID = 1573047112378070272L;
+
+		static WrapCopier<Work, WoWork> copier = WrapCopierFactory.wo(Work.class, WoWork.class, null,
+				ListTools.toList(JpaObject.FieldsInvisible));
+
+	}
+
+	public static class WoAttachment extends Attachment {
+
+		private static final long serialVersionUID = -5323646346508661416L;
+
+		static WrapCopier<Attachment, WoAttachment> copier = WrapCopierFactory.wo(Attachment.class, WoAttachment.class,
+				null, JpaObject.FieldsInvisibleIncludeProperites);
+
+		private WoAttachmentControl control = new WoAttachmentControl();
+
+		public WoAttachmentControl getControl() {
+			return control;
+		}
+
+		public void setControl(WoAttachmentControl control) {
+			this.control = control;
+		}
+	}
+
+	public static class WoAttachmentControl extends GsonPropertyObject {
+
+		private static final long serialVersionUID = -1159880170066584166L;
+		private Boolean allowRead = false;
+		private Boolean allowEdit = false;
+		private Boolean allowControl = false;
+
+		public Boolean getAllowRead() {
+			return allowRead;
+		}
+
+		public void setAllowRead(Boolean allowRead) {
+			this.allowRead = allowRead;
+		}
+
+		public Boolean getAllowEdit() {
+			return allowEdit;
+		}
+
+		public void setAllowEdit(Boolean allowEdit) {
+			this.allowEdit = allowEdit;
+		}
+
+		public Boolean getAllowControl() {
+			return allowControl;
+		}
+
+		public void setAllowControl(Boolean allowControl) {
+			this.allowControl = allowControl;
+		}
+
+	}
+
+}

@@ -1,0 +1,36 @@
+<div class="check-in-page">
+  <div class="check-in-card">
+    <div class="check-in-config-bar" oo-if="$.checkInAlertConfigEnable">
+      <div class="ooicon-config check-in-config-button" @click="openCheckInAlertConfig"></div>
+    </div>
+    <div class="map-panel" id="amap-container" oo-if="$.showAMap">
+
+    </div>
+    <div class="{{ $.location.locating ? 'location-panel location-panel-pending' : ($.location.inRange ? 'location-panel location-panel-success' : 'location-panel location-panel-error') }}">
+      <div class="location-title" oo-if="$.location.inRange">你已在打卡范围内</div>
+      <div class="location-title" oo-else>{{ $.location.locating ? $.lp.mobile.locationIng : '你不在打卡范围内' }}</div>
+      <div class="location-address">{{$.location.title}}</div>
+      <button class="location-refresh" oo-if="$.qywxSdkLoaded" @click="qywxLocation">{{$.lp.mobile.refreshLocation}}</button>
+    </div>
+    
+
+    <div class="{{ $.checkInCycle.canCheckIn ? 'check-button' : 'check-button check-button-disabled' }}" @click="actionCheckIn">
+      <div class="check-button-inner">
+        <div class="check-button-title">{{$.checkInCycle.title}}</div>
+        <div class="check-button-time">{{$.checkInCycle.time}}</div>
+        <div class="check-button-tip">{{$.checkInCycle.tip}}</div>
+      </div>
+    </div>
+
+    <div class="shift-summary" oo-if="$.recordItemList.length" @click="gotoMyRecord">
+      <div oo-each="$.recordItemList" oo-item="record" class="shift-summary-item">
+        <span>{{record.value.checkInTypeShort}} {{record.value.preDutyTime}}</span>
+        <span class="{{record.value.checkStatusClass}}" oo-if="record.value.checkStatusIcon">{{record.value.checkStatusIcon}}</span>
+        <span class="shift-separator" oo-if="!record.value.isLast">-</span>
+      </div>
+      <span class="shift-more">›</span>
+    </div>
+    <button class="update-off-duty" oo-if="$.updateOffDutyRecord" @click="actionUpdateOffDuty">更新下班卡</button>
+  </div>
+  <div class="check-in-bmap"></div>
+</div>

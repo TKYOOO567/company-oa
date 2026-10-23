@@ -1,0 +1,51 @@
+{
+  "listApplication": {"uri": "/jaxrs/portal/list"},
+  "getApplication": {"uri": "/jaxrs/portal/{id}"},
+
+
+  "listPage": {"uri": "/jaxrs/page/list/portal/{id}"},
+  "listSource": {"uri": "/jaxrs/source/list/portal/{id}"},
+  "listScript": {"uri": "/jaxrs/script/list/portal/{id}"},
+  "listMenu": {"uri": "/jaxrs/menu/list/portal/{id}"},
+  "listWidget": {"uri": "/jaxrs/widget/list/portal/{id}"},
+
+  "getPage": {"uri": "/jaxrs/page/{id}"},
+  "getPageMobile": {"uri": "/jaxrs/page/{id}/mobile"},
+  "getPageV2": {"uri": "/jaxrs/page/v2/{id}"},
+  "getPageMobileV2": {"uri": "/jaxrs/page/v2/{id}/mobile"},
+
+  "getPageByName": {"uri": "/jaxrs/page/{name}/portal/{id}"},
+  "getPageByNameMobile": {"uri": "/jaxrs/page/{name}/portal/{id}/mobile"},
+
+  "getPageByNameV2": {"uri": "/jaxrs/page/v2/{name}/portal/{id}"},
+  "getPageByNameMobileV2": {"uri": "/jaxrs/page/v2/{name}/portal/{id}/mobile"},
+
+  "getSource": {"uri": "/jaxrs/source/{id}"},
+  "getScript": {"uri": "/jaxrs/script/{id}"},
+  //"getScriptByName": {"uri": "/jaxrs/script/portal/{applicationId}/name/{name}"},
+  "getScriptByName": {"uri": "/jaxrs/script/portal/{portal}/name/{name}","method": "POST"},
+  "getMenu": {"uri": "/jaxrs/menu/{id}"},
+  "getScriptByNameV2": {"uri": "/jaxrs/script/portal/{portal}/name/{name}/imported"},
+
+  "getWidget": {"uri": "/jaxrs/widget/{id}"},
+  "getWidgetMobile": {"uri": "/jaxrs/widget/{id}/mobile"},
+  "getWidgetByName": {"uri": "/jaxrs/widget/{name}/portal/{id}"},
+  "getWidgetByNameMobile": {"uri": "/jaxrs/widget/{name}/portal/{id}/mobile"},
+
+  "readFile": {"uri": "/jaxrs/file/{flag}/portal/{applicationFlag}/content"},
+  "listFile": {"uri": "/jaxrs/file/list/portal/{applicationFlag}"},
+
+
+  "listDictionary": {"uri": "/jaxrs/dict/list/portal/{portalFlag}"},
+  "getDictionary": {"uri": "/jaxrs/dict/{dictFlag}/portal/{portalFlag}"},
+
+//  "updataDictionary": {"uri": "/jaxrs/applicationdict/{applicationDictFlag}/application/{applicationFlag}","method": "PUT"},
+
+  "getDictRoot": {"uri": "/jaxrs/dict/{dictFlag}/portal/{portalFlag}/data"},
+  "getDictData": {"uri": "/jaxrs/dict/{dictFlag}/portal/{portalFlag}/{path}/data"}, //path:路径(多层路径以.分割，如person.name)
+  "setDictData": {"uri": "/jaxrs/dict/{dictFlag}/portal/{portalFlag}/{path}/data", "method": "PUT"},
+  "addDictData": {"uri": "/jaxrs/dict/{dictFlag}/portal/{portalFlag}/{path}/data", "method": "POST"},
+  "deleteDictData": {"uri": "/jaxrs/dict/{dictFlag}/portal/{portalFlag}/{path}/data", "method": "DELETE"},
+
+  "clazz": "x_portal_assemble_surface"
+}

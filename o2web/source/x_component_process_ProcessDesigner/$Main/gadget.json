@@ -1,0 +1,83 @@
+{
+  "begin": {
+    "icon": "begin24.png",
+    "text": MWF.APPPD.LP.menu.newActivityType.begin,
+    "className": "Begin"
+  },
+  "end": {
+    "icon": "end24.png",
+    "text": MWF.APPPD.LP.menu.newActivityType.end,
+    "className": "End"
+  },
+  "cancel": {
+    "icon": "cancel24.png",
+    "text": MWF.APPPD.LP.menu.newActivityType.cancel,
+    "className": "Cancel"
+  },
+  "manual": {
+    "icon": "manual24.png",
+    "text": MWF.APPPD.LP.menu.newActivityType.manual,
+    "className": "Manual"
+  },
+  "choice": {
+    "icon": "choice24.png",
+    "text": MWF.APPPD.LP.menu.newActivityType.choice,
+    "className": "Choice"
+  },
+//  "condition": {
+//    "icon": "condition24.png",
+//    "text": "条件活动",
+//    "className": "Condition"
+//  },
+  "split": {
+    "icon": "split24.png",
+    "text": MWF.APPPD.LP.menu.newActivityType.split,
+    "className": "Split"
+  },
+  "parallel": {
+    "icon": "parallel24.png",
+    "text": MWF.APPPD.LP.menu.newActivityType.parallel,
+    "className": "Parallel"
+  },
+  "merge": {
+    "icon": "merge24.png",
+    "text": MWF.APPPD.LP.menu.newActivityType.merge,
+    "className": "Merge"
+  },
+  "embed": {
+    "icon": "embed24.png",
+    "text": MWF.APPPD.LP.menu.newActivityType.embed,
+    "className": "Embed"
+  },
+  "publish": {
+    "icon": "publish24.png",
+    "text": MWF.APPPD.LP.menu.newActivityType.publish,
+    "className": "Publish"
+  },
+  "delay": {
+    "icon": "delay24.png",
+    "text": MWF.APPPD.LP.menu.newActivityType.delay,
+    "className": "Delay"
+  },
+  "invoke": {
+    "icon": "invoke24.png",
+    "text": MWF.APPPD.LP.menu.newActivityType.invoke,
+    "className": "Invoke"
+  },
+  "service": {
+    "icon": "service24.png",
+    "text": MWF.APPPD.LP.menu.newActivityType.service,
+    "className": "Service"
+  },
+//  "message": {
+//    "icon": "message24.png",
+//    "text": "消息",
+//    "className": "Message"
+//  },
+  "agent": {
+    "icon": "agent24.png",
+    "text": MWF.APPPD.LP.menu.newActivityType.agent,
+    "className": "Agent"
+  }
+
+}

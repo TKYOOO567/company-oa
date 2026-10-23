@@ -1,0 +1,4 @@
+MWF.xDesktop.requireApp("process.Xform", "ViewSelector", null, false);
+MWF.xApplication.cms.Xform.ViewSelector = MWF.CMSViewSelector =  new Class({
+	Extends: MWF.APPViewSelector
+});

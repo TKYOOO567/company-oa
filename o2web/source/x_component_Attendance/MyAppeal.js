@@ -1,0 +1,704 @@
+MWF.xDesktop.requireApp("Attendance", "Explorer", null, false);
+MWF.xDesktop.requireApp("Selector", "package", null, false);
+MWF.xDesktop.requireApp("Template", "MForm", null, false);
+MWF.xApplication.Attendance.MyAppeal = new Class({
+    Extends: MWF.xApplication.Attendance.Explorer,
+    Implements: [Options, Events],
+
+    initialize: function(node, app, actions, options){
+        this.setOptions(options);
+        this.app = app;
+        this.path = "../x_component_Attendance/$MyAppeal/";
+        this.cssPath = "../x_component_Attendance/$MyAppeal/"+this.options.style+"/css.wcss";
+        this._loadCss();
+
+        this.actions = actions;
+        this.node = $(node);
+
+        this.initData();
+        if (!this.personActions) this.personActions = new MWF.xAction.org.express.RestActions();
+    },
+    load: function(){
+        this.topWrapNode = new Element("div", {"style": "width:100%;overflow:hidden;background:rgb(240, 240, 240);"}).inject(this.node);
+        this.topNode = new Element("div", {
+            "styles" : this.css.topNode
+        }).inject(this.topWrapNode);
+        this.topNode.setStyle("width", "900px");
+        this.loadToolbar();
+        this.loadFilter();
+        this.loadContentNode();
+
+        this.elementContentNode.addEvent("scroll", function () {
+            var scroll = this.elementContentNode.getScroll();
+            if(this.topWrapNode)this.topWrapNode.scrollTo(scroll.x);
+        }.bind(this));
+
+        var month = (new Date().getMonth()+1).toString();
+        if( month.length == 1 )month = "0"+month;
+        var filterData = {
+            "status" : "999",
+            "yearString" : new Date().getFullYear().toString(),
+            "monthString" : month
+        };
+        this.loadView( filterData );
+        this.setNodeScroll();
+
+    },
+    loadToolbar: function(){
+        this.toolbarNode = new Element("div", {"styles": this.css.toolbarNode || this.app.css.toolbarNode});
+        this.toolbarNode.inject(this.topNode);
+
+        var toolbarUrl = this.path+"toolbar.json";
+        MWF.getJSON(toolbarUrl, function(json){
+            json.each(function(tool){
+                this.createToolbarItemNode(tool);
+            }.bind(this));
+        }.bind(this));
+        //this.createSearchElementNode();
+    },
+    loadFilter: function(){
+        var lp = MWF.xApplication.Attendance.LP;
+        this.fileterNode = new Element("div.fileterNode", {
+            "styles" : this.css.fileterNode
+        }).inject(this.topNode);
+
+        var html = "<table bordr='0' cellpadding='5' cellspacing='0' style='font-size: 14px;color:#666;'>"+
+            "<tr>" +
+            "    <td styles='filterTableTitle' lable='yearString'></td>"+
+            "    <td styles='filterTableValue' item='yearString'></td>" +
+            "    <td styles='filterTableTitle' lable='monthString'></td>"+
+            "    <td styles='filterTableValue' item='monthString'></td>" +
+            "    <td styles='filterTableTitle' lable='status'></td>"+
+            "    <td styles='filterTableValue' item='status'></td>" +
+            "    <td styles='filterTableTitle' lable='appealReason'></td>"+
+            "    <td styles='filterTableValue' item='appealReason'></td>" +
+            "    <td styles='filterTableValue' item='action'></td>" +
+            "</tr>" +
+            "</table>";
+        this.fileterNode.set("html",html);
+
+        MWF.xDesktop.requireApp("Template", "MForm", function(){
+            this.form = new MForm( this.fileterNode, {}, {
+                style: "attendance",
+                isEdited : true,
+                itemTemplate : {
+                    yearString : {
+                        text : lp.annuaal,
+                        "type" : "select",
+                        "selectValue" : function(){
+                            var years = [];
+                            var year = new Date().getFullYear();
+                            for(var i=0; i<6; i++ ){
+                                years.push( year-- );
+                            }
+                            return years;
+                        },
+                        "event" : {
+                            "change" : function( item, ev ){
+                                // var values = this.getDateSelectValue();
+                                // item.form.getItem( "date").resetItemOptions( values , values )
+                            }.bind(this)
+                        }
+                    },
+                    monthString : {
+                        text : lp.months,
+                        "type" : "select",
+                        "defaultValue" : function(){
+                            var month = (new Date().getMonth() + 1 ).toString();
+                            return  month.length == 1 ? "0"+month : month;
+                        },
+                        "selectValue" :["","01","02","03","04","05","06","07","08","09","10","11","12"],
+                        "event" : {
+                            // "change" : function( item, ev ){
+                            //     var values = this.getDateSelectValue();
+                            //     item.form.getItem( "date").resetItemOptions( values , values )
+                            // }.bind(this)
+                        }
+                    },
+                    status : {
+                        "text" : lp.auditStatus,
+                        "type" : "select",
+                        "value" : "999",
+                        "selectText" : lp.auditStatusSelectText,
+                        "selectValue" :["999","0","1","-1"]
+                    },
+                    appealReason : {
+                        "text" : lp.appealReason,
+                        "type" : "select",
+                        "selectText" : lp.appealReasonSelectText
+                    },
+                    action : { "value" : lp.search, type : "button", className : "filterButton", clazz:"mainColor_bg", event : {
+                            click : function(){
+                                var result = this.form.getResult(true,",",true,true,false);
+                                if( !result )return;
+                                this.loadView( result );
+                            }.bind(this)
+                        }}
+                }
+            }, this.app, this.app.css);
+            this.form.load();
+        }.bind(this), true);
+    },
+    getDateSelectValue : function(){
+        if( this.form ){
+            var year = parseInt(this.form.getItem("yearString").getValue());
+            var month = parseInt(this.form.getItem("monthString").getValue())-1;
+        }else{
+            var year =  (new Date()).getFullYear() ;
+            var month =  (new Date()).getMonth() ;
+        }
+        var date = new Date(year, month, 1);
+        var days = [];
+        days.push("");
+        while (date.getMonth() === month) {
+            var d = date.getDate().toString();
+            if( d.length == 1 )d = "0"+d;
+            days.push( d );
+            date.setDate(date.getDate() + 1);
+        }
+        return days;
+    },
+    setContentSize: function(){
+        var topNodeSize = this.topNode ? this.topNode.getSize() : {"x":0,"y":0};
+        var nodeSize = this.node.getSize();
+
+        var height = nodeSize.y - topNodeSize.y - this.getOffsetY(this.topNode) - this.getOffsetY(this.elementContentNode) - this.getOffsetY(this.node);
+        this.elementContentNode.setStyle("height", ""+height+"px");
+
+        this.pageCount = (height/30).toInt()+5;
+
+        if (this.view && this.view.items.length<this.pageCount){
+            this.view.loadElementList(this.pageCount-this.view.items.length);
+        }
+    },
+    loadView : function( filterData ){
+        this.elementContentNode.empty();
+        this.view = new MWF.xApplication.Attendance.MyAppeal.View(this.elementContentNode, this.app,this, this.viewData, this.options.searchKey );
+        this.view.filterData = filterData;
+        this.view.load();
+        this.setContentSize();
+    },
+    createDocument: function(){
+        if(this.view)this.view._createDocument();
+    }
+});
+
+MWF.xApplication.Attendance.MyAppeal.View = new Class({
+    Extends: MWF.xApplication.Attendance.Explorer.View,
+    _createItem: function(data){
+        return new MWF.xApplication.Attendance.MyAppeal.Document(this.table, data, this.explorer, this);
+    },
+
+    _getCurrentPageData: function(callback, count){
+        if(!count )count=20;
+        var id = (this.items.length) ? this.items[this.items.length-1].data.id : "(0)";
+        var filter = this.filterData || {};
+
+        /*var month = (new Date().getMonth()+1).toString();
+        if( month.length == 1 )month = "0"+month;
+        filter.yearString = new Date().getFullYear().toString();
+        filter.monthString = month;*/
+        filter.empName = layout.desktop.session.user.distinguishedName;
+
+        this.actions.listAppealFilterNext(id, count, filter, function(json){
+            var data = json.data;
+            data.sort( function( a, b ){
+                return parseInt( b.appealDateString.replace(/-/g,"") ) -  parseInt( a.appealDateString.replace(/-/g,"") );
+            });
+            json.data = data;
+            if (callback) callback(json);
+        });
+    },
+    _removeDocument: function(documentData, all){
+
+    },
+    _createDocument: function(){
+
+    },
+    _openDocument: function( documentData ){
+
+        if(documentData.appealAuditInfo){
+            if(documentData.appealAuditInfo.workId){
+                var workid = documentData.appealAuditInfo.workId;
+                var options = {"workId":workid, "appId": "process.Work"+workid};
+                this.app.desktop.openApplication(null, "process.Work", options);
+                return;
+            }
+        }
+        var appeal = new MWF.xApplication.Attendance.MyAppeal.Appeal(this.explorer, documentData );
+        appeal.open();
+
+    }
+
+});
+
+MWF.xApplication.Attendance.MyAppeal.Document = new Class({
+    Extends: MWF.xApplication.Attendance.Explorer.Document,
+    agree : function(){
+
+    },
+    deny : function(){
+
+    }
+
+});
+
+
+MWF.xApplication.Attendance.MyAppeal.Appeal = new Class({
+    Extends: MWF.xApplication.Attendance.Explorer.PopupForm,
+    options : {
+        "width": 700,
+        "height": 500,
+        "hasTop" : true,
+        "hasBottom" : true,
+        "title" : MWF.xApplication.Attendance.LP.apealApplyForm,
+        "draggable" : true,
+        "closeAction" : true,
+    },
+    _createTableContent: function(){
+        var _self = this;
+        var lp = MWF.xApplication.Attendance.LP;
+
+        this.app.restActions.getDetail(this.data.detailId, function(json){
+            this.data.onDutyTime = json.data.onDutyTime;
+            this.data.offDutyTime = json.data.offDutyTime;
+        }.bind(this),null,false)
+
+
+        var d = this.data;
+        var appealStatus = lp.draft;
+        if (d.status == 0 ) {
+            appealStatus = lp.todo;
+        } else if (d.status == 1) {
+            appealStatus = lp.approve
+        } else if (d.status == -1) {
+            appealStatus = lp.deny
+        }
+        this.data.appealStatusShow = appealStatus;
+        debugger
+        var html = "<table width='100%' bordr='0' cellpadding='5' cellspacing='0' styles='formTable'>"+
+            "<tr><td style='width: 85px;' styles='formTableTitle'>"+lp.employeeName+"</td>"+
+            "    <td style='width: 165px;' styles='formTableValue'>"+this.data.empName.split("@")[0]+"</td>" +
+            "    <td style='width: 85px;' styles='formTableTitle' lable='recordDateString'></td>"+
+            "    <td style='width: 165px;' styles='formTableValue' item='recordDateString'></td></tr>" +
+            "<tr><td styles='formTableTitle' lable='onDutyTime'></td>"+
+            "    <td styles='formTableValue' item='onDutyTime'></td>" +
+            "    <td styles='formTableTitle' lable='offDutyTime'></td>"+
+            "    <td styles='formTableValue' item='offDutyTime'></td></tr>" +
+            "<tr><td styles='formTableTitle' lable='appealStatusShow'></td>"+
+            "    <td styles='formTableValue' item='appealStatusShow'  colspan='3'></td></tr>" +
+            "<tr><td styles='formTableTitle' lable='appealReason'></td>"+
+            "    <td styles='formTableValue' item='appealReason'></td>" +
+            "   <td styles='formTableTitle' lable='processPerson1Show'></td>"+
+            "    <td styles='formTableValue' item='processPerson1Show'></td></tr>" +
+            "<tr contain='selfHolidayType'><td styles='formTableTitle' lable='selfHolidayType'></td>"+
+            "    <td styles='formTableValue' item='selfHolidayType' colspan='3'></td></tr>" +
+            "<tr contain='address'><td styles='formTableTitle' lable='address'></td>"+
+            "    <td styles='formTableValue' item='address' colspan='3'></td></tr>" +
+            "<tr contain='startTime'><td styles='formTableTitle' lable='startTime'></td>"+
+            "    <td styles='formTableValue' item='startTime' colspan='3'></td></tr>" +
+            "<tr contain='endTime'><td styles='formTableTitle' lable='endTime'></td>"+
+            "    <td styles='formTableValue' item='endTime' colspan='3'></td></tr>" +
+            "<tr contain='appealDescription'><td styles='formTableTitle' lable='appealDescription'></td>"+
+            "    <td styles='formTableValue' item='appealDescription' colspan='3'></td></tr>" +
+            /*"<tr contain='opinion1'><td styles='formTableTitle' lable='opinion1'></td>"+
+            "    <td styles='formTableValue' item='opinion1' colspan='3'></td></tr>" +*/
+            "</table>";
+        this.formTableArea.set("html",html);
+
+        this.document = new MForm( this.formTableArea, this.data, {
+            style : "attendance",
+            isEdited : this.isEdited || this.isNew,
+            itemTemplate : {
+                recordDateString : { text:lp.recordDate,  type : "innertext"},
+                onDutyTime : { text:lp.onDutyTime,  type : "innertext"},
+                offDutyTime : { text:lp.offDutyTime,  type : "innertext"},
+                statusShow : {  text:lp.attendanceStatus, type : "innertext" },
+                appealStatusShow : { text:lp.appealStatus, type : "innertext"},
+                processPerson1Show : {text:lp.auditor, type:"innertext", value : this.data.appealAuditInfo?this.data.appealAuditInfo.currentProcessor.split("@")[0] :""},
+                appealReason : {
+                    notEmpty : true,
+                    text: lp.appealReason,
+                    type : "select",
+                    selectValue : lp.appealReasonSelectText,
+                    event : { change : function(mdi){
+                            _self.switchFieldByAppealReason(mdi.getValue());
+                        }}
+                },
+                address : { text: lp.address },
+                selfHolidayType : {
+                    text: lp.leaveType,
+                    type : "select",
+                    selectValue : lp.leaveTypeSelectText
+                },
+                startTime : {  text: lp.startTime, tType : "datetime" },
+                endTime : {  text:lp.endTime, tType : "datetime" },
+                appealDescription : { text: lp.appealDescriptoin }
+                //opinion1 : { text :"审批意见" }
+            }
+        }, this.app);
+        this.document.load();
+        _self.switchFieldByAppealReason(this.data.appealReason);
+
+
+        // this.cancelActionNode = new Element("div", {
+        //     "styles": this.css.createCancelActionNode,
+        //     "text": lp.close
+        // }).inject(this.formNode);
+        //
+        //
+        // this.cancelActionNode.addEvent("click", function(e){
+        //     this.cancelCreate(e);
+        // }.bind(this));
+
+        // if( this.isNew || this.isEdited){
+        //     this.denyActionNode = new Element("div", {
+        //         "styles": this.css.createDenyActionNode,
+        //         "text": lp.disagree
+        //     }).inject(this.formNode);
+        //     this.createOkActionNode = new Element("div", {
+        //         "styles": this.css.createOkActionNode,
+        //         "text": lp.agree
+        //     }).inject(this.formNode);
+        //
+        //     this.denyActionNode.addEvent("click", function(e){
+        //         this.deny(e);
+        //     }.bind(this));
+        //     this.createOkActionNode.addEvent("click", function(e){
+        //         this.okCreate(e);
+        //     }.bind(this));
+        // }
+
+    },
+    switchFieldByAppealReason : function( ar ){
+        var lp = MWF.xApplication.Attendance.LP;
+        var tempField = ["selfHolidayType","startTime","endTime","address","appealDescription"];
+        var showField = [];
+        if( ar == lp.temporaryLeave ){
+            showField = ["selfHolidayType","startTime","endTime"];
+        }else if( ar == lp.out ){
+            showField = ["address","startTime","endTime"];
+        }else if( ar == lp.businessTrip ){
+            showField = ["address","startTime","endTime","appealDescription"];
+        }else if( ar == lp.other ){
+            showField = ["appealDescription"];
+        }
+        tempField.each( function( f ){
+            this.formTableArea.getElement("[contain='"+f+"']").setStyle("display", showField.contains(f) ? "" : "none" );
+            if( this.isNew || this.isEdited )this.document.items[f].options.notEmpty = (showField.contains(f) ? true : false )
+        }.bind(this))
+    },
+    // cancelCreate: function(e){
+    //     this.createMarkNode.destroy();
+    //     this.createAreaNode.destroy();
+    //     delete this;
+    // },
+    deny : function(e){
+        var data = { 'ids' : [this.data.id], 'status':'-1', 'opinion1': this.opinion1.getValue() };
+        if (data.opinion1 ){
+            this.process( data );
+        }else{
+            this.app.notice( MWF.xApplication.Attendance.LP.inputIdeaNotice, "error");
+        }
+    },
+    okCreate: function(e){
+        var data = { 'ids' : [this.data.id], 'status':'1', 'opinion1': this.opinion1.getValue() };
+        this.process( data );
+    },
+    process: function( data ){
+        this.app.restActions.processAppeal( data, function(json){
+            if( json.type == "ERROR" ){
+                this.app.notice( json.message  , "error");
+            }else{
+                if( this.formMaskNode )this.formMaskNode.destroy();
+                if( this.formAreaNode )this.formAreaNode.destroy();
+                if (this.explorer && this.explorer.view)this.explorer.view.reload();
+                this.app.notice( MWF.xApplication.Attendance.LP.processSuccess, "success");
+            }
+            //    this.app.processConfig();
+        }.bind(this));
+    }
+});
+
+
+// MWF.xApplication.Attendance.MyAppeal.Appeal = new Class({
+//     Extends: MWF.widget.Common,
+//     initialize: function( explorer, data ){
+//         this.explorer = explorer;
+//         this.app = explorer.app;
+//         this.data = data || {};
+//         //this.app.restActions.getAppeal(this.data.detailId, function(json){
+//         //    this.data = json.data
+//         //}.bind(this),null,false)
+//         //alert(JSON.stringify(this.data))
+//         this.css = this.explorer.css;
+//
+//         this.load();
+//     },
+//     load: function(){
+//         this.app.restActions.getDetail(this.data.detailId, function(json){
+//             this.data.onDutyTime = json.data.onDutyTime;
+//             this.data.offDutyTime = json.data.offDutyTime;
+//         }.bind(this),null,false)
+//     },
+//
+//     open: function(e){
+//         this.isNew = false;
+//         this.isEdited = false;
+//         this._open();
+//     },
+//     create: function(){
+//         this.isNew = true;
+//         this._open();
+//     },
+//     edit: function(){
+//         this.isEdited = true;
+//         this._open();
+//     },
+//     _open : function(){
+//         this.createMarkNode = new Element("div", {
+//             "styles": this.css.createMarkNode,
+//             "events": {
+//                 "mouseover": function(e){e.stopPropagation();},
+//                 "mouseout": function(e){e.stopPropagation();}
+//             }
+//         }).inject(this.app.content, "after");
+//
+//         this.createAreaNode = new Element("div", {
+//             "styles": this.css.createAreaNode
+//         });
+//
+//         this.createNode();
+//
+//         this.createAreaNode.inject(this.createMarkNode, "after");
+//         this.createAreaNode.fade("in");
+//
+//         this.setCreateNodeSize();
+//         this.setCreateNodeSizeFun = this.setCreateNodeSize.bind(this);
+//         this.addEvent("resize", this.setCreateNodeSizeFun);
+//     },
+//     createNode: function(){
+//         var _self = this;
+//         var lp = MWF.xApplication.Attendance.LP;
+//
+//         this.createNode = new Element("div", {
+//             "styles": this.css.createNode
+//         }).inject(this.createAreaNode);
+//
+//         //
+//         //this.createIconNode = new Element("div", {
+//         //    "styles": this.isNew ? this.css.createNewNode : this.css.createIconNode
+//         //}).inject(this.createNode);
+//
+//         this.createContainerNode = new Element("div", {
+//             "styles": this.css.createContainerNode
+//         }).inject(this.createNode);
+//
+//
+//         this.setScrollBar( this.createContainerNode );
+//
+//
+//         this.createFormNode = new Element("div", {
+//             "styles": this.css.createFormNode
+//         }).inject(this.createContainerNode);
+//
+//         this.createTableContainer = new Element("div", {
+//             "styles": this.css.createTableContainer
+//         }).inject(this.createFormNode);
+//
+//         this.createTableArea = new Element("div", {
+//             "styles": this.css.createTableArea
+//         }).inject(this.createTableContainer);
+//
+//
+//         var d = this.data;
+//         var appealStatus = lp.draft;
+//         if (d.status == 0 ) {
+//             appealStatus = lp.todo;
+//         } else if (d.status == 1) {
+//             appealStatus = lp.approve
+//         } else if (d.status == -1) {
+//             appealStatus = lp.deny
+//         }
+//         this.data.appealStatusShow = appealStatus;
+// debugger
+//         var html = "<table width='100%' bordr='0' cellpadding='5' cellspacing='0' styles='formTable'>"+
+//             "<tr><td colspan='4' styles='formTableHead'>"+lp.apealApplyForm+"</td></tr>" +
+//             "<tr><td styles='formTableTitle'>"+lp.employeeName+"</td>"+
+//             "    <td styles='formTableValue'>"+this.data.empName.split("@")[0]+"</td>" +
+//             "    <td styles='formTableTitle' lable='recordDateString'></td>"+
+//             "    <td styles='formTableValue' item='recordDateString'></td></tr>" +
+//             "<tr><td styles='formTableTitle' lable='onDutyTime'></td>"+
+//             "    <td styles='formTableValue' item='onDutyTime'></td>" +
+//             "    <td styles='formTableTitle' lable='offDutyTime'></td>"+
+//             "    <td styles='formTableValue' item='offDutyTime'></td></tr>" +
+//             "<tr><td styles='formTableTitle' lable='appealStatusShow'></td>"+
+//             "    <td styles='formTableValue' item='appealStatusShow'  colspan='3'></td></tr>" +
+//             "<tr><td styles='formTableTitle' lable='appealReason'></td>"+
+//             "    <td styles='formTableValue' item='appealReason'></td>" +
+//             "   <td styles='formTableTitle' lable='processPerson1Show'></td>"+
+//             "    <td styles='formTableValue' item='processPerson1Show'></td></tr>" +
+//             "<tr contain='selfHolidayType'><td styles='formTableTitle' lable='selfHolidayType'></td>"+
+//             "    <td styles='formTableValue' item='selfHolidayType' colspan='3'></td></tr>" +
+//             "<tr contain='address'><td styles='formTableTitle' lable='address'></td>"+
+//             "    <td styles='formTableValue' item='address' colspan='3'></td></tr>" +
+//             "<tr contain='startTime'><td styles='formTableTitle' lable='startTime'></td>"+
+//             "    <td styles='formTableValue' item='startTime' colspan='3'></td></tr>" +
+//             "<tr contain='endTime'><td styles='formTableTitle' lable='endTime'></td>"+
+//             "    <td styles='formTableValue' item='endTime' colspan='3'></td></tr>" +
+//             "<tr contain='appealDescription'><td styles='formTableTitle' lable='appealDescription'></td>"+
+//             "    <td styles='formTableValue' item='appealDescription' colspan='3'></td></tr>" +
+//             /*"<tr contain='opinion1'><td styles='formTableTitle' lable='opinion1'></td>"+
+//             "    <td styles='formTableValue' item='opinion1' colspan='3'></td></tr>" +*/
+//             "</table>";
+//         this.createTableArea.set("html",html);
+//
+//         this.document = new MForm( this.createTableArea, this.data, {
+//             style : "popup",
+//             isEdited : this.isEdited || this.isNew,
+//             itemTemplate : {
+//                 recordDateString : { text:lp.recordDate,  type : "innertext"},
+//                 onDutyTime : { text:lp.onDutyTime,  type : "innertext"},
+//                 offDutyTime : { text:lp.offDutyTime,  type : "innertext"},
+//                 statusShow : {  text:lp.attendanceStatus, type : "innertext" },
+//                 appealStatusShow : { text:lp.appealStatus, type : "innertext"},
+//                 processPerson1Show : {text:lp.auditor, type:"innertext", value : this.data.appealAuditInfo?this.data.appealAuditInfo.currentProcessor.split("@")[0] :""},
+//                 appealReason : {
+//                     notEmpty : true,
+//                     text: lp.appealReason,
+//                     type : "select",
+//                     selectValue : lp.appealReasonSelectText,
+//                     event : { change : function(mdi){
+//                             _self.switchFieldByAppealReason(mdi.getValue());
+//                         }}
+//                 },
+//                 address : { text: lp.address },
+//                 selfHolidayType : {
+//                     text: lp.leaveType,
+//                     type : "select",
+//                     selectValue : lp.leaveTypeSelectText
+//                 },
+//                 startTime : {  text: lp.startTime, tType : "datetime" },
+//                 endTime : {  text:lp.endTime, tType : "datetime" },
+//                 appealDescription : { text: lp.appealDescriptoin }
+//                 //opinion1 : { text :"审批意见" }
+//             }
+//         }, this.app,this.css);
+//         this.document.load();
+//         _self.switchFieldByAppealReason(this.data.appealReason);
+//
+//
+//         //createFormNode.set("html", html);
+//
+//         //this.setScrollBar(this.createTableContainer)
+//
+//
+//         this.cancelActionNode = new Element("div", {
+//             "styles": this.css.createCancelActionNode,
+//             "text": lp.close
+//         }).inject(this.createFormNode);
+//
+//
+//         this.cancelActionNode.addEvent("click", function(e){
+//             this.cancelCreate(e);
+//         }.bind(this));
+//
+//         if( this.isNew || this.isEdited){
+//             this.denyActionNode = new Element("div", {
+//                 "styles": this.css.createDenyActionNode,
+//                 "text": lp.disagree
+//             }).inject(this.createFormNode);
+//             this.createOkActionNode = new Element("div", {
+//                 "styles": this.css.createOkActionNode,
+//                 "text": lp.agree
+//             }).inject(this.createFormNode);
+//
+//             this.denyActionNode.addEvent("click", function(e){
+//                 this.deny(e);
+//             }.bind(this));
+//             this.createOkActionNode.addEvent("click", function(e){
+//                 this.okCreate(e);
+//             }.bind(this));
+//         }
+//
+//     },
+//     switchFieldByAppealReason : function( ar ){
+//         var lp = MWF.xApplication.Attendance.LP;
+//         var tempField = ["selfHolidayType","startTime","endTime","address","appealDescription"];
+//         var showField = [];
+//         if( ar == lp.temporaryLeave ){
+//             showField = ["selfHolidayType","startTime","endTime"];
+//         }else if( ar == lp.out ){
+//             showField = ["address","startTime","endTime"];
+//         }else if( ar == lp.businessTrip ){
+//             showField = ["address","startTime","endTime","appealDescription"];
+//         }else if( ar == lp.other ){
+//             showField = ["appealDescription"];
+//         }
+//         tempField.each( function( f ){
+//             this.createTableArea.getElement("[contain='"+f+"']").setStyle("display", showField.contains(f) ? "" : "none" );
+//             if( this.isNew || this.isEdited )this.document.items[f].options.notEmpty = (showField.contains(f) ? true : false )
+//         }.bind(this))
+//     },
+//     setCreateNodeSize: function(){
+//         var size = this.app.node.getSize();
+//         var allSize = this.app.content.getSize();
+//
+//         var height = "560";
+//         var width = "800";
+//
+//         this.createAreaNode.setStyles({
+//             "width": ""+size.x+"px",
+//             "height": ""+size.y+"px"
+//         });
+//         var hY = height;
+//         var mY = (size.y-height)/2;
+//         this.createNode.setStyles({
+//             "height": ""+hY+"px",
+//             "margin-top": ""+mY+"px",
+//             "width" : ""+width+"px"
+//         });
+//
+//         this.createContainerNode.setStyles({
+//             "height": ""+hY+"px"
+//         });
+//
+//         var iconSize = this.createIconNode ? this.createIconNode.getSize() : {x:0,y:0};
+//         var formMargin = hY-iconSize.y-60;
+//         this.createFormNode.setStyles({
+//             "height": ""+formMargin+"px",
+//             "margin-top": ""+60+"px"
+//         });
+//     },
+//     cancelCreate: function(e){
+//         this.createMarkNode.destroy();
+//         this.createAreaNode.destroy();
+//         delete this;
+//     },
+//     deny : function(e){
+//         var data = { 'ids' : [this.data.id], 'status':'-1', 'opinion1': this.opinion1.getValue() };
+//         if (data.opinion1 ){
+//             this.process( data );
+//         }else{
+//             this.app.notice( MWF.xApplication.Attendance.LP.inputIdeaNotice, "error");
+//         }
+//     },
+//     okCreate: function(e){
+//         var data = { 'ids' : [this.data.id], 'status':'1', 'opinion1': this.opinion1.getValue() };
+//         this.process( data );
+//     },
+//     process: function( data ){
+//         this.app.restActions.processAppeal( data, function(json){
+//             if( json.type == "ERROR" ){
+//                 this.app.notice( json.message  , "error");
+//             }else{
+//                 this.createMarkNode.destroy();
+//                 this.createAreaNode.destroy();
+//                 if(this.explorer.view)this.explorer.view.reload();
+//                 this.app.notice( MWF.xApplication.Attendance.LP.processSuccess, "success");
+//             }
+//             //    this.app.processConfig();
+//         }.bind(this));
+//     }
+// });
+

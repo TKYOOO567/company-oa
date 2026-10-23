@@ -1,0 +1,178 @@
+<div>
+    <div title="{{$.lp.base}}" class="MWFTab">
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableTitle">{{$.lp.id}}:</td>
+                <td class="editTableValue">text{$.id}</td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.createTime}}:</td>
+                <td class="editTableValue">text{$.createTime}</td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.type}}:</td>
+                <td class="editTableValue">text{$.type}</td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.name}}:</td>
+                <td class="editTableValue"><input type="text" name="name" jsondata="name" value="text{$.name}" class="editTableInput"/></td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.alias}}:</td>
+                <td class="editTableValue"><input type="text" name="alias" jsondata="alias" value="text{$.alias}" class="editTableInput"/></td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.description}}:</td>
+                <td class="editTableValue"><textarea name="description" jsondata="description" class="editTableTextarea">text{$.description}</textarea></td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.form}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFFormSelect" name="form"></div>
+                </td>
+            </tr>
+        </table>
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableValue"  colspan="2"><b>{{$.lp.allowReroute}}: </b><input class="editTableRadio" name="allowReroute" text{($.allowReroute)?'checked':''} type="radio" value="true"/>{{$.lp.yes}}
+                    <input class="editTableRadio" name="allowReroute" text{(!$.allowReroute)?'checked':''} type="radio" value="false"/>{{$.lp.no}}</td>
+            </tr>
+            <tr>
+                <td class="editTableValue"  colspan="2"><b>{{$.lp.allowRerouteTo}}: </b><input class="editTableRadio" name="allowRerouteTo" text{($.allowRerouteTo)?'checked':''} type="radio" value="true"/>{{$.lp.yes}}
+                    <input class="editTeditTableRadioableInput" class="editTableInput" name="allowRerouteTo" text{(!$.allowRerouteTo)?'checked':''} type="radio" value="false"/>{{$.lp.no}}</td>
+            </tr>
+        </table>
+        <div class="MWFMaplist" name="customData" title="{{$.lp.customData}}" data-o2-advanced="yes"></div>
+    </div>
+
+    <div title="{{$.lp.service}}" class="MWFTab">
+        <div style="background-color: #f1f1f1; height: 20px; padding: 5px; line-height: 20px"><b>{{$.lp.serviceResponseScript}}</b></div>
+        <div class="MWFScript" name="script"></div>
+        <div class="MWFScriptText" name="scriptText" data-o2-api="../api/server.module_request.html#server.module_request"></div><hr/>
+        <div style="padding: 5px; margin-top: 5px; line-height:20px; border-top: 1px solid #cccccc">
+            <div style="line-height: 24px; padding: 2px 5px;">{{$.lp.responseInfo}}</div>
+            <a href="../api/server.module_request.html#server.module_request" target="_blank">{{$.lp.apiDoc}}</a>
+        </div>
+    </div>
+    <div title="{{$.lp.event}}"  class="MWFTab" data-o2-advanced="yes">
+        <div onclick="var node = this.getNext(); if (node.getStyle('display')=='none'){node.setStyle('display', 'block');}else{node.setStyle('display', 'none');}" style="cursor: pointer; line-height: 28px; height: 30px; font-weight: bold; background-color: #EEEEEE;">
+            <div style="height: 30px; width: 30px; float: left; background: url(../x_component_process_ProcessDesigner/$Process/text{($.beforeArriveScript || $.beforeArriveScriptText) ? "event_code" : "event"}.png) no-repeat center center;"></div>
+        <div style="margin-left: 20px; padding: 0px 5px;">{{$.lp.beforeWorkArrive}}</div>
+    </div>
+
+    <div style="display: none; overflow:hidden; border-left: 10px solid #EEEEEE; border-bottom: 10px solid #EEEEEE;">
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableTitle">{{$.lp.beforeArriveActivity}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFScript" name="beforeArriveScript"></div>
+                </td>
+            </tr>
+        </table>
+        <div class="MWFScriptText" name="beforeArriveScriptText"></div><hr />
+    </div>
+    <div style="line-height: 20px; height: 46px; border-bottom: 1px solid #CCCCCC; border-top: 1px solid #CCCCCC; background-color:#f6f6f6;">
+        <div style="height: 46px; width: 30px; float: left; background: url(../x_component_process_ProcessDesigner/$Process/down.png) no-repeat center center;"></div>
+        <div style="margin-left: 20px; padding: 3px 10px; text-align: center; color: #666666;">{{$.lp.eventInfo2}}</div>
+    </div>
+
+    <div onclick="var node = this.getNext(); if (node.getStyle('display')=='none'){node.setStyle('display', 'block');}else{node.setStyle('display', 'none');}" style="cursor: pointer; line-height: 28px; height: 30px; font-weight: bold; background-color: #EEEEEE;">
+        <div style="height: 30px; width: 30px; float: left; background: url(../x_component_process_ProcessDesigner/$Process/text{($.afterArriveScript || $.afterArriveScriptText) ? "event_code" : "event"}.png) no-repeat center center;"></div>
+    <div style="margin-left: 20px; padding: 0px 5px;">{{$.lp.afterArriveActivity}}</div>
+</div>
+<div style="display: none; overflow:hidden; border-left: 10px solid #EEEEEE; border-bottom: 10px solid #EEEEEE;">
+    <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+        <tr>
+            <td class="editTableTitle">{{$.lp.afterArriveActivity}}:</td>
+            <td class="editTableValue">
+                <div class="MWFScript" name="afterArriveScript"></div>
+            </td>
+        </tr>
+    </table>
+    <div class="MWFScriptText" name="afterArriveScriptText"></div><hr />
+</div>
+
+<div style="line-height: 20px; height: 26px; border-bottom: 1px solid #CCCCCC; border-top: 1px solid #CCCCCC">
+    <div style="height: 26px; background: url(../x_component_process_ProcessDesigner/$Process/down16.png) no-repeat center center;"></div>
+</div>
+
+<div onclick="var node = this.getNext(); if (node.getStyle('display')=='none'){node.setStyle('display', 'block');}else{node.setStyle('display', 'none');}" style="cursor: pointer; line-height: 28px; height: 30px; font-weight: bold; background-color: #EEEEEE;">
+    <div style="height: 30px; width: 30px; float: left; background: url(../x_component_process_ProcessDesigner/$Process/text{($.beforeExecuteScript || $.beforeExecuteScriptText) ? "event_code" : "event"}.png) no-repeat center center;"></div>
+<div style="margin-left: 20px; padding: 0px 5px;">{{$.lp.beforeExecute}}</div>
+</div>
+<div style="display: none; overflow:hidden; border-left: 10px solid #EEEEEE; border-bottom: 10px solid #EEEEEE;">
+    <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+        <tr>
+            <td class="editTableTitle">{{$.lp.beforeExecute}}:</td>
+            <td class="editTableValue">
+                <div class="MWFScript" name="beforeExecuteScript"></div>
+            </td>
+        </tr>
+    </table>
+    <div class="MWFScriptText" name="beforeExecuteScriptText"></div><hr />
+</div>
+
+<div style="line-height: 20px; height: 46px; border-bottom: 1px solid #CCCCCC; border-top: 1px solid #CCCCCC; background-color:#f6f6f6;">
+    <div style="height: 46px; width: 30px; float: left; background: url(../x_component_process_ProcessDesigner/$Process/down.png) no-repeat center center;"></div>
+    <div style="margin-left: 20px; padding: 3px 10px; text-align: center; color: #666666;">{{$.lp.eventInfo3}}</div>
+</div>
+
+<div onclick="var node = this.getNext(); if (node.getStyle('display')=='none'){node.setStyle('display', 'block');}else{node.setStyle('display', 'none');}" style="cursor: pointer; line-height: 28px; height: 30px; font-weight: bold; background-color: #EEEEEE;">
+    <div style="height: 30px; width: 30px; float: left; background: url(../x_component_process_ProcessDesigner/$Process/text{($.afterExecuteScript || $.afterExecuteScriptText) ? "event_code" : "event"}.png) no-repeat center center;"></div>
+<div style="margin-left: 20px; padding: 0px 5px;">{{$.lp.afterExecute}}</div>
+</div>
+<div style="display: none; overflow:hidden; border-left: 10px solid #EEEEEE; border-bottom: 10px solid #EEEEEE;">
+    <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+        <tr>
+            <td class="editTableTitle">{{$.lp.afterExecute}}:</td>
+            <td class="editTableValue">
+                <div class="MWFScript" name="afterExecuteScript"></div>
+            </td>
+        </tr>
+    </table>
+    <div class="MWFScriptText" name="afterExecuteScriptText"></div><hr />
+</div>
+
+<div style="line-height: 20px; height: 26px; border-bottom: 1px solid #CCCCCC; border-top: 1px solid #CCCCCC">
+    <div style="height: 26px; background: url(../x_component_process_ProcessDesigner/$Process/down16.png) no-repeat center center;"></div>
+</div>
+
+<div onclick="var node = this.getNext(); if (node.getStyle('display')=='none'){node.setStyle('display', 'block');}else{node.setStyle('display', 'none');}" style="cursor: pointer; line-height: 28px; height: 30px; font-weight: bold; background-color: #EEEEEE;">
+    <div style="height: 30px; width: 30px; float: left; background: url(../x_component_process_ProcessDesigner/$Process/text{($.beforeInquireScript || $.beforeInquireScriptText) ? "event_code" : "event"}.png) no-repeat center center;"></div>
+<div style="margin-left: 20px; padding: 0px 5px;">{{$.lp.beforeInquire}}</div>
+</div>
+<div style="display: none; overflow:hidden; border-left: 10px solid #EEEEEE; border-bottom: 10px solid #EEEEEE;">
+    <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+        <tr>
+            <td class="editTableTitle">{{$.lp.beforeInquire}}:</td>
+            <td class="editTableValue">
+                <div class="MWFScript" name="beforeInquireScript"></div>
+            </td>
+        </tr>
+    </table>
+    <div class="MWFScriptText" name="beforeInquireScriptText"></div><hr />
+</div>
+
+<div style="line-height: 20px; height: 46px; border-bottom: 1px solid #CCCCCC; border-top: 1px solid #CCCCCC; background-color:#f6f6f6;">
+    <div style="height: 46px; width: 30px; float: left; background: url(../x_component_process_ProcessDesigner/$Process/down.png) no-repeat center center;"></div>
+    <div style="margin-left: 20px; padding: 3px 10px; text-align: center; color: #666666;">{{$.lp.eventInfo4}}</div>
+</div>
+
+<div onclick="var node = this.getNext(); if (node.getStyle('display')=='none'){node.setStyle('display', 'block');}else{node.setStyle('display', 'none');}" style="cursor: pointer; line-height: 28px; height: 30px; font-weight: bold; background-color: #EEEEEE;">
+    <div style="height: 30px; width: 30px; float: left; background: url(../x_component_process_ProcessDesigner/$Process/text{($.afterInquireScript || $.afterInquireScriptText) ? "event_code" : "event"}.png) no-repeat center center;"></div>
+<div style="margin-left: 20px; padding: 0px 5px;">{{$.lp.afterInquire}}</div>
+</div>
+<div style="display: none; overflow:hidden; border-left: 10px solid #EEEEEE; border-bottom: 10px solid #EEEEEE;">
+    <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+        <tr>
+            <td class="editTableTitle">{{$.lp.afterInquire}}:</td>
+            <td class="editTableValue">
+                <div class="MWFScript" name="afterInquireScript"></div>
+            </td>
+        </tr>
+    </table>
+    <div class="MWFScriptText" name="afterInquireScriptText"></div><hr />
+</div>
+
+</div>
+</div>

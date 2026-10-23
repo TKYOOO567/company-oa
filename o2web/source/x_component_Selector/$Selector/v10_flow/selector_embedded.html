@@ -1,0 +1,28 @@
+<div>
+    <div class="MWF_selector_contentNode">
+        <div class="MWF_selector_selectNode">
+            <div class="MWF_selector_selectTopNode">
+                <div class="MWF_selector_selectTopTextNode">{{$.lp.waitingSelect}}</div>
+                <div class="MWF_selector_searchInputDiv">
+                    <input class="MWF_selector_searchInput" type="text" placeholder="{{$.lp.searchDescription}}" />
+                    <div class="MWF_selector_searchCancelAction"></div>
+                </div>
+            </div>
+            <div class="MWF_selector_itemAreaScrollNode">
+                <div class="MWF_selector_itemAreaNode"></div>
+            </div>
+            <div class="MWF_selector_itemSearchAreaScrollNode">
+                <div class="MWF_selector_itemSearchAreaNode"></div>
+            </div>
+        </div>
+        <div class="MWF_selector_selectedContainerNode">
+            <div class="MWF_selector_selectedTopNode">
+                <div class="MWF_selector_selectedTopTextNode">{{$.lp.selected}}</div>
+                <div class="MWF_selector_emptySelectedNode {{if $.options.mainColorEnable}}mainColor_color{{end if}}">{{$.lp.empty}}</div>
+            </div>
+            <div class="MWF_selector_selectedScrollNode">
+                <div class="MWF_selector_selectedNode"></div>
+            </div>
+        </div>
+    </div>
+</div>

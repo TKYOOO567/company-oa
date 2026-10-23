@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../o2_core/o2.min.js"></script>
+    <script src="js/sso.min.js"></script>
+    <script>
+        o2.addReady(function(){
+            o2.JSON.get("res/config/config.json", function(config){
+                if (config.proxyCenterEnable){
+                    if (o2.typeOf(config.center)==="array"){
+                        config.center.forEach(function(c){
+                            c.port = window.location.port || 80;
+                        })
+                    }else{
+                        config.port = window.location.port || 80;
+                    }
+                }
+                if (!window.layout) window.layout = {};
+                window.layout.config = config;
+                getServiceAddress(config, function(address){
+                    var locate = window.location;
+                    var protocol = locate.protocol;
+                    var addressObj = layout.serviceAddressList["x_organization_assemble_authentication"];
+                    var defaultPort = layout.config.app_protocol==='https' ? "443" : "80";
+                    // var appPort = addressObj.port || window.location.port;
+                    // var address = protocol+"//"+(addressObj.host || window.location.hostname)+((!appPort || appPort.toString()===defaultPort) ? "" : ":"+appPort)+addressObj.context;
+
+                    var appPort = addressObj ? (addressObj.port || window.location.port) : window.location.port;
+                    var host = (addressObj && addressObj.host) ? addressObj.host : window.location.hostname;
+                    var context = addressObj ? (addressObj.context || "/x_organization_assemble_authentication") : "/x_organization_assemble_authentication";
+                    var address = protocol+"//"+host+((!appPort || appPort.toString()===defaultPort) ? "" : ":"+appPort)+context;
+
+
+                    var uri = new URI(window.location.toString());
+                    var xtoken = uri.getData("xtoken");
+                    var client = uri.getData("client");
+                    var redirect = uri.getData("redirect");
+                    if (xtoken){
+                        var res = new Request.JSON({
+                            //url: "http://hbxa01.bf.ctc.com:20080/x_organization_assemble_authentication/jaxrs/sso",
+                            url: o2.filterUrl(address+"/jaxrs/sso"),
+                            secure: false,
+                            method: "POST",
+                            noCache: true,
+                            withCredentials: true,
+                            onSuccess: function(responseJSON, responseText){
+                                if (redirect){
+                                    window.location = redirect;
+                                }else{
+                                    window.location = "/";
+                                }
+                            }.bind(this),
+                            onFailure: function(xhr){
+                                window.location = "/";
+                            }.bind(this),
+                            onError: function(text, error){
+                                window.location = "/";
+                            }.bind(this)
+                        });
+                        res.setHeader("Content-Type", "application/json; charset=utf-8");
+                        var json = {"token": encodeURIComponent(xtoken), "client": client};
+
+                        res.send(JSON.encode(json));
+                    }else{
+                        if (redirect){
+                            window.location = redirect;
+                        }else{
+                            window.location = "/";
+                        }
+                    }
+                });
+            });
+
+        });
+    </script>
+</head>
+<body bgcolor="#faebd7" bgcolor="#ffc0cb">
+
+</body>
+</html>

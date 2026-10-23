@@ -1,0 +1,19 @@
+{
+
+  "editTableHead" : {
+    "height": "50px",
+    "line-height": "50px",
+    "text-align": "center",
+    "min-width": "80px",
+    "font-size":"20px",
+    "font-weight": "bold"
+  },
+  "editTableTitle" : {
+    "height": "30px",
+    "line-height": "30px",
+    "text-align": "left"
+  },
+  "editTableValue" : {
+    "text-align": "left"
+  }
+}

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="UTF-8">
+    <title>登录中...</title>
+    <script src="../o2_core/o2.min.js"></script>
+    <script src="js/sso.min.js"></script>
+    <script>
+        o2.addReady(function(){
+            o2.JSON.get("res/config/config.json", function(config){
+                if (config.proxyCenterEnable){
+                    if (o2.typeOf(config.center)==="array"){
+                        config.center.forEach(function(c){
+                            c.port = window.location.port || 80;
+                        })
+                    }else{
+                        config.port = window.location.port || 80;
+                    }
+                }
+                layout.config = config;
+                getServiceAddress(config, function(){
+                    var locate = window.location;
+                    var protocol = locate.protocol;
+                    var addressObj = layout.serviceAddressList["x_organization_assemble_authentication"];
+
+                    var defaultPort = layout.config.app_protocol==='https' ? "443" : "80";
+                    //var appPort = addressObj.port || window.location.port;
+                    //var address = protocol+"//"+(addressObj.host || window.location.hostname)+((!appPort || appPort.toString()===defaultPort) ? "" : ":"+appPort)+"/z_sso_control/jaxrs/sso/smplogin";
+
+                    var appPort = addressObj ? (addressObj.port || window.location.port) : window.location.port;
+                    var host = (addressObj && addressObj.host) ? addressObj.host : window.location.hostname;
+                    var context = addressObj ? (addressObj.context || "/x_organization_assemble_authentication") : "/x_organization_assemble_authentication";
+                    var address = protocol+"//"+host+((!appPort || appPort.toString()===defaultPort) ? "" : ":"+appPort)+context;
+
+                    var uri = new URI(window.location.toString());
+                    var xtoken = uri.getData("SMAP_SESSION_DATA");
+                    var appID = uri.getData("appID");
+                    var uniqueId = uri.getData("uniqueId");
+                    var flushPortalUrl = uri.getData("flushPortalUrl") || "";
+                    if( flushPortalUrl && flushPortalUrl.indexOf("%2F") === -1 ){
+                        flushPortalUrl = encodeURIComponent(flushPortalUrl);
+                    }
+                    var redirect = uri.getData("redirect");
+                    redirect = redirect + "&uniqueId=" + uniqueId + "&flushPortalUrl="+flushPortalUrl;
+
+                    var nav = uri.getData("nav");
+                    if(nav)redirect = redirect + "&nav=" + nav;
+
+                    if (xtoken){
+                        var res = new Request.JSON({
+                            url: o2.filterUrl(address+"?SMAP_SESSION_DATA="+encodeURIComponent(xtoken)+"&appID="+appID+"&date="+(new Date()).getTime()),
+                            secure: false,
+                            method: "GET",
+                            noCache: true,
+                            withCredentials: true,
+                            onSuccess: function(responseJSON, responseText){
+                                var result = responseJSON.data.value;
+								if(result){
+									if (redirect){
+                                        window.location = redirect;
+									}else{
+										window.location = "/";
+									}
+								}else{
+									$("ssoerror").set("html","单点失败！"+responseJSON.message);
+									$("ssoerror").show();
+								}
+                            }.bind(this),
+                            onFailure: function(xhr){
+                                $("ssoerror").show();
+                            }.bind(this),
+                            onError: function(text, error){
+                                $("ssoerror").show();
+                            }.bind(this)
+                        });
+
+                        res.send();
+                    }else{
+						$("ssoerror").set("html","单点失败，认证token为空！");
+                        $("ssoerror").show();
+                    }
+                });
+            });
+
+        });
+    </script>
+</head>
+<body style="background: rgb(239, 239, 244);">
+<div id="ssoerror" style="text-align:center;display:none;">单点失败，请联系管理员！</div>
+</body>
+</html>

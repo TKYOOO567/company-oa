@@ -1,0 +1,103 @@
+MWF.xApplication.process = MWF.xApplication.process || {};
+MWF.xApplication.process.FormDesigner = MWF.xApplication.process.FormDesigner || {};
+MWF.xDesktop.requireApp("process.FormDesigner", "lp."+MWF.language, null, false);
+MWF.xApplication.cms.FormDesigner.LP = Object.merge( {}, MWF.xApplication.process.FormDesigner.LP, {
+    "selectApplication" : "选择应用",
+    "formType": {
+        "empty": "空白表单",
+        "publishEdit": "发布类编辑表单",
+        "publishRead": "发布类阅读表单",
+        "publishEditTidy": "发布类编辑表单(简洁)",
+        "publishReadTidy": "发布类阅读表单(简洁)",
+        "publishEditGreen": "发布类编辑表单(绿色)",
+        "publishReadGreen": "发布类阅读表单(绿色)",
+        "dataInput": "数据录入类表单",
+        "dataInputTidy": "数据录入类表单(简洁)"
+    },
+    "validation" : {
+        "publish" : "发布时"
+    },
+    "modules": {
+        "reader": "读者",
+        "commend": "点赞",
+        "author": "作者",
+        "log": "阅读记录",
+        "comment": "评论",
+        "logCommend" : "点赞记录",
+        "group_cms": "内容管理组件"
+    },
+    "formStyle":{
+        "noneStyle": "空样式",
+        "defaultStyle": "传统样式",
+        "redSimple": "红色简洁",
+        "blueSimple": "蓝色简洁",
+        "greenFlat": "绿色扁平",
+        "lightBlue": "淡蓝样式",
+        "defaultMobileStyle": "手机样式",
+        "banner": "横幅",
+        "title": "标题",
+        "sectionTitle": "区段标题",
+        "section": "区段",
+        "cmcc": "集团样式",
+        "blueFlat": "蓝白扁平"
+    },
+    "propertyTemplate": {
+        "setPopular": "设置热点操作",
+
+        "commentPerPage": "每页评论数",
+        "tiao": "条",
+        "allowModifyComment": "发表后允许修改",
+        "allowComment": "允许发表评论",
+        "editor": "编辑器",
+        "editorTitle": "CKEditor Config 脚本",
+        "editorConfigNote": "返回CKEditor的Config对象，用于编辑器初始化",
+        "editorConfigLinkNote": "更多属性帮助请查看",
+
+        "table": "表格",
+        "text": "文本",
+        "format": "格式",
+
+        "validationSave": "保存校验",
+        "validationPublish": "发布校验",
+
+        "notice" : "消息",
+        "noticeInfo": "注：消息发送的总开关在分类配置中设置。",
+        "noticeRange": "范围",
+        "noticeByReader": "根据阅读范围",
+        "noticeByCustom": "自定义",
+        "notifyCreatePerson": "通知创建人",
+        "blankToAllNotify": "读者（发布范围）为空时通知阅读范围",
+        "blankNotToAllNotify": "读者（发布范围）为空时不通知",
+        "specificValue": "指定",
+        "formField": "表单字段",
+
+        "draft": "草稿",
+        "published": "已发布",
+    },
+    "actionBar": {
+        "close":"关闭",
+        "closeTitle": "关闭文档",
+        "edit": "编辑",
+        "editTitle": "编辑文档",
+        "save": "保存",
+        "saveTitle": "保存文档",
+        "publish": "发布",
+        "publishTitle": "发布文档",
+        "publishDelayed": "定时发布",
+        "publishDelayedTitle": "定时发布文档",
+        "saveDraft": "保存草稿",
+        "saveDraftTitle": "保存草稿",
+        "popular": "设置热点",
+        "popularTitle": "设置热点",
+        "delete": "删除",
+        "deleteTitle": "删除文档",
+        "print": "打印",
+        "printTitle": "打印文档",
+        "setTop": "置顶",
+        "setTopTitle": "对文档置顶",
+        "cancelTop": "取消置顶",
+        "cancelTopTitle": "取消对文档的置顶",
+        "downloadAll": "一键下载",
+        "downloadAllTitle": "一键下载"
+    }
+});

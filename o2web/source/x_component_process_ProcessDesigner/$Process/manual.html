@@ -1,0 +1,702 @@
+<div>
+    <div title="{{$.lp.base}}" class="MWFTab">
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableTitle">{{$.lp.id}}:</td>
+                <td class="editTableValue">text{$.id}</td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.createTime}}:</td>
+                <td class="editTableValue">text{$.createTime}</td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.name}}:</td>
+                <td class="editTableValue"><input type="text" name="name" value="text{$.name}" class="editTableInput"/></td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.alias}}:</td>
+                <td class="editTableValue"><input type="text" name="alias" value="text{$.alias}" class="editTableInput"/></td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.description}}:</td>
+                <td class="editTableValue"><textarea name="description" class="editTableTextarea">text{$.description}</textarea></td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.processType}}:</td>
+                <td class="editTableValue">
+                    <input title="{{$.lp.oneProcess}}" class="editTableRadio" name="manualMode" text{($.manualMode=='single')?'checked':''} type="radio" value="single"/>{{$.lp.single}}
+                    <input title="{{$.lp.sameTime}}" class="editTableRadio" name="manualMode" text{($.manualMode=='parallel')?'checked':''} type="radio" value="parallel"/>{{$.lp.parallel}}
+                    <input title="{{$.lp.queueInfo}}" class="editTableRadio" name="manualMode" text{($.manualMode=='queue')?'checked':''} type="radio" value="queue"/>串行
+                    <input title="{{$.lp.grabInfo}}" class="editTableRadio" name="manualMode" text{($.manualMode=='grab')?'checked':''} type="radio" value="grab"/>{{$.lp.grab}}
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.form}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFFormSelect" name="form"></div></td>
+            </tr>
+        </table>
+
+        <div data-o2-advanced="yes">
+            <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                <tr>
+                    <td class="editTableValue"  colspan="2"><b>{{$.lp.readForUntreated}}: </b>
+                        <input class="editTableRadio" name="manualUncompletedTaskToRead" text{($.manualUncompletedTaskToRead)?'checked':''} type="radio" value="true"/>{{$.lp.yes}}
+                        <input class="editTableRadio" name="manualUncompletedTaskToRead" text{(!$.manualUncompletedTaskToRead)?'checked':''} type="radio" value="false"/>{{$.lp.no}}</td>
+                </tr>
+                <tr>
+					<td class="editTableValue" colspan="2"><b>{{$.lp.mergeTask}}: </b>
+                        <input class="editTableRadio" name="manualMergeSameJobActivity" text{($.manualMergeSameJobActivity)?'checked':''} type="radio" value="true"/>{{$.lp.yes}}
+                        <input class="editTableRadio" name="manualMergeSameJobActivity" text{(!$.manualMergeSameJobActivity)?'checked':''} type="radio" value="false"/>{{$.lp.no}}
+                        <div style="color: #999999">{{$.lp.mergeTaskInfo}}</div>
+                    </td>
+                </tr>
+
+				<tr>
+					<td class="editTableValue" colspan="2"><b>{{$.lp.mergeTaskProcess}}: </b>
+						<input class="editTableRadio" name="processingTaskOnceUnderSamePerson" text{($.processingTaskOnceUnderSamePerson!==false)?'checked':''} type="radio" value="true"/>{{$.lp.yes}}
+						<input class="editTableRadio" name="processingTaskOnceUnderSamePerson" text{($.processingTaskOnceUnderSamePerson===false)?'checked':''} type="radio" value="false"/>{{$.lp.no}}
+						<div style="color: #999999">{{$.lp.mergeTaskProcessInfo}}</div>
+					</td>
+				</tr>
+
+                <tr>
+                    <td class="editTableTitle">{{$.lp.activityGroup}}:</td>
+                    <td class="editTableValue"><input type="text" name="group" value="text{$.group}" class="editTableInput"/></td>
+                </tr>
+                <tr>
+                    <td class="editTableTitle">{{$.lp.opinionGroup}}:</td>
+                    <td class="editTableValue"><input type="text" name="opinionGroup" value="text{$.opinionGroup}" class="editTableInput"/></td>
+                </tr>
+            </table>
+            <div class="MWFMaplist" name="customData" title="{{$.lp.customData}}"></div>
+
+        </div>
+    </div>
+
+
+    <div title="{{$.lp.person}}"  class="MWFTab">
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableHeadTitle" colspan="2">{{$.lp.taskPerson}}</td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.identity}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFPersonIdentity" name="taskIdentityList"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.unit}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFPersonUnit" name="taskUnitList"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.group}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFPersonGroup" name="taskGroupList"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.duty}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFDutySelector" name="taskDuty"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.processData}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFFormFieldPerson" name="taskDataPathList"></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="editTableTitle">{{$.lp.participant}}:</td>
+                <td class="editTableValue">
+                    <label><input class="editTableRadio" name="taskParticipant.type" text{(!$.taskParticipant || !$.taskParticipant.type)?'checked':''} type="radio" value=""
+                        onclick="if (this.checked){ var nodes = this.getParent('td').getChildren('div'); nodes.setStyle('display', 'none'); }"/>{{$.lp.participant_none}}</label>
+                    <label><input class="editTableRadio" name="taskParticipant.type" text{($.taskParticipant && $.taskParticipant.type=='creator')?'checked':''} type="radio" value="creator"
+                           onclick="if (this.checked){ var nodes = this.getParent('td').getChildren('div'); nodes.setStyle('display', 'none'); nodes[0].setStyle('display', 'block'); }"/>{{$.lp.participant_creator}}</label>
+                    <label><input class="editTableRadio" name="taskParticipant.type" text{($.taskParticipant && $.taskParticipant.type=='maintenance')?'checked':''} type="radio" value="maintenance"
+                           onclick="if (this.checked){ var nodes = this.getParent('td').getChildren('div'); nodes.setStyle('display', 'none'); nodes[1].setStyle('display', 'block'); }"/>{{$.lp.participant_maintenance}}</label>
+                    <label><input class="editTableRadio" name="taskParticipant.type" text{($.taskParticipant && $.taskParticipant.type=='activity')?'checked':''} type="radio" value="activity"
+                                  onclick="if (this.checked){ var nodes = this.getParent('td').getChildren('div'); nodes.setStyle('display', 'none'); nodes[2].setStyle('display', 'block'); }"/>{{$.lp.participant_activity}}</label>
+
+                    <div style="color: #999999; font-size: 12px; display: text{($.taskParticipant && $.taskParticipant.type=='creator')?'block':'none'}">{{$.lp.participant_creator_info}}</div>
+                    <div style="color: #999999; font-size: 12px; display: text{($.taskParticipant && $.taskParticipant.type=='maintenance')?'block':'none'}">{{$.lp.participant_maintenance_info}}</div>
+                    <div style="display: text{($.taskParticipant && $.taskParticipant.type=='activity')?'block':'none'}">
+                        <div style="color: #999999; font-size: 12px;">{{$.lp.participant_activity_info}}</div>
+                        <div class="MWFActivityParticipant"></div>
+                    </div>
+
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.script}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFScript" name="taskScript"></div>
+                </td>
+            </tr>
+        </table>
+        <div class="MWFScriptText" name="taskScriptText"></div>
+        <hr />
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableHeadTitle" colspan="2">{{$.lp.reader}}</td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.readerId}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFPersonIdentity" name="readIdentityList" type="identity"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.unit}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFPersonUnit" name="readUnitList"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.readGroup}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFPersonGroup" name="readGroupList"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.duty}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFDutySelector" name="readDuty"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.processData}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFFormFieldPerson" name="readDataPathList"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.script}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFScript" name="readScript"></div>
+                </td>
+            </tr>
+        </table>
+        <div class="MWFScriptText" name="readScriptText"></div>
+        <hr />
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableHeadTitle" colspan="2">{{$.lp.reviewer}}</td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.reviewerId}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFPersonIdentity" name="reviewIdentityList" type="identity"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.unit}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFPersonUnit" name="reviewUnitList"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.reviewGroup}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFPersonGroup" name="reviewGroupList"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.duty}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFDutySelector" name="reviewDuty"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.processData}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFFormFieldPerson" name="reviewDataPathList"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.script}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFScript" name="reviewScript"></div>
+                </td>
+            </tr>
+        </table>
+        <div class="MWFScriptText" name="reviewScriptText"></div>
+    </div>
+
+    <div title="{{$.lp.aging}}"  class="MWFTab" data-o2-advanced="yes">
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableTitle">{{$.lp.processTimeLimit}}:</td>
+                <td class="editTableValue">
+                    <input class="editTableRadio" onclick="if (this.checked){ $('text{$.id}taskExpireTypeAppointEditArea').setStyle('display', 'none'); $('text{$.id}taskExpireTypeScriptEditArea').setStyle('display', 'none');}" name="taskExpireType" text{($.taskExpireType!='appoint' && $.taskExpireType!='script')?'checked':''} type="radio" value="never"/>{{$.lp.noLimit}}
+                    <input class="editTableRadio" onclick="if (this.checked){ $('text{$.id}taskExpireTypeAppointEditArea').setStyle('display', 'block'); $('text{$.id}taskExpireTypeScriptEditArea').setStyle('display', 'none');}" name="taskExpireType" text{($.taskExpireType=='appoint')?'checked':''} type="radio" value="appoint"/>{{$.lp.specifyDuration}}
+                    <input class="editTableRadio" onclick="if (this.checked){ $('text{$.id}taskExpireTypeAppointEditArea').setStyle('display', 'none'); $('text{$.id}taskExpireTypeScriptEditArea').setStyle('display', 'block');}" name="taskExpireType" text{($.taskExpireType=='script')?'checked':''} type="radio" value="script"/>{{$.lp.byScript}}
+                </td>
+            </tr>
+        </table>
+
+        <div id="text{$.id}taskExpireTypeAppointEditArea" style="display: text{($.taskExpireType=='appoint')?'block':'none'}; margin-top: 5px;">
+            <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                <tr>
+                    <td class="editTableTitle">{{$.lp.timeLimit}}:</td>
+                    <td class="editTableValue">
+                        <input type="text" name="taskExpireDay" value="text{$.taskExpireDay}" style="width: 80px; border: 1px solid #cccccc"/> {{$.lp.days}} <br/>
+                        <input type="text" name="taskExpireHour" value="text{($.taskExpireHour) ? $.taskExpireHour : 0}" style="width: 80px; border: 1px solid #cccccc"/> {{$.lp.hours}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="editTableTitle"></td>
+                    <td class="editTableValue">
+                        <input class="editTableRadio" name="taskExpireWorkTime" text{!($.taskExpireWorkTime===false)?'checked':''} type="radio" value="true"/>{{$.lp.workTimeOnly}}
+                        <input class="editTableRadio" name="taskExpireWorkTime" text{($.taskExpireWorkTime===false)?'checked':''} type="radio" value="false"/>{{$.lp.includeNoworkTime}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="text{$.id}taskExpireTypeScriptEditArea" style="display: text{($.taskExpireType=='script')?'block':'none'}; margin-top: 5px;">
+            <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                <tr>
+                    <td class="editTableTitle">{{$.lp.script}}:</td>
+                    <td class="editTableValue">
+                        <div class="MWFScript" name="taskExpireScript"></div>
+                    </td>
+                </tr>
+            </table>
+            <div class="MWFScriptText" name="taskExpireScriptText"></div><hr />
+            <div style="padding: 5px">
+                <div style="margin: 5px;">{{$.lp.returnJson}}: <br>
+                    return {hour: 3}  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>//{{$.lp.hourTimeout}}}<br>
+                    return {workHour: 5}   <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>//{{$.lp.hourWorkTimeout}}}<br>
+                    return {date: '2016-08-01 08:11:02'}    <span>&nbsp;&nbsp;</span>//{{$.lp.specifyTimeout}}}<br>
+                    {{$.lp.oneOfThree}}</div>
+                <div><a href="../api/server.module_expire.html#server.module_expire" target="_blank">{{$.lp.apiDoc}}</a></div>
+            </div>
+<!--            <div style="margin: 5px;">{{$.lp.specifyTimeoutTime}}: <br>this.expire.setDate([Date or String] date)</div>-->
+<!--            <div style="margin: 5px;">{{$.lp.setTimeoutAfterHours}}: <br>this.expire.setHour([Int] hour)</div>-->
+<!--            <div style="margin: 5px;">{{$.lp.setTimeoutAfterWorkHours}}：<br>this.expire.setWorkHour([Int] hour)</div>-->
+        </div>
+
+    </div>
+    <div title="{{$.lp.activityPower}}"  class="MWFTab">
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <!--<tr>
+                <td class="editTableValue"  colspan="2"><b>允许填写意见：</b><input class="editTableRadio" name="allowOpinion" text{($.allowOpinion)?'checked':''} type="radio" value="true"/>是
+                    <input class="editTableRadio" name="allowOpinion" text{($.allowOpinion)?'checked':''} type="radio" value="false"/>否</td>
+            </tr>-->
+            <tr>
+                <td class="editTableValue"  colspan="2"><b>{{$.lp.allowDelete}}：</b><input class="editTableRadio" name="allowDeleteWork" text{($.allowDeleteWork)?'checked':''} type="radio" value="true"/>{{$.lp.yes}}
+                    <input class="editTableRadio" name="allowDeleteWork" text{(!$.allowDeleteWork)?'checked':''} type="radio" value="false"/>{{$.lp.no}}</td>
+            </tr>
+
+            <tr>
+                <td class="editTableValue"  colspan="2"><b>{{$.lp.allowTerminate}}：</b><input class="editTableRadio" name="allowTerminate" text{($.allowTerminate)?'checked':''} type="radio" value="true"/>{{$.lp.yes}}
+                    <input class="editTableRadio" name="allowTerminate" text{(!$.allowTerminate)?'checked':''} type="radio" value="false"/>{{$.lp.no}}</td>
+            </tr>
+            <!--<tr>-->
+            <!--<td class="editTableValue"  colspan="2"><b>允许添加附件：</b><input class="editTableRadio" name="canAddAttachment" text{($.canAddAttachment)?'checked':''} type="radio" value="true"/>是-->
+            <!--<input class="editTableRadio" name="canAddAttachment" text{(!$.canAddAttachment)?'checked':''} type="radio" value="false"/>否</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+            <!--<td class="editTableValue"  colspan="2"><b>允许删除附件：</b><input class="editTableRadio" name="canDeleteAttachment" text{($.canDeleteAttachment)?'checked':''} type="radio" value="true"/>是-->
+            <!--<input class="editTableRadio" name="canDeleteAttachment" text{(!$.canDeleteAttachment)?'checked':''} type="radio" value="false"/>否</td>-->
+            <!--</tr>-->
+        </table>
+        <hr />
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableValue"  colspan="2"><b>{{$.lp.allowReroute}}: </b><input class="editTableRadio" name="allowReroute" text{($.allowReroute)?'checked':''} type="radio" value="true"/>{{$.lp.yes}}
+                    <input class="editTableRadio" name="allowReroute" text{(!$.allowReroute)?'checked':''} type="radio" value="false"/>{{$.lp.no}}</td>
+            </tr>
+            <tr>
+                <td class="editTableValue"  colspan="2"><b>{{$.lp.allowRerouteTo}}: </b><input class="editTableRadio" name="allowRerouteTo" text{($.allowRerouteTo)?'checked':''} type="radio" value="true"/>{{$.lp.yes}}
+                    <input class="editTeditTableRadioableInput" class="editTableInput" name="allowRerouteTo" text{(!$.allowRerouteTo)?'checked':''} type="radio" value="false"/>{{$.lp.no}}</td>
+            </tr>
+        </table>
+        <hr />
+		<table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+			<tr>
+				<td class="editTableValue"  colspan="2"><b>{{$.lp.allowAddTask}}:</b>
+					<input class="editTableRadio" name="allowAddTask" text{($.allowAddTask!==false)?'checked':''} type="radio" value="true"/>{{$.lp.yes}}
+					<input class="editTableRadio" name="allowAddTask" text{($.allowAddTask===false)?'checked':''} type="radio" value="false"/>{{$.lp.no}}
+				</td>
+			</tr>
+		</table>
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableValue"  colspan="2"><b>{{$.lp.allowReset}}：</b><input class="editTableRadio" name="allowReset" text{($.allowReset)?'checked':''} type="radio" value="true"/>{{$.lp.yes}}
+                    <input class="editTableRadio" name="allowReset" text{(!$.allowReset)?'checked':''} type="radio" value="false"/>{{$.lp.no}}</td>
+            </tr>
+            <tr>
+				<td class="editTableValue" colspan="2">
+					<table wdith="100%">
+						<tr>
+							<td><b>{{$.lp.resetCount}}：</b></td>
+							<td><input type="text" name="resetCount" value="text{$.resetCount}" style="width: 120px" class="editTableInput"/></td></td>
+						</tr>
+					</table>
+            </tr>
+            <tr>
+				<td class="editTableValue" colspan="2"><b>{{$.lp.resetRange}}:</b>
+                    <input class="editTableRadio" name="resetRange" text{($.resetRange=='all')?'checked':''} type="radio" value="all"
+                           onclick="if (this.checked){ $('text{$.id}resetRangeScriptTextTr').setStyle('display', 'none'); }"/>{{$.lp.everyOne}}
+                    <input class="editTableRadio" name="resetRange" text{($.resetRange=='unit')?'checked':''} type="radio" value="unit"
+                           onclick="if (this.checked){ $('text{$.id}resetRangeScriptTextTr').setStyle('display', 'none'); }"/>{{$.lp.directUnit}}
+                    <input class="editTableRadio" name="resetRange" text{($.resetRange=='topUnit')?'checked':''} type="radio" value="topUnit"
+                           onclick="if (this.checked){ $('text{$.id}resetRangeScriptTextTr').setStyle('display', 'none'); }"/>{{$.lp.topUnit}}
+                    <input class="editTableRadio" name="resetRange" text{($.resetRange=='script')?'checked':''} type="radio" value="script"
+                           onclick="if (this.checked){ $('text{$.id}resetRangeScriptTextTr').setStyle('display', ''); }"/>{{$.lp.script}}
+                </td>
+            </tr>
+            <tr id="text{$.id}resetRangeScriptTextTr" style="display: text{($.resetRange!=='script')?'none':''};">
+                <td colspan="2">
+                    <div class="MWFScriptText" name="resetRangeScriptText" data-type="web"></div>
+                </td>
+            </tr>
+        <tr>
+            <td class="editTableValue"  colspan="2"><b>{{$.lp.defaultAddTaskType}}：</b>
+                <input class="editTableRadio" name="defaultAddTaskType" text{($.defaultAddTaskType==='before')?'checked':''} type="radio" value="before"/>{{$.lp.addTaskBefore}}
+                <input class="editTableRadio" name="defaultAddTaskType" text{(!$.defaultAddTaskType || $.defaultAddTaskType==='after')?'checked':''} type="radio" value="after"/>{{$.lp.addTaskAfter}}
+            </td>
+        </tr>
+        <tr>
+            <td class="editTableValue"  colspan="2"><b>{{$.lp.defaultAddTaskMode}}：</b>
+                <input class="editTableRadio" name="defaultAddTaskMode" text{(!$.defaultAddTaskMode || $.defaultAddTaskMode==='single')?'checked':''} type="radio" value="single"/>{{$.lp.addTasKSingle}}
+                <input class="editTableRadio" name="defaultAddTaskMode" text{($.defaultAddTaskMode==='queue')?'checked':''} type="radio" value="queue"/>{{$.lp.addTasKQueue}}
+                <input class="editTableRadio" name="defaultAddTaskMode" text{($.defaultAddTaskMode==='parallel')?'checked':''} type="radio" value="parallel"/>{{$.lp.addTasKParallel}}
+            </td>
+        </tr>
+        </table>
+        <hr />
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <!--<tr>-->
+            <!--<td class="editTableValue"  colspan="2"><b>是否允许挂起：</b><input class="editTableRadio" name="canHang" text{($.canHang)?'checked':''} type="radio" value="true"/>{{$.lp.yes}}-->
+            <!--<input class="editTableRadio" name="canHang" text{(!$.canHang)?'checked':''} type="radio" value="false"/>{{$.lp.no}}</td>-->
+            <!--</tr>-->
+            <tr>
+                <td class="editTableValue"  colspan="2"><b>{{$.lp.allowRetract}}: </b><input class="editTableRadio" name="allowRetract" text{($.allowRetract)?'checked':''} type="radio" value="true"/>{{$.lp.yes}}
+                    <input class="editTableRadio" name="allowRetract" text{(!$.allowRetract)?'checked':''} type="radio" value="false"/>{{$.lp.no}}</td>
+            </tr>
+            <!--<tr>-->
+            <!--<td class="editTableValue"  colspan="2"><b>是否允许退回：</b><input class="editTableRadio" name="canGoBack" text{($.canGoBack)?'checked':''} type="radio" value="true"/>{{$.lp.yes}}-->
+            <!--<input class="editTableRadio" name="canGoBack" text{(!$.canGoBack)?'checked':''} type="radio" value="false"/>{{$.lp.no}}</td>-->
+            <!--</tr>-->
+        </table>
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableValue"  colspan="2"><b>{{$.lp.allowRapid}}: </b><input class="editTableRadio" name="allowRapid" text{($.allowRapid)?'checked':''} type="radio" value="true"/>{{$.lp.yes}}
+                    <input class="editTableRadio" name="allowRapid" text{(!$.allowRapid)?'checked':''} type="radio" value="false"/>{{$.lp.no}}</td>
+            </tr>
+        </table>
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableValue"  colspan="2"><b>{{$.lp.allowAddSplit}}：</b><input class="editTableRadio" name="allowAddSplit" text{($.allowAddSplit)?'checked':''} type="radio" value="true"/>{{$.lp.yes}}
+                    <input class="editTableRadio" name="allowAddSplit" text{(!$.allowAddSplit)?'checked':''} type="radio" value="false"/>{{$.lp.no}}</td>
+            </tr>
+        </table>
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableValue"  colspan="2"><b>{{$.lp.allowRollback}}：</b><input class="editTableRadio" name="allowRollback" text{($.allowRollback)?'checked':''} type="radio" value="true"/>{{$.lp.yes}}
+                    <input class="editTableRadio" name="allowRollback" text{(!$.allowRollback)?'checked':''} type="radio" value="false"/>{{$.lp.no}}</td>
+            </tr>
+        </table>
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableValue"  colspan="2"><b>{{$.lp.allowPress}}: </b><input class="editTableRadio" name="allowPress" text{($.allowPress)?'checked':''} type="radio" value="true"/>{{$.lp.yes}}
+                    <input class="editTableRadio" name="allowPress" text{(!$.allowPress)?'checked':''} type="radio" value="false"/>{{$.lp.no}}</td>
+            </tr>
+        </table>
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableValue"  colspan="2"><b>{{$.lp.allowPause}}: </b><input class="editTableRadio" name="allowPause" text{($.allowPause)?'checked':''} type="radio" value="true"/>{{$.lp.yes}}
+                    <input class="editTableRadio" name="allowPause" text{(!$.allowPause)?'checked':''} type="radio" value="false"/>{{$.lp.no}}</td>
+            </tr>
+        </table>
+        <hr />
+        <div style="height: 28px;line-height: 28px; background-color: #f1f1f1; font-weight: bold;text-align: center; border-bottom: 1px solid #cccccc;">{{$.lp.backConfig}}</div>
+
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableTitle">{{$.lp.allowBack}}: </td>
+                <td class="editTableValue">
+                    <label><input onclick="if (this.checked){ $('text{$.id}gobackConfigArea').setStyle('display', 'block'); }" class="editTableRadio" name="allowGoBack" text{($.allowGoBack)?'checked':''} type="radio" value="true"/>{{$.lp.yes}}</label>
+                    <label><input onclick="if (this.checked){ $('text{$.id}gobackConfigArea').setStyle('display', 'none'); }" class="editTableRadio" name="allowGoBack" text{(!$.allowGoBack)?'checked':''} type="radio" value="false"/>{{$.lp.no}}</label>
+                </td>
+            </tr>
+        </table>
+        <div id="text{$.id}gobackConfigArea" style="display: text{($.allowGoBack)?'block':'none'};">
+            <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                <tr>
+                    <td class="editTableValue"  colspan="2"><b>{{$.lp.multiTaskEnable}}: </b>
+                        <label><input class="editTableRadio" name="goBackConfig.multiTaskEnable" text{($.goBackConfig && $.goBackConfig.multiTaskEnable)?'checked':''} type="radio" value="true"/>{{$.lp.yes}}</label>
+                        <label><input class="editTableRadio" name="goBackConfig.multiTaskEnable" text{(!$.goBackConfig || !$.goBackConfig.multiTaskEnable)?'checked':''} type="radio" value="false"/>{{$.lp.no}}</label>
+<!--                        <div style="color: #999999">{{$.lp.multiTaskEnableInfo}}</div>-->
+                    </td>
+                </tr>
+                <tr>
+                    <td class="editTableTitle">{{$.lp.backWay}}: </td>
+                    <td class="editTableValue">
+                        <label><input class="editTableRadio" name="goBackConfig.way" text{(!$.goBackConfig || $.goBackConfig.way!=='jump')?'checked':''} type="radio" value="step"/>{{$.lp.backWayStep}}</label><br>
+                        <label><input class="editTableRadio" name="goBackConfig.way" text{($.goBackConfig && $.goBackConfig.way=='jump')?'checked':''} type="radio" value="jump"/>{{$.lp.backWayJump}}</label><br>
+                        <label><input class="editTableRadio" name="goBackConfig.way" text{($.goBackConfig && $.goBackConfig.way=='custom')?'checked':''} type="radio" value="custom"/>{{$.lp.backWayCustom}}</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="editTableTitle">{{$.lp.backType}}: </td>
+                    <td class="editTableValue">
+                        <label><input onclick="if (this.checked){ $('text{$.id}gobackConfigActivityArea').setStyle('display', 'none'); }" class="editTableRadio" name="goBackConfig.type" text{(!$.goBackConfig || !$.goBackConfig.type || $.goBackConfig.type==='prev')?'checked':''} type="radio" value="prev"/><b>{{$.lp.backPrev}}</b></label>
+                        <div style="color: #999999;">{{$.lp.backPrevInfo}}</div>
+                        <label><input onclick="if (this.checked){ $('text{$.id}gobackConfigActivityArea').setStyle('display', 'none'); }" class="editTableRadio" name="goBackConfig.type" text{($.goBackConfig && $.goBackConfig.type==='any')?'checked':''} type="radio" value="any"/><b>{{$.lp.backAny}}</b></label>
+                        <div style="color: #999999;}">{{$.lp.backAnyInfo}}</div>
+                        <label><input onclick="if (this.checked){ $('text{$.id}gobackConfigActivityArea').setStyle('display', 'block'); }" class="editTableRadio" name="goBackConfig.type" text{($.goBackConfig && $.goBackConfig.type==='define')?'checked':''} type="radio" value="define"/><b>{{$.lp.backDefine}}</b></label>
+                        <div style="color: #999999;">{{$.lp.backDefineInfo}}</div>
+                    </td>
+                </tr>
+            </table>
+            <div id="text{$.id}gobackConfigActivityArea" style="display: text{($.goBackConfig && $.goBackConfig.type==='define')?'block':'none'};">
+                <div style="height: 24px; line-height: 24px; background-color: #f1f1f1; font-weight: bold;text-align: center; border-bottom: 1px solid #cccccc; border-top: 1px solid #cccccc;">{{$.lp.backActivitySelectTitle}}</div>
+                <div style="color: #999999; padding: 5px; border-bottom: 1px solid #cccccc;">{{$.lp.backActivitySelectInfo}}</div>
+                <div class="gobackActivityConfig"></div>
+            </div>
+        </div>
+<!--        <div id="text{$.id}gobackDefineConfigArea" style="display: text{($.goBackConfig && $.goBackConfig.type==='define')?'block':'none'};">-->
+<!--            <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">-->
+<!--                <tr>-->
+<!--                    <td class="editTableValue"  colspan="2"><b>{{$.lp.multiTaskEnable}}: </b>-->
+<!--                        <label><input class="editTableRadio" name="multiTaskEnable" text{($.multiTaskEnable)?'checked':''} type="radio" value="true"/>{{$.lp.yes}}</label>-->
+<!--                        <label><input class="editTableRadio" name="multiTaskEnable" text{(!$.multiTaskEnable)?'checked':''} type="radio" value="false"/>{{$.lp.no}}</label>-->
+<!--                        <div style="color: #999999">{{$.lp.multiTaskEnableInfo}}</div>-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td class="editTableTitle">{{$.lp.backType}}: </td>-->
+<!--                    <td class="editTableValue">-->
+<!--                        <label><input class="editTableRadio" name="goBackConfig.type" text{(!$.goBackConfig || $.goBackConfig.type==='prev')?'checked':''} type="radio" value="prev"/><b>{{$.lp.backPrev}}</b></label>-->
+<!--                        <div style="color: #999999;">{{$.lp.backPrevInfo}}</div>-->
+<!--                        <label><input class="editTableRadio" name="goBackConfig.type" text{($.goBackConfig && $.goBackConfig.type==='any')?'checked':''} type="radio" value="any"/><b>{{$.lp.backAny}}</b></label>-->
+<!--                        <div style="color: #999999;}">{{$.lp.backAnyInfo}}</div>-->
+<!--                        <label><input class="editTableRadio" name="goBackConfig.type" text{($.goBackConfig && $.goBackConfig.type==='define')?'checked':''} type="radio" value="define"/><b>{{$.lp.backDefine}}</b></label>-->
+<!--                        <div style="color: #999999;">{{$.lp.backDefineInfo}}</div>-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--            </table>-->
+<!--        </div>-->
+
+    </div>
+
+    <div title="{{$.lp.event}}"  class="MWFTab" data-o2-advanced="yes">
+        <div onclick="var node = this.getNext(); if (node.getStyle('display')=='none'){node.setStyle('display', 'block');}else{node.setStyle('display', 'none');}" style="cursor: pointer; line-height: 28px; height: 30px; font-weight: bold; background-color: #EEEEEE;">
+            <div style="height: 30px; width: 30px; float: left; background: url(../x_component_process_ProcessDesigner/$Process/text{($.beforeArriveScript || $.beforeArriveScriptText) ? 'event_code' : 'event'}.png) no-repeat center center;"></div>
+            <div style="margin-left: 20px; padding: 0px 5px;">{{$.lp.beforeWorkArrive}}</div>
+        </div>
+        <div style="display: none; overflow:hidden; border-left: 10px solid #EEEEEE; border-bottom: 10px solid #EEEEEE;">
+            <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                <tr>
+                    <td class="editTableTitle">{{$.lp.beforeWorkArrive}}:</td>
+                    <td class="editTableValue">
+                        <div class="MWFScript" name="beforeArriveScript"></div>
+                    </td>
+                </tr>
+            </table>
+            <div class="MWFScriptText" name="beforeArriveScriptText"></div><hr />
+        </div>
+
+        <div style="line-height: 20px; height: 46px; border-bottom: 1px solid #CCCCCC; border-top: 1px solid #CCCCCC; background-color:#f6f6f6;">
+            <div style="height: 46px; width: 30px; float: left; background: url(../x_component_process_ProcessDesigner/$Process/down.png) no-repeat center center;"></div>
+            <div style="margin-left: 20px; padding: 3px 10px; text-align: center; color: #666666;">{{$.lp.eventInfo6}}</div>
+        </div>
+
+        <div onclick="var node = this.getNext(); if (node.getStyle('display')=='none'){node.setStyle('display', 'block');}else{node.setStyle('display', 'none');}" style="cursor: pointer; line-height: 28px; height: 30px; font-weight: bold; background-color: #EEEEEE;">
+            <div style="height: 30px; width: 30px; float: left; background: url(../x_component_process_ProcessDesigner/$Process/text{($.afterArriveScript || $.afterArriveScriptText) ? 'event_code' : 'event'}.png) no-repeat center center;"></div>
+            <div style="margin-left: 20px; padding: 0px 5px;">{{$.lp.afterArriveActivity}}</div>
+        </div>
+        <div style="display: none; overflow:hidden; border-left: 10px solid #EEEEEE; border-bottom: 10px solid #EEEEEE;">
+            <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                <tr>
+                    <td class="editTableTitle">{{$.lp.afterArriveActivity}}:</td>
+                    <td class="editTableValue">
+                        <div class="MWFScript" name="afterArriveScript"></div>
+                    </td>
+                </tr>
+            </table>
+            <div class="MWFScriptText" name="afterArriveScriptText"></div><hr />
+        </div>
+
+        <div style="line-height: 20px; min-height: 26px; border-bottom: 1px solid #CCCCCC; border-top: 1px solid #CCCCCC">
+            <div style="min-height: 26px; background: url(../x_component_process_ProcessDesigner/$Process/down16.png) no-repeat center center;"></div>
+        </div>
+
+        <div onclick="var node = this.getNext(); if (node.getStyle('display')=='none'){node.setStyle('display', 'block');}else{node.setStyle('display', 'none');}" style="cursor: pointer; line-height: 28px; height: 30px; font-weight: bold; background-color: #EEEEEE;">
+            <div style="height: 30px; width: 30px; float: left; background: url(../x_component_process_ProcessDesigner/$Process/text{($.beforeExecuteScript || $.beforeExecuteScriptText) ? 'event_code' : 'event'}.png) no-repeat center center;"></div>
+            <div style="margin-left: 20px; padding: 0px 5px;">{{$.lp.beforeExecute}}</div>
+        </div>
+        <div style="display: none; overflow:hidden; border-left: 10px solid #EEEEEE; border-bottom: 10px solid #EEEEEE;">
+            <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                <tr>
+                    <td class="editTableTitle">{{$.lp.beforeExecute}}:</td>
+                    <td class="editTableValue">
+                        <div class="MWFScript" name="beforeExecuteScript"></div>
+                    </td>
+                </tr>
+            </table>
+            <div class="MWFScriptText" name="beforeExecuteScriptText"></div><hr />
+        </div>
+
+        <div style="border-left: 20px solid #eeeeee;">
+            <div style="line-height: 20px; height: 46px; border-bottom: 1px solid #CCCCCC; border-top: 1px solid #CCCCCC; border-left: 1px solid #CCCCCC; background-color:#f6f6f6;">
+                <div style="height: 46px; width: 30px; float: left; background: url(../x_component_process_ProcessDesigner/$Process/down.png) no-repeat center center;"></div>
+                <div style="margin-left: 20px; padding: 3px 10px; text-align: center; color: #666666;">{{$.lp.eventInfo7}}</div>
+            </div>
+
+
+            <div onclick="var node = this.getNext(); if (node.getStyle('display')=='none'){node.setStyle('display', 'block');}else{node.setStyle('display', 'none');}" style="cursor: pointer; line-height: 28px; height: 30px; font-weight: bold; background-color: #EEEEEE;">
+                <div style="height: 30px; width: 30px; float: left; background: url(../x_component_process_ProcessDesigner/$Process/text{($.manualStayScript || $.manualStayScriptText) ? 'event_code' : 'event'}.png) no-repeat center center;"></div>
+                <div style="margin-left: 20px; padding: 0px 5px;">{{$.lp.manualStay}}</div>
+            </div>
+            <div style="display: none; overflow:hidden; border-left: 10px solid #EEEEEE; border-bottom: 10px solid #EEEEEE;">
+                <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                    <tr>
+                        <td class="editTableTitle">{{$.lp.manualStay}}:</td>
+                        <td class="editTableValue">
+                            <div class="MWFScript" name="manualStayScript"></div>
+                        </td>
+                    </tr>
+                </table>
+                <div class="MWFScriptText" name="manualStayScriptText"></div><hr />
+            </div>
+            <div style="line-height: 20px; min-height: 26px; border-bottom: 1px solid #CCCCCC; border-top: 1px solid #CCCCCC; border-left: 1px solid #CCCCCC; background-color:#f6f6f6;">
+                <div style="min-height: 26px; width: 30px; float: left; background: url(../x_component_process_ProcessDesigner/$Process/down16.png) no-repeat center center;"></div>
+                <div style="margin-left: 20px; padding: 3px 10px; text-align: center; color: #666666;">{{$.lp.eventInfo8}}</div>
+            </div>
+
+            <div onclick="var node = this.getNext(); if (node.getStyle('display')=='none'){node.setStyle('display', 'block');}else{node.setStyle('display', 'none');}" style="cursor: pointer; line-height: 28px; height: 30px; font-weight: bold; background-color: #EEEEEE;">
+                <div style="height: 30px; width: 30px; float: left; background: url(../x_component_process_ProcessDesigner/$Process/text{($.manualBeforeTaskScript || $.manualBeforeTaskScriptText) ? 'event_code' : 'event'}.png) no-repeat center center;"></div>
+                <div style="margin-left: 20px; padding: 0px 5px;">{{$.lp.manualBeforeTask}}</div>
+            </div>
+            <div style="display: none; overflow:hidden; border-left: 10px solid #EEEEEE; border-bottom: 10px solid #EEEEEE;">
+                <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                    <tr>
+                        <td class="editTableTitle">{{$.lp.manualBeforeTask}}:</td>
+                        <td class="editTableValue">
+                            <div class="MWFScript" name="manualBeforeTaskScript"></div>
+                        </td>
+                    </tr>
+                </table>
+                <div class="MWFScriptText" name="manualBeforeTaskScriptText"></div><hr />
+            </div>
+
+            <div style="line-height: 20px; min-height: 26px; border-bottom: 1px solid #CCCCCC; border-top: 1px solid #CCCCCC; border-left: 1px solid #CCCCCC; background-color:#f6f6f6;">
+                <div style="min-height: 26px; width: 30px; float: left; background: url(../x_component_process_ProcessDesigner/$Process/down16.png) no-repeat center center;"></div>
+                <div style="margin-left: 20px; padding: 3px 10px; text-align: center; color: #666666;">{{$.lp.eventInfo9}}</div>
+            </div>
+
+            <div onclick="var node = this.getNext(); if (node.getStyle('display')=='none'){node.setStyle('display', 'block');}else{node.setStyle('display', 'none');}" style="cursor: pointer; line-height: 28px; height: 30px; font-weight: bold; background-color: #EEEEEE;">
+                <div style="height: 30px; width: 30px; float: left; background: url(../x_component_process_ProcessDesigner/$Process/text{($.manualAfterTaskScript || $.manualAfterTaskScriptText) ? 'event_code' : 'event'}.png) no-repeat center center;"></div>
+                <div style="margin-left: 20px; padding: 0px 5px;">{{$.lp.manualAfterTask}}</div>
+            </div>
+            <div style="display: none; overflow:hidden; border-left: 10px solid #EEEEEE; border-bottom: 10px solid #EEEEEE;">
+                <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                    <tr>
+                        <td class="editTableTitle">{{$.lp.manualAfterTask}}:</td>
+                        <td class="editTableValue">
+                            <div class="MWFScript" name="manualAfterTaskScript"></div>
+                        </td>
+                    </tr>
+                </table>
+                <div class="MWFScriptText" name="manualAfterTaskScriptText"></div><hr />
+            </div>
+
+            <div style="line-height: 20px; min-height: 26px; border-bottom: 1px solid #CCCCCC; border-top: 1px solid #CCCCCC; border-left: 1px solid #CCCCCC; background-color:#f6f6f6;">
+                <div style="min-height: 26px; width: 30px; float: left; background: url(../x_component_process_ProcessDesigner/$Process/down16.png) no-repeat center center;"></div>
+                <div style="margin-left: 20px; padding: 3px 10px; text-align: center; color: #666666;">{{$.lp.eventInfo10}}</div>
+            </div>
+
+        </div>
+
+        <div onclick="var node = this.getNext(); if (node.getStyle('display')=='none'){node.setStyle('display', 'block');}else{node.setStyle('display', 'none');}" style="cursor: pointer; line-height: 28px; height: 30px; font-weight: bold; background-color: #EEEEEE;">
+            <div style="height: 30px; width: 30px; float: left; background: url(../x_component_process_ProcessDesigner/$Process/text{($.afterExecuteScript || $.afterExecuteScriptText) ? 'event_code' : 'event'}.png) no-repeat center center;"></div>
+            <div style="margin-left: 20px; padding: 0px 5px;">{{$.lp.afterExecute}}</div>
+        </div>
+        <div style="display: none; overflow:hidden; border-left: 10px solid #EEEEEE; border-bottom: 10px solid #EEEEEE;">
+            <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                <tr>
+                    <td class="editTableTitle">{{$.lp.afterExecute}}:</td>
+                    <td class="editTableValue">
+                        <div class="MWFScript" name="afterExecuteScript"></div>
+                    </td>
+                </tr>
+            </table>
+            <div class="MWFScriptText" name="afterExecuteScriptText"></div><hr />
+        </div>
+
+        <div style="line-height: 20px; min-height: 26px; border-bottom: 1px solid #CCCCCC; border-top: 1px solid #CCCCCC">
+            <div style="min-height: 26px; background: url(../x_component_process_ProcessDesigner/$Process/down16.png) no-repeat center center;"></div>
+        </div>
+
+        <div onclick="var node = this.getNext(); if (node.getStyle('display')=='none'){node.setStyle('display', 'block');}else{node.setStyle('display', 'none');}" style="cursor: pointer; line-height: 28px; height: 30px; font-weight: bold; background-color: #EEEEEE;">
+            <div style="height: 30px; width: 30px; float: left; background: url(../x_component_process_ProcessDesigner/$Process/text{($.beforeInquireScript || $.beforeInquireScriptText) ? 'event_code' : 'event'}.png) no-repeat center center;"></div>
+            <div style="margin-left: 20px; padding: 0px 5px;">{{$.lp.beforeInquire}}</div>
+        </div>
+        <div style="display: none; overflow:hidden; border-left: 10px solid #EEEEEE; border-bottom: 10px solid #EEEEEE;">
+            <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                <tr>
+                    <td class="editTableTitle">{{$.lp.beforeInquire}}:</td>
+                    <td class="editTableValue">
+                        <div class="MWFScript" name="beforeInquireScript"></div>
+                    </td>
+                </tr>
+            </table>
+            <div class="MWFScriptText" name="beforeInquireScriptText"></div><hr />
+        </div>
+
+        <div style="line-height: 20px; height: 46px; border-bottom: 1px solid #CCCCCC; border-top: 1px solid #CCCCCC; background-color:#f6f6f6;">
+            <div style="height: 46px; width: 30px; float: left; background: url(../x_component_process_ProcessDesigner/$Process/down.png) no-repeat center center;"></div>
+            <div style="margin-left: 20px; padding: 3px 10px; text-align: center; color: #666666;">{{$.lp.eventInfo4}}</div>
+        </div>
+
+        <div onclick="var node = this.getNext(); if (node.getStyle('display')=='none'){node.setStyle('display', 'block');}else{node.setStyle('display', 'none');}" style="cursor: pointer; line-height: 28px; height: 30px; font-weight: bold; background-color: #EEEEEE;">
+            <div style="height: 30px; width: 30px; float: left; background: url(../x_component_process_ProcessDesigner/$Process/text{($.afterInquireScript || $.afterInquireScriptText) ? 'event_code' : 'event'}.png) no-repeat center center;"></div>
+            <div style="margin-left: 20px; padding: 0px 5px;">{{$.lp.afterInquire}}</div>
+        </div>
+        <div style="display: none; overflow:hidden; border-left: 10px solid #EEEEEE; border-bottom: 10px solid #EEEEEE;">
+
+            <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                <tr>
+                    <td class="editTableTitle">{{$.lp.afterInquire}}:</td>
+                    <td class="editTableValue">
+                        <div class="MWFScript" name="afterInquireScript"></div>
+                    </td>
+                </tr>
+            </table>
+            <div class="MWFScriptText" name="afterInquireScriptText"></div><hr />
+        </div>
+
+        <div style="line-height: 20px; height: 46px; border-bottom: 1px solid #CCCCCC; border-top: 1px solid #CCCCCC; background-color:#f6f6f6;">
+            <div style="height: 46px; width: 30px; float: left; background: url(../x_component_process_ProcessDesigner/$Process/down.png) no-repeat center center;"></div>
+            <div style="margin-left: 20px; padding: 3px 10px; text-align: center; color: #666666;">{{$.lp.eventInfo11}}</div>
+        </div>
+
+        <div onclick="var node = this.getNext(); if (node.getStyle('display')=='none'){node.setStyle('display', 'block');}else{node.setStyle('display', 'none');}" style="cursor: pointer; line-height: 28px; height: 30px; font-weight: bold; background-color: #EEEEEE;">
+            <div style="height: 30px; width: 30px; float: left; background: url(../x_component_process_ProcessDesigner/$Process/text{($.afterInquireScript || $.afterInquireScriptText) ? 'event_code' : 'event'}.png) no-repeat center center;"></div>
+            <div style="margin-left: 20px; padding: 0px 5px;">{{$.lp.afterProcess}}</div>
+        </div>
+        <div style="display: none; overflow:hidden; border-left: 10px solid #EEEEEE; border-bottom: 10px solid #EEEEEE;">
+
+            <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                <tr>
+                    <td style="width:80px; font-weight: bold; font-size: 12px; line-height: 24px">{{$.lp.afterProcess}}:</td>
+                    <td class="editTableValue">
+                        <div class="MWFScript" name="manualAfterProcessingScript"></div>
+                    </td>
+                </tr>
+            </table>
+            <div class="MWFScriptText" name="manualAfterProcessingScriptText"></div><hr />
+        </div>
+
+    </div>
+</div>

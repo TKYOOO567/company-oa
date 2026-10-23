@@ -1,0 +1,107 @@
+{
+	"id": "",
+	"name": "",
+	"type": "Elinput",
+	"description": "",
+	"isReadonly" : false,
+	"inputType" : "text",
+	"showWordLimit" : false,
+	"clearable" : false,
+	"showPassword" : false,
+	"size" : "default",
+	"autosize" : false,
+	"resize" : "none",
+	"vueData": {},
+	"vueMethods": {},
+	"vueCss": {},
+	"vueSlot": "",
+	"maxlength": 0,
+	"rows": 2,
+	"prefixIcon": "",
+	"suffixIcon": "",
+	"elProperties": {},
+	"elStyles": {},
+	"events": {
+	  "queryLoad": {
+		"code": "",
+		"html": ""
+	  },
+	  "postLoad": {
+		"code": "",
+		"html": ""
+	  },
+		"load": {
+		  "code": "",
+		  "html": ""
+		},
+		"input": {
+			"code": "",
+			"html": ""
+		},
+		"change": {
+			"code": "",
+			"html": ""
+		},
+		"clear": {
+			"code": "",
+			"html": ""
+		},
+		"click": {
+			"code": "",
+			"html": ""
+		},
+		"dblclick": {
+			"code": "",
+			"html": ""
+		},
+		"keydown": {
+			"code": "",
+			"html": ""
+		},
+		"keypress": {
+			"code": "",
+			"html": ""
+		},
+		"keyup": {
+			"code": "",
+			"html": ""
+		},
+		"mousedown": {
+			"code": "",
+			"html": ""
+		},
+		"mousemove": {
+			"code": "",
+			"html": ""
+		},
+		"mouseout": {
+			"code": "",
+			"html": ""
+		},
+		"mouseover": {
+			"code": "",
+			"html": ""
+		},
+		"mouseup": {
+			"code": "",
+			"html": ""
+		},
+		"focus": {
+			"code": "",
+			"html": ""
+		},
+		"blur": {
+			"code": "",
+			"html": ""
+		}
+	},
+	"properties": {},
+	"class": "",
+	"styles": {},
+	"container": "",
+	"showSectionKey": true,
+	"sectionNodeStyles": {"overflow": "hidden"},
+	"sectionKeyStyles": {"float": "left"},
+	"sectionContentStyles": {"float": "left"},
+	"keyContentSeparator": "："
+}

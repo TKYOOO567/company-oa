@@ -1,0 +1,106 @@
+[
+  {
+    "title" : MWF.xApplication.Attendance.LP.person,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "function( d ){ return (d.employeeName||'').split('@')[0] }",
+    "name" : "employeeName",
+    "width" : "9%"
+  },
+  {
+    "title" : MWF.xApplication.Attendance.LP.months,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "function( data ){ if( data.statisticDate ){ return data.statisticDate }else{ return data.statisticYear + '-' + data.statisticMonth } }",
+    "name" : "statisticMonth",
+    "width" : "9%"
+  },
+  {
+    "title" : MWF.xApplication.Attendance.LP.onDutyTimes,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "onDutyTimes",
+    "name" : "onDutyTimes",
+    "width" : "9%"
+  },
+  {
+    "title" : MWF.xApplication.Attendance.LP.offDutyTimes,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "offDutyTimes",
+    "name" : "offDutyTimes",
+    "width" : "9%"
+  },
+  {
+    "title" : MWF.xApplication.Attendance.LP.onDutyDayCount,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "onDutyDayCount",
+    "name" : "onDutyDayCount",
+    "width" : "9%"
+  },
+  {
+    "title" : MWF.xApplication.Attendance.LP.onSelfHolidayCount,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "function( data ){ if( typeOf( data.onSelfHolidayCount ) == 'number' ){ return data.onSelfHolidayCount }else{ return data.onSelfHolidayEmployeeCount } }",
+    "name" : "onSelfHolidayEmployeeCount",
+    "width" : "9%"
+  },
+  {
+    "title" : MWF.xApplication.Attendance.LP.absenceDayCount,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "absenceDayCount",
+    "name" : "absenceDayCount",
+    "width" : "9%"
+  },
+  {
+    "title" : MWF.xApplication.Attendance.LP.lateTimes,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "lateTimes",
+    "name" : "lateTimes",
+    "width" : "9%"
+  },
+//  {
+//    "title" : "早退次数",
+//    "headStyles" : "normalThNode",
+//    "contentStyles" : "normalTdNode",
+//    "item" : "leaveEarlyCount",
+//    "name" : "leaveEarlyCount",
+//    "width" : "9%"
+//  },
+  {
+    "title" : MWF.xApplication.Attendance.LP.lackOfTimeCount,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "lackOfTimeCount",
+    "name" : "lackOfTimeCount",
+    "width" : "9%"
+  },
+  {
+    "title" : MWF.xApplication.Attendance.LP.abNormalDutyCount,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "abNormalDutyCount",
+    "name" : "abNormalDutyCount",
+    "width" : "9%"
+  }
+  //  {
+  //    "access" : "admin",
+  //    "title" : "操作",
+  //    "headStyles" : "normalThNode",
+  //    "contentStyles" : "normalTdNode",
+  //    "item" : "actions",
+  //    "name" : "actions",
+  //    "width" : "9%",
+  //    "sub" : [{
+  //      "title" : "删除文件",
+  //      "action" : "remove",
+  //      "styles" : "actionDeleteNode",
+  //      "overStyles" : "actionDeleteNode_over",
+  //      "downStyles" : "actionDeleteNode_down"
+  //    }]
+  //  }
+]

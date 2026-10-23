@@ -1,0 +1,229 @@
+.check-in-page {
+  width: calc(100% - 24px);
+  height: calc(100vh - 24px);
+  padding: 12px;
+  background: #f2f3f7;
+}
+
+.check-in-card {
+  min-height: calc( 100% - 48px );
+  border-radius: 8px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 16px 28px;
+}
+
+.check-in-config-bar {
+  width: 100%;
+  height: 28px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.check-in-config-button {
+  width: 28px;
+  height: 28px;
+  margin-right: 10px;
+  text-align: center;
+  line-height: 28px;
+  cursor: pointer;
+}
+
+.map-panel {
+  width: 100%;
+  height: calc( 100vh / 3 );
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.location-panel {
+  width: 100%;
+  text-align: center;
+}
+
+.location-panel-success {
+  color: #35a854;
+}
+
+.location-panel-pending {
+  color: #8c8c8c;
+}
+
+.location-panel-error {
+  color: #e34d59;
+}
+
+.location-title {
+  font-size: 24px;
+  line-height: 34px;
+  font-weight: 700;
+}
+
+.location-address {
+  margin-top: 8px;
+  min-height: 24px;
+  font-size: 17px;
+  line-height: 24px;
+  word-break: break-word;
+}
+
+.location-refresh {
+  margin-top: 8px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 14px;
+}
+
+.check-button {
+  width: 146px;
+  height: 146px;
+  border-radius: 50%;
+  margin-top: auto;
+  border: 12px solid #ffc52f;
+  background: #ffffff;
+  box-shadow: 0 8px 20px rgb(255 197 47 / 24%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.check-button-disabled {
+  border-color: #d7d7d7;
+  box-shadow: none;
+}
+
+.check-button-inner {
+  width: 112px;
+  min-height: 92px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.check-button-title {
+  color: #111111;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 700;
+}
+
+.check-button-time {
+  margin-top: 4px;
+  color: #000000;
+  font-size: 27px;
+  line-height: 34px;
+  font-weight: 700;
+}
+
+.check-button-tip {
+  margin-top: 6px;
+  color: #8c8c8c;
+  font-size: 15px;
+  line-height: 20px;
+}
+
+.shift-summary {
+  margin-top: 28px;
+  min-height: 28px;
+  max-width: 100%;
+  color: #9a9a9a;
+  font-size: 18px;
+  line-height: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.shift-summary-item {
+  display: inline-flex;
+  align-items: center;
+}
+
+.shift-checked,
+.shift-abnormal {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  margin: 0 5px;
+  color: #ffffff;
+  font-size: 13px;
+  line-height: 18px;
+  text-align: center;
+}
+
+.shift-checked {
+  background: #2fc36a;
+}
+
+.shift-abnormal {
+  background: #e34d59;
+  font-weight: 700;
+}
+
+.shift-separator {
+  margin: 0 8px;
+}
+
+.update-off-duty {
+  margin-top: 10px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #2b6fd6;
+  font-size: 16px;
+  line-height: 24px;
+  cursor: pointer;
+}
+
+.shift-more {
+  margin-left: 5px;
+  color: #b4b4b4;
+  font-size: 24px;
+  line-height: 24px;
+}
+
+.check-in-bmap {
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+@media (max-height: 620px) {
+  .check-in-card {
+    padding-top: 16px;
+  }
+
+  .location-title {
+    font-size: 21px;
+    line-height: 30px;
+  }
+
+  .check-button {
+    width: 130px;
+    height: 130px;
+    border-width: 10px;
+  }
+
+  .check-button-title {
+    font-size: 21px;
+    line-height: 28px;
+  }
+
+  .check-button-time {
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  .shift-summary {
+    margin-top: 20px;
+    font-size: 16px;
+  }
+}

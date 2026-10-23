@@ -1,0 +1,94 @@
+[
+  {
+    "title": MWF.xApplication.Attendance.LP.schedule.unit,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "function(d){ return (d.unitName || '').split('@')[0] }",
+    "name" : "unitName",
+    "width" : "11%"
+  },
+  {
+    "title": MWF.xApplication.Attendance.LP.schedule.signProxy.name,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "function(d){return MWF.xApplication.Attendance.LP.schedule.signProxy.select[d.signProxy] }",
+    "name" : "signProxy",
+    "width" : "11%"
+  },
+  {
+    "title": MWF.xApplication.Attendance.LP.schedule.workTime,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "onDutyTime",
+    "name" : "onDutyTime",
+    "width" : "11%"
+  },
+  {
+    "title": MWF.xApplication.Attendance.LP.schedule.signProxy["2"].middayRestStartTime,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "middayRestStartTime",
+    "name" : "middayRestStartTime",
+    "width" : "11%"
+  },
+  {
+    "title": MWF.xApplication.Attendance.LP.schedule.signProxy["2"].middayRestEndTime,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "middayRestEndTime",
+    "name" : "middayRestEndTime",
+    "width" : "11%"
+  },
+  {
+    "title": MWF.xApplication.Attendance.LP.schedule.offTime,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "offDutyTime",
+    "name" : "offDutyTime",
+    "width" : "11%"
+  },
+
+  {
+    "title": MWF.xApplication.Attendance.LP.schedule.lateTime,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "lateStartTime",
+    "name" : "lateStartTime",
+    "width" : "11%"
+  },
+
+//  {
+//    "title" : "早退起算时间",
+//    "headStyles" : "normalThNode",
+//    "contentStyles" : "normalTdNode",
+//    "item" : "leaveEarlyStartTime",
+//    "name" : "leaveEarlyStartTime",
+//    "width" : "15%"
+//  },
+  {
+    "title": MWF.xApplication.Attendance.LP.schedule.absenteeismTime,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "absenceStartTime",
+    "name" : "absenceStartTime",
+    "width" : "11%"
+  },
+  {
+    "access" : "admin",
+    "title": MWF.xApplication.Attendance.LP.action,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "actions",
+    "name" : "actions",
+    "width" : "11%",
+    "sub" : [{
+      "title": MWF.xApplication.Attendance.LP.delete,
+      "action" : "remove",
+      "fonticon": "o2icon-icon_delete",
+//      "icon": "delete.png",
+      "styles" : "documentActionNode",
+      "overStyles" : "documentActionNode_over",
+      "downStyles" : "documentActionNode_down"
+    }]
+  }
+]

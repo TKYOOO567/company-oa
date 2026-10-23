@@ -1,0 +1,162 @@
+<div>
+    <div title="{{$.lp.base}}" class="MWFTab">
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableTitle">{{$.lp.id}}:</td>
+                <td class="editTableValue">text{$.id}</td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.createTime}}:</td>
+                <td class="editTableValue">text{$.createTime}</td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.updataTime}}:</td>
+                <td class="editTableValue">text{$.updataTime}</td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.name}}:</td>
+                <td class="editTableValue"><input type="text" name="name" value="text{$.name}" class="editTableInput"/></td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.alias}}:</td>
+                <td class="editTableValue"><input type="text" name="alias" value="text{$.alias}" class="editTableInput"/></td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.description}}:</td>
+                <td class="editTableValue"><textarea name="description" class="editTableTextarea">text{$.description}</textarea></td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.num}}:</td>
+                <td class="editTableValue"><input type="text" name="orderNumber" value="text{$.orderNumber}" class="editTableInput"/></td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.defaultOpinion}}:</td>
+                <td class="editTableValue"><input type="text" name="opinion" value="text{$.opinion}" class="editTableInput"/></td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.opinionRequired}}:</td>
+                <td class="editTableValue" id="text{$.id}opinionRequired" >
+                    <input class="editTableRadio" name="opinionRequired" text{($.opinionRequired)?'checked':''} type="radio" value="true"/>{{$.lp.yes}}
+                    <input class="editTableRadio" name="opinionRequired" text{(!$.opinionRequired)?'checked':''} type="radio" value="false"/>{{$.lp.no}}
+                </td>
+            </tr>
+        </table>
+        <div data-o2-advanced="yes">
+            <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                <tr>
+                    <td class="editTableTitle">{{$.lp.routeType}}:</td>
+                    <td class="editTableValue" id="text{$.id}opinionRequired" >
+                        <input class="editTableRadio" onclick="if (this.checked){ $('text{$.id}appendTaskArea').setStyle('display', 'none');}" name="type" text{($.type!='appendTask' && $.type!='back')?'checked':''} type="radio" value="normal"/>{{$.lp.defaultRoute}}
+                        <br><input class="editTableRadio" onclick="if (this.checked){ $('text{$.id}appendTaskArea').setStyle('display', 'none');}" name="type" text{($.type=='back')?'checked':''} type="radio" value="back"/>{{$.lp.backRoute}}
+                        <br><input class="editTableRadio" onclick="if (this.checked){ $('text{$.id}appendTaskArea').setStyle('display', 'block');}" name="type" text{($.type=='appendTask')?'checked':''} type="radio" value="appendTask"/>{{$.lp.appendTask}}
+                        <div style="color:#999999">{{$.lp.appendTaskInfo}}</div>
+                    </td>
+                </tr>
+            </table>
+
+            <div id="text{$.id}appendTaskArea" style="display: text{($.type=='appendTask') ? 'block': 'none'}">
+                <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                    <tr>
+                        <td class="editTableTitle">{{$.lp.appendTo}}:</td>
+                        <td class="editTableValue" id="text{$.id}opinionRequired" >
+                            <input class="editTableRadio" onclick="if (this.checked){ $('text{$.id}appendTaskScriptArea').setStyle('display', 'none');}" name="appendTaskIdentityType" text{($.appendTaskIdentityType !='script')?'checked':''} type="radio" value="select"/>{{$.lp.byRoute}}
+                            <input class="editTableRadio" onclick="if (this.checked){ $('text{$.id}appendTaskScriptArea').setStyle('display', 'block');}" name="appendTaskIdentityType" text{($.appendTaskIdentityType =='script')?'checked':''} type="radio" value="script"/>{{$.lp.byScript}}
+                        </td>
+                    </tr>
+                </table>
+                <div id="text{$.id}appendTaskScriptArea" style="display: text{($.appendTaskIdentityType=='script') ? 'block': 'none'}">
+                    <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                        <tr>
+                            <td class="editTableTitle">{{$.lp.appendToScript}}:</td>
+                            <td class="editTableValue">
+                                <div class="MWFScript" name="appendTaskIdentityScript"></div>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="MWFScriptText" name="appendTaskIdentityScriptText"></div><hr />
+                </div>
+            </div>
+
+
+            <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                <tr>
+                    <td class="editTableTitle">{{$.lp.asyncReturn}}:</td>
+                    <td class="editTableValue">
+                        <input class="editTableRadio" name="asyncSupported" text{($.asyncSupported===true)?'checked':''} type="radio" value="true"/>{{$.lp.yes}}
+                        <input class="editTableRadio" name="asyncSupported" text{($.asyncSupported!==true)?'checked':''} type="radio" value="false"/>{{$.lp.no}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div title="{{$.lp.expand}}" class="MWFTab" data-o2-advanced="yes" data-o2-manual="yes">
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableTitle">{{$.lp.decisionGroup}}:</td>
+                <td class="editTableValue">
+                    <input type="text" name="decisionOpinion" value="text{$.decisionOpinion}" class="editTableInput"/>
+                    <div>{{$.lp.decisionGroupInfo}}</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.sole}}:</td>
+                <td class="editTableValue" id="text{$.id}sole" >
+                    <input class="editTableRadio" name="sole" text{($.sole)?'checked':''} type="radio" value="true"/>{{$.lp.yes}}
+                    <input class="editTableRadio" name="sole" text{(!$.sole)?'checked':''} type="radio" value="false"/>{{$.lp.no}}
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.routeNow}}:</td>
+                <td class="editTableValue" id="text{$.id}soleDirect" >
+                    <input class="editTableRadio" name="soleDirect" text{($.soleDirect===true)?'checked':''} type="radio" value="true"/>{{$.lp.yes}}
+                    <input class="editTableRadio" name="soleDirect" text{($.soleDirect!==true)?'checked':''} type="radio" value="false"/>{{$.lp.no}}
+                    <br><div style="color: #999999">{{$.lp.routeNowInfo}}</div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="editTableValue" id="text{$.id}passExpired" colspan="2"><b>{{$.lp.autoFlowTime}}: </b><input class="editTableRadio" name="passExpired" text{($.passExpired)?'checked':''} type="radio" value="true"/>{{$.lp.yes}}
+                    <input class="editTableRadio" name="passExpired" text{(!$.passExpired)?'checked':''} type="radio" value="false"/>{{$.lp.no}}</td>
+            </tr>
+            <tr>
+                <td class="editTableValue" id="text{$.id}passSameTarget" colspan="2"><b>{{$.lp.autoFlowPerson}}: </b><input class="editTableRadio" name="passSameTarget" text{($.passSameTarget)?'checked':''} type="radio" value="true"/>{{$.lp.yes}}
+                    <input class="editTableRadio" name="passSameTarget" text{(!$.passSameTarget)?'checked':''} type="radio" value="false"/>{{$.lp.no}}</td>
+            </tr>
+            <tr>
+                <td class="editTableValue" colspan="2">
+                    <div style="min-height: 24px; line-height: 20px; font-size: 12px; font-weight: bold;">{{$.lp.routeCheck}}: <span style="font-weight: normal;">{{$.lp.routeCheckInfo}}</span></div>
+                    <div class="MWFScriptText" name="validationScriptText" data-type="web"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableValue" colspan="2">
+                    <div style="height: 24px; line-height: 24px; font-size: 12px; font-weight: bold;">{{$.lp.showName}}: </div>
+                    <div class="MWFScriptText" name="displayNameScriptText" data-type="web"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="editTableValue" colspan="2">
+                    <div style="height: 24px; line-height: 24px; font-size: 12px; font-weight: bold;">{{$.lp.hideCondition}}: <span style="font-weight: normal;">{{$.lp.hideConditionInfo}}</span></div>
+                    <div class="MWFScriptText" name="hiddenScriptText" data-type="web"></div>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+    <div title="{{$.lp.select}}" class="MWFTab" data-o2-manual="yes">
+        <div class="MWFOrgEditor"></div>
+    </div>
+    <!--<div title="条件" class="MWFTab MWFRouteCondition" style="display: none">-->
+
+    <!--</div>-->
+    <!-- <div title="事件" class="MWFTab">
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+          <tr>
+            <td class="editTableTitle">流转事件:</td>
+            <td class="editTableValue">
+                <div class="MWFScript" name="routeScriptIdList"></div>
+            </td>
+          </tr>
+        </table>
+    </div>  -->
+</div>

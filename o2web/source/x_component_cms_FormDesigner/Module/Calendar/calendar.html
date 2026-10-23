@@ -1,0 +1,345 @@
+<div style="background-color: #FFF; overflow: hidden">
+	<div title="{{$.lp.base}}" class="MWFTab">
+		<table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+		  <tr>
+		    <td class="editTableTitle">{{$.lp.id}}:</td>
+		    <td class="editTableValue"><input type="text" name="id" value="text{$.id}" class="editTableInput"/></td>
+		  </tr>
+		  <tr>
+		    <td class="editTableTitle">{{$.lp.name}}:</td>
+		    <td class="editTableValue"><input type="text" name="name" value="text{$.name}" class="editTableInput"/></td>
+		  </tr>
+		  <tr>
+		    <td class="editTableTitle">{{$.lp.description}}:</td>
+		    <td class="editTableValue"><input type="text" name="description" value="text{$.description}" class="editTableInput"/></td>
+		  </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.showIcon}}:</td>
+                <td class="editTableValue">
+                    <input type="radio" name="showIcon" value="yes" text{($.showIcon!='no')?'checked':''}/>{{$.lp.yes}}
+                    <input type="radio" name="showIcon" value="no" text{($.showIcon=='no')?'checked':''}/>{{$.lp.no}}
+                </td>
+            </tr>
+		  <tr>
+                <td class="editTableTitle">{{$.lp.readonly}}:</td>
+                <td class="editTableValue">
+                    <input type="radio" name="isReadonly" value="true" text{($.isReadonly)?'checked':''}/>{{$.lp.yes}}
+                    <input type="radio" name="isReadonly" value="false" text{(!$.isReadonly)?'checked':''}/>{{$.lp.no}}
+                </td>
+          </tr>
+		  <tr>
+		    <td class="editTableTitle">{{$.lp.selectType}}:</td>
+		    <td class="editTableValue">
+		    	<input type="radio" name="selectType" text{($.selectType=='datetime')?'checked':''} value="datetime"
+                       onclick="if (this.checked){ $('text{$.pid}isSelectSecondTr').setStyle('display', '')}"/>{{$.lp.dateTime}}
+		    	<input type="radio" name="selectType"  text{($.selectType=='date')?'checked':''} value="date"
+                       onclick="if (this.checked){ $('text{$.pid}isSelectSecondTr').setStyle('display', 'none')}"/>{{$.lp.dateOnly}}
+                <input type="radio" name="selectType"  text{($.selectType=='month')?'checked':''} value="month"
+                       onclick="if (this.checked){ $('text{$.pid}isSelectSecondTr').setStyle('display', 'none')}"/>{{$.lp.monthOnly}}
+                <input type="radio" name="selectType"  text{($.selectType=='year')?'checked':''} value="year"
+                       onclick="if (this.checked){ $('text{$.pid}isSelectSecondTr').setStyle('display', 'none')}"/>{{$.lp.yearOnly}}
+		    	<input type="radio" name="selectType" text{($.selectType=='time')?'checked':''} value="time"
+                       onclick="if (this.checked){ $('text{$.pid}isSelectSecondTr').setStyle('display', '')}"/>{{$.lp.timeOnly}}
+		    </td>
+		  </tr>
+        <tr id="text{$.pid}isSelectSecondTr" style="display: text{($.selectType=='date')?'none':''};">
+            <td class="editTableTitle">{{$.lp.selectSecond}}: </td>
+            <td class="editTableValue">
+                <input type="radio" name="isSelectSecond" value="true" text{($.isSelectSecond)?'checked':''}/>{{$.lp.yes}}
+                <input type="radio" name="isSelectSecond" value="false" text{(!$.isSelectSecond)?'checked':''}/>{{$.lp.no}}
+            </td>
+        </tr>
+		  <tr>
+                <td class="editTableTitle">{{$.lp.timeSelectType}}:</td>
+                <td class="editTableValue">
+                    <input type="radio" name="timeSelectType" value="slider" text{$.timeSelectType=='slider'||!$.timeSelectType ?'checked':''}/>{{$.lp.timeSelectType_slider}}
+                    <input type="radio" name="timeSelectType" value="select" text{$.timeSelectType=='select' ?'checked':''}/>{{$.lp.timeSelectType_select}}
+                </td>
+            </tr>
+		  <tr>
+		    <td class="editTableTitle">{{$.lp.format}}:</td>
+		    <td class="editTableValue"><input type="text" name="format" value="text{$.format}" class="editTableInput"/></td>
+		  </tr>
+            <tr>
+                <td class="editTableTitle">{{$.lp.valueFormat}}:</td>
+                <td class="editTableValue"><input type="text" name="valueFormat" value="text{$.valueFormat || $.format}" class="editTableInput"/></td>
+            </tr>
+		  <!--<tr>-->
+		    <!--<td class="editTableTitle">选择范围:</td>-->
+		     <!--<td class="editTableValue">-->
+		    	<!--<input type="radio" name="range" value="single" text{($.range=='single')?'checked':''}/>单个日期-->
+		    	<!--<input type="radio" name="range" value="range" text{($.range=='range')?'checked':''}/>时间范围-->
+		    <!--</td>-->
+		  <!--</tr>-->
+
+		</table>
+
+		<div class="MWFMaplist" name="styles" title="{{$.lp.style}}"></div>
+        <div class="MWFMaplist" name="inputStyles" title="{{$.lp.inputStyle}}"></div>
+		<div class="MWFMaplist" name="properties" title="{{$.lp.attribute}}"></div>
+
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableTitle">{{$.lp.compute}}:</td>
+                <td class="editTableValue">
+                    <input type="radio" name="compute" value="create" text{($.compute.indexOf('create')!=-1)?'checked':''}/>{{$.lp.create}}
+                    <input type="radio" name="compute" value="save" text{($.compute.indexOf('save')!=-1)?'checked':''}/>{{$.lp.save}}
+                    <input type="radio" name="compute" value="show" text{($.compute.indexOf('show')!=-1)?'checked':''}/>{{$.lp.show}}
+                </td>
+            </tr>
+        </table>
+		<div class="MWFScriptArea" name="defaultValue" title="{{$.lp.defaultValue}} (S)"></div>
+
+        <div class="MWFValidation" name="validationConfig"></div>
+        <div class="MWFScriptArea" name="validation" title="{{$.lp.verificationScript}} (S)"></div>
+
+	</div>
+
+    <div title="{{$.lp.range}}" class="MWFTab">
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableValue">
+                    <input type="radio" name="rangeType"  text{(!$.rangeType || $.rangeType=='none')?'checked':''} value="none" onclick="if (this.checked){
+                         $('text{$.pid}dateTimeRangeArea').setStyle('display', 'none');
+                         $('text{$.pid}dateAndTimeRangeArea').setStyle('display', 'none');
+                         $('text{$.pid}otherRangeArea').setStyle('display', 'none');
+                     }"/>{{$.lp.none}}
+                    <input type="radio" name="rangeType" text{($.rangeType=='dateTime')?'checked':''} value="dateTime" onclick="if (this.checked){
+                        $('text{$.pid}dateTimeRangeArea').setStyle('display', '');
+                        $('text{$.pid}dateAndTimeRangeArea').setStyle('display', 'none');
+                        $('text{$.pid}otherRangeArea').setStyle('display', 'none');
+                    }"/>{{$.lp.rangeByDatetime}}
+                    <input type="radio" name="rangeType" text{($.rangeType=='dateAndTime')?'checked':''} value="dateAndTime" onclick="if (this.checked){
+                        $('text{$.pid}dateTimeRangeArea').setStyle('display', 'none');
+                        $('text{$.pid}dateAndTimeRangeArea').setStyle('display', '');
+                        $('text{$.pid}otherRangeArea').setStyle('display', 'none');
+                    }"/>{{$.lp.rangeByDateAndTime}}
+                    <input type="radio" name="rangeType" text{($.rangeType=='other')?'checked':''} value="other" onclick="if (this.checked){
+                         $('text{$.pid}dateTimeRangeArea').setStyle('display', 'none');
+                         $('text{$.pid}dateAndTimeRangeArea').setStyle('display', 'none');
+                         $('text{$.pid}otherRangeArea').setStyle('display', '');
+                    }"/>{{$.lp.rangeByOhter}}
+                </td>
+            </tr>
+        </table>
+        <div id="text{$.pid}dateTimeRangeArea" style="display: text{($.rangeType=='dateTime')?'block':'none'};">
+            <div style="line-height: 24px;padding:5px 0px;">
+                //起止日期时间<br/>
+                return ["2023-01-01 08:00:00", "2023-03-03 18:00:00"];<br/>
+                //起止日期时间数组<br/>
+                return [ ["2023-01-01 08:00:00", "2023-03-03 18:00:00"], ... ];
+            </div>
+            <div class="MWFScriptArea" name="dateTimeRangeScript" title="{{$.lp.rangeByDatetime}} (S)"></div>
+        </div>
+        <div id="text{$.pid}dateAndTimeRangeArea" style="display: text{($.rangeType=='dateAndTime')?'block':'none'};">
+            <div style="line-height: 24px;padding:5px 0px;">
+                //起止日期<br/>
+                return ["2023-01-01", "2023-03-03"];<br/>
+                //起止日期数组<br/>
+                return [ ["2023-01-01", "2023-03-03"], ... ];
+            </div>
+            <div class="MWFScriptArea" name="dateRangeScript" title="{{$.lp.rangeByDate}} (S)"></div>
+            <div style="line-height: 24px;padding:5px 0px;">
+                //起止时间<br/>
+                return ["08:00:00", "18:00:00"];<br/>
+                //起止时间数组<br/>
+                return [ ["08:00:00", "18:00:00"], ... ];
+            </div>
+            <div class="MWFScriptArea" name="timeRangeScript" title="{{$.lp.rangeByTime}} (S)"></div>
+        </div>
+        <div id="text{$.pid}otherRangeArea" style="display: text{($.rangeType=='other')?'block':'none'};">
+            <div style="line-height: 24px;padding:5px 0px;">
+                var date = this.event.date; //获取传入的日期<br/>
+                return new Date() > date;   //早于当前日期，则可选
+            </div>
+            <div class="MWFScriptArea" name="enableDate" title="{{$.lp.enableDate}} (S)"></div>
+            <div style="line-height: 24px;padding:5px 0px;">
+                var date = this.event.date; //获取传入的日期<br/>
+                if( new Date() > date ){    //早于当前日期<br/>
+                &nbsp;&nbsp;  return [8, 18];         //可选范围为8到18时<br/>
+                }else{ <br/>
+                &nbsp;&nbsp;  return [ [8, 12], [13, 18] ]; //否则可选范围为8到12时，13到18时<br/>
+                }
+            </div>
+            <div class="MWFScriptArea" name="enableHours" title="{{$.lp.enableHours}} (S)"></div>
+            <div style="line-height: 24px;padding:5px 0px;">
+            var date = this.event.date; //获取传入的日期<br/>
+            var hour = this.event.hour; //获取传入的小时<br/>
+            if( hour > 12 ){    //早于12点<br/>
+            &nbsp;&nbsp;  return [0, 30];         //可选范围为0到30分<br/>
+            }else{ <br/>
+            &nbsp;&nbsp;  return [ [20, 40], [40, 50] ]; //否则可选范围为20到40分，40到50分<br/>
+            }
+            </div>
+            <div class="MWFScriptArea" name="enableMinutes" title="{{$.lp.enableMinutes}} (S)"></div>
+            <div style="line-height: 24px;padding:5px 0px;">
+                var date = this.event.date; //获取传入的日期<br/>
+                var hour = this.event.hour; //获取传入的小时<br/>
+                var minute = this.event.minute; //获取传入的分<br/>
+                if( minute > 12 ){    //早于12分<br/>
+                &nbsp;&nbsp;  return [0, 30];         //可选范围为0到30秒<br/>
+                }else{ <br/>
+                &nbsp;&nbsp;  return [ [20, 40], [40, 50] ]; //否则可选范围为20到40秒，40到50秒<br/>
+                }
+            </div>
+            <div class="MWFScriptArea" name="enableSeconds" title="{{$.lp.enableSeconds}} (S)"></div>
+        </div>
+    </div>
+
+    <div title="{{$.lp.section}}" class="MWFTab">
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+            <tr>
+                <td class="editTableTitle">{{$.lp.enableSection}}:</td>
+                <td class="editTableValue">
+                    <input onclick="if (this.checked){
+                        $('text{$.pid}sectionByEditArea').setStyle('display', 'block');
+                        $('text{$.pid}sectionMergeArea').setStyle('display', 'none')
+                    }" type="radio" name="section" value="yes" text{($.section=='yes')?'checked':''}/>{{$.lp.yes}}
+                    <input onclick="if (this.checked){
+                        $('text{$.pid}sectionByEditArea').setStyle('display', 'none');
+                        $('text{$.pid}sectionMergeArea').setStyle('display', 'block')
+                    }" type="radio" name="section" value="no" text{($.section!='yes')?'checked':''}/>{{$.lp.no}}
+                </td>
+            </tr>
+        </table>
+
+        <div id="text{$.pid}sectionByEditArea" style="display: text{($.section=='yes')?'block':'none'};">
+            <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                <tr>
+                    <td class="editTableTitle">{{$.lp.sectionBy}}:</td>
+                    <td class="editTableValue">
+                        <input class="editTableRadio" onclick="if (this.checked){ $('text{$.pid}sectionByScriptEditArea').setStyle('display', 'none');}" name="sectionBy" text{(($.sectionBy=='person') || ($.sectionBy!='unit' && $.sectionBy!='activity' && $.sectionBy!='script'))?'checked':''} type="radio" value="person"/>{{$.lp.handler}}<br/>
+                        <input class="editTableRadio" onclick="if (this.checked){ $('text{$.pid}sectionByScriptEditArea').setStyle('display', 'none');}"  name="sectionBy" text{($.sectionBy=='unit')?'checked':''} type="radio" value="unit"/>{{$.lp.handlerUnit}}<br/>
+                        <input class="editTableRadio" onclick="if (this.checked){ $('text{$.pid}sectionByScriptEditArea').setStyle('display', 'none');}"  name="sectionBy" text{($.sectionBy=='activity')?'checked':''} type="radio" value="activity"/>{{$.lp.activityId}}<br/>
+                        <input class="editTableRadio" onclick="if (this.checked){ $('text{$.pid}sectionByScriptEditArea').setStyle('display', 'none');}"  name="sectionBy" text{($.sectionBy=='splitValue')?'checked':''} type="radio" value="splitValue"/>{{$.lp.splitValue}}<br/>
+                        <input class="editTableRadio" onclick="if (this.checked){ $('text{$.pid}sectionByScriptEditArea').setStyle('display', 'block');}"  name="sectionBy" text{($.sectionBy=='script')?'checked':''} type="radio" value="script"/>{{$.lp.script}}<br/>
+                    </td>
+                </tr>
+            </table>
+            <div id="text{$.pid}sectionByScriptEditArea" style="display: text{($.sectionBy=='script')?'block':'none'};">
+                <div class="MWFScriptArea" name="sectionByScript" title="{{$.lp.sectionBy}} (S)"></div>
+            </div>
+        </div>
+
+        <div id="text{$.pid}sectionMergeArea" class="MWFSectionMergeArea" style="display: text{($.section=='yes')?'none':''};"></div>
+    </div>
+    <div title="{{$.lp.power}}"  class="MWFTab">
+        <!-- 可阅读配置 -->
+        <div style="height:26px; text-align: center; line-height: 26px; background-color: #EEE; border-top: 1px solid #999; border-bottom: 1px solid #999; font-weight:bold;">{{$.lp.readConfig}}</div>
+        <div style="padding: 5px; color: #999999; ">{{$.lp.readConfigInfo}}</div>
+        
+        <div style="padding: 5px; border-top: 1px solid #999; font-weight: bold; background-color: #f9f9f9; display: {{($.appType && ($.appType==='process.FormDesigner' || $.appType==='cms.FormDesigner'))?'block':'none'}}">
+            <label><input name="readByActivity" type="checkbox" value="true" onclick="if (this.checked){
+                $('text{$.pid}readByActivityArea').setStyle('display', 'block');
+            } else {
+                $('text{$.pid}readByActivityArea').setStyle('display', 'none');
+            }" text{($.readByActivity && $.readByActivity.indexOf('true')!=-1)?'checked':''} />{{$.lp.readConfig_activity}}</label>
+        </div>
+        <table id="text{$.pid}readByActivityArea" width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable" style="display: text{($.readByActivity && $.readByActivity=='true')?'block':'none'}">
+            <tr>
+                <td class="editTableTitle">{{$.lp.readActivity}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFProcessActivitySelect" name="readByActivityValue"></div>
+                </td>
+            </tr>
+        </table>
+
+        <div style="padding: 5px; border-top: 1px solid #999; font-weight: bold; background-color: #f9f9f9;">
+            <label><input name="readByOrg" type="checkbox" value="true" onclick="if (this.checked){
+                $('text{$.pid}readByOrgArea').setStyle('display', 'block');
+            } else {
+                $('text{$.pid}readByOrgArea').setStyle('display', 'none');
+            }" text{($.readByOrg && $.readByOrg.indexOf('true')!=-1)?'checked':''} />{{$.lp.readConfig_org}}</label>
+        </div>
+        <table id="text{$.pid}readByOrgArea" width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable" style="display: text{($.readByOrg && $.readByOrg=='true')?'block':'none'}">
+            <tr>
+                <td class="editTableTitle">{{$.lp.readOrg}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFPersonMultiple" name="readByOrgValue" data-types="unit,group,person,role"></div>
+                </td>
+            </tr>
+        </table>
+
+        <div style="padding: 5px; border-top: 1px solid #999; font-weight: bold; background-color: #f9f9f9;">
+            <label><input name="readByScript" type="checkbox" value="true" onclick="if (this.checked){
+                $('text{$.pid}readByScriptArea').setStyle('display', 'block');
+            } else {
+                $('text{$.pid}readByScriptArea').setStyle('display', 'none');
+            }" text{($.readByScript && $.readByScript.indexOf('true')!=-1)?'checked':''} />{{$.lp.readConfig_script}}</label>
+        </div>
+        <div id="text{$.pid}readByScriptArea" style="display: text{($.readByScript && $.readByScript=='true')?'block':'none'}">
+            <div class="MWFScriptArea" name="readByScriptValue" title="{{$.lp.readScript}} (S)"></div>
+            <div style="padding: 5px; color: #999999;">{{$.lp.readScriptInfo}}</div>
+        </div>
+
+        <div style="border-top: 1px solid #999;">
+            <table width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable">
+                <tr>
+                    <td colspan="2" class="editTableValue">
+                        <b>{{$.lp.hideCannotRead}}:</b>
+                        <input type="radio" name="hideCannotRead" value="yes" text{($.hideCannotRead=='yes')?'checked':''}/>{{$.lp.yes}}
+                        <input type="radio" name="hideCannotRead" value="no" text{($.hideCannotRead!=='yes')?'checked':''}/>{{$.lp.no}}
+                        <input type="radio" name="hideCannotRead" value="inherit" text{($.hideCannotRead!=='yes' && $.hideCannotRead!=='no')?'checked':''}/>{{$.lp.inherit}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+        <!-- 可编辑配置 -->
+        <div style="height:26px; text-align: center; line-height: 26px; background-color: #EEE; border-top: 1px solid #999; border-bottom: 1px solid #999; font-weight:bold;">{{$.lp.editConfig}}</div>
+        <div style="padding: 5px; color: #999999; ">{{$.lp.editConfigInfo}}</div>
+
+        <div style="padding: 5px; border-top: 1px solid #999; font-weight: bold; background-color: #f9f9f9; display: {{($.appType && ($.appType==='process.FormDesigner' || $.appType==='cms.FormDesigner'))?'block':'none'}}">
+            <label><input name="editByActivity" type="checkbox" value="true" onclick="if (this.checked){
+                $('text{$.pid}editByActivityArea').setStyle('display', 'block');
+            } else {
+                $('text{$.pid}editByActivityArea').setStyle('display', 'none');
+            }" text{($.editByActivity && $.editByActivity.indexOf('true')!=-1)?'checked':''} />{{$.lp.editConfig_activity}}</label>
+        </div>
+        <table id="text{$.pid}editByActivityArea" width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable" style="display: text{($.editByActivity && $.editByActivity=='true')?'block':'none'}">
+            <tr>
+                <td class="editTableTitle">{{$.lp.editActivity}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFProcessActivitySelect" name="editByActivityValue"></div>
+                </td>
+            </tr>
+        </table>
+
+        <div style="padding: 5px; border-top: 1px solid #999; font-weight: bold; background-color: #f9f9f9;">
+            <label><input name="editByOrg" type="checkbox" value="true" onclick="if (this.checked){
+                $('text{$.pid}editByOrgArea').setStyle('display', 'block');
+            } else {
+                $('text{$.pid}editByOrgArea').setStyle('display', 'none');
+            }" text{($.editByOrg && $.editByOrg.indexOf('true')!=-1)?'checked':''} />{{$.lp.editConfig_org}}</label>
+        </div>
+        <table id="text{$.pid}editByOrgArea" width="100%" border="0" cellpadding="5" cellspacing="0" class="editTable" style="display: text{($.editByOrg && $.editByOrg=='true')?'block':'none'}">
+            <tr>
+                <td class="editTableTitle">{{$.lp.readOrg}}:</td>
+                <td class="editTableValue">
+                    <div class="MWFPersonMultiple" name="editByOrgValue" data-types="unit,group,person,role"></div>
+                </td>
+            </tr>
+        </table>
+
+        <div style="padding: 5px; border-top: 1px solid #999; font-weight: bold; background-color: #f9f9f9;">
+            <label><input name="editByScript" type="checkbox" value="true" onclick="if (this.checked){
+                $('text{$.pid}editByScriptArea').setStyle('display', 'block');
+            } else {
+                $('text{$.pid}editByScriptArea').setStyle('display', 'none');
+            }" text{($.editByScript && $.editByScript.indexOf('true')!=-1)?'checked':''} />{{$.lp.editConfig_script}}</label>
+        </div>
+        <div id="text{$.pid}editByScriptArea" style="display: text{($.editByScript && $.editByScript=='true')?'block':'none'}">
+            <div class="MWFScriptArea" name="editByScriptValue" title="{{$.lp.editScript}} (S)"></div>
+            <div style="padding: 5px; color: #999999;">{{$.lp.editScriptInfo}}</div>
+        </div>
+    </div>
+	<div title="{{$.lp.event}}"  class="MWFTab">
+		<div class="MWFEventsArea" name="events"></div>
+	</div>
+	<div title="HTML"  class="MWFTab">
+		<div class="MWFHTMLArea" style="font-family: Verdana, Geneva, sans-serif; font-size:14px"></div>
+	</div>
+    <div title="JSON"  class="MWFTab">
+        <div class="MWFJSONArea" style="font-family: Verdana, Geneva, sans-serif; font-size:14px"></div>
+    </div>
+</div>

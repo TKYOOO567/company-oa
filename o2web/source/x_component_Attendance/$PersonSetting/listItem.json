@@ -1,0 +1,68 @@
+[
+  {
+    "title" : MWF.xApplication.Attendance.LP.configType,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "function(d){ return d.configType == 'NOTREQUIRED' ? MWF.xApplication.Attendance.LP.configTypeSelectText[1] : MWF.xApplication.Attendance.LP.configTypeSelectText[0] }",
+    "name" : "configType",
+    "width" : "10%"
+  },
+  {
+    "title" : MWF.xApplication.Attendance.LP.topUnitName,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "function(d){ return (d.topUnitName || '').split('@')[0] }",
+    "name" : "topUnitName",
+    "width" : "20%"
+  },
+  {
+    "title" : MWF.xApplication.Attendance.LP.unitName,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "function(d){ return (d.unitName || '').split('@')[0] }",
+    "name" : "unitName",
+    "width" : "20%"
+  },
+  {
+    "title" : MWF.xApplication.Attendance.LP.employeeName,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "function(d){ return (d.employeeName || '').split('@')[0] }",
+    "name" : "employeeName",
+    "width" : "10%"
+  },
+  {
+    "title" : MWF.xApplication.Attendance.LP.employeeNumber,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "employeeNumber",
+    "name" : "employeeNumber",
+    "width" : "10%"
+  },
+  {
+    "title" : MWF.xApplication.Attendance.LP.joininDate,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "empInTopUnitTime",
+    "name" : "empInTopUnitTime",
+    "width" : "15%"
+  },
+  {
+    "access" : "admin",
+    "title" : MWF.xApplication.Attendance.LP.action,
+    "headStyles" : "normalThNode",
+    "contentStyles" : "normalTdNode",
+    "item" : "actions",
+    "name" : "actions",
+    "width" : "5%",
+    "sub" : [{
+      "title" : MWF.xApplication.Attendance.LP.delete,
+      "action" : "remove",
+      "fonticon": "o2icon-icon_delete",
+//      "icon": "delete.png",
+      "styles" : "documentActionNode",
+      "overStyles" : "documentActionNode_over",
+      "downStyles" : "documentActionNode_down"
+    }]
+  }
+]
