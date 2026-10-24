@@ -20,19 +20,21 @@ test('unconfigured live mode stays disconnected and can explicitly enter and exi
   page.on('pageerror', (error) => errors.push(error.message))
   await disconnectedPlatform(page)
   await page.goto('/')
-  await expect(page.getByRole('heading', { name: '平台连接', exact: true })).toBeVisible()
+  await expect(page.getByRole('heading', { name: '登录工作空间', exact: true })).toBeVisible()
+  await expect(page.locator('.sidebar')).toHaveCount(0)
   await expect(page.getByRole('button', { name: '登录工作空间', exact: true })).toBeDisabled()
+  await page.screenshot({ path: '../../.local/verification/ux/login.png', fullPage: true })
   await page.getByRole('button', { name: '查看界面演示' }).click()
   await expect(page.getByRole('heading', { name: '体验用户，欢迎回来' })).toBeVisible()
   await expect(page.locator('.demo-strip')).toContainText('人工示例')
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0)
   await page.screenshot({
-    path: '../../.local/verification/web-v0.1/dashboard.png',
+    path: '../../.local/verification/ux/dashboard-demo.png',
     fullPage: true,
   })
   await page
     .locator('.sidebar-nav')
-    .getByRole('button', { name: /审批中心/ })
+    .getByRole('button', { name: /待我处理/ })
     .click()
   await expect(page.locator('tbody tr')).toHaveCount(8)
   const firstPageTitle = await page.locator('tbody tr').first().innerText()
@@ -47,10 +49,13 @@ test('unconfigured live mode stays disconnected and can explicitly enter and exi
   await page.locator('tbody tr').first().getByRole('button').first().click()
   await expect(page.getByRole('dialog')).toBeVisible()
   await expect(page.getByRole('dialog')).toContainText('人工示例')
-  await expect(page.getByRole('dialog').getByRole('link', { name: /进入原生表单/ })).toHaveCount(0)
+  await expect(page.getByRole('dialog').getByRole('link')).toHaveCount(0)
   await page.keyboard.press('Escape')
   await expect(page.getByRole('dialog')).toHaveCount(0)
-  await page.getByRole('button', { name: /我的已办/ }).click()
+  await page
+    .locator('.sidebar-nav')
+    .getByRole('button', { name: /我的已办/ })
+    .click()
   await expect(page.locator('tbody tr')).toHaveCount(6)
   await expect(page.locator('tbody tr').first()).toContainText('已办')
   await page.getByRole('textbox', { name: '搜索审批事项' }).fill('不存在的人工示例')
@@ -60,7 +65,7 @@ test('unconfigured live mode stays disconnected and can explicitly enter and exi
     .locator('.demo-strip')
     .getByRole('button', { name: /退出演示/ })
     .click()
-  await expect(page.getByRole('heading', { name: '平台连接', exact: true })).toBeVisible()
+  await expect(page.getByRole('heading', { name: '登录工作空间', exact: true })).toBeVisible()
   await expect(page.locator('.demo-strip')).toHaveCount(0)
   await expect(page.locator('.nav-count')).toHaveCount(0)
   expect(errors).toEqual([])
@@ -76,7 +81,7 @@ test('a narrow browser viewport supports navigation and readable details without
   await page.getByRole('button', { name: '打开导航', exact: true }).click()
   await page
     .locator('.sidebar-nav')
-    .getByRole('button', { name: /审批中心/ })
+    .getByRole('button', { name: /待我处理/ })
     .click()
   await expect(page.getByRole('heading', { name: '审批中心', exact: true })).toBeVisible()
   await page.locator('tbody tr').first().getByRole('button').first().click()
@@ -124,6 +129,10 @@ test('live UI uses the O2OA adapter and exposes request failures without fabrica
           : { name: 'anonymous', tokenType: 'anonymous', token: '' },
       )
     }
+    if (/\/review\/v2\/list\/create\/paging\//.test(path)) return data([], { count: 0 })
+    if (/\/draft\/list\/my\/paging\//.test(path)) return data([], { count: 0 })
+    if (path.endsWith('/application/list/terminal/client')) return data([])
+    if (path.endsWith('/record/list/workorworkcompleted/fixture-work')) return data([])
     if (/\/task(completed)?\/v2\/list\/paging\//.test(path)) {
       taskHeaders.push(request.headers()['authorization'] || '')
       if (rejectTasks)
@@ -166,7 +175,7 @@ test('live UI uses the O2OA adapter and exposes request failures without fabrica
   await expect(page.locator('.demo-strip')).toHaveCount(0)
   await page
     .locator('.sidebar-nav')
-    .getByRole('button', { name: /审批中心/ })
+    .getByRole('button', { name: /待我处理/ })
     .click()
   await expect(page.locator('tbody tr')).toHaveCount(1)
   await page.locator('tbody tr').first().getByRole('button').first().click()

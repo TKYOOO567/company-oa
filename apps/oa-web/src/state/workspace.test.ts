@@ -28,6 +28,12 @@ function fakeApi(overrides: Partial<OaApi> = {}): OaApi {
     logout: vi.fn(async () => {}),
     listTasks: vi.fn(async () => ({ items: [task], total: 1 })),
     getDetail: vi.fn(async (input) => ({ task: input, fields: [], nativeUrl: null })),
+    listProcesses: vi.fn(async () => []),
+    getStartIdentities: vi.fn(async () => [
+      { id: 'identity-1', name: '测试身份', unitName: '测试部门' },
+    ]),
+    startProcess: vi.fn(async () => ({ forms: [], mode: 'instance' as const })),
+    getStartUrl: vi.fn(() => null),
     ...overrides,
   }
 }
@@ -47,7 +53,7 @@ describe('workspace session and request boundaries', () => {
     expect(state.mode).toBe('live')
     await initialize()
     expect(state.session).toBeNull()
-    expect(state.counts).toEqual({ pending: null, completed: null })
+    expect(state.counts).toEqual({ pending: null, completed: null, started: null, drafts: null })
     expect(state.total).toBeNull()
     expect(api.listTasks).not.toHaveBeenCalled()
   })
@@ -83,6 +89,7 @@ describe('workspace session and request boundaries', () => {
     expect(workspace.state.tasks[0].id).toBe('new')
     expect(workspace.state.query).toBe('new')
     expect(workspace.state.loading).toBe(false)
+    expect(workspace.state.authMode?.supported).toBe(true)
   })
 
   it('clears protected records on session expiry while keeping authorization failures distinct', async () => {
@@ -126,6 +133,20 @@ describe('workspace session and request boundaries', () => {
     await workspace.signIn('next-account', 'synthetic-password')
     expect(api.login).toHaveBeenCalledWith('next-account', 'synthetic-password')
     expect(workspace.state.session).toEqual(session)
+  })
+
+  it('cannot interrupt an in-flight sign-in with a connection recheck and leave login stuck', async () => {
+    const login = deferred<Session>()
+    const api = fakeApi({ getSession: vi.fn(async () => null), login: vi.fn(() => login.promise) })
+    const workspace = createWorkspace(api)
+    await workspace.initialize()
+    const signingIn = workspace.signIn('test-user', 'synthetic-password')
+    await workspace.retryConnection()
+    expect(api.getSession).toHaveBeenCalledTimes(1)
+    login.resolve(session)
+    await signingIn
+    expect(workspace.state.loginBusy).toBe(false)
+    expect(workspace.state.session?.id).toBe(session.id)
   })
 
   it('keeps a closed detail closed when its network response arrives later', async () => {
@@ -174,5 +195,104 @@ describe('workspace session and request boundaries', () => {
     expect(workspace.state.mode).toBe('live')
     expect(workspace.state.session).toBeNull()
     expect(workspace.state.tasks).toEqual([])
+  })
+
+  it('guards every protected view and resets a searched personal list when returning to the workbench', async () => {
+    const anonymous = createWorkspace(fakeApi({ getSession: vi.fn(async () => null) }))
+    await anonymous.initialize()
+    anonymous.navigate('applications')
+    expect(anonymous.state.view).toBe('connection')
+    const api = fakeApi()
+    const workspace = createWorkspace(api)
+    await workspace.initialize()
+    await workspace.openTasks('started')
+    await workspace.search('客户')
+    workspace.navigate('dashboard')
+    expect(workspace.state.tab).toBe('pending')
+    expect(workspace.state.query).toBe('')
+    await vi.waitFor(() => expect(workspace.state.loading).toBe(false))
+    expect(api.listTasks).toHaveBeenLastCalledWith({
+      tab: 'pending',
+      page: 1,
+      pageSize: 8,
+      query: '',
+    })
+  })
+
+  it('blocks duplicate starts while writing, and keeps an uncertain result from being replayed', async () => {
+    let reject!: (reason: Error) => void
+    const writing = new Promise<never>((_resolve, fail) => {
+      reject = fail
+    })
+    const api = fakeApi({ startProcess: vi.fn(() => writing) })
+    const workspace = createWorkspace(api)
+    await workspace.initialize()
+    await workspace.beginStart({
+      id: 'p1',
+      name: '测试流程',
+      applicationId: 'app1',
+      applicationName: '测试应用',
+    })
+    const first = workspace.confirmStart('测试申请', 'identity-1')
+    await workspace.confirmStart('重复申请', 'identity-1')
+    workspace.closeStart()
+    expect(workspace.state.startingProcess?.id).toBe('p1')
+    reject(
+      Object.assign(new Error('结果暂未确认，请先核对我发起的'), { code: 'START_RESULT_UNKNOWN' }),
+    )
+    await first
+    expect(workspace.state.startUncertain).toBe(true)
+    await workspace.confirmStart('再次申请', 'identity-1')
+    expect(api.startProcess).toHaveBeenCalledTimes(1)
+    expect(workspace.state.startBusy).toBe(false)
+  })
+
+  it('discards a closed process identity response and prevents submitting an unavailable identity', async () => {
+    const identities = deferred<{ id: string; name: string; unitName: string }[]>()
+    const api = fakeApi({ getStartIdentities: vi.fn(() => identities.promise) })
+    const workspace = createWorkspace(api)
+    await workspace.initialize()
+    const loading = workspace.beginStart({
+      id: 'p1',
+      name: '测试流程',
+      applicationId: 'app1',
+      applicationName: '测试应用',
+    })
+    workspace.closeStart()
+    identities.resolve([{ id: 'identity-1', name: '测试身份', unitName: '测试部门' }])
+    await loading
+    expect(workspace.state.startIdentities).toEqual([])
+    expect(workspace.state.startingProcess).toBeNull()
+    await workspace.beginStart({
+      id: 'p1',
+      name: '测试流程',
+      applicationId: 'app1',
+      applicationName: '测试应用',
+    })
+    await workspace.confirmStart('测试申请', 'someone-elses-identity')
+    expect(api.startProcess).not.toHaveBeenCalled()
+    expect(workspace.state.startError).toContain('发起身份')
+  })
+
+  it('only changes task state after a real re-read, and drops form return state on account change', async () => {
+    const api = fakeApi()
+    const workspace = createWorkspace(api)
+    await workspace.initialize()
+    workspace.markFormOpened()
+    expect(workspace.state.tasks[0].status).toBe('pending')
+    expect(workspace.state.formReturnPending).toBe(true)
+    await workspace.refreshAfterForm(false)
+    expect(workspace.state.formReturnPending).toBe(true)
+    api.listTasks = vi.fn(async () => {
+      throw new Error('网络临时不可用')
+    })
+    await workspace.refreshAfterForm()
+    expect(workspace.state.formReturnPending).toBe(true)
+    expect(workspace.state.formRefreshBusy).toBe(false)
+    await workspace.enterDemo()
+    const calls = vi.mocked(api.listTasks).mock.calls.length
+    await workspace.refreshAfterForm()
+    expect(workspace.state.formReturnPending).toBe(false)
+    expect(api.listTasks).toHaveBeenCalledTimes(calls)
   })
 })

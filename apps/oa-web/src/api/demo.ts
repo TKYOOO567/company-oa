@@ -1,4 +1,5 @@
 import type { Approval, OaApi, Session } from '../types'
+import { ApiError } from './http'
 
 // Synthetic fixtures only. This adapter never calls a platform or saves approvals.
 const demoSession: Session = {
@@ -17,8 +18,32 @@ const tasks: Approval[] = Array.from({ length: 22 }, (_, index) => ({
   creatorName: ['示例同事甲', '示例同事乙', '示例同事丙'][index % 3],
   createdAt: `2026-10-${String(23 - Math.floor(index / 5)).padStart(2, '0')} ${String(9 + (index % 8)).padStart(2, '0')}:30:00`,
   status: index < 16 ? 'pending' : 'completed',
+  kind: 'task',
   companyName: index % 2 === 0 ? '示例公司 A' : '示例公司 B',
   amount: index % 4 === 3 ? undefined : ['12,800.00', '3,600.00', '2,480.50'][index % 3],
+}))
+const requests: Approval[] = tasks.slice(0, 6).map((task, index) => ({
+  ...task,
+  id: `demo-request-${index + 1}`,
+  kind: 'request',
+  creatorName: '体验用户（人工示例）',
+  status: index < 4 ? 'pending' : 'completed',
+  statusLabel: index < 4 ? '示例 · 流转中' : '示例 · 流程已结束',
+  isWorkflowCompleted: index >= 4,
+  currentHandlers: index < 4 ? ['示例审批人甲', '示例审批人乙'] : [],
+}))
+
+const drafts: Approval[] = tasks.slice(0, 2).map((task, index) => ({
+  ...task,
+  id: `demo-draft-${index + 1}`,
+  kind: 'draft',
+  draftId: `demo-draft-${index + 1}`,
+  workId: '',
+  activityName: '示例草稿 · 尚未提交',
+  creatorName: '体验用户（人工示例）',
+  status: 'pending',
+  statusLabel: '示例草稿',
+  isWorkflowCompleted: false,
 }))
 
 export function createDemoApi(): OaApi {
@@ -38,11 +63,32 @@ export function createDemoApi(): OaApi {
       throw new Error('演示环境不接受真实账号密码。')
     },
     async logout() {},
+    async listProcesses() {
+      return ['付款申请', '办公采购'].map((name, index) => ({
+        id: `demo-process-${index + 1}`,
+        name: `示例 · ${name}`,
+        applicationId: 'demo-application',
+        applicationName: '人工示例应用',
+        description: '人工构造的流程目录；演示环境不创建或提交真实流程。',
+      }))
+    },
+    getStartUrl() {
+      return null
+    },
+    async getStartIdentities(processId) {
+      if (!['demo-process-1', 'demo-process-2'].includes(processId)) {
+        throw new ApiError('示例流程不存在。', { code: 'INVALID_INPUT' })
+      }
+      return [{ id: 'demo-identity', name: '人工示例身份', unitName: '示例部门' }]
+    },
+    async startProcess() {
+      throw new ApiError('演示环境不会创建真实流程，请连接平台后发起。', { code: 'DEMO_ONLY' })
+    },
     async listTasks({ tab, page, pageSize, query }) {
       const keyword = query.toLocaleLowerCase().trim()
-      const filtered = tasks.filter(
+      const filtered = (tab === 'drafts' ? drafts : tab === 'started' ? requests : tasks).filter(
         (task) =>
-          task.status === tab &&
+          (tab === 'started' || tab === 'drafts' || task.status === tab) &&
           (!keyword ||
             [task.title, task.processName, task.creatorName].some((value) =>
               value.toLocaleLowerCase().includes(keyword),
@@ -54,7 +100,8 @@ export function createDemoApi(): OaApi {
       }
     },
     async getDetail(task) {
-      if (!tasks.some((item) => item.id === task.id)) throw new Error('示例记录不存在。')
+      if (![...tasks, ...requests, ...drafts].some((item) => item.id === task.id))
+        throw new Error('示例记录不存在。')
       return {
         task: { ...task },
         fields: [
@@ -70,6 +117,21 @@ export function createDemoApi(): OaApi {
           { label: '会计记录', value: '未录入；本版不生成正式凭证。' },
         ],
         nativeUrl: null,
+        timeline:
+          task.kind === 'draft'
+            ? []
+            : [
+                {
+                  id: `demo-record-${task.id}`,
+                  type: 'task',
+                  activityName: '示例 · 发起',
+                  actorName: '人工示例人员',
+                  routeName: '示例提交',
+                  opinion: '人工构造的办理轨迹，不代表真实流程记录。',
+                  at: task.createdAt,
+                  pending: false,
+                },
+              ],
       }
     },
   }

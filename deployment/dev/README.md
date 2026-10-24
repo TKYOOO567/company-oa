@@ -131,3 +131,18 @@ pwsh -NoProfile -File deployment/dev/Test-IntegrationDatabase.ps1 -RuntimeRoot $
 源码同步可用 `Sync-O2ConsoleSource.ps1 -Module x_base_core_project -BuildRoot <snapshot>`（控制台为默认模块），更新来源清单后再做对应增量构建；工具不会自动同步新 Web 业务代码。`Test-O2SourceArtifacts.ps1 -BuildRoot <snapshot> -RuntimeRoot <实际运行目录>` 对 console、29 WAR、25 shared JAR 和必要原生资产做只读核对。
 
 诊断使用 `Read-O2IntegrationLog.ps1 -RuntimeRoot <runtime>`，不要直接输出私有平台日志。平台异常记录可能包含认证头；本工具先遮蔽已知私密值及认证/Cookie/token字段。`Revoke-O2TestSession.mjs` 仅用于本次已捕获测试会话的安全注销检查，不能作为普通生产退出入口；真实生产日志脱敏和会话策略仍需专门处理。
+
+本轮员工旅程使用 `Seed-O2UxIntegration.mjs <runtimeRoot>` 准备独立的合成应用、可编辑 MWF 字段、系统操作栏和 A→B 草稿流程。该工具读取已有专用测试账号，仅创建定义，不提前创建工作；真实申请由 Web 浏览器创建。它保留自己的定义回执并复用，不更改上一轮已完成工作。私有配置写在项目 `.local/ux-live-integration.json`，不输出凭据。
+
+保持一个独立终端持续运行 Web 开发服务，再启动真实旅程测试：
+
+```powershell
+# 在 apps/oa-web 中持续运行，端口已被占用时明确失败
+npm run dev -- --strictPort
+# 在另一个终端的 apps/oa-web 中运行
+$env:OA_UX_LIVE_E2E = '1'
+npx playwright test --config playwright.ux-live.config.ts
+Remove-Item Env:OA_UX_LIVE_E2E
+```
+
+真实旅程配置没有自动托管开发服务，使用中文 Chrome，不拦截请求，禁用截图、trace 和视频；安全回执位于 `.local/ux-live-e2e-results/journey-receipt.json`。默认受控 E2E 与真实旅程顺序执行，避免测试自动启动及退出开发服务时打断另一个验证过程。当前结果见[员工交互验证](../../docs/verification/web-interactions.md)。

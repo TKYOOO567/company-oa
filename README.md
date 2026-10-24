@@ -7,11 +7,15 @@
 - [需求范围](docs/requirements/01-scope-and-requirements.md)
 - [业务流程](docs/requirements/02-business-processes.md)
 - [O2OA 改造方案](docs/architecture/02-o2oa-adaptation-plan.md)
+- [员工用户旅程图](docs/ux/employee-journey.html)
+- [员工交互与真实联调记录](docs/verification/web-interactions.md)
 - [迁移策略](docs/migration/01-migration-strategy.md)
 - [尚未执行的验收计划](docs/verification/01-acceptance-plan.md)
 - [上游来源与固定提交](upstream.json)
 
 当前阶段：模块化 Web 第一版。工作台、平台登录、待办／已办、搜索、详情及原生 MWF 字段已与本仓库源码构建的 O2OA、独立 MariaDB 完成真实联调，并通过审批完成及两端重启持久化验证。运行方式见 [Web 工程](apps/oa-web/README.md)、[隔离运行工具](deployment/dev/README.md)，证据与边界见 [v0.1 验证记录](docs/verification/web-v0.1.md)。旧业务、公司权限、正式财务及历史迁移仍未验收。
+
+按员工交互反馈，本轮先交付用户旅程图，再将登录页与业务导航分开，补齐真实流程发起、草稿箱恢复、我发起的、个人已办和办理轨迹。新 Web 创建草稿→原生 MWF 中文填写与保存回读→A 提交→B 办理→双方追踪的完整旅程已在独立 MariaDB 测试环境通过；79 项单元／契约、5 项受控浏览器检查及历史已办回归通过。客户与资金、正式会计、多公司业务与迁移继续按需求逐项建设。
 
 本仓库是唯一开发目录。所需 fork 源码已包含在 `o2server/`、`o2web/` 等上游目录中；新 Web、扩展、配置与迁移工具均按[目录规范](docs/architecture/01-repository-and-directories.md)在本仓库维护，无需额外的本地 fork 检出。
 

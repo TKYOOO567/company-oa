@@ -1,177 +1,179 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import Icon from './components/Icon.vue'
 import DetailDrawer from './components/DetailDrawer.vue'
 import DashboardView from './views/DashboardView.vue'
 import ApprovalsView from './views/ApprovalsView.vue'
 import ConnectionView from './views/ConnectionView.vue'
-import RoadmapView from './views/RoadmapView.vue'
+import ApplicationsView from './views/ApplicationsView.vue'
 import { useWorkspace } from './state/workspace'
+import type { TaskTab } from './types'
 import './styles.css'
 
 const workspace = useWorkspace()
 const { state } = workspace
 const menuOpen = ref(false)
-const titles = {
-  dashboard: '工作台',
-  approvals: '审批中心',
-  connection: '平台连接',
-  roadmap: '业务应用',
-}
-const currentTitle = computed(() => titles[state.view])
-const userName = computed(
+const taskMenus: { tab: TaskTab; label: string; icon: string }[] = [
+  { tab: 'pending', label: '待我处理', icon: 'inbox' },
+  { tab: 'started', label: '我发起的', icon: 'file' },
+  { tab: 'drafts', label: '草稿箱', icon: 'file' },
+  { tab: 'completed', label: '我的已办', icon: 'check-circle' },
+]
+const currentTitle = computed(
   () =>
-    state.session?.displayName ||
-    state.session?.name ||
-    (state.mode === 'demo' ? '演示访客' : '未登录'),
+    ({
+      dashboard: '工作台',
+      approvals: taskMenus.find((item) => item.tab === state.tab)?.label || '审批中心',
+      applications: '发起申请',
+      connection: '账号设置',
+    })[state.view],
 )
-const userInitial = computed(() => userName.value.slice(0, 1))
-const connectionClass = computed(() => (state.mode === 'demo' ? 'demo' : state.connectionStatus))
+const userName = computed(() => state.session?.displayName || state.session?.name || '')
 
 watch(
-  () => state.view,
+  () => [state.view, state.tab],
   () => {
     menuOpen.value = false
     window.scrollTo(0, 0)
   },
 )
-onMounted(() => workspace.initialize())
+function onReturn() {
+  if (document.visibilityState === 'visible') void workspace.refreshAfterForm(false)
+}
+function onEscape(event: KeyboardEvent) {
+  if (event.key === 'Escape') menuOpen.value = false
+}
+onMounted(() => {
+  void workspace.initialize()
+  window.addEventListener('focus', onReturn)
+  document.addEventListener('visibilitychange', onReturn)
+  window.addEventListener('keydown', onEscape)
+})
+onUnmounted(() => {
+  window.removeEventListener('focus', onReturn)
+  document.removeEventListener('visibilitychange', onReturn)
+  window.removeEventListener('keydown', onEscape)
+})
 </script>
 
 <template>
-  <div class="workspace-shell">
+  <ConnectionView v-if="!state.session" />
+  <div v-else class="workspace-shell">
+    <a class="skip-link" href="#main-content">跳到主要内容</a>
     <button v-if="menuOpen" class="mobile-scrim" aria-label="关闭导航" @click="menuOpen = false" />
     <aside class="sidebar" :class="{ 'is-open': menuOpen }" aria-label="主导航">
       <a class="brand" href="#" @click.prevent="workspace.navigate('dashboard')">
         <span class="brand-symbol"><span /><span /><span /><span /></span>
-        <span class="brand-wordmark">协同 OA<small>COMPANY WORKSPACE</small></span>
+        <span class="brand-wordmark">协同 OA<small>企业工作空间</small></span>
       </a>
-      <div class="workspace-label">
-        <span class="workspace-monogram">企</span>
-        <div>企业工作空间<small>让协作更简单</small></div>
-        <Icon name="chevron-down" :size="13" />
-      </div>
-      <nav class="sidebar-nav">
-        <p class="nav-caption">日常办公</p>
+      <nav class="sidebar-nav" aria-label="办公导航">
         <button
           class="nav-item"
           :class="{ active: state.view === 'dashboard' }"
+          :aria-current="state.view === 'dashboard' ? 'page' : undefined"
           @click="workspace.navigate('dashboard')"
         >
-          <Icon name="dashboard" :size="18" /><span>工作台</span>
+          <Icon name="dashboard" :size="19" /><span>工作台</span>
         </button>
         <button
-          class="nav-item"
-          :class="{ active: state.view === 'approvals' }"
-          @click="workspace.navigate('approvals')"
+          class="nav-item nav-create"
+          :class="{ active: state.view === 'applications' }"
+          :aria-current="state.view === 'applications' ? 'page' : undefined"
+          @click="workspace.navigate('applications')"
         >
-          <Icon name="inbox" :size="18" /><span>审批中心</span
-          ><span
-            v-if="state.counts.pending !== null && state.counts.pending > 0"
-            class="nav-count"
-            >{{ state.counts.pending > 99 ? '99+' : state.counts.pending }}</span
-          >
+          <Icon name="plus" :size="19" /><span>发起申请</span>
         </button>
-        <p class="nav-caption secondary-caption">业务管理</p>
+        <p class="nav-caption">我的工作</p>
         <button
+          v-for="item in taskMenus"
+          :key="item.tab"
           class="nav-item"
-          :class="{ active: state.view === 'roadmap' }"
-          @click="workspace.navigate('roadmap')"
+          :class="{ active: state.view === 'approvals' && state.tab === item.tab }"
+          :aria-current="state.view === 'approvals' && state.tab === item.tab ? 'page' : undefined"
+          @click="workspace.openTasks(item.tab)"
         >
-          <Icon name="layers" :size="18" /><span>业务应用</span><span class="nav-soon">待接入</span>
+          <Icon :name="item.icon" :size="19" /><span>{{ item.label }}</span>
+          <span v-if="item.tab === 'pending' && state.counts.pending" class="nav-count">{{
+            state.counts.pending > 99 ? '99+' : state.counts.pending
+          }}</span>
         </button>
-        <div class="nav-preview">
-          <span><Icon name="users" :size="16" />客户与项目</span
-          ><span><Icon name="wallet" :size="16" />财务与资金</span>
-        </div>
-        <p class="nav-caption secondary-caption">工作空间</p>
+        <p class="nav-caption secondary-caption">个人</p>
         <button
           class="nav-item"
           :class="{ active: state.view === 'connection' }"
+          :aria-current="state.view === 'connection' ? 'page' : undefined"
           @click="workspace.navigate('connection')"
         >
-          <Icon name="link" :size="18" /><span>平台连接</span
-          ><i class="nav-indicator" :class="connectionClass" />
+          <Icon name="settings" :size="19" /><span>账号设置</span>
         </button>
       </nav>
       <div class="sidebar-bottom">
-        <div class="sidebar-note">
-          <span class="sidebar-note-icon"><Icon name="bolt" :size="16" /></span>
-          <p>连接每一项工作<small>专注业务，有序协同</small></p>
-        </div>
         <button class="sidebar-profile" @click="workspace.navigate('connection')">
-          <span class="user-avatar">{{ userInitial }}</span
-          ><span
+          <span class="user-avatar">{{ userName.slice(0, 1) }}</span>
+          <span
             >{{ userName
             }}<small>{{
-              state.mode === 'demo'
-                ? '人工示例工作空间'
-                : state.session
-                  ? '企业工作账号'
-                  : '连接平台后开始办公'
+              state.mode === 'demo' ? '人工示例账号' : '查看账号与退出登录'
             }}</small></span
-          ><Icon name="chevron-right" :size="15" />
+          >
+          <Icon name="chevron-right" :size="15" />
         </button>
       </div>
     </aside>
-
     <div class="main-shell">
       <header class="topbar">
         <div class="topbar-left">
-          <button class="icon-button mobile-menu" aria-label="打开导航" @click="menuOpen = true">
+          <button
+            class="icon-button mobile-menu"
+            aria-label="打开导航"
+            :aria-expanded="menuOpen"
+            @click="menuOpen = true"
+          >
             <Icon name="menu" />
           </button>
           <div class="breadcrumb">
-            <span>工作空间</span><Icon name="chevron-right" :size="12" /><strong>{{
+            <span>企业工作空间</span><Icon name="chevron-right" :size="12" /><strong>{{
               currentTitle
             }}</strong>
           </div>
         </div>
         <div class="topbar-actions">
+          <span class="shell-status"><i />{{ state.mode === 'demo' ? '演示模式' : '已连接' }}</span>
           <button
-            class="connection-chip"
-            :class="connectionClass"
+            class="topbar-user"
+            aria-label="查看账号设置"
             @click="workspace.navigate('connection')"
           >
-            <i /><span>{{
-              state.mode === 'demo'
-                ? '演示模式'
-                : state.connectionStatus === 'connected'
-                  ? '平台已连接'
-                  : state.connectionStatus === 'checking'
-                    ? '正在连接'
-                    : '平台未连接'
-            }}</span
-            ><Icon name="chevron-right" :size="12" />
-          </button>
-          <span class="topbar-divider" />
-          <button class="topbar-user" @click="workspace.navigate('connection')">
-            <span class="user-avatar small">{{ userInitial }}</span
+            <span class="user-avatar small">{{ userName.slice(0, 1) }}</span
             ><span>{{ userName }}</span
-            ><Icon name="chevron-down" :size="13" />
+            ><Icon name="chevron-right" :size="13" />
           </button>
         </div>
       </header>
-
       <div v-if="state.mode === 'demo'" class="demo-strip">
         <span
           ><Icon name="info" :size="15" /><strong>演示工作空间</strong
-          ><span>当前内容为人工示例，不会执行真实业务操作。</span></span
+          ><span>人工示例，不会执行真实业务操作。</span></span
         ><button @click="workspace.leaveDemo()">
           退出演示<Icon name="arrow-right" :size="13" />
         </button>
       </div>
-
-      <main class="page-content" :class="{ 'connection-content': state.view === 'connection' }">
+      <div v-if="state.formReturnPending" class="form-return-bar" role="status">
+        <span>表单已在新标签页打开。完成填写或办理后，刷新这里查看最新进度。</span>
+        <button
+          class="button secondary small"
+          :disabled="state.formRefreshBusy"
+          @click="workspace.refreshAfterForm()"
+        >
+          {{ state.formRefreshBusy ? '正在刷新…' : '已完成操作，刷新' }}
+        </button>
+      </div>
+      <main id="main-content" class="page-content" tabindex="-1">
         <DashboardView v-if="state.view === 'dashboard'" />
         <ApprovalsView v-else-if="state.view === 'approvals'" />
-        <ConnectionView v-else-if="state.view === 'connection'" />
-        <RoadmapView v-else />
-        <footer class="workspace-footer">
-          <span>COMPANY OA</span><i />企业协同工作空间<span class="footer-right"
-            >基于 O2OA · Web 工作台</span
-          >
-        </footer>
+        <ApplicationsView v-else-if="state.view === 'applications'" />
+        <ConnectionView v-else />
+        <footer class="workspace-footer"><span>协同 OA</span><i />企业工作空间</footer>
       </main>
     </div>
     <DetailDrawer />

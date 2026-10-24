@@ -7,12 +7,12 @@
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  --primary: #5b5cde;
-  --primary-dark: #4849c4;
-  --primary-soft: #efefff;
+  --primary: #315ed4;
+  --primary-dark: #254fb9;
+  --primary-soft: #edf2ff;
   --ink: #28344c;
   --text: #65718a;
-  --muted: #9aa4b7;
+  --muted: #718099;
   --border: #e9ecf3;
   --page: #f5f6fa;
   --sidebar: #172238;

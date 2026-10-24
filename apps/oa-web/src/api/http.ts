@@ -165,5 +165,11 @@ export function createHttpClient(config: RuntimeConfig) {
     }
   }
 
-  return { request, setToken, beginSessionOperation, assertCurrentSession }
+  return {
+    request,
+    setToken,
+    beginSessionOperation,
+    assertCurrentSession,
+    getSessionEpoch: () => sessionEpoch,
+  }
 }

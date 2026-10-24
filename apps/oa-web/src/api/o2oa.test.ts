@@ -232,18 +232,27 @@ describe('O2OA task and metadata contracts', () => {
 
   it('reads basic work metadata and builds a native URL without token or automatic actions', async () => {
     const fetchMock = responses(
-      success({ id: 'work-1', title: '申请', serial: 'S-1', creatorUnit: '测试部门' }),
+      success({
+        id: 'work-1',
+        title: '申请',
+        serial: 'S-1',
+        creatorPerson: '测试人员@person-id@P',
+        creatorUnit: '测试部门@unit-id@U',
+      }),
+      success([]),
     )
     const detail = await createO2oaApi(config).getDetail(pending)
     expect(fetchMock.mock.calls[0][0]).toBe('/o2-api/process/jaxrs/work/work-1')
     expect(detail.fields).toContainEqual({ label: '工作编号', value: 'S-1' })
+    expect(detail.fields).toContainEqual({ label: '发起人', value: '测试人员' })
+    expect(detail.fields).toContainEqual({ label: '发起组织', value: '测试部门' })
     const url = new URL(detail.nativeUrl!)
     expect(url.pathname).toBe('/x_desktop/work.html')
     expect([...url.searchParams.entries()]).toEqual([['workid', 'work-1']])
   })
 
   it('uses completed-work metadata and readonly native links when an archive ID exists', async () => {
-    const fetchMock = responses(success({ id: 'archive-1', title: '已归档工作' }))
+    const fetchMock = responses(success({ id: 'archive-1', title: '已归档工作' }), success([]))
     const detail = await createO2oaApi(config).getDetail({
       ...pending,
       status: 'completed',
@@ -259,7 +268,7 @@ describe('O2OA task and metadata contracts', () => {
 
   it('encodes identifiers rather than allowing native action query injection', async () => {
     const id = 'work &action=processTask&x-token=secret'
-    responses(success({ id }))
+    responses(success({ id }), success([]))
     const detail = await createO2oaApi(config).getDetail({ ...pending, workId: id })
     const url = new URL(detail.nativeUrl!)
     expect(url.searchParams.get('workid')).toBe(id)
@@ -268,7 +277,7 @@ describe('O2OA task and metadata contracts', () => {
   })
 
   it('keeps metadata available when no native platform Web URL is configured', async () => {
-    responses(success({ id: 'work-1', title: '申请' }))
+    responses(success({ id: 'work-1', title: '申请' }), success([]))
     const detail = await createO2oaApi({ ...config, platformWebUrl: '' }).getDetail(pending)
     expect(detail.nativeUrl).toBeNull()
     expect(detail.fields).toContainEqual({ label: '工作标题', value: '申请' })

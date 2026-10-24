@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import Icon from '../components/Icon.vue'
 import ApprovalTable from '../components/ApprovalTable.vue'
 import { useWorkspace } from '../state/workspace'
+import type { StartableProcess, TaskTab } from '../types'
 
 const workspace = useWorkspace()
 const { state } = workspace
@@ -13,13 +14,31 @@ const dateLabel = new Intl.DateTimeFormat('zh-CN', {
   weekday: 'long',
 }).format(new Date())
 const displayName = computed(() => state.session?.displayName || state.session?.name)
-const accessible = computed(() => Boolean(state.session) || state.mode === 'demo')
 const summaryTasks = computed(() => state.tasks.slice(0, 5))
-const loadedCount = computed(() =>
-  accessible.value && !state.loading && !state.error && state.total !== null
-    ? state.tasks.length
-    : '—',
-)
+const quickProcesses = computed(() => state.processes.slice(0, 3))
+const cards: { tab: TaskTab; title: string; description: string; icon: string; color: string }[] = [
+  {
+    tab: 'pending',
+    title: '待我处理',
+    description: '需要我办理的申请',
+    icon: 'inbox',
+    color: 'indigo',
+  },
+  {
+    tab: 'started',
+    title: '我发起的',
+    description: '跟进申请与当前进度',
+    icon: 'file',
+    color: 'amber',
+  },
+  {
+    tab: 'completed',
+    title: '我的已办',
+    description: '查询已经办理的记录',
+    icon: 'check-circle',
+    color: 'green',
+  },
+]
 const syncLabel = computed(() =>
   state.lastSyncedAt
     ? new Intl.DateTimeFormat('zh-CN', {
@@ -29,231 +48,162 @@ const syncLabel = computed(() =>
       }).format(new Date(state.lastSyncedAt))
     : null,
 )
-function openApprovals(tab: 'pending' | 'completed' = 'pending') {
-  workspace.navigate('approvals')
-  workspace.setTab(tab)
+function start(process: StartableProcess) {
+  workspace.navigate('applications')
+  void workspace.beginStart(process)
 }
+onMounted(() => {
+  if (!state.processes.length && !state.processesLoading) void workspace.loadProcesses()
+})
 </script>
 
 <template>
-  <section class="page-heading">
-    <div>
-      <div class="eyebrow">YOUR WORKSPACE</div>
-      <h1>
-        {{ displayName ? `${displayName}，欢迎回来` : '我的工作台' }}<span class="greeting-dot" />
-      </h1>
-      <p>从这里开始今天的工作，让每一项协作清晰有序。</p>
-    </div>
-    <div class="heading-date"><Icon name="calendar" :size="16" />{{ dateLabel }}</div>
-  </section>
-
-  <section v-if="!accessible" class="welcome-banner">
-    <div class="welcome-banner-copy">
-      <span class="small-label">一个入口，专注每一项工作</span>
-      <h2>连接工作，开始协同。</h2>
-      <p>登录企业工作空间，集中查看待办与审批进展。</p>
-      <button class="button primary" @click="workspace.navigate('connection')">
-        连接工作空间<Icon name="arrow-right" :size="15" />
-      </button>
-    </div>
-    <div class="welcome-illustration" aria-hidden="true">
-      <div class="illustration-grid" />
-      <div class="illustration-paper back" />
-      <div class="illustration-paper">
-        <span class="illustration-icon"><Icon name="check" :size="23" /></span><i /><i /><span
-          class="illustration-row"
-          ><b /><b /><b
-        /></span>
+  <div class="experience-page work-dashboard">
+    <section class="page-heading">
+      <div>
+        <div class="work-date">{{ dateLabel }}</div>
+        <h1>{{ displayName ? `${displayName}，欢迎回来` : '我的工作台' }}</h1>
+        <p>先处理待办，或发起一项新的申请。</p>
       </div>
-      <span class="floating-check"><Icon name="check-circle" :size="24" /></span
-      ><span class="floating-node"><Icon name="users" :size="20" /></span>
-    </div>
-  </section>
-
-  <section class="stats-grid" aria-label="审批概览">
-    <button class="stat-card" @click="openApprovals('pending')">
-      <div class="stat-top">
-        <span>待我处理</span><span class="stat-icon indigo"><Icon name="inbox" :size="19" /></span>
-      </div>
-      <div class="stat-value">{{ state.counts.pending ?? '—' }}<small>项</small></div>
-      <div class="stat-bottom">
-        <span>需要您关注的审批事项</span><Icon name="arrow-up-right" :size="14" />
-      </div>
-    </button>
-    <button class="stat-card" @click="openApprovals('completed')">
-      <div class="stat-top">
-        <span>我的已办</span
-        ><span class="stat-icon green"><Icon name="check-circle" :size="19" /></span>
-      </div>
-      <div class="stat-value">{{ state.counts.completed ?? '—' }}<small>项</small></div>
-      <div class="stat-bottom">
-        <span>查看已处理的工作记录</span><Icon name="arrow-up-right" :size="14" />
-      </div>
-    </button>
-    <button class="stat-card" @click="workspace.navigate('approvals')">
-      <div class="stat-top">
-        <span>当前列表</span><span class="stat-icon amber"><Icon name="file" :size="19" /></span>
-      </div>
-      <div class="stat-value">{{ loadedCount }}<small>项</small></div>
-      <div class="stat-bottom">
-        <span>本次已加载的审批事项</span><Icon name="arrow-up-right" :size="14" />
-      </div>
-    </button>
-    <button class="stat-card connection-stat" @click="workspace.navigate('connection')">
-      <div class="stat-top">
-        <span>工作空间</span><span class="stat-icon slate"><Icon name="server" :size="19" /></span>
-      </div>
-      <div class="stat-value text-value">
-        {{ state.mode === 'demo' ? '演示空间' : state.session ? '已登录' : '待连接' }}
-      </div>
-      <div class="stat-bottom">
-        <span class="connection-status-text"
-          ><i :class="state.mode === 'demo' ? 'demo' : state.connectionStatus" />{{
-            state.mode === 'demo'
-              ? '正在浏览人工示例'
-              : state.connectionStatus === 'connected'
-                ? 'O2OA 平台连接正常'
-                : '登录后同步您的工作'
-          }}</span
-        ><Icon name="arrow-up-right" :size="14" />
-      </div>
-    </button>
-  </section>
-
-  <div class="dashboard-grid">
-    <section class="panel approvals-panel">
-      <div class="panel-heading">
-        <div class="panel-heading-title">
-          <span class="section-marker" />
-          <h2>我的审批</h2>
-          <span v-if="state.mode === 'demo'" class="tiny-badge">示例</span>
-        </div>
-        <button class="text-button" @click="workspace.navigate('approvals')">
-          全部审批<Icon name="arrow-right" :size="14" />
-        </button>
-      </div>
-      <div class="panel-tabs">
-        <button :class="{ active: state.tab === 'pending' }" @click="workspace.setTab('pending')">
-          待我处理<span v-if="state.counts.pending !== null">{{
-            state.counts.pending
-          }}</span></button
-        ><button
-          :class="{ active: state.tab === 'completed' }"
-          @click="workspace.setTab('completed')"
-        >
-          我的已办<span v-if="state.counts.completed !== null">{{ state.counts.completed }}</span>
-        </button>
-      </div>
-      <div v-if="state.error && accessible" class="inline-error">
-        <Icon name="alert-circle" :size="16" /><span>{{ state.error }}</span
-        ><button @click="workspace.refresh()">重试</button>
-      </div>
-      <ApprovalTable
-        :tasks="summaryTasks"
-        :loading="state.loading"
-        compact
-        @select="workspace.openDetail"
-        ><template #empty
-          ><div class="empty-state">
-            <div class="empty-icon">
-              <Icon
-                :name="
-                  accessible && state.error ? 'alert-circle' : accessible ? 'check-circle' : 'inbox'
-                "
-                :size="29"
-              />
-            </div>
-            <h3>
-              {{
-                accessible && state.error
-                  ? '审批列表加载失败'
-                  : accessible
-                    ? '当前暂无审批事项'
-                    : '您的待办，即将在这里汇聚'
-              }}
-            </h3>
-            <p>
-              {{
-                accessible && state.error
-                  ? '暂时无法获取工作事项，请重新加载。'
-                  : accessible
-                    ? '有新的工作事项时，将显示在此列表中。'
-                    : '连接并登录平台后，即可查看自己的审批。'
-              }}
-            </p>
-            <button
-              v-if="accessible && state.error"
-              class="button secondary small"
-              @click="workspace.refresh()"
-            >
-              重新加载<Icon name="refresh" :size="13" /></button
-            ><button
-              v-else-if="!accessible"
-              class="button secondary small"
-              @click="workspace.navigate('connection')"
-            >
-              前往连接<Icon name="arrow-right" :size="13" />
-            </button></div></template
-      ></ApprovalTable>
-      <div class="panel-bottom">
-        <span
-          ><i class="subtle-dot" />{{
-            state.mode === 'demo'
-              ? '人工示例数据'
-              : syncLabel
-                ? `最近同步于 ${syncLabel}`
-                : '登录后从平台同步'
-          }}</span
-        ><button
-          class="icon-button"
-          :disabled="!accessible || state.loading"
-          aria-label="刷新审批"
-          @click="workspace.refresh()"
-        >
-          <Icon name="refresh" :size="14" :class="{ spinning: state.loading }" />
+      <div class="heading-actions">
+        <button class="button secondary" @click="workspace.openTasks('drafts')">
+          <Icon name="file" :size="16" />草稿箱</button
+        ><button class="button primary" @click="workspace.navigate('applications')">
+          <Icon name="plus" :size="17" />发起申请
         </button>
       </div>
     </section>
-
-    <aside class="dashboard-side">
-      <section class="panel shortcuts-panel">
+    <section class="work-overview" aria-label="我的工作概览">
+      <button
+        v-for="card in cards"
+        :key="card.tab"
+        class="work-count-card"
+        @click="workspace.openTasks(card.tab)"
+      >
+        <span class="work-count-icon" :class="card.color"
+          ><Icon :name="card.icon" :size="23"
+        /></span>
+        <span class="work-count-copy"
+          ><span class="work-count-label">{{ card.title }}</span
+          ><strong>{{ state.counts[card.tab] ?? '—' }}<small>项</small></strong
+          ><span class="work-count-description">{{ card.description }}</span></span
+        >
+        <Icon name="chevron-right" :size="17" class="work-card-arrow" />
+      </button>
+    </section>
+    <div class="work-area">
+      <section class="panel work-inbox">
         <div class="panel-heading">
-          <div class="panel-heading-title"><h2>快捷入口</h2></div>
-          <Icon name="bolt" :size="16" class="muted" />
+          <div class="panel-heading-title">
+            <h2>待我处理</h2>
+            <span v-if="state.mode === 'demo'" class="tiny-badge">人工示例</span>
+          </div>
+          <button class="text-button" @click="workspace.openTasks('pending')">
+            全部待办<Icon name="arrow-right" :size="15" />
+          </button>
         </div>
-        <div class="shortcut-grid">
-          <button @click="openApprovals('pending')">
-            <span class="shortcut-icon indigo"><Icon name="inbox" :size="21" /></span
-            ><span>处理审批</span></button
-          ><button @click="openApprovals('completed')">
-            <span class="shortcut-icon green"><Icon name="check-circle" :size="21" /></span
-            ><span>已办记录</span></button
-          ><button @click="workspace.navigate('connection')">
-            <span class="shortcut-icon slate"><Icon name="link" :size="21" /></span
-            ><span>平台连接</span></button
-          ><button @click="workspace.navigate('roadmap')">
-            <span class="shortcut-icon amber"><Icon name="layers" :size="21" /></span
-            ><span>业务应用</span>
+        <div v-if="state.error" class="inline-error" role="alert">
+          <Icon name="alert-circle" :size="17" /><span>{{ state.error }}</span
+          ><button @click="workspace.refresh()">重试</button>
+        </div>
+        <ApprovalTable
+          :tasks="summaryTasks"
+          :loading="state.loading"
+          compact
+          @select="workspace.openDetail"
+        >
+          <template #empty
+            ><div class="empty-state work-empty">
+              <span class="work-empty-symbol"
+                ><Icon :name="state.error ? 'alert-circle' : 'check-circle'" :size="30"
+              /></span>
+              <h3>{{ state.error ? '待办暂时没有加载成功' : '当前没有待处理的申请' }}</h3>
+              <p>
+                {{
+                  state.error
+                    ? '请重新加载；您的申请仍保留在平台中。'
+                    : '有新的申请需要您办理时，会出现在这里。'
+                }}
+              </p>
+              <button
+                v-if="state.error"
+                class="button secondary small"
+                @click="workspace.refresh()"
+              >
+                重新加载</button
+              ><button
+                v-else
+                class="button secondary small"
+                @click="workspace.openTasks('started')"
+              >
+                查看我发起的
+              </button>
+            </div></template
+          >
+        </ApprovalTable>
+        <div class="panel-bottom">
+          <span>{{
+            state.mode === 'demo'
+              ? '人工示例 · 仅供浏览'
+              : syncLabel
+                ? `最近更新 ${syncLabel}`
+                : '正在同步您的工作'
+          }}</span
+          ><button class="text-button" :disabled="state.loading" @click="workspace.refresh()">
+            <Icon name="refresh" :size="14" :class="{ spinning: state.loading }" />刷新待办
           </button>
         </div>
       </section>
-      <section class="workflow-note">
-        <span class="note-kicker">WORK, IN FLOW</span>
-        <h3>每一步，都有迹可循。</h3>
-        <p>在审批中心查看事项详情、当前节点与已办记录，专注需要您处理的工作。</p>
-        <div class="mini-workflow">
-          <span><Icon name="file" :size="15" /></span><i /><span
-            ><Icon name="users" :size="15" /></span
-          ><i /><span><Icon name="check" :size="15" /></span>
-        </div>
-        <button class="text-button" @click="workspace.navigate('approvals')">
-          进入审批中心<Icon name="arrow-right" :size="14" />
-        </button>
-      </section>
-      <div class="dashboard-hint">
-        <Icon name="shield" :size="17" />
-        <p>工作内容以当前登录账号的<br />平台授权范围为准。</p>
-      </div>
-    </aside>
+      <aside class="work-aside">
+        <section class="panel work-processes">
+          <div class="panel-heading">
+            <h2>快速发起</h2>
+            <button class="text-button" @click="workspace.navigate('applications')">
+              全部<Icon name="chevron-right" :size="14" />
+            </button>
+          </div>
+          <div v-if="state.processesLoading" class="work-process-loading" role="status">
+            正在加载可用流程…
+          </div>
+          <div v-else-if="state.processesError" class="work-process-empty">
+            <p>暂时无法加载可发起的流程。</p>
+            <button class="text-button" @click="workspace.loadProcesses()">重新加载</button>
+          </div>
+          <div v-else-if="quickProcesses.length" class="quick-process-list">
+            <button v-for="process in quickProcesses" :key="process.id" @click="start(process)">
+              <span class="quick-process-icon"><Icon name="file" :size="19" /></span
+              ><span
+                ><strong>{{ process.name }}</strong
+                ><small>{{ process.applicationName || '流程申请' }}</small></span
+              ><Icon name="plus" :size="16" />
+            </button>
+          </div>
+          <div v-else class="work-process-empty">
+            <p>当前账号暂无可发起的流程。</p>
+            <span>如需发起业务申请，请联系管理员分配流程权限。</span>
+          </div>
+        </section>
+        <section class="work-guide">
+          <h2>从申请到办理</h2>
+          <ol>
+            <li>
+              <span>1</span>
+              <p>选择流程，填写并提交申请</p>
+            </li>
+            <li>
+              <span>2</span>
+              <p>在“我发起的”跟进当前处理人</p>
+            </li>
+            <li>
+              <span>3</span>
+              <p>办理记录保留在“我的已办”</p>
+            </li>
+          </ol>
+          <button class="text-button" @click="workspace.navigate('applications')">
+            查看应用与流程<Icon name="arrow-right" :size="14" />
+          </button>
+        </section>
+      </aside>
+    </div>
   </div>
 </template>

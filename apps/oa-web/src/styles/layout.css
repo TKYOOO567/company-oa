@@ -130,7 +130,7 @@
 }
 .nav-item.active {
   color: #ececff;
-  background: #6566df;
+  background: var(--primary);
 }
 .nav-item.active::before {
   position: absolute;
@@ -140,7 +140,7 @@
   content: '';
   width: 3px;
   border-radius: 2px;
-  background: #a3a5ff;
+  background: #9dbbff;
 }
 .nav-count {
   display: inline-flex;
@@ -494,9 +494,14 @@
   color: #c2c9d7;
 }
 
-.mobile-menu,
+.icon-button.mobile-menu,
 .mobile-scrim {
   display: none;
+}
+@media (max-width: 700px) {
+  .icon-button.mobile-menu {
+    display: inline-grid;
+  }
 }
 
 /* Readable navigation and supporting text at every viewport. */

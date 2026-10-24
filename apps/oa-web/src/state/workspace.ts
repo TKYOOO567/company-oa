@@ -10,6 +10,9 @@ import type {
   Session,
   TaskTab,
   WorkspaceView,
+  StartableProcess,
+  StartIdentity,
+  ProcessLaunch,
 } from '../types'
 
 export interface WorkspaceState {
@@ -21,7 +24,7 @@ export interface WorkspaceState {
   authMode: AuthMode | null
   tasks: Approval[]
   total: number | null
-  counts: { pending: number | null; completed: number | null }
+  counts: Record<TaskTab, number | null>
   page: number
   pageSize: number
   tab: TaskTab
@@ -33,6 +36,18 @@ export interface WorkspaceState {
   detail: ApprovalDetail | null
   detailLoading: boolean
   detailError: string
+  processes: StartableProcess[]
+  processesLoading: boolean
+  processesError: string
+  startingProcess: StartableProcess | null
+  startIdentities: StartIdentity[]
+  identitiesLoading: boolean
+  startBusy: boolean
+  startError: string
+  startUncertain: boolean
+  startResult: ProcessLaunch | null
+  formReturnPending: boolean
+  formRefreshBusy: boolean
 }
 
 function message(error: unknown): string {
@@ -49,7 +64,7 @@ export function createWorkspace(liveApi: OaApi, demoApi: OaApi = createDemoApi()
     authMode: null,
     tasks: [],
     total: null,
-    counts: { pending: null, completed: null },
+    counts: { pending: null, completed: null, started: null, drafts: null },
     page: 1,
     pageSize: 8,
     tab: 'pending',
@@ -61,22 +76,42 @@ export function createWorkspace(liveApi: OaApi, demoApi: OaApi = createDemoApi()
     detail: null,
     detailLoading: false,
     detailError: '',
+    processes: [],
+    processesLoading: false,
+    processesError: '',
+    startingProcess: null,
+    startIdentities: [],
+    identitiesLoading: false,
+    startBusy: false,
+    startError: '',
+    startUncertain: false,
+    startResult: null,
+    formReturnPending: false,
+    formRefreshBusy: false,
   })
   let generation = 0
   let listRequest = 0
   let detailRequest = 0
+  let processRequest = 0
+  let startRequest = 0
+  let countRequest = 0
+  let formGeneration: number | null = null
   let activeApi = liveApi
 
   function reset(mode: 'live' | 'demo') {
     generation++
     listRequest++
     detailRequest++
+    processRequest++
+    startRequest++
+    countRequest++
+    formGeneration = null
     Object.assign(state, {
       mode,
       session: null,
       tasks: [],
       total: null,
-      counts: { pending: null, completed: null },
+      counts: { pending: null, completed: null, started: null, drafts: null },
       page: 1,
       tab: 'pending',
       query: '',
@@ -88,6 +123,18 @@ export function createWorkspace(liveApi: OaApi, demoApi: OaApi = createDemoApi()
       detail: null,
       detailLoading: false,
       detailError: '',
+      processes: [],
+      processesLoading: false,
+      processesError: '',
+      startingProcess: null,
+      startIdentities: [],
+      identitiesLoading: false,
+      startBusy: false,
+      startError: '',
+      startUncertain: false,
+      startResult: null,
+      formReturnPending: false,
+      formRefreshBusy: false,
     })
     activeApi = mode === 'demo' ? demoApi : liveApi
   }
@@ -95,23 +142,16 @@ export function createWorkspace(liveApi: OaApi, demoApi: OaApi = createDemoApi()
   function handleError(error: unknown) {
     state.error = message(error)
     if (typeof error === 'object' && error && 'status' in error && error.status === 401) {
-      generation++
-      listRequest++
-      detailRequest++
-      state.session = null
-      state.tasks = []
-      state.total = null
-      state.counts = { pending: null, completed: null }
-      state.detail = null
-      state.detailLoading = false
-      state.loading = false
-      state.loginBusy = false
+      const authMode = state.authMode
+      reset(state.mode)
+      state.authMode = authMode
+      state.error = message(error)
       state.view = 'connection'
     }
   }
 
-  async function loadTasks() {
-    if (!state.session) return
+  async function loadTasks(): Promise<boolean> {
+    if (!state.session) return false
     const current = generation
     const request = ++listRequest
     state.loading = true
@@ -122,17 +162,18 @@ export function createWorkspace(liveApi: OaApi, demoApi: OaApi = createDemoApi()
     const input = { tab: state.tab, page: state.page, pageSize: state.pageSize, query: state.query }
     try {
       const result = await activeApi.listTasks(input)
-      if (current !== generation || request !== listRequest) return
+      if (current !== generation || request !== listRequest) return false
       if (result.total > 0 && input.page > Math.ceil(result.total / input.pageSize)) {
         state.page = Math.ceil(result.total / input.pageSize)
-        await loadTasks()
-        return
+        return await loadTasks()
       }
       state.tasks = result.items
       state.total = result.total
       state.lastSyncedAt = new Date().toISOString()
+      return true
     } catch (error) {
       if (current === generation && request === listRequest) handleError(error)
+      return false
     } finally {
       if (current === generation && request === listRequest) state.loading = false
     }
@@ -141,13 +182,14 @@ export function createWorkspace(liveApi: OaApi, demoApi: OaApi = createDemoApi()
   async function loadCounts() {
     if (!state.session) return
     const current = generation
+    const request = ++countRequest
     await Promise.all(
-      (['pending', 'completed'] as const).map(async (tab) => {
+      (['pending', 'completed', 'started', 'drafts'] as const).map(async (tab) => {
         try {
           const result = await activeApi.listTasks({ tab, page: 1, pageSize: 1, query: '' })
-          if (current === generation) state.counts[tab] = result.total
+          if (current === generation && request === countRequest) state.counts[tab] = result.total
         } catch (error) {
-          if (current === generation) {
+          if (current === generation && request === countRequest) {
             state.counts[tab] = null
             handleError(error)
           }
@@ -157,11 +199,12 @@ export function createWorkspace(liveApi: OaApi, demoApi: OaApi = createDemoApi()
   }
 
   async function refresh() {
-    await Promise.all([loadTasks(), loadCounts()])
+    const [loaded] = await Promise.all([loadTasks(), loadCounts()])
+    return loaded
   }
 
   async function initialize() {
-    if (state.mode === 'demo') return
+    if (state.mode === 'demo' || state.loginBusy) return
     const current = ++generation
     state.connectionStatus = 'checking'
     state.connectionLabel = '正在连接平台'
@@ -252,8 +295,9 @@ export function createWorkspace(liveApi: OaApi, demoApi: OaApi = createDemoApi()
   }
 
   function navigate(view: WorkspaceView) {
-    state.view =
-      !state.session && (view === 'dashboard' || view === 'approvals') ? 'connection' : view
+    state.view = !state.session ? 'connection' : view
+    closeDetail()
+    if (view === 'applications' && state.session) void loadProcesses()
     if (
       view === 'dashboard' &&
       state.session &&
@@ -269,7 +313,14 @@ export function createWorkspace(liveApi: OaApi, demoApi: OaApi = createDemoApi()
   async function setTab(tab: TaskTab) {
     state.tab = tab
     state.page = 1
+    state.query = ''
     await loadTasks()
+  }
+
+  async function openTasks(tab: TaskTab) {
+    if (!state.session) return navigate('connection')
+    navigate('approvals')
+    await setTab(tab)
   }
 
   async function search(query: string) {
@@ -316,6 +367,143 @@ export function createWorkspace(liveApi: OaApi, demoApi: OaApi = createDemoApi()
     state.detailError = ''
   }
 
+  function retryDetail() {
+    if (state.detail) return openDetail(state.detail.task)
+  }
+
+  async function loadProcesses() {
+    if (!state.session) return
+    const current = generation
+    const request = ++processRequest
+    state.processesLoading = true
+    state.processesError = ''
+    state.processes = []
+    try {
+      const processes = await activeApi.listProcesses()
+      if (current === generation && request === processRequest) state.processes = processes
+    } catch (error) {
+      if (current === generation && request === processRequest) {
+        state.processesError = message(error)
+        if (isUnauthorized(error)) handleError(error)
+      }
+    } finally {
+      if (current === generation && request === processRequest) state.processesLoading = false
+    }
+  }
+
+  async function beginStart(process: StartableProcess) {
+    if (!state.session || state.startBusy) return
+    const current = generation
+    const request = ++startRequest
+    Object.assign(state, {
+      startingProcess: process,
+      startIdentities: [],
+      identitiesLoading: true,
+      startError: '',
+      startUncertain: false,
+      startResult: null,
+    })
+    try {
+      const identities = await activeApi.getStartIdentities(process.id)
+      if (current !== generation || request !== startRequest) return
+      state.startIdentities = identities
+      if (!identities.length) state.startError = '你当前没有可用于发起此流程的身份，请联系管理员。'
+    } catch (error) {
+      if (current === generation && request === startRequest) {
+        state.startError = message(error)
+        if (isUnauthorized(error)) handleError(error)
+      }
+    } finally {
+      if (current === generation && request === startRequest) state.identitiesLoading = false
+    }
+  }
+
+  async function confirmStart(title: string, identity: string) {
+    if (
+      !state.session ||
+      !state.startingProcess ||
+      state.startBusy ||
+      state.startResult ||
+      state.startUncertain
+    )
+      return
+    if (!title.trim() || !state.startIdentities.some((item) => item.id === identity)) {
+      state.startError = '请输入申请标题，并选择可用的发起身份。'
+      return
+    }
+    const current = generation
+    const request = startRequest
+    const processId = state.startingProcess.id
+    state.startBusy = true
+    state.startError = ''
+    try {
+      const result = await activeApi.startProcess({ processId, title: title.trim(), identity })
+      if (current !== generation || request !== startRequest) return
+      state.startResult = result
+      void loadCounts()
+    } catch (error) {
+      if (current === generation && request === startRequest) {
+        state.startError = message(error)
+        state.startUncertain =
+          typeof error === 'object' &&
+          error !== null &&
+          'code' in error &&
+          error.code === 'START_RESULT_UNKNOWN'
+        if (isUnauthorized(error)) handleError(error)
+      }
+    } finally {
+      if (current === generation && request === startRequest) state.startBusy = false
+    }
+  }
+
+  function closeStart() {
+    if (state.startBusy) return
+    startRequest++
+    state.startingProcess = null
+    state.startIdentities = []
+    state.identitiesLoading = false
+    state.startResult = null
+    state.startError = ''
+    state.startUncertain = false
+  }
+
+  function isUnauthorized(error: unknown) {
+    return typeof error === 'object' && error !== null && 'status' in error && error.status === 401
+  }
+
+  function markFormOpened() {
+    if (!state.session || state.mode === 'demo') return
+    formGeneration = generation
+    state.formReturnPending = true
+  }
+
+  async function refreshAfterForm(finished = true) {
+    if (
+      !state.session ||
+      !state.formReturnPending ||
+      state.formRefreshBusy ||
+      formGeneration !== generation
+    )
+      return
+    const current = generation
+    state.formRefreshBusy = true
+    const detailId = state.detail?.task.id
+    const refreshed = await refresh()
+    if (current !== generation) return
+    if (detailId && state.detail?.task.id === detailId && refreshed) {
+      const updated = state.tasks.find((item) => item.id === detailId)
+      // A submitted draft or handled task may no longer belong to this list.
+      // Do not keep its obsolete form URL or claim an outcome before re-reading.
+      if (updated) await openDetail(updated)
+      else closeDetail()
+    }
+    if (current !== generation) return
+    // Focus can mean a mid-edit visit. Only an explicit acknowledgement ends
+    // tracking; otherwise a later return after the actual submit must refresh too.
+    if (refreshed && finished) state.formReturnPending = false
+    state.formRefreshBusy = false
+  }
+
   return {
     state,
     initialize,
@@ -331,6 +519,15 @@ export function createWorkspace(liveApi: OaApi, demoApi: OaApi = createDemoApi()
     refresh,
     openDetail,
     closeDetail,
+    retryDetail,
+    openTasks,
+    loadProcesses,
+    beginStart,
+    confirmStart,
+    closeStart,
+    getStartUrl: () => activeApi.getStartUrl(),
+    markFormOpened,
+    refreshAfterForm,
   }
 }
 

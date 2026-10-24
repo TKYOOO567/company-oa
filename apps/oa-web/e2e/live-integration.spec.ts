@@ -63,7 +63,7 @@ test('real O2OA authentication, pending search, metadata and native form renderi
   try {
     await test.step('登录已启动的隔离企业平台', async () => {
       await page.goto(settings.webBaseUrl)
-      await expect(page.getByRole('heading', { name: '平台连接', exact: true })).toBeVisible()
+      await expect(page.getByRole('heading', { name: '登录工作空间', exact: true })).toBeVisible()
       await expect(page.getByRole('button', { name: '登录工作空间', exact: true })).toBeEnabled()
       await expect(page.locator('.demo-strip')).toHaveCount(0)
       await fillCredentials(page, settings.credential, settings.password)
@@ -95,7 +95,7 @@ test('real O2OA authentication, pending search, metadata and native form renderi
     await test.step('从真实待办接口搜索已知测试事项', async () => {
       await page
         .locator('.sidebar-nav')
-        .getByRole('button', { name: /审批中心/ })
+        .getByRole('button', { name: /待我处理/ })
         .click()
       await expect(page.getByRole('heading', { name: '审批中心', exact: true })).toBeVisible()
       await page.getByRole('textbox', { name: '搜索审批事项' }).fill(settings.searchTerm)
@@ -159,7 +159,7 @@ test('real O2OA authentication, pending search, metadata and native form renderi
     })
 
     await test.step('打开并验证 O2OA 原生表单，不执行审批', async () => {
-      const nativeLink = page.getByRole('dialog').getByRole('link', { name: /进入原生表单处理/ })
+      const nativeLink = page.getByRole('dialog').getByRole('link', { name: /处理申请/ })
       await expect(nativeLink).toBeVisible()
       const href = await nativeLink.getAttribute('href')
       let destination: URL | null = null
@@ -291,7 +291,7 @@ test('a normal non-assignee cannot receive another account pending task in its o
     if (!settings) throw new Error('真实联调配置未启用。')
     await page
       .locator('.sidebar-nav')
-      .getByRole('button', { name: /审批中心/ })
+      .getByRole('button', { name: /待我处理/ })
       .click()
     await page.getByRole('textbox', { name: '搜索审批事项' }).fill(settings.searchTerm)
     const response = page.waitForResponse((item) => {
@@ -368,9 +368,12 @@ test('completed workflow is visible in Web after platform and database restart',
   ).toBe(true)
   await page
     .locator('.sidebar-nav')
-    .getByRole('button', { name: /审批中心/ })
+    .getByRole('button', { name: /待我处理/ })
     .click()
-  await page.getByRole('button', { name: /我的已办/ }).click()
+  await page
+    .locator('.sidebar-nav')
+    .getByRole('button', { name: /我的已办/ })
+    .click()
   await page.getByRole('textbox', { name: '搜索审批事项' }).fill(settings.searchTerm)
   const searching = page.waitForResponse((response) => {
     if (
