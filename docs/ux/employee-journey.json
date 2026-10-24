@@ -1,0 +1,303 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "员工 OA 旅程与本轮交互目标",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "legend": {
+      "entries": {
+        "frontend": {
+          "label": "员工界面"
+        },
+        "backend": {
+          "label": "终态核对"
+        },
+        "security": {
+          "label": "身份与权限"
+        },
+        "external": {
+          "label": "原生表单"
+        }
+      }
+    }
+  },
+  "lanes": [
+    {
+      "id": "workspace",
+      "label": "登录与发起"
+    },
+    {
+      "id": "handling",
+      "label": "处理与追踪"
+    },
+    {
+      "id": "recovery",
+      "label": "失败与恢复",
+      "variant": "exception"
+    }
+  ],
+  "phases": [
+    {
+      "id": "enter",
+      "label": "进入工作空间",
+      "fromCol": 0,
+      "toCol": 1
+    },
+    {
+      "id": "work",
+      "label": "发起或处理",
+      "fromCol": 2,
+      "toCol": 3,
+      "variant": "emphasis"
+    },
+    {
+      "id": "result",
+      "label": "核对结果",
+      "fromCol": 4,
+      "toCol": 4
+    }
+  ],
+  "mainPath": [
+    "signin",
+    "home",
+    "inbox",
+    "summary",
+    "nativeform",
+    "tracking",
+    "closed"
+  ],
+  "nodes": [
+    {
+      "id": "signin",
+      "lane": "workspace",
+      "col": 0,
+      "type": "security",
+      "label": "登录",
+      "sublabel": "仅展示身份与连接入口",
+      "tag": "本轮调整",
+      "width": 152
+    },
+    {
+      "id": "home",
+      "lane": "workspace",
+      "col": 1,
+      "type": "frontend",
+      "label": "工作台",
+      "sublabel": "按当前身份进入任务",
+      "tag": "新 Web",
+      "width": 152
+    },
+    {
+      "id": "startable",
+      "lane": "workspace",
+      "col": 2,
+      "type": "frontend",
+      "label": "发起申请",
+      "sublabel": "只列可发起的流程",
+      "tag": "本轮补齐",
+      "width": 152
+    },
+    {
+      "id": "draft",
+      "lane": "workspace",
+      "col": 3,
+      "type": "frontend",
+      "label": "创建或续填",
+      "sublabel": "选流程 · 保留草稿",
+      "tag": "本轮补齐",
+      "width": 152
+    },
+    {
+      "id": "closed",
+      "lane": "workspace",
+      "col": 4,
+      "type": "backend",
+      "label": "确认办结",
+      "sublabel": "终态与归档需真实核对",
+      "tag": "已办 ≠ 流程结束",
+      "width": 164
+    },
+    {
+      "id": "inbox",
+      "lane": "handling",
+      "col": 1,
+      "type": "frontend",
+      "label": "待我处理",
+      "sublabel": "搜索 · 分页 · 已办",
+      "tag": "现有接入",
+      "width": 152
+    },
+    {
+      "id": "summary",
+      "lane": "handling",
+      "col": 2,
+      "type": "security",
+      "label": "查看事项",
+      "sublabel": "服务端校验可见与可办",
+      "tag": "权限约束",
+      "width": 152
+    },
+    {
+      "id": "nativeform",
+      "lane": "handling",
+      "col": 3,
+      "type": "external",
+      "label": "动态表单与办理",
+      "sublabel": "按配置填写或选择路由",
+      "tag": "O2OA 原生",
+      "width": 168
+    },
+    {
+      "id": "tracking",
+      "lane": "handling",
+      "col": 4,
+      "type": "frontend",
+      "label": "追踪记录",
+      "sublabel": "我发起的 · 已办 · 状态",
+      "tag": "本轮补齐",
+      "width": 164
+    },
+    {
+      "id": "accessfailure",
+      "lane": "recovery",
+      "col": 0,
+      "type": "security",
+      "label": "连接或身份失败",
+      "sublabel": "说明原因 · 恢复后登录",
+      "tag": "不进入业务区",
+      "width": 164
+    },
+    {
+      "id": "retry",
+      "lane": "recovery",
+      "col": 2,
+      "type": "frontend",
+      "label": "失败处理",
+      "sublabel": "保留入口 · 明确重试",
+      "tag": "不伪装成功",
+      "width": 152
+    }
+  ],
+  "edges": [
+    {
+      "from": "signin",
+      "to": "home",
+      "label": "身份有效",
+      "role": "main"
+    },
+    {
+      "from": "home",
+      "to": "inbox",
+      "label": "处理事项",
+      "role": "main"
+    },
+    {
+      "from": "inbox",
+      "to": "summary",
+      "label": "打开记录",
+      "role": "main"
+    },
+    {
+      "from": "summary",
+      "to": "nativeform",
+      "label": "进入表单",
+      "role": "main"
+    },
+    {
+      "from": "nativeform",
+      "to": "tracking",
+      "label": "返回并刷新",
+      "role": "main"
+    },
+    {
+      "from": "tracking",
+      "to": "closed",
+      "label": "终态确认",
+      "role": "main"
+    },
+    {
+      "from": "home",
+      "to": "startable",
+      "label": "新申请",
+      "role": "branch"
+    },
+    {
+      "from": "startable",
+      "to": "draft",
+      "label": "选择流程",
+      "role": "branch"
+    },
+    {
+      "from": "draft",
+      "to": "nativeform",
+      "label": "打开草稿",
+      "role": "branch"
+    },
+    {
+      "from": "signin",
+      "to": "accessfailure",
+      "label": "登录失败",
+      "role": "error",
+      "variant": "security"
+    },
+    {
+      "from": "accessfailure",
+      "to": "signin",
+      "label": "修正后重试",
+      "role": "return"
+    },
+    {
+      "from": "summary",
+      "to": "retry",
+      "label": "请求失败或拒绝",
+      "role": "error",
+      "variant": "security"
+    },
+    {
+      "from": "nativeform",
+      "to": "retry",
+      "label": "办理未确认",
+      "role": "error",
+      "variant": "security"
+    },
+    {
+      "from": "retry",
+      "to": "summary",
+      "label": "返回记录重试",
+      "role": "return"
+    },
+    {
+      "from": "retry",
+      "to": "accessfailure",
+      "label": "会话失效",
+      "role": "return"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "入口必须可信",
+      "items": [
+        "未登录只显示登录与连接",
+        "登录后所有导航都有明确去向"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "沿用原生执行",
+      "items": [
+        "动态表单与路由遵循有效配置",
+        "返回新 Web 后重新读取状态"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "目标不等于已完成",
+      "items": [
+        "客户、资金、完整会计继续建设",
+        "公司授权、迁移与财务仍需验收"
+      ]
+    }
+  ]
+}

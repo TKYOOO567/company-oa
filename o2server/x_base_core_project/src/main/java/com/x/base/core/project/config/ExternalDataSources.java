@@ -24,8 +24,8 @@ public class ExternalDataSources extends CopyOnWriteArrayList<ExternalDataSource
     }
 
     public Boolean enable() {
-        return false;
-
+        return this.stream().filter(Objects::nonNull)
+                .anyMatch(source -> BooleanUtils.isTrue(source.getEnable()));
     }
 
     public String name(ExternalDataSource externalDataSource) throws Exception {

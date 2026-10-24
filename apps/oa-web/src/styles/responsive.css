@@ -1,0 +1,1545 @@
+/* Desktop, tablet and mobile adaptations; reduced-motion preferences. */
+
+@media (min-width: 1600px) {
+  .page-content {
+    padding: 35px 42px 18px;
+  }
+  .topbar {
+    padding: 0 42px;
+  }
+  .dashboard-grid {
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: 25px;
+  }
+  .stats-grid {
+    gap: 23px;
+  }
+  .stat-card {
+    padding: 22px 25px 18px;
+  }
+  .connection-story {
+    padding: 53px;
+  }
+  .connection-layout {
+    min-height: 665px;
+  }
+  .connection-form-inner {
+    max-width: 390px;
+  }
+  .approval-table.compact .task-title-cell {
+    max-width: 330px;
+  }
+  .approval-table.compact .task-title {
+    max-width: 285px;
+  }
+  .approval-table.compact .task-subtitle {
+    max-width: 280px;
+  }
+}
+@media (max-width: 1320px) {
+  .page-content {
+    padding: 27px 27px 16px;
+  }
+  .topbar {
+    padding: 0 27px;
+  }
+  .stats-grid {
+    gap: 15px;
+  }
+  .stat-card {
+    padding: 17px 17px 14px;
+  }
+  .stat-value {
+    font-size: 30px;
+  }
+  .stat-bottom {
+    font-size: 12px;
+  }
+  .dashboard-grid {
+    grid-template-columns: minmax(0, 1fr) 242px;
+    gap: 19px;
+  }
+  .panel-heading {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+  .panel-tabs {
+    padding-left: 18px;
+    padding-right: 18px;
+    gap: 20px;
+  }
+  .approval-table.compact th,
+  .approval-table.compact td {
+    padding-left: 9px;
+    padding-right: 9px;
+  }
+  .approval-table.compact th:first-child,
+  .approval-table.compact td:first-child {
+    padding-left: 18px;
+  }
+  .approval-table.compact th:last-child,
+  .approval-table.compact td:last-child {
+    padding-right: 12px;
+  }
+  .approval-table.compact .task-title-cell {
+    min-width: 145px;
+    max-width: 195px;
+    gap: 8px;
+  }
+  .approval-table.compact .task-title {
+    max-width: 155px;
+    font-size: 12px;
+  }
+  .approval-table.compact .task-subtitle {
+    max-width: 155px;
+  }
+  .approval-table.compact .table-person {
+    max-width: 93px;
+  }
+  .approval-table.compact .person-dot {
+    display: none;
+  }
+  .approval-table.compact th {
+    font-size: 12px;
+  }
+  .approval-table.compact td {
+    font-size: 12px;
+  }
+  .approval-table.compact .date-cell {
+    font-size: 12px;
+  }
+  .workflow-note {
+    padding: 22px 19px;
+  }
+  .workflow-note h3 {
+    font-size: 15px;
+  }
+  .workflow-note p {
+    font-size: 12px;
+  }
+  .connection-story {
+    padding: 39px 32px;
+  }
+  .connection-story h2 {
+    font-size: 25px;
+  }
+  .connection-form-area {
+    padding: 34px;
+  }
+  .approval-table:not(.compact) th,
+  .approval-table:not(.compact) td {
+    padding-left: 11px;
+    padding-right: 11px;
+  }
+  .approval-table:not(.compact) th:first-child,
+  .approval-table:not(.compact) td:first-child {
+    padding-left: 22px;
+  }
+  .approval-table:not(.compact) .task-title {
+    max-width: 245px;
+  }
+  .approval-table:not(.compact) .task-subtitle {
+    max-width: 245px;
+  }
+}
+@media (max-width: 1120px) {
+  .sidebar {
+    width: 198px;
+  }
+  .main-shell {
+    margin-left: 198px;
+  }
+  .brand {
+    padding: 0 21px;
+    gap: 10px;
+  }
+  .brand-wordmark {
+    font-size: 18px;
+  }
+  .brand-wordmark small {
+    font-size: 12px;
+    letter-spacing: 1.2px;
+  }
+  .workspace-label {
+    margin-left: 13px;
+    margin-right: 13px;
+    font-size: 12px;
+    padding: 11px 9px;
+    gap: 7px;
+  }
+  .workspace-monogram {
+    width: 26px;
+    height: 26px;
+  }
+  .sidebar-nav {
+    padding: 0 11px;
+  }
+  .nav-item {
+    font-size: 12px;
+    gap: 10px;
+  }
+  .nav-item.active::before {
+    left: -11px;
+  }
+  .page-content {
+    padding-left: 23px;
+    padding-right: 23px;
+  }
+  .topbar {
+    padding: 0 23px;
+  }
+  .page-heading h1 {
+    font-size: 23px;
+  }
+  .stat-card {
+    padding: 17px 15px 14px;
+  }
+  .stat-top {
+    font-size: 12px;
+  }
+  .stat-icon {
+    width: 28px;
+    height: 28px;
+  }
+  .stat-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+  .stat-value {
+    font-size: 28px;
+  }
+  .stat-value.text-value {
+    font-size: 19px;
+    line-height: 2.35;
+  }
+  .stat-bottom {
+    font-size: 12px;
+  }
+  .stat-bottom > svg {
+    display: none;
+  }
+  .dashboard-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .dashboard-side {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .dashboard-hint {
+    display: none;
+  }
+  .shortcut-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    padding: 7px 15px 26px;
+    gap: 6px;
+  }
+  .shortcut-grid > button {
+    font-size: 12px;
+    gap: 10px;
+  }
+  .shortcut-icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 9px;
+  }
+  .shortcut-icon svg {
+    width: 19px;
+    height: 19px;
+  }
+  .workflow-note {
+    padding: 19px 22px;
+  }
+  .workflow-note p {
+    font-size: 12px;
+    max-width: 300px;
+  }
+  .workflow-note h3 {
+    font-size: 16px;
+    margin-top: 7px;
+  }
+  .mini-workflow {
+    margin: 16px 0 12px;
+    max-width: 210px;
+  }
+  .shortcuts-panel {
+    height: 100%;
+  }
+  .shortcuts-panel .panel-heading {
+    padding: 21px 22px;
+  }
+  .welcome-banner {
+    min-height: 195px;
+  }
+  .welcome-banner-copy h2 {
+    font-size: 23px;
+  }
+  .welcome-banner-copy {
+    padding: 25px;
+  }
+  .approval-table.compact .task-title-cell {
+    max-width: 300px;
+  }
+  .approval-table.compact .task-title {
+    max-width: 255px;
+    font-size: 12px;
+  }
+  .approval-table.compact .task-subtitle {
+    max-width: 255px;
+    font-size: 12px;
+  }
+  .approval-table.compact td {
+    font-size: 12px;
+  }
+  .approval-table.compact th {
+    font-size: 12px;
+  }
+  .approval-table.compact .person-dot {
+    display: grid;
+  }
+  .approval-table.compact .table-person {
+    font-size: 12px;
+    max-width: 120px;
+  }
+  .approval-table.compact .date-cell {
+    font-size: 12px;
+  }
+  .approval-table.compact th,
+  .approval-table.compact td {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .connection-layout {
+    grid-template-columns: 42% 58%;
+    min-height: 615px;
+  }
+  .connection-story {
+    padding: 37px 26px;
+  }
+  .connection-story h2 {
+    font-size: 22px;
+    margin-top: 49px;
+  }
+  .story-label {
+    font-size: 12px;
+    letter-spacing: 0.8px;
+  }
+  .story-intro {
+    font-size: 12px;
+  }
+  .connection-form-area {
+    padding: 33px 30px;
+  }
+  .login-heading h2 {
+    font-size: 19px;
+  }
+  .approval-table:not(.compact) {
+    min-width: 800px;
+  }
+  .approval-table:not(.compact) .task-title {
+    max-width: 210px;
+  }
+  .approval-table:not(.compact) .task-subtitle {
+    max-width: 210px;
+  }
+  .roadmap-banner h2 {
+    font-size: 18px;
+  }
+  .roadmap-banner {
+    padding: 24px;
+    gap: 17px;
+  }
+  .roadmap-banner-icon {
+    width: 54px;
+    height: 54px;
+    border-radius: 14px;
+  }
+}
+@media (max-width: 900px) {
+  .sidebar {
+    width: 184px;
+  }
+  .main-shell {
+    margin-left: 184px;
+  }
+  .brand {
+    padding: 0 17px;
+  }
+  .brand-wordmark {
+    font-size: 16px;
+  }
+  .brand-wordmark small {
+    font-size: 12px;
+    letter-spacing: 0.8px;
+  }
+  .workspace-label {
+    margin-left: 11px;
+    margin-right: 11px;
+    font-size: 12px;
+  }
+  .workspace-label small {
+    font-size: 12px;
+  }
+  .workspace-label > svg {
+    display: none;
+  }
+  .sidebar-nav {
+    padding: 0 10px;
+  }
+  .nav-item {
+    padding: 10px 11px;
+    font-size: 12px;
+    gap: 9px;
+  }
+  .nav-caption {
+    font-size: 12px;
+  }
+  .nav-preview {
+    font-size: 12px;
+    margin-left: 12px;
+  }
+  .sidebar-bottom {
+    padding-left: 13px;
+    padding-right: 13px;
+  }
+  .sidebar-note {
+    gap: 8px;
+  }
+  .sidebar-note p {
+    font-size: 12px;
+  }
+  .sidebar-profile {
+    gap: 7px;
+    font-size: 12px;
+  }
+  .sidebar-profile small {
+    font-size: 12px;
+  }
+  .topbar {
+    padding: 0 21px;
+    height: 65px;
+  }
+  .topbar-actions {
+    gap: 13px;
+  }
+  .page-content {
+    padding: 25px 21px 15px;
+  }
+  .heading-date {
+    font-size: 12px;
+  }
+  .page-heading {
+    gap: 15px;
+  }
+  .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 13px;
+    margin-bottom: 21px;
+  }
+  .stat-card {
+    padding: 17px 20px 15px;
+  }
+  .stat-top {
+    font-size: 12px;
+  }
+  .stat-value {
+    font-size: 30px;
+  }
+  .stat-value.text-value {
+    font-size: 21px;
+    line-height: 2.3;
+  }
+  .stat-bottom {
+    font-size: 12px;
+  }
+  .stat-bottom > svg {
+    display: block;
+  }
+  .welcome-banner-copy {
+    padding: 24px;
+  }
+  .welcome-banner-copy h2 {
+    font-size: 22px;
+  }
+  .welcome-banner-copy p {
+    font-size: 12px;
+  }
+  .welcome-illustration {
+    min-width: 205px;
+  }
+  .illustration-paper {
+    right: 38px;
+    transform: rotate(9deg) scale(0.93);
+  }
+  .illustration-paper.back {
+    right: 61px;
+  }
+  .floating-check {
+    right: 12px;
+  }
+  .floating-node {
+    right: 159px;
+    width: 33px;
+    height: 33px;
+  }
+  .dashboard-side {
+    gap: 18px;
+  }
+  .shortcut-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px 5px;
+  }
+  .shortcut-icon {
+    width: 38px;
+    height: 38px;
+  }
+  .workflow-note {
+    padding: 23px 21px;
+  }
+  .workflow-note h3 {
+    font-size: 15px;
+  }
+  .workflow-note p {
+    font-size: 12px;
+  }
+  .mini-workflow {
+    margin: 23px 0 18px;
+  }
+  .approval-table.compact {
+    min-width: 570px;
+  }
+  .approval-table.compact .task-title-cell {
+    max-width: 220px;
+  }
+  .approval-table.compact .task-title,
+  .approval-table.compact .task-subtitle {
+    max-width: 180px;
+  }
+  .approval-table.compact th,
+  .approval-table.compact td {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .approval-table.compact .table-person {
+    max-width: 95px;
+    font-size: 12px;
+  }
+  .approval-table.compact .person-dot {
+    display: none;
+  }
+  .approval-table.compact td {
+    font-size: 12px;
+  }
+  .approval-table.compact .date-cell {
+    font-size: 12px;
+  }
+  .connection-layout {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+  }
+  .connection-story {
+    padding: 31px 32px;
+    min-height: 205px;
+  }
+  .connection-story h2 {
+    margin-top: 21px;
+    font-size: 24px;
+    line-height: 1.6;
+  }
+  .connection-story h2 br {
+    display: none;
+  }
+  .story-intro {
+    margin-top: 10px;
+    font-size: 12px;
+  }
+  .story-intro br {
+    display: none;
+  }
+  .story-features,
+  .story-bottom {
+    display: none;
+  }
+  .story-decoration {
+    right: -180px;
+    bottom: -240px;
+  }
+  .connection-form-area {
+    padding: 36px;
+  }
+  .connection-form-inner {
+    max-width: 400px;
+  }
+  .connection-form-area .login-heading-icon {
+    width: 43px;
+    height: 43px;
+    border-radius: 12px;
+  }
+  .connection-form-area .login-heading h2 {
+    font-size: 20px;
+  }
+  .connection-notice {
+    gap: 10px;
+    padding: 14px 16px;
+  }
+  .connection-notice p {
+    font-size: 12px;
+  }
+  .connection-notice strong {
+    font-size: 12px;
+  }
+  .list-filter-note {
+    display: none;
+  }
+  .search-field {
+    width: 100%;
+    max-width: 390px;
+  }
+  .module-grid {
+    gap: 18px;
+  }
+  .module-card {
+    padding: 22px 21px 0;
+  }
+  .module-card-footer {
+    margin-left: -21px;
+    margin-right: -21px;
+    padding-left: 21px;
+    padding-right: 21px;
+  }
+  .roadmap-banner {
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .roadmap-banner-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+  }
+  .roadmap-banner-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+  .roadmap-banner h2 {
+    font-size: 16px;
+  }
+  .roadmap-banner .outline-badge {
+    display: none;
+  }
+  .roadmap-banner p {
+    font-size: 12px;
+  }
+  .roadmap-next {
+    padding: 21px;
+  }
+  .roadmap-next h3 {
+    font-size: 14px;
+  }
+  .roadmap-next p {
+    font-size: 12px;
+  }
+}
+@media (max-width: 700px) {
+  .sidebar {
+    width: 216px;
+    transform: translateX(-100%);
+    transition: transform 0.2s ease;
+  }
+  .sidebar.is-open {
+    transform: translateX(0);
+  }
+  .main-shell {
+    margin-left: 0;
+  }
+  .mobile-menu {
+    display: grid;
+    margin-right: 13px;
+  }
+  .mobile-scrim {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: #18243a55;
+    z-index: 45;
+    backdrop-filter: blur(2px);
+  }
+  .brand {
+    padding: 0 25px;
+  }
+  .brand-wordmark {
+    font-size: 19px;
+  }
+  .brand-wordmark small {
+    font-size: 12px;
+    letter-spacing: 1.4px;
+  }
+  .workspace-label {
+    font-size: 12px;
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+  .workspace-label small {
+    font-size: 12px;
+  }
+  .workspace-label > svg {
+    display: block;
+  }
+  .workspace-monogram {
+    width: 29px;
+    height: 29px;
+  }
+  .sidebar-nav {
+    padding: 0 13px;
+  }
+  .nav-item {
+    font-size: 12px;
+    gap: 12px;
+    padding: 10px 13px;
+  }
+  .nav-caption {
+    font-size: 12px;
+  }
+  .nav-preview {
+    font-size: 12px;
+  }
+  .sidebar-note p {
+    font-size: 12px;
+  }
+  .sidebar-profile {
+    font-size: 12px;
+  }
+  .sidebar-profile small {
+    font-size: 12px;
+  }
+  .topbar {
+    height: 62px;
+    padding: 0 19px;
+  }
+  .breadcrumb {
+    font-size: 12px;
+    gap: 9px;
+  }
+  .topbar-actions {
+    gap: 12px;
+  }
+  .connection-chip {
+    font-size: 12px;
+    padding: 4px 7px;
+  }
+  .topbar-user > span:nth-child(2),
+  .topbar-user > svg {
+    display: none;
+  }
+  .topbar-divider {
+    height: 18px;
+  }
+  .page-content {
+    padding: 24px 19px 15px;
+  }
+  .page-heading h1 {
+    font-size: 23px;
+  }
+  .page-heading p {
+    font-size: 12px;
+  }
+  .heading-date {
+    font-size: 12px;
+  }
+  .welcome-banner {
+    margin-bottom: 20px;
+    min-height: 190px;
+  }
+  .welcome-banner-copy {
+    padding: 24px;
+  }
+  .welcome-banner-copy h2 {
+    font-size: 23px;
+  }
+  .welcome-illustration {
+    min-width: 200px;
+  }
+  .dashboard-side {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .shortcut-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .workflow-note {
+    padding: 23px 20px;
+  }
+  .demo-strip {
+    padding: 9px 19px;
+    font-size: 12px;
+    gap: 12px;
+  }
+  .demo-strip > span {
+    gap: 6px;
+  }
+  .demo-strip > span > span {
+    display: none;
+  }
+  .demo-strip button {
+    font-size: 12px;
+  }
+  .approval-segments > button {
+    font-size: 12px;
+    padding: 8px 11px;
+    gap: 6px;
+  }
+  .approval-toolbar {
+    padding: 18px 19px 0;
+  }
+  .list-filter-bar {
+    padding: 17px 19px;
+  }
+  .pagination-bar {
+    padding: 15px 19px;
+    font-size: 12px;
+  }
+  .pagination-controls {
+    gap: 5px;
+  }
+  .pagination-controls > span:first-child {
+    font-size: 12px;
+    margin-right: 5px;
+  }
+  .connection-form-area {
+    padding: 35px 29px;
+  }
+  .connection-story {
+    padding: 29px;
+    min-height: 190px;
+  }
+  .connection-story h2 {
+    font-size: 23px;
+  }
+  .connection-notice {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .connection-notice .button {
+    margin-left: 46px;
+  }
+  .module-card {
+    padding: 22px 23px 0;
+  }
+  .module-grid {
+    gap: 16px;
+  }
+  .module-card h2 {
+    font-size: 14px;
+  }
+  .module-card > p {
+    font-size: 12px;
+    line-height: 1.9;
+  }
+  .module-card li {
+    font-size: 12px;
+  }
+  .module-card-footer {
+    margin-left: -23px;
+    margin-right: -23px;
+    padding-left: 23px;
+    padding-right: 23px;
+    font-size: 12px;
+  }
+  .roadmap-next {
+    gap: 18px;
+  }
+  .roadmap-next .button {
+    font-size: 12px;
+    padding: 7px 11px;
+  }
+  .workspace-footer {
+    margin-top: 28px;
+  }
+  .detail-drawer {
+    width: min(570px, 100%);
+  }
+  .drawer-header {
+    padding: 23px 25px 20px;
+  }
+  .drawer-body {
+    padding: 25px;
+  }
+  .drawer-footer {
+    padding: 17px 25px;
+  }
+}
+@media (max-width: 480px) {
+  .topbar {
+    padding: 0 14px;
+  }
+  .topbar-actions {
+    gap: 10px;
+  }
+  .breadcrumb {
+    gap: 6px;
+  }
+  .breadcrumb > span:first-child {
+    display: none;
+  }
+  .breadcrumb > svg {
+    display: none;
+  }
+  .mobile-menu {
+    margin-right: 8px;
+  }
+  .connection-chip > svg {
+    display: none;
+  }
+  .page-content {
+    padding: 22px 14px 13px;
+  }
+  .page-heading {
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .page-heading h1 {
+    font-size: 21px;
+  }
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: 1.6px;
+  }
+  .page-heading p {
+    font-size: 12px;
+    line-height: 1.9;
+  }
+  .heading-date {
+    font-size: 12px;
+    align-self: flex-start;
+    padding-top: 24px;
+  }
+  .heading-date svg {
+    width: 13px;
+    height: 13px;
+  }
+  .heading-tag {
+    font-size: 12px;
+    gap: 5px;
+    padding: 4px 7px;
+  }
+  .welcome-banner {
+    min-height: 185px;
+    border-radius: 10px;
+  }
+  .welcome-banner-copy {
+    padding: 23px 21px;
+  }
+  .welcome-banner-copy .small-label {
+    font-size: 12px;
+  }
+  .welcome-banner-copy h2 {
+    font-size: 21px;
+  }
+  .welcome-banner-copy p {
+    max-width: 185px;
+    font-size: 12px;
+    line-height: 1.9;
+  }
+  .welcome-banner-copy .button {
+    font-size: 12px;
+    margin-top: 16px;
+  }
+  .welcome-illustration {
+    position: absolute;
+    right: -55px;
+    inset-block: 0;
+    width: 205px;
+    min-width: 205px;
+    opacity: 0.65;
+  }
+  .illustration-paper {
+    right: 35px;
+    transform: rotate(9deg) scale(0.7);
+    transform-origin: center right;
+    top: 38px;
+  }
+  .illustration-paper.back {
+    right: 58px;
+    transform: rotate(-7deg) scale(0.7);
+    transform-origin: center right;
+    top: 28px;
+  }
+  .floating-check {
+    width: 34px;
+    height: 34px;
+    right: 28px;
+    top: 112px;
+    border-radius: 9px;
+  }
+  .floating-check svg {
+    width: 20px;
+    height: 20px;
+  }
+  .floating-node {
+    width: 28px;
+    height: 28px;
+    right: 140px;
+    top: 50px;
+    border-radius: 8px;
+  }
+  .floating-node svg {
+    width: 16px;
+    height: 16px;
+  }
+  .stats-grid {
+    gap: 10px;
+    margin-bottom: 19px;
+  }
+  .stat-card {
+    padding: 15px 16px 13px;
+    border-radius: 9px;
+  }
+  .stat-top {
+    font-size: 12px;
+  }
+  .stat-icon {
+    width: 26px;
+    height: 26px;
+    border-radius: 8px;
+  }
+  .stat-icon svg {
+    width: 15px;
+    height: 15px;
+  }
+  .stat-value {
+    font-size: 28px;
+    margin-top: 5px;
+  }
+  .stat-value small {
+    font-size: 12px;
+  }
+  .stat-value.text-value {
+    font-size: 19px;
+    line-height: 2.35;
+  }
+  .stat-bottom {
+    font-size: 12px;
+  }
+  .stat-bottom > svg {
+    display: none;
+  }
+  .panel {
+    border-radius: 10px;
+  }
+  .panel-heading {
+    padding: 18px 17px 15px;
+    min-height: 59px;
+  }
+  .panel-heading h2 {
+    font-size: 12px;
+  }
+  .panel-heading .text-button {
+    font-size: 12px;
+  }
+  .panel-tabs {
+    padding: 0 17px;
+    gap: 22px;
+  }
+  .panel-tabs > button {
+    font-size: 12px;
+  }
+  .empty-state {
+    min-height: 260px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .empty-state.large {
+    min-height: 320px;
+  }
+  .empty-state h3 {
+    font-size: 12px;
+  }
+  .empty-state p {
+    font-size: 12px;
+  }
+  .panel-bottom {
+    padding-left: 17px;
+    padding-right: 17px;
+  }
+  .dashboard-side {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+  .shortcut-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 7px;
+    padding: 4px 17px 24px;
+  }
+  .shortcut-icon {
+    width: 38px;
+    height: 38px;
+  }
+  .shortcut-grid > button {
+    font-size: 12px;
+  }
+  .workflow-note {
+    padding: 22px 23px;
+  }
+  .workflow-note h3 {
+    font-size: 17px;
+  }
+  .workflow-note p {
+    font-size: 12px;
+    max-width: 100%;
+  }
+  .mini-workflow {
+    max-width: 100%;
+    margin: 20px 0 15px;
+  }
+  .workflow-note .text-button {
+    font-size: 12px;
+  }
+  .connection-notice {
+    padding: 14px;
+  }
+  .connection-notice strong {
+    font-size: 12px;
+  }
+  .connection-notice p {
+    font-size: 12px;
+  }
+  .notice-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+  }
+  .connection-notice .button {
+    margin-left: 40px;
+  }
+  .approval-toolbar {
+    padding: 16px 13px 0;
+    gap: 7px;
+  }
+  .approval-segments {
+    gap: 3px;
+  }
+  .approval-segments > button {
+    gap: 6px;
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+  .approval-segments > button > svg {
+    width: 14px;
+    height: 14px;
+  }
+  .approval-segments > button > span {
+    font-size: 12px;
+    min-width: 15px;
+    height: 14px;
+  }
+  .approval-toolbar > .status-badge {
+    font-size: 12px;
+    padding: 2px 5px;
+  }
+  .list-filter-bar {
+    padding: 16px 14px;
+  }
+  .search-field input {
+    font-size: 12px;
+  }
+  .pagination-bar {
+    padding: 14px;
+    flex-wrap: wrap;
+    gap: 13px;
+  }
+  .pagination-controls {
+    margin-left: auto;
+  }
+  .pagination-controls > span:first-child {
+    display: none;
+  }
+  .page-note {
+    font-size: 12px;
+    align-items: flex-start;
+    line-height: 1.9;
+  }
+  .page-note > svg {
+    margin-top: 1px;
+  }
+  .connection-layout {
+    border-radius: 10px;
+  }
+  .connection-story {
+    padding: 27px 26px;
+    min-height: 180px;
+  }
+  .connection-story h2 {
+    font-size: 21px;
+    letter-spacing: 0.4px;
+    margin-top: 20px;
+  }
+  .story-intro {
+    font-size: 12px;
+    max-width: 250px;
+  }
+  .story-label {
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+  .small-brand-symbol {
+    width: 21px;
+    height: 21px;
+    font-size: 12px;
+  }
+  .connection-form-area {
+    padding: 29px 24px 31px;
+  }
+  .login-heading h2 {
+    font-size: 19px;
+  }
+  .login-heading p {
+    font-size: 12px;
+  }
+  .platform-status-card {
+    margin-top: 23px;
+  }
+  .connection-config-note {
+    font-size: 12px;
+  }
+  .roadmap-banner {
+    padding: 20px 19px;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .roadmap-banner-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+  }
+  .roadmap-banner-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+  .roadmap-banner h2 {
+    font-size: 15px;
+    line-height: 1.8;
+  }
+  .roadmap-banner p {
+    font-size: 12px;
+    line-height: 1.9;
+  }
+  .module-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .module-card {
+    padding: 23px 24px 0;
+  }
+  .module-card > p {
+    font-size: 12px;
+  }
+  .module-card li {
+    font-size: 12px;
+  }
+  .module-card h2 {
+    font-size: 15px;
+  }
+  .module-card-footer {
+    margin-left: -24px;
+    margin-right: -24px;
+    padding-left: 24px;
+    padding-right: 24px;
+    font-size: 12px;
+  }
+  .roadmap-next {
+    flex-wrap: wrap;
+    padding: 23px;
+  }
+  .roadmap-next p {
+    font-size: 12px;
+  }
+  .roadmap-next .button {
+    font-size: 12px;
+  }
+  .workspace-footer {
+    font-size: 12px;
+    margin-top: 27px;
+    gap: 6px;
+  }
+  .workspace-footer > span:first-child {
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+  .workspace-footer .footer-right {
+    font-size: 12px;
+  }
+  .drawer-header {
+    padding: 22px 20px 18px;
+  }
+  .drawer-body {
+    padding: 23px 20px;
+  }
+  .drawer-header h2 {
+    font-size: 17px;
+  }
+  .detail-document-icon {
+    width: 42px;
+    height: 48px;
+    border-radius: 9px;
+  }
+  .detail-document-heading {
+    gap: 12px;
+  }
+  .detail-document-heading h3 {
+    font-size: 14px;
+  }
+  .detail-application {
+    font-size: 12px;
+  }
+  .detail-summary {
+    padding: 19px;
+    gap: 20px;
+  }
+  .detail-summary strong {
+    font-size: 12px;
+  }
+  .detail-fields > div {
+    grid-template-columns: 105px minmax(0, 1fr);
+  }
+  .detail-fields dt,
+  .detail-fields dd {
+    padding: 13px;
+    font-size: 12px;
+  }
+  .native-form-note {
+    padding: 17px 15px;
+    gap: 9px;
+  }
+  .native-form-note h4 {
+    font-size: 12px;
+  }
+  .native-form-note p {
+    font-size: 12px;
+  }
+  .drawer-footer {
+    padding: 16px 20px;
+    gap: 8px;
+  }
+  .drawer-footer .button {
+    font-size: 12px;
+    padding: 7px 11px;
+  }
+  .drawer-unavailable {
+    font-size: 12px;
+  }
+  .demo-strip {
+    padding: 8px 14px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Preserve the readable scale after breakpoint-specific layout rules. */
+.sidebar .nav-item {
+  font-size: 14px;
+}
+.brand-wordmark small {
+  font-size: 8px;
+}
+.eyebrow {
+  font-size: 9px;
+}
+.story-label,
+.story-bottom,
+.note-kicker {
+  font-size: 9px;
+}
+.workspace-footer > span:first-child {
+  font-size: 9px;
+}
+@media (max-width: 700px) {
+  .page-heading p {
+    font-size: 12px;
+  }
+  .heading-date {
+    font-size: 11px;
+  }
+  .stat-top {
+    font-size: 12px;
+  }
+  .stat-bottom {
+    font-size: 11px;
+  }
+  .stat-value small {
+    font-size: 11px;
+  }
+  .approval-table td,
+  .approval-table.compact td {
+    font-size: 12px;
+  }
+  .approval-table th,
+  .approval-table.compact th {
+    font-size: 11px;
+  }
+  .task-title,
+  .approval-table.compact .task-title {
+    font-size: 13px;
+  }
+  .task-subtitle,
+  .approval-table.compact .task-subtitle {
+    font-size: 11px;
+  }
+  .table-person,
+  .approval-table.compact .table-person {
+    font-size: 12px;
+  }
+  .date-cell,
+  .approval-table.compact .date-cell {
+    font-size: 11px;
+  }
+  .connection-chip {
+    font-size: 11px;
+  }
+  .approval-segments > button {
+    font-size: 12px;
+  }
+  .search-field input {
+    font-size: 13px;
+  }
+  .login-form > label {
+    font-size: 13px;
+  }
+  .login-input input {
+    font-size: 14px;
+  }
+  .login-error {
+    font-size: 12px;
+  }
+  .login-help,
+  .demo-entry,
+  .demo-entry button {
+    font-size: 12px;
+  }
+  .connection-config-note,
+  .connection-config-note code {
+    font-size: 11px;
+  }
+  .detail-fields dd {
+    font-size: 13px;
+  }
+  .detail-fields dt {
+    font-size: 12px;
+  }
+  .native-form-note p {
+    font-size: 12px;
+  }
+  .drawer-unavailable {
+    font-size: 11px;
+  }
+  .demo-strip,
+  .demo-strip button {
+    font-size: 11px;
+  }
+  .workspace-footer,
+  .workspace-footer .footer-right {
+    font-size: 10px;
+  }
+}
+@media (max-width: 480px) {
+  .heading-date {
+    padding-top: 0;
+  }
+  .welcome-banner-copy p {
+    font-size: 12px;
+    max-width: 215px;
+  }
+  .welcome-banner-copy .button {
+    font-size: 12px;
+  }
+  .stats-grid {
+    gap: 10px;
+  }
+  .stat-card {
+    padding: 15px 14px 13px;
+  }
+  .stat-bottom {
+    white-space: normal;
+    line-height: 1.7;
+    min-height: 19px;
+  }
+  .stat-icon {
+    width: 24px;
+    height: 24px;
+  }
+  .stat-value {
+    font-size: 29px;
+  }
+  .stat-value.text-value {
+    font-size: 20px;
+  }
+  .panel-heading h2 {
+    font-size: 14px;
+  }
+  .panel-heading .text-button {
+    font-size: 12px;
+  }
+  .panel-tabs > button {
+    font-size: 12px;
+  }
+  .shortcut-grid > button {
+    font-size: 12px;
+  }
+  .workflow-note p {
+    font-size: 12px;
+  }
+  .connection-notice p {
+    font-size: 12px;
+  }
+  .connection-notice strong {
+    font-size: 13px;
+  }
+  .login-heading p {
+    font-size: 12px;
+  }
+  .platform-status-card p {
+    font-size: 11px;
+  }
+  .platform-status-card strong {
+    font-size: 12px;
+  }
+  .story-intro {
+    font-size: 12px;
+  }
+  .roadmap-banner p {
+    font-size: 12px;
+  }
+  .module-card > p,
+  .module-card li {
+    font-size: 13px;
+  }
+  .module-card h2 {
+    font-size: 17px;
+  }
+  .module-card-footer {
+    font-size: 11px;
+  }
+  .roadmap-next p {
+    font-size: 12px;
+  }
+  .detail-document-heading h3 {
+    font-size: 16px;
+  }
+  .detail-summary strong {
+    font-size: 12px;
+  }
+  .detail-summary span {
+    font-size: 11px;
+  }
+  .drawer-footer .button {
+    font-size: 12px;
+  }
+  .drawer-unavailable {
+    font-size: 10px;
+  }
+}

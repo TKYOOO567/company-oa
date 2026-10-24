@@ -1,26 +1,34 @@
 # Company OA 项目文档
 
-记录日期：2026-10-23，Asia/Shanghai。
+记录日期：2026-10-23；员工交互改进更新：2026-10-24，Asia/Shanghai。
 
-本工程用于在 O2OA 基础上全面替换现用纷享销客。当前仅完成目录、需求、改造和验证规划；没有新增业务实现，也没有完成构建、联调、正式账务或数据迁移。
+本工程用于在 O2OA 基础上全面替换现用纷享销客。2026-10-24 已完成模块化 Web 第一版及源码 O2OA／独立 MariaDB 的真实最小链路验证，涵盖正常账号、待办、原生 MWF 中文字段、审批完成和重启持久化。原业务流程、公司权限、正式账务和真实数据迁移仍未验收。
+
+本轮按用户反馈先建立员工旅程图，再重做独立登录入口与登录后的工作导航，补齐真实流程目录、发起身份、草稿箱、我发起的、办理轨迹及表单返回刷新。实现、受控检查及真实整链的状态分别记录在[交互验证](verification/web-interactions.md)，不将应用页的建设说明当作客户或财务业务已实现。
 
 ## 阅读顺序
 
-| 文档 | 内容 |
-| --- | --- |
-| [开发约束](../AGENTS.md) | 后续开发的入口和执行规则 |
-| [需求范围与需求清单](requirements/01-scope-and-requirements.md) | 已确认目标、范围和需求编号 |
-| [业务流程与数据关系](requirements/02-business-processes.md) | 收入、支出、员工费用、会计及配置变更逻辑 |
-| [待确认事项](requirements/03-open-questions.md) | 业务决定、技术核实事项及解决方式 |
-| [机器可读基线](requirements/baseline.json) | 已确认要求与来源证据，供后续追踪 |
-| [仓库与目录规范](architecture/01-repository-and-directories.md) | 目录职责、源码与配置的放置规则 |
-| [基于 O2OA 的改造方案](architecture/02-o2oa-adaptation-plan.md) | 复用边界、前端接入、阶段产物和退出标准 |
-| [ADR 0001：扩展策略](architecture/adr/0001-o2oa-extension-strategy.md) | 当前架构约定及尚未确定的选型 |
-| [迁移策略](migration/01-migration-strategy.md) | 源数据提取、字段映射、关系恢复、试迁移及核对 |
-| [对象盘点](migration/object-inventory.json) | 已观察对象的部分目录，尚非完整 schema |
-| [字段映射样例](migration/field-mapping.sample.json) | 付款申请字段的文档映射示例 |
-| [验收计划](verification/01-acceptance-plan.md) | 验收用例及证据要求，当前尚未执行 |
-| [源码来源](../upstream.json) | 来源仓库、分支及固定提交 |
+| 文档                                                                   | 内容                                               |
+| ---------------------------------------------------------------------- | -------------------------------------------------- |
+| [开发约束](../AGENTS.md)                                               | 后续开发的入口和执行规则                           |
+| [需求范围与需求清单](requirements/01-scope-and-requirements.md)        | 已确认目标、范围和需求编号                         |
+| [业务流程与数据关系](requirements/02-business-processes.md)            | 收入、支出、员工费用、会计及配置变更逻辑           |
+| [待确认事项](requirements/03-open-questions.md)                        | 业务决定、技术核实事项及解决方式                   |
+| [机器可读基线](requirements/baseline.json)                             | 已确认要求与来源证据，供后续追踪                   |
+| [仓库与目录规范](architecture/01-repository-and-directories.md)        | 目录职责、源码与配置的放置规则                     |
+| [基于 O2OA 的改造方案](architecture/02-o2oa-adaptation-plan.md)        | 复用边界、前端接入、阶段产物和退出标准             |
+| [ADR 0001：扩展策略](architecture/adr/0001-o2oa-extension-strategy.md) | 当前架构约定及尚未确定的选型                       |
+| [ADR 0002：Web 第一版](architecture/adr/0002-web-foundation.md)        | 前端技术栈、模块划分、演示与真实连接边界           |
+| [员工旅程与交互基线](ux/01-employee-journey.md)                        | 页面实施前的进入、发起、续填、办理与追踪约束       |
+| [交互旅程图](ux/employee-journey.html)                                 | 可查看的员工主路径及失败恢复路径                   |
+| [Web 交互验证](verification/web-interactions.md)                       | 当前员工操作、独立测试入口、检查结果与真实业务边界 |
+| [Web v0.1 验证](verification/web-v0.1.md)                              | 初版接入与平台最小链路的历史检查记录               |
+| [平台运行调查](verification/platform-runtime.md)                       | O2OA 环境与 MariaDB 服务实测                       |
+| [迁移策略](migration/01-migration-strategy.md)                         | 源数据提取、字段映射、关系恢复、试迁移及核对       |
+| [对象盘点](migration/object-inventory.json)                            | 已观察对象的部分目录，尚非完整 schema              |
+| [字段映射样例](migration/field-mapping.sample.json)                    | 付款申请字段的文档映射示例                         |
+| [验收计划](verification/01-acceptance-plan.md)                         | 验收用例及证据要求，当前尚未执行                   |
+| [源码来源](../upstream.json)                                           | 来源仓库、分支及固定提交                           |
 
 ## 状态口径
 
@@ -34,3 +42,5 @@
 ## 本期边界
 
 先做 Web，Android 单独推进；部署目标是公司控制的云服务器并支持互联网登录。没有固定截止日期，以业务、权限、财务、迁移和切换验证通过为上线依据。目录占位说明和规划文件均不代表业务代码已经实现。
+
+当前员工 Web 已具备连接与身份、发起和续填、任务办理入口及进度追踪的基本交互。完整表单继续由 O2OA 动态运行页承接，客户、资金、完整会计、多公司授权和历史迁移仍按各自验收清单推进。

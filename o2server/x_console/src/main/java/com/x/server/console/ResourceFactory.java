@@ -10,6 +10,8 @@ import com.x.base.core.project.annotation.Module;
 import com.x.base.core.project.config.CenterServer;
 import com.x.base.core.project.config.Config;
 import com.x.base.core.project.config.DataServer;
+import com.x.base.core.project.config.ExternalDataSource;
+import com.x.base.core.project.config.ExternalDataSources;
 import com.x.base.core.project.tools.ClassLoaderTools;
 import com.x.base.core.project.tools.H2Tools;
 import com.x.base.core.project.tools.JarTools;
@@ -56,6 +58,7 @@ public class ResourceFactory {
 	 * 用于销毁时的对象
 	 */
 	private static List<DruidDataSourceC3P0Adapter> dataSources = new ArrayList<>();
+	private static final List<Resource> dataSourceResources = new ArrayList<>();
 
 	private ResourceFactory() {
 		// nothing
@@ -81,7 +84,73 @@ public class ResourceFactory {
 	 * @throws Exception
 	 */
 	private static void initDataSources() throws Exception {
-		internal();
+		ExternalDataSources sources = Config.externalDataSources();
+		if (BooleanUtils.isTrue(sources.enable())) {
+			registerExternalDataSources(sources);
+		} else {
+			internal();
+		}
+	}
+
+	static void registerExternalDataSources(ExternalDataSources sources) throws Exception {
+		List<DruidDataSourceC3P0Adapter> created = new ArrayList<>();
+		List<Resource> bindings = new ArrayList<>();
+		try {
+			for (ExternalDataSource source : sources) {
+				if (source != null && BooleanUtils.isTrue(source.getEnable())) {
+					DruidDataSourceC3P0Adapter dataSource = createExternalDataSource(source);
+					created.add(dataSource);
+					bindings.add(new Resource(Config.RESOURCE_JDBC_PREFIX + sources.name(source), dataSource));
+				}
+			}
+		} catch (Exception failure) {
+			try {
+				closeDataSources(created, bindings);
+			} catch (RuntimeException cleanupFailure) {
+				failure.addSuppressed(cleanupFailure);
+			}
+			throw failure;
+		}
+		dataSources.addAll(created);
+		dataSourceResources.addAll(bindings);
+	}
+
+	static DruidDataSourceC3P0Adapter createExternalDataSource(ExternalDataSource source) throws Exception {
+		DruidDataSourceC3P0Adapter dataSource = new DruidDataSourceC3P0Adapter();
+		try {
+			dataSource.setJdbcUrl(source.getUrl());
+			dataSource.setDriverClass(source.getDriverClassName());
+			dataSource.setUser(source.getUsername());
+			// Preserve the platform's encrypted/script password configuration contract.
+			dataSource.setPassword(source.getPassword());
+			dataSource.setMaxPoolSize(source.getMaxTotal());
+			dataSource.setMinPoolSize(source.getMaxIdle());
+			dataSource.setMaxIdleTime(source.getMaxIdleTime());
+			dataSource.setAcquireIncrement(2);
+			dataSource.setTestConnectionOnCheckin(source.getTestConnectionOnCheckin());
+			dataSource.setTestConnectionOnCheckout(source.getTestConnectionOnCheckout());
+			// This adapter maps autoCommitOnClose to Druid's defaultAutoCommit.
+			dataSource.setAutoCommitOnClose(source.getAutoCommit());
+			DruidDataSource druidDataSource = (DruidDataSource) FieldUtils.readField(dataSource, "dataSource", true);
+			druidDataSource.setTestWhileIdle(false);
+			if (BooleanUtils.isTrue(source.getStatEnable())) {
+				dataSource.setFilters(source.getStatFilter());
+				if (BooleanUtils.isTrue(source.getSlowSqlEnable())) {
+					Properties properties = new Properties();
+					properties.setProperty("druid.stat.slowSqlMillis", source.getSlowSqlThreshold().toString());
+					properties.setProperty("druid.stat.logSlowSql", "true");
+					dataSource.setProperties(properties);
+				}
+				if (BooleanUtils.isTrue(source.getLogStatEnable())) {
+					druidDataSource.setStatLogger(new DruidStatLogger());
+					druidDataSource.setTimeBetweenLogStatsMillis(60000L * source.getLogStatInterval());
+				}
+			}
+			return dataSource;
+		} catch (Exception failure) {
+			dataSource.close();
+			throw failure;
+		}
 	}
 
 	/**
@@ -180,8 +249,40 @@ public class ResourceFactory {
 	 * @author ray Druid DataSource 是需要close的.
 	 */
 	public static void destory() {
-		for (DruidDataSourceC3P0Adapter dataSource : dataSources) {
-			dataSource.close();
+		try {
+			closeDataSources(dataSources, dataSourceResources);
+		} finally {
+			dataSources.clear();
+			dataSourceResources.clear();
+		}
+	}
+
+	private static void closeDataSources(List<DruidDataSourceC3P0Adapter> sources, List<Resource> bindings) {
+		RuntimeException failure = null;
+		for (DruidDataSourceC3P0Adapter source : sources) {
+			try {
+				source.close();
+			} catch (RuntimeException closeFailure) {
+				if (failure == null) {
+					failure = closeFailure;
+				} else {
+					failure.addSuppressed(closeFailure);
+				}
+			}
+		}
+		for (Resource binding : bindings) {
+			try {
+				binding.release();
+			} catch (RuntimeException releaseFailure) {
+				if (failure == null) {
+					failure = releaseFailure;
+				} else {
+					failure.addSuppressed(releaseFailure);
+				}
+			}
+		}
+		if (failure != null) {
+			throw failure;
 		}
 	}
 
